@@ -1,0 +1,42 @@
+<div class="panel panel-default border p-4">
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-5">
+        <img class="profile-image thumbnail" src="{{escalador.photo ? escalador.photo  : '../../../../assets/user.png'}}" alt="{{escalador.nombre}}">
+      </div>
+      <div class="col-md-7">
+        <div>
+          <h2>Escalador {{escalador.nombre}} {{escalador.apellido}}</h2>
+        </div>
+        <div>
+          <strong>Nombre:</strong>
+          <p>{{escalador.nombre}} {{escalador.apellido}}</p>
+        </div>
+        <div>
+          <strong>Nivel:</strong>
+          <p>{{escalador.nivel}}</p>
+        </div>
+        <div>
+          <strong>Carrera:</strong>
+          <p>{{escalador.lineaCarrera}}</p>
+        </div>
+        <div>
+          <strong>Conocimientos:</strong>
+          <ul class="list-inline" *ngFor="let conocimiento of escalador.conocimientos">
+            <li>{{conocimiento.descripcion}}</li>
+          </ul>
+          <p></p>
+        </div>
+        <div class="row">
+          <div class="col-md-8">
+              <strong>Sede:</strong>
+              <p>{{escalador.sede}}</p>
+          </div>
+        </div>       
+      </div>
+    </div>
+  </div>
+  <div class="panel-footer">
+      <button class="btn btn-success" (click)="asignarEscalador(sherpa.id, escalador.id)">Asignar</button>
+  </div>
+</div>

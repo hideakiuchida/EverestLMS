@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="row mt-4">
+    <div class="col-md-4">
+      <div class="form-inline md-form form-sm active-cyan active-cyan-2">
+        <i class="fa fa-search" aria-hidden="true"></i>
+        <input class="form-control form-control-sm ml-3 mr-3 w-75" type="text" placeholder="Buscar" aria-label="Buscar"
+          (keyup)="onKey($event)">
+      </div>
+    </div>
+    <div class="col-md-5">
+      <div class="row form-group">
+        <label for="selectLineaCarreras" class="col-md-6 control-label font-weight-bold mt-1">Filtrar por Linea de Carrera:</label>
+        <select class="form-control col-md-6" #selectedValue name="selectLineaCarreras" id="selectLineaCarreras" [(ngModel)]="selectedLineaCarreraId"
+          (ngModelChange)="lineaCarreraSelected($event)">
+          <option *ngFor="let lineaCarrera of lineaCarreras" [value]="lineaCarrera.id">
+            {{lineaCarrera.descripcion}}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <button class="btn btn-success" (click)="generar()">Generar Asignación Automática</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4 border">
+      <ul class="list-items">
+        <li *ngFor="let sherpa of sherpas" [class.selected]="sherpa === selectedSherpa" (click)="onSelect(sherpa)">
+          <span class="badge">{{sherpa.id}}</span> {{sherpa.nombre}} {{sherpa.apellido}}
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-8">
+      <app-sherpa-detalle (desasignarEmitter)="desasignarEmitter($event)" *ngIf="sherpa" [sherpa]="sherpa"></app-sherpa-detalle>
+    </div>
+  </div>
+</div>

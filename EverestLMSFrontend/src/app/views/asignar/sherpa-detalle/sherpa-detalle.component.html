@@ -1,0 +1,66 @@
+<div class="panel panel-default border p-4">
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-5">
+        <img class="profile-image thumbnail" src="{{sherpa.photo ? sherpa.photo  : '../../../../assets/user.png'}}" alt="{{sherpa.nombre}}">
+      </div>
+      <div class="col-md-7">
+        <div>
+          <h2>Sherpa {{sherpa.nombre}} {{sherpa.apellido}}</h2>
+        </div>
+        <div>
+          <strong>Nombre:</strong>
+          <p>{{sherpa.nombre}} {{sherpa.apellido}}</p>
+        </div>
+        <div>
+          <strong>Nivel:</strong>
+          <p>{{sherpa.nivel}}</p>
+        </div>
+        <div>
+          <strong>Carrera:</strong>
+          <p>{{sherpa.lineaCarrera}}</p>
+        </div>
+        <div>
+          <strong>Conocimientos:</strong>
+          <ul class="list-inline" *ngFor="let conocimiento of sherpa.conocimientos">
+            <li>{{conocimiento.descripcion}}</li>
+          </ul>
+          <p></p>
+        </div>
+        <div class="row">
+          <div class="col-md-8">
+              <strong>Sede:</strong>
+              <p>{{sherpa.sede}}</p>
+          </div>
+          <div class="col-md-4 mt-2">
+              <button id="btnAsignar" mat-mini-fab color="warn" [routerLink]="['/asignarescalador', sherpa.id, sherpa.idLineaCarrera]" routerLinkActive="router-link-active">
+                  <strong>+</strong>
+              </button>
+          </div> 
+        </div>       
+      </div>
+    </div>
+  </div>
+  <div class="panel-footer">
+      <table class="table table-striped table-bordered table-sm row-border hover" datatable [dtOptions]="dtOptions">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Nivel</th>
+          <th>Linea Carrera</th>
+          <th>Sede</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let escalador of sherpa.escaladores">
+          <td>{{ escalador.nombre }} {{escalador.apellido}}</td>
+          <td>{{ escalador.nivel }}</td>
+          <td>{{ escalador.lineaCarrera }}</td>
+          <td>{{ escalador.sede }}</td>
+          <td> <button (click)="desasignarEscalador(sherpa.id, escalador.id)">-</button> </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
