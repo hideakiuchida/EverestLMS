@@ -1,62 +1,64 @@
-    .active-pink-2 input[type=text]:focus:not([readonly]) {
+.active-pink-2 input[type=text]:focus:not([readonly]) {
     border-bottom: 1px solid #f48fb1;
     box-shadow: 0 1px 0 0 #f48fb1;
-    }
-    
-    .active-pink input[type=text] {
+}
+
+.active-pink input[type=text] {
     border-bottom: 1px solid #f48fb1;
     box-shadow: 0 1px 0 0 #f48fb1;
-    }
-    
-    .active-purple-2 input[type=text]:focus:not([readonly]) {
+}
+
+.active-purple-2 input[type=text]:focus:not([readonly]) {
     border-bottom: 1px solid #ce93d8;
     box-shadow: 0 1px 0 0 #ce93d8;
-    }
-    
-    .active-purple input[type=text] {
+}
+
+.active-purple input[type=text] {
     border-bottom: 1px solid #ce93d8;
     box-shadow: 0 1px 0 0 #ce93d8;
-    }
-    
-    .active-cyan-2 input[type=text]:focus:not([readonly]) {
+}
+
+.active-cyan-2 input[type=text]:focus:not([readonly]) {
     border-bottom: 1px solid #4dd0e1;
     box-shadow: 0 1px 0 0 #4dd0e1;
-    }
-    
-    .active-cyan input[type=text] {
+}
+
+.active-cyan input[type=text] {
     border-bottom: 1px solid #4dd0e1;
     box-shadow: 0 1px 0 0 #4dd0e1;
-    }
-    
-    .active-cyan .fa,
-    .active-cyan-2 .fa {
+}
+
+.active-cyan .fa,
+.active-cyan-2 .fa {
     color: #4dd0e1;
-    }
-    
-    .active-purple .fa,
-    .active-purple-2 .fa {
+}
+
+.active-purple .fa,
+.active-purple-2 .fa {
     color: #ce93d8;
-    }
-    
-    .active-pink .fa,
-    .active-pink-2 .fa {
+}
+
+.active-pink .fa,
+.active-pink-2 .fa {
     color: #f48fb1;
-    }
+}
 
 .selected {
-background-color: #CFD8DC !important;
-color: white;
+    background-color: #CFD8DC !important;
+    color: white;
 }
+
 .list-items {
-margin: 0 0 2em 0;
-list-style-type: none;
-padding: 0;
-width: 15em;
-max-height: 700px;
-margin-bottom: 10px;
-overflow:scroll;
--webkit-overflow-scrolling: touch;
+    margin: 0 0 2em 0;
+    list-style-type: none;
+    padding: 0;
+    width: 15em;
+    max-height: 600px;
+    margin-bottom: 10px;
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
 }
+
 .list-items li {
     cursor: pointer;
     position: relative;
@@ -67,19 +69,23 @@ overflow:scroll;
     height: 2.4em;
     border-radius: 4px;
 }
+
 .list-items li.selected:hover {
-background-color: #BBD8DC !important;
-color: white;
+    background-color: #BBD8DC !important;
+    color: white;
 }
+
 .list-items li:hover {
-color: #607D8B;
-background-color: #DDD;
-left: .1em;
+    color: #607D8B;
+    background-color: #DDD;
+    left: .1em;
 }
+
 .list-items .text {
-position: relative;
-top: -3px;
+    position: relative;
+    top: -3px;
 }
+
 .list-items .badge {
     display: inline-block;
     font-size: small;

@@ -1,15 +1,13 @@
 ﻿using AutoMapper;
 using EverestLMS.Common.Extensions;
-using EverestLMS.Entities.POCO;
+using EverestLMS.Entities.Models;
 using EverestLMS.ViewModels.Conocimiento;
+using EverestLMS.ViewModels.Curso;
 using EverestLMS.ViewModels.LineaCarrera;
 using EverestLMS.ViewModels.Nivel;
 using EverestLMS.ViewModels.Participante;
 using EverestLMS.ViewModels.Participante.Escalador;
 using EverestLMS.ViewModels.Participante.Sherpa;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace EverestLMS.API.Helpers
 {
@@ -17,36 +15,29 @@ namespace EverestLMS.API.Helpers
     {
         public AutoMapperProfiles()
         {
-            /*CreateMap<User, UserForListDto>()
-                .ForMember(dest => dest.PhotoUrl, opt => {
-                    opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url);
-                })
-                .ForMember(dest => dest.Age, opt => {
-                    opt.ResolveUsing(d => d.DateOfBirth.CalculateAge());
-                });
+            CreateMapParticipante();
+            CreateMapLineaCarrera();
+            CreateMapNivel();
+            CreateMapConocimiento();
+            CreateMapCurso();
+        }
 
-            CreateMap<User, UserForDetailDto>()
-                .ForMember(dest => dest.PhotoUrl, opt => {
-                    opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url);
-                })
-                .ForMember(dest => dest.Age, opt => {
-                    opt.ResolveUsing(d => d.DateOfBirth.CalculateAge());
-                });*/
-
-            CreateMap<ParticipanteToCreateVM, Participante>()
-                .ForMember(dest => dest.Genero, opt => {
-                    opt.MapFrom(d => d.Genero.ConvertGenderToString());
-                })
-                .ForMember(dest => dest.Sede, opt => {
-                    opt.MapFrom(d => d.Sede.ConvertSedeToString());
-                })
-                .ForMember(dest => dest.IdLineaCarrera, opt => {
-                     opt.MapFrom(d => d.IdLineaCarrera.ValidateLineaCarrera());
-                 })
-                .ForMember(dest => dest.IdNivel, opt => {
-                     opt.MapFrom(d => d.IdNivel.ValidateNivel());
-                 });
-            CreateMap<Participante, ParticipanteVM>()
+        private void CreateMapParticipante()
+        {
+            CreateMap<ParticipanteToCreateVM, ParticipanteEntity>()
+               .ForMember(dest => dest.Genero, opt => {
+                   opt.MapFrom(d => d.Genero.ConvertGenderToString());
+               })
+               .ForMember(dest => dest.Sede, opt => {
+                   opt.MapFrom(d => d.Sede.ConvertSedeToString());
+               })
+               .ForMember(dest => dest.IdLineaCarrera, opt => {
+                   opt.MapFrom(d => d.IdLineaCarrera.ValidateLineaCarrera());
+               })
+               .ForMember(dest => dest.IdNivel, opt => {
+                   opt.MapFrom(d => d.IdNivel.ValidateNivel());
+               });
+            CreateMap<ParticipanteEntity, ParticipanteVM>()
                 .ForMember(dest => dest.Id, opt => {
                     opt.MapFrom(d => d.IdParticipante);
                 })
@@ -55,12 +46,12 @@ namespace EverestLMS.API.Helpers
                 })
                 .ForMember(dest => dest.Nivel, opt => {
                     opt.MapFrom(d => d.IdNivel.ConvertNivelToString().SeparateTextByUpperCase());
-                }); 
-            CreateMap<Participante, SherpaLiteVM>()
+                });
+            CreateMap<ParticipanteEntity, SherpaLiteVM>()
                 .ForMember(dest => dest.Id, opt => {
                     opt.MapFrom(d => d.IdParticipante);
                 });
-            CreateMap<Participante, EscaladorLiteVM>()
+            CreateMap<ParticipanteEntity, EscaladorLiteVM>()
                 .ForMember(dest => dest.Id, opt => {
                     opt.MapFrom(d => d.IdParticipante);
                 })
@@ -74,7 +65,7 @@ namespace EverestLMS.API.Helpers
                     opt.MapFrom(d => d.Sede.SeparateTextByUpperCase());
                 });
 
-            CreateMap<Participante, EscaladorVM>()
+            CreateMap<ParticipanteEntity, EscaladorVM>()
                 .ForMember(dest => dest.Id, opt => {
                     opt.MapFrom(d => d.IdParticipante);
                 })
@@ -87,7 +78,7 @@ namespace EverestLMS.API.Helpers
                 .ForMember(dest => dest.Sede, opt => {
                     opt.MapFrom(d => d.Sede.SeparateTextByUpperCase());
                 });
-            CreateMap<Participante, SherpaVM>()
+            CreateMap<ParticipanteEntity, SherpaVM>()
                 .ForMember(dest => dest.Id, opt => {
                     opt.MapFrom(d => d.IdParticipante);
                 })
@@ -100,19 +91,32 @@ namespace EverestLMS.API.Helpers
                 .ForMember(dest => dest.Sede, opt => {
                     opt.MapFrom(d => d.Sede.SeparateTextByUpperCase());
                 });
-
-            CreateMap<LineaCarrera, LineaCarreraVM>()
+        }
+        private void CreateMapLineaCarrera()
+        {
+            CreateMap<LineaCarreraEntity, LineaCarreraVM>()
                 .ForMember(dest => dest.Id, opt => {
                     opt.MapFrom(d => d.IdLineaCarrera);
                 });
-            CreateMap<Nivel, NivelVM>()
-                .ForMember(dest => dest.Id, opt => {
-                    opt.MapFrom(d => d.IdNivel);
-                });
-            CreateMap<Conocimiento, ConocimientoVM>()
+        }
+        private void CreateMapNivel()
+        {
+            CreateMap<NivelEntity, NivelVM>()
+               .ForMember(dest => dest.Id, opt => {
+                   opt.MapFrom(d => d.IdNivel);
+               });
+        }
+        private void CreateMapConocimiento()
+        {
+            CreateMap<ConocimientoEntity, ConocimientoVM>()
                 .ForMember(dest => dest.Id, opt => {
                     opt.MapFrom(d => d.IdConocimiento);
                 });
+        }
+        private void CreateMapCurso()
+        {
+            CreateMap<CursoEntity, CursoVM>();
+            CreateMap<CursoPredictionEntity, CursoPredictionVM>();
         }
     }
 }

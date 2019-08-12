@@ -17,30 +17,30 @@ export class AsignacionService {
   constructor(private http: HttpClient) { }
 
   getEscaladoresNoAsignados(idLineaCarrera, search): Observable<EscaladorLite[]> {
-    if (idLineaCarrera != null) {
-      this._idLineaCarrera = idLineaCarrera;
-    }
-    if (search != null) {
-      this._search = search;
-    }
-    return this.http.get<EscaladorLite[]>(this.baseUrl + 'AsignacionEquipos/EscaladoresNoAsignados',
+
+    this._idLineaCarrera = (idLineaCarrera != null) ? idLineaCarrera : this._idLineaCarrera;
+    this._search = (search != null) ? search : this._search;
+
+    return this.http.get<EscaladorLite[]>(this.baseUrl + 'participantes/escaladores-no-asignados',
       { params: { idLineaCarrera: this._idLineaCarrera, search: this._search } });
   }
 
   asignar(idSherpa, idEscalador) {
-    // tslint:disable-next-line:no-debugger
-    debugger;
     const model = {idSherpa: idSherpa, idEscalador: idEscalador};
-    return this.http.patch<Mensaje>(this.baseUrl + 'AsignacionEquipos/AsignacionManual', model);
+    return this.http.patch<Mensaje>(this.baseUrl + 'participantes/asignacion-manual', model);
   }
 
   desasignar(idSherpa, idEscalador) {
     const model = {idSherpa: idSherpa, idEscalador: idEscalador};
-    return this.http.patch<Mensaje>(this.baseUrl + 'AsignacionEquipos/DesasignacionManual', model);
+    return this.http.patch<Mensaje>(this.baseUrl + 'participantes/desasignacion-manual', model);
   }
 
   asignarAutomaticamente() {
     const model = {};
-    return this.http.post<Mensaje>(this.baseUrl + 'AsignacionEquipos/AsignacionAutomatica', model);
+    return this.http.post<Mensaje>(this.baseUrl + 'participantes/asignacion-automatica', model);
+  }
+  desasignarAutomaticamente() {
+    const model = {};
+    return this.http.post<Mensaje>(this.baseUrl + 'participantes/desasignacion-automatica', model);
   }
 }

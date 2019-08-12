@@ -71,7 +71,7 @@ export class AsignarequiposComponent implements OnInit {
 
   loadLineaCarreras() {
     this.lineaCarreraService.getLineaCarreras().subscribe((lineaCarreras: LineaCarrera[]) => {
-      this.lineaCarreras = lineaCarreras;
+       this.lineaCarreras = lineaCarreras;
     }, error => {
       this.alertify.error(error);
     });
@@ -79,6 +79,16 @@ export class AsignarequiposComponent implements OnInit {
 
   loadSherpa(id) {
     this.participanteService.getSherpa(id).subscribe((sherpa: Sherpa) => {
+      if (sherpa.conocimientos.length > 0) {
+        sherpa.conocimientosString = '';
+        for (let i = 0; i < sherpa.conocimientos.length; i++) {
+          if ((sherpa.conocimientos.length === 1) || (i === (sherpa.conocimientos.length - 1))) {
+            sherpa.conocimientosString += sherpa.conocimientos[i].descripcion;
+          } else {
+           sherpa.conocimientosString += sherpa.conocimientos[i].descripcion + ', ';
+          }
+        }
+      }
       this.sherpa = sherpa;
     }, error => {
       this.alertify.error(error);
@@ -86,8 +96,6 @@ export class AsignarequiposComponent implements OnInit {
   }
 
   desasignarEmitter(isDesasignado: boolean) {
-    // tslint:disable-next-line:no-debugger
-    debugger;
     if (isDesasignado) {
       this.loadSherpa(this.sherpa.id);
     }
@@ -101,6 +109,15 @@ export class AsignarequiposComponent implements OnInit {
       this.loadSherpas(this.selectedNivelId, this.selectedLineaCarreraId, this.search);
     }, error => {
       this.spinner.hide();
+      this.alertify.error(error);
+    });
+  }
+
+  generarDesasignacion() {
+    this.asignacionService.desasignarAutomaticamente().subscribe((mensaje: Mensaje) =>  {
+      this.alertify.success(mensaje.message);
+      this.loadSherpas(this.selectedNivelId, this.selectedLineaCarreraId, this.search);
+    }, error => {
       this.alertify.error(error);
     });
   }

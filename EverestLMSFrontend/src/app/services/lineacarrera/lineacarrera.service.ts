@@ -13,7 +13,7 @@ export class LineaCarreraService {
   constructor(private http: HttpClient) { }
 
   getLineaCarreras(): Observable<LineaCarrera[]> {
-    return this.http.get<LineaCarrera[]>(this.baseUrl + 'lineacarrera');
+    return this.http.get<LineaCarrera[]>(this.baseUrl + 'linea-carreras');
   }
 
 }

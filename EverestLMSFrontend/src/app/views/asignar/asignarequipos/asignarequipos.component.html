@@ -7,9 +7,9 @@
           (keyup)="onKey($event)">
       </div>
     </div>
-    <div class="col-md-5">
+    <div class="col-md-4">
       <div class="row form-group">
-        <label for="selectLineaCarreras" class="col-md-6 control-label font-weight-bold mt-1">Filtrar por Linea de Carrera:</label>
+        <label for="selectLineaCarreras" class="col-md-6 control-label font-weight-bold mt-1"> Linea de Carrera:</label>
         <select class="form-control col-md-6" #selectedValue name="selectLineaCarreras" id="selectLineaCarreras" [(ngModel)]="selectedLineaCarreraId"
           (ngModelChange)="lineaCarreraSelected($event)">
           <option *ngFor="let lineaCarrera of lineaCarreras" [value]="lineaCarrera.id">
@@ -18,8 +18,11 @@
         </select>
       </div>
     </div>
-    <div class="col-md-3">
-      <button class="btn btn-success" (click)="generar()">Generar Asignación Automática</button>
+    <div class="col-md-2">
+      <button class="btn btn-success" (click)="generar()">Asignación Automática</button>
+    </div>
+    <div class="col-md-2">
+      <button class="btn btn-info" (click)="generarDesasignacion()">Desasignación Automática</button>
     </div>
   </div>
   <div class="row">

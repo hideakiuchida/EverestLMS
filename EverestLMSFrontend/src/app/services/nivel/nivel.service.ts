@@ -13,7 +13,7 @@ export class NivelService {
   constructor(private http: HttpClient) { }
 
   getNiveles(): Observable<Nivel[]> {
-    return this.http.get<Nivel[]>(this.baseUrl + 'nivel');
+    return this.http.get<Nivel[]>(this.baseUrl + 'niveles');
   }
 
 }

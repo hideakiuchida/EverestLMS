@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using EverestLMS.Services.NivelService;
-using Microsoft.AspNetCore.Http;
+﻿using EverestLMS.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace EverestLMS.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/niveles")]
     [ApiController]
     public class NivelController : ControllerBase
     {

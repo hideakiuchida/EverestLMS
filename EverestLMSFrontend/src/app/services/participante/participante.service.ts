@@ -19,25 +19,21 @@ export class ParticipanteService {
 constructor(private http: HttpClient) { }
 
 getSherpas(idNivel, idLineaCarrera, search): Observable<SherpaLite[]> {
-    if (idNivel != null) {
-        this._idNivel = idNivel;
-    }
-    if (idLineaCarrera != null) {
-        this._idLineaCarrera = idLineaCarrera;
-    }
-    if (search != null) {
-        this._search = search;
-    }
-    return this.http.get<SherpaLite[]>(this.baseUrl + 'participante/sherpaslite',
+
+    this._idNivel = (idNivel != null) ? idNivel : this._idNivel;
+    this._idLineaCarrera = (idLineaCarrera != null) ? idLineaCarrera : this._idLineaCarrera;
+    this._search = (search != null) ? search : this._search;
+
+    return this.http.get<SherpaLite[]>(this.baseUrl + 'participantes/sherpas',
     { params: {idNivel: this._idNivel, idLineaCarrera: this._idLineaCarrera, search: this._search}});
 }
 
 getSherpa(id): Observable<Sherpa> {
-    return this.http.get<Sherpa>(this.baseUrl + 'participante/sherpa/' + id);
+    return this.http.get<Sherpa>(this.baseUrl + 'participantes/sherpas/' + id);
 }
 
 getEscalador(id): Observable<Escalador> {
-    return this.http.get<Escalador>(this.baseUrl + 'participante/escalador/' + id);
+    return this.http.get<Escalador>(this.baseUrl + 'participantes/escaladores/' + id);
 }
 
 }

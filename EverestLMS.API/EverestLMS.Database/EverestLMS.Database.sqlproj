@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>EverestLMS.Database</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{09ff1250-3972-46d7-8922-728a2aa1ca2c}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>EverestLMS.Database</RootNamespace>
+    <AssemblyName>EverestLMS.Database</AssemblyName>
+    <ModelCollation>1033,CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <DefaultCollation>SQL_Latin1_General_CP1_CI_AS</DefaultCollation>
+    <DefaultFilegroup>PRIMARY</DefaultFilegroup>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="dbo\Stored Procedures\" />
+    <Folder Include="PostDeploymentData" />
+    <Folder Include="dbo\Types" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\Participante.sql" />
+    <Build Include="dbo\Tables\ConocimientoParticipante.sql" />
+    <Build Include="dbo\Tables\RatingCurso.sql" />
+    <Build Include="dbo\Tables\PrediccionRatingCurso.sql" />
+    <Build Include="dbo\Tables\Conocimiento.sql" />
+    <Build Include="dbo\Tables\LineaCarrera.sql" />
+    <Build Include="dbo\Tables\Nivel.sql" />
+    <Build Include="dbo\Tables\Etapa.sql" />
+    <Build Include="dbo\Tables\Curso.sql" />
+    <Build Include="dbo\Stored Procedures\CreateConocimientoParticipante.sql" />
+    <Build Include="dbo\Stored Procedures\CreateParticipante.sql" />
+    <Build Include="dbo\Stored Procedures\CreatePredictionCurso.sql" />
+    <Build Include="dbo\Stored Procedures\CreateRatingCurso.sql" />
+    <Build Include="dbo\Stored Procedures\GetCursos.sql" />
+    <Build Include="dbo\Stored Procedures\GetCursosPredictionByParticipant.sql" />
+    <Build Include="dbo\Stored Procedures\GetParticipantes.sql" />
+    <Build Include="dbo\Stored Procedures\GetConocimientos.sql" />
+    <Build Include="dbo\Stored Procedures\AsignarSherpa.sql" />
+    <Build Include="dbo\Types\Ids.sql" />
+    <Build Include="dbo\Stored Procedures\AsignarAutomaticamente.sql" />
+    <Build Include="dbo\Stored Procedures\DesasignarSherpa.sql" />
+    <Build Include="dbo\Stored Procedures\GetEscaladoresNoAsignados.sql" />
+    <Build Include="dbo\Stored Procedures\GetEscaladoresPorSherpa.sql" />
+    <Build Include="dbo\Stored Procedures\GetConocimientosPorPartipante.sql" />
+    <Build Include="dbo\Stored Procedures\DesasignarSherpaAutomaticamente.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="EverestLMS.Database.publish.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="PostDeploymentData\_Script.PostDeployment.sql" />
+    <None Include="PostDeploymentData\01_Conocimiento.sql" />
+    <None Include="PostDeploymentData\01_LineaCarrera.sql" />
+    <None Include="PostDeploymentData\01_Nivel.sql" />
+    <None Include="PostDeploymentData\02_Etapa.sql" />
+    <None Include="PostDeploymentData\03_Curso.sql" />
+  </ItemGroup>
+</Project>

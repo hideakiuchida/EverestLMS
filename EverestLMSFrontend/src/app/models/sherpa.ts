@@ -16,6 +16,7 @@ export interface Sherpa {
     photo: string;
     sede: string;
     conocimientos: Conocimiento[];
+    conocimientosString: string;
     añosExperiencia: number;
     calificacion: number;
 }

@@ -1,15 +1,12 @@
-﻿using EverestLMS.Services.Participante;
+﻿using EverestLMS.Services.Interfaces;
+using EverestLMS.ViewModels.Asignacion;
 using EverestLMS.ViewModels.Participante;
-using EverestLMS.ViewModels.Participante.Escalador;
-using EverestLMS.ViewModels.Participante.Sherpa;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace EverestLMS.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/participantes")]
     [ApiController]
     public class ParticipanteController : ControllerBase
     {
@@ -21,54 +18,89 @@ namespace EverestLMS.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
-        {
-            var result = await service.GetAllAsync();
-            return Ok(result);
-        }
-
-        [HttpGet]
-        [Route("SherpasLite")]
-        public async Task<IActionResult> GetSherpas(int? idNivel = null, int? idLineaCarrera = null, string search = null)
-        {
-            var result = await service.GetSherpasAsync(idNivel, idLineaCarrera, search);
-            return Ok(result);
-        }
-
-        [HttpGet]
-        [Route("Sherpa/{id}")]
-        public async Task<IActionResult> GetSherpaDetail(int id)
+        [Route("sherpas/{id}")]
+        public async Task<IActionResult> GetSherpaDetailAsync(int id)
         {
             var result = await service.GetSherpaDetailAsync(id);
             return Ok(result);
         }
 
         [HttpGet]
-        [Route("Escalador/{id}")]
-        public async Task<IActionResult> GetEscaladorDetail(int id)
+        [Route("escaladores/{id}")]
+        public async Task<IActionResult> GetEscaladorDetailAsync(int id)
         {
             var result = await service.GetEscaladorDetailAsync(id);
             return Ok(result);
         }
 
         [HttpGet]
-        [Route("Sherpa/Escaladores/{id}")]
-        public async Task<IActionResult> GetEscaladoresPorSherpaId(int id)
+        [Route("sherpas")]
+        public async Task<IActionResult> GetSherpasAsync(int? idNivel, int? idLineaCarrera, string search)
+        {
+            var result = await service.GetSherpasAsync(idNivel, idLineaCarrera, default(string), search);
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("sherpas/{id}/escaladores")]
+        public async Task<IActionResult> GetEscaladoresPorSherpaIdAsync(int id)
         {
             var result = await service.GetEscaladoresPorSherpaIdAsync(id);
             return Ok(result);
         }
 
-        // POST api/values
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] ParticipanteToCreateVM participanteToCreate)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var participanteFromRepo = await this.service.CreateAsync(participanteToCreate);
-            return Created("Get", participanteFromRepo);
-            //return CreatedAtRoute("GetUser", new { Controller = "Users", id = createdUser.ID }, userToReturn);
+            var participanteFromRepo = await service.CreateAsync(participanteToCreate);
+            return Created("GetEscaladorDetailAsync", participanteFromRepo);
+        }
+
+        [HttpGet]
+        [Route("escaladores-no-asignados")]
+        public async Task<IActionResult> GetEscaladoresNoAsignados(int idLineaCarrera, string search = null)
+        {
+            var result = await service.GetEscaladoresNoAsignadosAsync(idLineaCarrera, default(string), search);
+            return Ok(result);
+        }
+
+        [HttpPatch]
+        [Route("asignacion-manual")]
+        public async Task<IActionResult> Asignar([FromBody] AsignacionToCreateVM asignacionToCreateVM)
+        {
+            var result = await service.AsignarAsync(asignacionToCreateVM);
+            var message = new { message = result };
+            return Ok(message);
+        }
+
+        [HttpPatch]
+        [Route("desasignacion-manual")]
+        public async Task<IActionResult> Desasignar([FromBody] AsignacionToCreateVM asignacionToCreateVM)
+        {
+            var result = await service.DesasignarAsync(asignacionToCreateVM);
+            var message = new { message = result };
+            return Ok(message);
+        }
+
+        [HttpPost]
+        [Route("asignacion-automatica")]
+        public async Task<IActionResult> AsignacionAutomatica()
+        {
+            var result = await service.ProcesarAsignacionAutomatica();
+            var message = new { message = result };
+            return Ok(message);
+        }
+
+        [HttpPost]
+        [Route("desasignacion-automatica")]
+        public async Task<IActionResult> DesasignacionAutomatica()
+        {
+            var result = await service.ProcesarDesasignacionAutomatica();
+            var message = new { message = result };
+            return Ok(message);
         }
     }
 }
