@@ -93,7 +93,7 @@ namespace EverestLMS.Repository.DapperImplementations
                     IdParticipante = id,
                     Rol = default(int?),
                     Search = default(string),
-                    Sede = default(string)
+                    IdSede = default(int?)
                 },
                 commandType: CommandType.StoredProcedure);
                 return result.FirstOrDefault();
@@ -105,7 +105,7 @@ namespace EverestLMS.Repository.DapperImplementations
             }          
         }
 
-        public async Task<IEnumerable<ParticipanteEntity>> GetEscaladoresNoAsignadosAsync(int idLineaCarrera, string sede = null,string search = null)
+        public async Task<IEnumerable<ParticipanteEntity>> GetEscaladoresNoAsignadosAsync(int idLineaCarrera, int? idSede = null, string search = null)
         {
             try
             {
@@ -116,7 +116,7 @@ namespace EverestLMS.Repository.DapperImplementations
                     {
                         IdLineaCarrera = idLineaCarrera,
                         Rol = (int)RolEnum.Escalador,
-                        Sede = sede,
+                        IdSede = idSede,
                         Search = search
                     },
                     commandType: CommandType.StoredProcedure);
@@ -152,7 +152,7 @@ namespace EverestLMS.Repository.DapperImplementations
             
         }
 
-        public async Task<IEnumerable<ParticipanteEntity>> GetSherpasAsync(int? idNivel = null, int? idLineaCarrera = null, string sede = null, string search = null)
+        public async Task<IEnumerable<ParticipanteEntity>> GetSherpasAsync(int? idNivel = null, int? idLineaCarrera = null, int? idSede = null, string search = null)
         {
             try
             {
@@ -166,7 +166,7 @@ namespace EverestLMS.Repository.DapperImplementations
                         IdParticipante = default(int?),
                         Rol = (int)RolEnum.Sherpa,
                         Search = search,
-                        Sede = sede
+                        IdSede = idSede
                     },
                     commandType: CommandType.StoredProcedure);
                 return result.ToList();
@@ -192,7 +192,7 @@ namespace EverestLMS.Repository.DapperImplementations
                         IdParticipante = default(int?),
                         Rol = default(int?),
                         Search = default(string),
-                        Sede = default(string)
+                        IdSede = default(int?)
                     },
                     commandType: CommandType.StoredProcedure);
                 return result.ToList();
@@ -223,7 +223,7 @@ namespace EverestLMS.Repository.DapperImplementations
                         participanteEntity.Puntaje,
                         participanteEntity.Rol,
                         participanteEntity.Photo,
-                        participanteEntity.Sede,
+                        participanteEntity.IdSede,
                         participanteEntity.IdSherpa,
                         participanteEntity.IdLineaCarrera,
                         participanteEntity.IdNivel
@@ -251,7 +251,7 @@ namespace EverestLMS.Repository.DapperImplementations
                     IdParticipante = default(int?),
                     Rol = default(int?),
                     Search = default(string),
-                    Sede = default(string)
+                    IdSede = default(int?)
                 },
                 commandType: CommandType.StoredProcedure);
                 return result.ToList();

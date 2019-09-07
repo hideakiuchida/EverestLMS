@@ -8,9 +8,9 @@ namespace EverestLMS.Repository.Interfaces
     {
         Task<IEnumerable<ParticipanteEntity>> GetAllAsync();
         Task<ParticipanteEntity> GetByIdAsync(int id);
-        Task<IEnumerable<ParticipanteEntity>> GetSherpasAsync(int? idNivel, int? idLineaCarrera, string sede, string search);
+        Task<IEnumerable<ParticipanteEntity>> GetSherpasAsync(int? idNivel, int? idLineaCarrera, int? idSede, string search);
         Task<IEnumerable<ParticipanteEntity>> GetEscaladoresPorSherpaIdAsync(int id);
-        Task<IEnumerable<ParticipanteEntity>> GetEscaladoresNoAsignadosAsync(int idLineaCarrera, string sede, string search);
+        Task<IEnumerable<ParticipanteEntity>> GetEscaladoresNoAsignadosAsync(int idLineaCarrera, int? idSede, string search);
         Task<bool> AsignarAsync(int idEscalador, int idSherpa);
         Task<bool> AsignarAutomaticamenteAsync(int idSherpa, int[] idsEscaladores);
         Task<bool> DesasignarAsync(int idEscalador);

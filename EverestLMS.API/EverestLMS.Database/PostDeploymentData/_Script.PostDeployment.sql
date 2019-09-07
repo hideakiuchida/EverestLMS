@@ -13,5 +13,6 @@ Post-Deployment Script Template
 :r .\01_Conocimiento.sql
 :r .\01_LineaCarrera.sql
 :r .\01_Nivel.sql
+:r .\01_Sede.sql
 :r .\02_Etapa.sql
 :r .\03_Curso.sql

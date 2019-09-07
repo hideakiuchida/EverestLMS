@@ -77,7 +77,7 @@ namespace EverestLMS.Common.Fakes
                                                             "https://randomuser.me/api/portraits/men/52.jpg"))
                     .RuleFor(g => g.IdNivel, f => (int)NivelEnum.Senior)
                     .RuleFor(g => g.ConocimientoIds, f => GenerateRandomConocimientosIds())
-                    .RuleFor(g => g.Sede, f => f.PickRandom((int)SedeEnum.Cochabamba, (int)SedeEnum.Liberia, (int)SedeEnum.Lima, (int)SedeEnum.SanCarlos, (int)SedeEnum.SanJose))
+                    .RuleFor(g => g.IdSede, f => f.PickRandom((int)SedeEnum.Cochabamba, (int)SedeEnum.Liberia, (int)SedeEnum.Lima, (int)SedeEnum.SanCarlos, (int)SedeEnum.SanJose))
                     .RuleFor(g => g.Rol, f => (int)RolEnum.Sherpa).Generate(100);
             }
             return SherpasVM;
@@ -121,7 +121,7 @@ namespace EverestLMS.Common.Fakes
                                                             "https://randomuser.me/api/portraits/men/23.jpg",
                                                             "https://randomuser.me/api/portraits/men/36.jpg",
                                                             "https://randomuser.me/api/portraits/men/52.jpg"))
-                    .RuleFor(g => g.Sede, f => f.PickRandom((int)SedeEnum.Cochabamba, (int)SedeEnum.Liberia, (int)SedeEnum.Lima, (int)SedeEnum.SanCarlos, (int)SedeEnum.SanJose))
+                    .RuleFor(g => g.IdSede, f => f.PickRandom((int)SedeEnum.Cochabamba, (int)SedeEnum.Liberia, (int)SedeEnum.Lima, (int)SedeEnum.SanCarlos, (int)SedeEnum.SanJose))
                     .RuleFor(g => g.Rol, f => (int)RolEnum.Escalador).Generate(500);
             }
             return EscaladoresVM;

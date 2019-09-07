@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SherpaLite } from 'src/app/models/sherpaLite';
 import { ParticipanteService } from 'src/app/services/participante/participante.service';
 import { AlertifyService } from 'src/app/services/alertify/alertify.service';
@@ -10,6 +10,8 @@ import { Sherpa } from 'src/app/models/sherpa';
 import { AsignacionService } from 'src/app/services/asignacion/asignacion.service';
 import { Mensaje } from 'src/app/models/mensaje';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Sede } from 'src/app/models/sede';
+import { SedeService } from 'src/app/services/sede/sede.service';
 
 @Component({
   selector: 'app-asignarequipos',
@@ -21,29 +23,38 @@ export class AsignarequiposComponent implements OnInit {
   selectedSherpa: SherpaLite;
   niveles: Nivel[];
   lineaCarreras: LineaCarrera[];
+  sedes: Sede[];
   search: any;
   selectedNivelId: any;
   selectedLineaCarreraId: any;
+  selectedSedeId: any;
   sherpa: Sherpa;
 
   constructor(private participanteService: ParticipanteService, private nivelService: NivelService,
-      private lineaCarreraService: LineaCarreraService, private asignacionService: AsignacionService,
+      private lineaCarreraService: LineaCarreraService, private sedeService: SedeService,
+      private asignacionService: AsignacionService,
       private alertify: AlertifyService, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
-    this.loadNiveles();
+    // this.loadNiveles();
     this.loadLineaCarreras();
-    this.loadSherpas(this.selectedNivelId, this.selectedLineaCarreraId, this.search);
+    this.loadSedes();
+    this.loadSherpas(this.selectedNivelId, this.selectedLineaCarreraId, this.selectedSedeId, this.search);
   }
 
   onKey(event: any) {
       this.search = event.target.value;
-      this.loadSherpas(this.selectedNivelId, this.selectedLineaCarreraId, this.search);
+      this.loadSherpas(this.selectedNivelId, this.selectedLineaCarreraId, this.selectedSedeId, this.search);
   }
 
   lineaCarreraSelected(value) {
     this.selectedLineaCarreraId = value;
-    this.loadSherpas(this.selectedNivelId, this.selectedLineaCarreraId, this.search);
+    this.loadSherpas(this.selectedNivelId, this.selectedLineaCarreraId, this.selectedSedeId, this.search);
+  }
+
+  sedeSelected(value) {
+    this.selectedSedeId = value;
+    this.loadSherpas(this.selectedNivelId, this.selectedLineaCarreraId, this.selectedSedeId, this.search);
   }
 
   onSelect(sherpaLite: SherpaLite): void {
@@ -51,19 +62,29 @@ export class AsignarequiposComponent implements OnInit {
     this.loadSherpa(this.selectedSherpa.id);
   }
 
-  loadSherpas(idNivel, idLineaCarrera, search) {
-    this.participanteService.getSherpas(idNivel, idLineaCarrera, search).subscribe((sherpas: SherpaLite[]) => {
+  loadSherpas(idNivel, idLineaCarrera, idSede, search) {
+    this.participanteService.getSherpas(idNivel, idLineaCarrera, idSede, search).subscribe((sherpas: SherpaLite[]) => {
       this.sherpas = sherpas;
-      this.selectedSherpa = sherpas[0];
-      this.loadSherpa(this.selectedSherpa.id);
+      if (sherpas != null && sherpas.length > 0) {
+        this.selectedSherpa = sherpas[0];
+        this.loadSherpa(this.selectedSherpa.id);
+      }
     }, error => {
       this.alertify.error(error);
     });
   }
 
-  loadNiveles() {
+  /*loadNiveles() {
     this.nivelService.getNiveles().subscribe((niveles: Nivel[]) => {
       this.niveles = niveles;
+    }, error => {
+      this.alertify.error(error);
+    });
+  }*/
+
+  loadSedes() {
+    this.sedeService.getSedes().subscribe((sedes: Sede[]) => {
+      this.sedes = sedes;
     }, error => {
       this.alertify.error(error);
     });
@@ -106,7 +127,7 @@ export class AsignarequiposComponent implements OnInit {
     this.asignacionService.asignarAutomaticamente().subscribe((mensaje: Mensaje) =>  {
       this.spinner.hide();
       this.alertify.success(mensaje.message);
-      this.loadSherpas(this.selectedNivelId, this.selectedLineaCarreraId, this.search);
+      this.loadSherpas(this.selectedNivelId, this.selectedLineaCarreraId, this.selectedSedeId, this.search);
     }, error => {
       this.spinner.hide();
       this.alertify.error(error);
@@ -116,7 +137,7 @@ export class AsignarequiposComponent implements OnInit {
   generarDesasignacion() {
     this.asignacionService.desasignarAutomaticamente().subscribe((mensaje: Mensaje) =>  {
       this.alertify.success(mensaje.message);
-      this.loadSherpas(this.selectedNivelId, this.selectedLineaCarreraId, this.search);
+      this.loadSherpas(this.selectedNivelId, this.selectedLineaCarreraId, this.selectedSedeId, this.search);
     }, error => {
       this.alertify.error(error);
     });

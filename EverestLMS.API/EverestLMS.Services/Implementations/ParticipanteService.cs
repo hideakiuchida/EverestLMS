@@ -83,9 +83,9 @@ namespace EverestLMS.Services.Implementations
             return sherpaToReturn;
         }
 
-        public async Task<IEnumerable<SherpaLiteVM>> GetSherpasAsync(int? idNivel = null, int? idLineaCarrera = null, string sede = null, string search = null)
+        public async Task<IEnumerable<SherpaLiteVM>> GetSherpasAsync(int? idNivel = null, int? idLineaCarrera = null, int? idSede = null, string search = null)
         {
-            var sherpas = await repository.GetSherpasAsync(idNivel, idLineaCarrera, sede, search);
+            var sherpas = await repository.GetSherpasAsync(idNivel, idLineaCarrera, idSede, search);
             var sherpasToReturn = mapper.Map<IEnumerable<SherpaLiteVM>>(sherpas);
             return sherpasToReturn;
         }
@@ -97,9 +97,9 @@ namespace EverestLMS.Services.Implementations
             return escaladoresToReturn;
         }
 
-        public async Task<IEnumerable<EscaladorLiteVM>> GetEscaladoresNoAsignadosAsync(int idLineaCarrera, string sede = null, string search = null)
+        public async Task<IEnumerable<EscaladorLiteVM>> GetEscaladoresNoAsignadosAsync(int idLineaCarrera, int? idSede = null, string search = null)
         {
-            var escaladores = await repository.GetEscaladoresNoAsignadosAsync(idLineaCarrera, sede, search);
+            var escaladores = await repository.GetEscaladoresNoAsignadosAsync(idLineaCarrera, idSede, search);
             var escaladoresToReturn = mapper.Map<IEnumerable<EscaladorLiteVM>>(escaladores);
             return escaladoresToReturn;
         }
@@ -118,20 +118,20 @@ namespace EverestLMS.Services.Implementations
             IEnumerable<int> lineaCarreras = new List<int>() { (int)LineaCarreraEnum.BusinessAnalyst, (int)LineaCarreraEnum.DevOpsEngineer,
                 (int)LineaCarreraEnum.MobileEngineer, (int)LineaCarreraEnum.QualityAssurance, (int)LineaCarreraEnum.SoftwareEngineer};
 
-            IEnumerable<string> sedes = new List<string>() { SedeEnum.Cochabamba.ToString(), SedeEnum.Liberia.ToString(), SedeEnum.Lima.ToString(),
-                SedeEnum.SanCarlos.ToString(), SedeEnum.SanJose.ToString() };
+            IEnumerable<int> sedes = new List<int>() { (int)SedeEnum.Cochabamba,(int) SedeEnum.Liberia, (int)SedeEnum.Lima,
+                (int)SedeEnum.SanCarlos, (int)SedeEnum.SanJose };
             int countNoAsignados = default;
             int countAsignadosTotal = default;
             int maxQuantityEscaladores = config.GetValue<int>("AppSettings:MaximunQuantityEscaladores");
             foreach (var idLineaCarrera in lineaCarreras)
             {
-                foreach (var sede in sedes)
+                foreach (var idSede in sedes)
                 {
-                    var escaladoresNoAsignados = (await repository.GetEscaladoresNoAsignadosAsync(idLineaCarrera, sede, default)).ToList();
+                    var escaladoresNoAsignados = (await repository.GetEscaladoresNoAsignadosAsync(idLineaCarrera, idSede, default)).ToList();
                     if (escaladoresNoAsignados.Count == 0)
                         continue;
 
-                    var dicSherpaCantidadNoAsignados = await GetSherpasNoAsignadosCompletamenteAsync(idLineaCarrera, sede, maxQuantityEscaladores);
+                    var dicSherpaCantidadNoAsignados = await GetSherpasNoAsignadosCompletamenteAsync(idLineaCarrera, idSede, maxQuantityEscaladores);
                     int countAsignamiento = 0;
                     foreach (var dicItem in dicSherpaCantidadNoAsignados)
                     {
@@ -151,7 +151,7 @@ namespace EverestLMS.Services.Implementations
                         {
                             var saved = await repository.AsignarAutomaticamenteAsync(idSherpa, idEscaladores);
                             if (!saved)
-                                return $"Ocurrió un error en asignación para el sherpa {idSherpa}.";
+                                return $"Ocurrió un error en la asignación para el sherpa {idSherpa}.";
                         }
                         else
                             continue;
@@ -178,14 +178,14 @@ namespace EverestLMS.Services.Implementations
             if (succeded)
                 return "Se generó la deasignación existosamente.";
             else
-                return "No se pudo generar la desasignación.";
+                return "No se pudo generar la des asignación.";
         }
 
         #region Private
-        private async Task<Dictionary<int, int>> GetSherpasNoAsignadosCompletamenteAsync(int idLineaCarrera, string sede, int maxQuantityEscaladores)
+        private async Task<Dictionary<int, int>> GetSherpasNoAsignadosCompletamenteAsync(int idLineaCarrera, int idSede, int maxQuantityEscaladores)
         {
             Dictionary<int, int> dicSherpaCantidadNoAsignados = new Dictionary<int, int>();
-            var sherpas = await GetSherpasAsync(default, idLineaCarrera, sede);
+            var sherpas = await GetSherpasAsync(default, idLineaCarrera, idSede);
             foreach (var sherpa in sherpas)
             {
                 var escaladoresPorSherpa = (await repository.GetEscaladoresPorSherpaIdAsync(sherpa.Id)).ToList();

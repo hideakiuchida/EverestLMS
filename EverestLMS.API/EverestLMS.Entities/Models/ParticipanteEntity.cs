@@ -26,7 +26,7 @@ namespace EverestLMS.Entities.Models
         public int IdLineaCarrera { get; set; }
         public int Activo { get; set; }
         public string Photo { get; set; }
-        public string Sede { get; set; }
+        public int IdSede { get; set; }
 
         public LineaCarreraEntity IdLineaCarreraNavigation { get; set; }
         public NivelEntity IdNivelNavigation { get; set; }

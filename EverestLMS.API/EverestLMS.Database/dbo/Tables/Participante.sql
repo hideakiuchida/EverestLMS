@@ -10,13 +10,14 @@
     [Puntaje]         INT            NULL,
     [Rol]             INT            NULL,
     [Photo]           VARCHAR (500)  NULL,
-    [Sede]            VARCHAR (100)  NOT NULL,
     [Activo]          INT            NOT NULL,
-    [idSherpa]        INT            NULL,
-    [idLineaCarrera]  INT            NOT NULL,
-    [idNivel]         INT            NOT NULL,
+    [IdSherpa]        INT            NULL,
+    [IdLineaCarrera]  INT            NOT NULL,
+    [IdNivel]         INT            NOT NULL,
+	[IdSede]          INT  NOT NULL,
 	CONSTRAINT [FK_Participante_Sherpa] FOREIGN KEY ([IdSherpa]) REFERENCES [Participante]([IdParticipante]),
 	CONSTRAINT [FK_Participante_Nivel] FOREIGN KEY ([IdNivel]) REFERENCES [Nivel]([IdNivel]) ON DELETE CASCADE,
-	CONSTRAINT [FK_Participante_LineaCarrera] FOREIGN KEY ([IdLineaCarrera]) REFERENCES [LineaCarrera]([IdLineaCarrera]) ON DELETE CASCADE
+	CONSTRAINT [FK_Participante_LineaCarrera] FOREIGN KEY ([IdLineaCarrera]) REFERENCES [LineaCarrera]([IdLineaCarrera]) ON DELETE CASCADE,
+	CONSTRAINT [FK_Participante_Sede] FOREIGN KEY ([IdSede]) REFERENCES [Sede]([IdSede]) ON DELETE CASCADE
 );
 

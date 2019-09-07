@@ -115,6 +115,7 @@ namespace EverestLMS.API
             services.AddScoped<INivelService, NivelService>();
             services.AddScoped<IPredictionTrainerService, PredictionTrainerService>();
             services.AddScoped<ICursoService, CursoService>();
+            services.AddScoped<ISedeService, SedeService>();
         }
 
         private void RegisterRepositories(IServiceCollection services)
@@ -126,6 +127,7 @@ namespace EverestLMS.API
             services.AddScoped<IConocimientoRepository, ConocimientoRepository>();
             services.AddScoped<IRatingCursoRepository, RatingCursoRepository>();
             services.AddScoped<IPredictionTrainerRepository, PredictionTrainerRepository>();
+            services.AddScoped<ISedeRepository, SedeRepository>();
         }
         #endregion
     }

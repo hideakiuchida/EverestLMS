@@ -22,6 +22,7 @@ import { AsignarescaladorComponent } from './views/asignar/asignarescalador/asig
 import { SherpaResolver } from './resolvers/participante/sherpa.resolver';
 import { EscaladoresResolver } from './resolvers/participante/escaladores.resolver';
 import { EscaladorDetalleComponent } from './views/asignar/escalador-detalle/escalador-detalle.component';
+import { SedeService } from './services/sede/sede.service';
 
 @NgModule({
    declarations: [
@@ -49,6 +50,7 @@ import { EscaladorDetalleComponent } from './views/asignar/escalador-detalle/esc
       ParticipanteService,
       LineaCarreraService,
       NivelService,
+      SedeService,
       SherpaResolver,
       EscaladoresResolver
    ],

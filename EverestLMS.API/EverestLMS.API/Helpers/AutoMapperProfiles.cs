@@ -8,6 +8,7 @@ using EverestLMS.ViewModels.Nivel;
 using EverestLMS.ViewModels.Participante;
 using EverestLMS.ViewModels.Participante.Escalador;
 using EverestLMS.ViewModels.Participante.Sherpa;
+using EverestLMS.ViewModels.Sede;
 
 namespace EverestLMS.API.Helpers
 {
@@ -20,6 +21,7 @@ namespace EverestLMS.API.Helpers
             CreateMapNivel();
             CreateMapConocimiento();
             CreateMapCurso();
+            CreateMapSede();
         }
 
         private void CreateMapParticipante()
@@ -27,9 +29,6 @@ namespace EverestLMS.API.Helpers
             CreateMap<ParticipanteToCreateVM, ParticipanteEntity>()
                .ForMember(dest => dest.Genero, opt => {
                    opt.MapFrom(d => d.Genero.ConvertGenderToString());
-               })
-               .ForMember(dest => dest.Sede, opt => {
-                   opt.MapFrom(d => d.Sede.ConvertSedeToString());
                })
                .ForMember(dest => dest.IdLineaCarrera, opt => {
                    opt.MapFrom(d => d.IdLineaCarrera.ValidateLineaCarrera());
@@ -62,7 +61,7 @@ namespace EverestLMS.API.Helpers
                     opt.MapFrom(d => d.IdNivel.ConvertNivelToString().SeparateTextByUpperCase());
                 })
                 .ForMember(dest => dest.Sede, opt => {
-                    opt.MapFrom(d => d.Sede.SeparateTextByUpperCase());
+                    opt.MapFrom(d => d.IdSede.ConvertSedeToString().SeparateTextByUpperCase());
                 });
 
             CreateMap<ParticipanteEntity, EscaladorVM>()
@@ -76,7 +75,7 @@ namespace EverestLMS.API.Helpers
                     opt.MapFrom(d => d.IdNivel.ConvertNivelToString().SeparateTextByUpperCase());
                 })
                 .ForMember(dest => dest.Sede, opt => {
-                    opt.MapFrom(d => d.Sede.SeparateTextByUpperCase());
+                    opt.MapFrom(d => d.IdSede.ConvertSedeToString().SeparateTextByUpperCase());
                 });
             CreateMap<ParticipanteEntity, SherpaVM>()
                 .ForMember(dest => dest.Id, opt => {
@@ -89,7 +88,7 @@ namespace EverestLMS.API.Helpers
                     opt.MapFrom(d => d.IdNivel.ConvertNivelToString().SeparateTextByUpperCase());
                 })
                 .ForMember(dest => dest.Sede, opt => {
-                    opt.MapFrom(d => d.Sede.SeparateTextByUpperCase());
+                    opt.MapFrom(d => d.IdSede.ConvertSedeToString().SeparateTextByUpperCase());
                 });
         }
         private void CreateMapLineaCarrera()
@@ -105,6 +104,13 @@ namespace EverestLMS.API.Helpers
                .ForMember(dest => dest.Id, opt => {
                    opt.MapFrom(d => d.IdNivel);
                });
+        }
+        private void CreateMapSede()
+        {
+            CreateMap<SedeEntity, SedeVM>()
+                .ForMember(dest => dest.Id, opt => {
+                    opt.MapFrom(d => d.IdSede);
+                });
         }
         private void CreateMapConocimiento()
         {

@@ -35,9 +35,9 @@ namespace EverestLMS.API.Controllers
 
         [HttpGet]
         [Route("sherpas")]
-        public async Task<IActionResult> GetSherpasAsync(int? idNivel, int? idLineaCarrera, string search)
+        public async Task<IActionResult> GetSherpasAsync(int? idNivel, int? idLineaCarrera, int? idSede, string search)
         {
-            var result = await service.GetSherpasAsync(idNivel, idLineaCarrera, default(string), search);
+            var result = await service.GetSherpasAsync(idNivel, idLineaCarrera, idSede, search);
             return Ok(result);
         }
 
@@ -63,7 +63,7 @@ namespace EverestLMS.API.Controllers
         [Route("escaladores-no-asignados")]
         public async Task<IActionResult> GetEscaladoresNoAsignados(int idLineaCarrera, string search = null)
         {
-            var result = await service.GetEscaladoresNoAsignadosAsync(idLineaCarrera, default(string), search);
+            var result = await service.GetEscaladoresNoAsignadosAsync(idLineaCarrera, default(int?), search);
             return Ok(result);
         }
 

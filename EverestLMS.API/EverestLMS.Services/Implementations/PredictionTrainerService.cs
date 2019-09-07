@@ -36,7 +36,7 @@ namespace EverestLMS.Services.Implementations
         {
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
-            Log.Information("Starting CreatePredictionCoursesForParticipants");
+            Log.Information("Inicio CreatePredictionCoursesForParticipants");
             try
             { 
                 var ratingCursos = await ratingCursoRepository.GetAllAsync();
@@ -92,13 +92,13 @@ namespace EverestLMS.Services.Implementations
                     }
                 }
                 stopWatch.Stop();
-                Log.Information("Finished CreatePredictionCoursesForParticipants in {elapsedTime}", stopWatch.Elapsed);
+                Log.Information("Finalizado CreatePredictionCoursesForParticipants in {elapsedTime}", stopWatch.Elapsed);
                 return true;
             }
             catch (Exception ex)
             {
                 stopWatch.Stop();
-                Log.Error("An Error has oucrred in CreatePredictionCoursesForParticipants with message: {errormessage}", ex.Message);
+                Log.Error("Un error a ocurrido en la Predicción de Cursos con la siguiente excepción: {errormessage}", ex.Message);
                 return false;
             }    
         }

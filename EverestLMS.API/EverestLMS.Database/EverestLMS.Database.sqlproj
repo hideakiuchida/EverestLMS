@@ -90,6 +90,7 @@
     <Build Include="dbo\Stored Procedures\GetEscaladoresPorSherpa.sql" />
     <Build Include="dbo\Stored Procedures\GetConocimientosPorPartipante.sql" />
     <Build Include="dbo\Stored Procedures\DesasignarSherpaAutomaticamente.sql" />
+    <Build Include="dbo\Tables\Sede.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="EverestLMS.Database.publish.xml" />
@@ -101,5 +102,6 @@
     <None Include="PostDeploymentData\01_Nivel.sql" />
     <None Include="PostDeploymentData\02_Etapa.sql" />
     <None Include="PostDeploymentData\03_Curso.sql" />
+    <None Include="PostDeploymentData\01_Sede.sql" />
   </ItemGroup>
 </Project>

@@ -28,7 +28,7 @@ namespace EverestLMS.ViewModels.Participante
         [Required]
         public int IdLineaCarrera { get; set; }
         [Required]
-        public int Sede { get; set; }
+        public int IdSede { get; set; }
         public string Photo { get; set; }
 
         [Required]
