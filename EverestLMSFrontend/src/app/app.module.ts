@@ -6,6 +6,9 @@ import { RouterModule } from '@angular/router';
 import { DataTablesModule } from 'angular-datatables';
 import {MatButtonModule, MatIconModule} from '@angular/material';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './views/nav/nav.component';
@@ -23,6 +26,7 @@ import { SherpaResolver } from './resolvers/participante/sherpa.resolver';
 import { EscaladoresResolver } from './resolvers/participante/escaladores.resolver';
 import { EscaladorDetalleComponent } from './views/asignar/escalador-detalle/escalador-detalle.component';
 import { SedeService } from './services/sede/sede.service';
+import { CalendarioComponent } from './views/planificarcalendario/calendario/calendario.component';
 
 @NgModule({
    declarations: [
@@ -32,7 +36,8 @@ import { SedeService } from './services/sede/sede.service';
       HomeComponent,
       SherpaDetalleComponent,
       AsignarescaladorComponent,
-      EscaladorDetalleComponent
+      EscaladorDetalleComponent,
+      CalendarioComponent
    ],
    imports: [
       BrowserModule,
@@ -42,7 +47,12 @@ import { SedeService } from './services/sede/sede.service';
       DataTablesModule,
       MatButtonModule,
       MatIconModule,
-      NgxSpinnerModule
+      NgxSpinnerModule,
+      BrowserAnimationsModule,
+      CalendarModule.forRoot({
+        provide: DateAdapter,
+        useFactory: adapterFactory
+      })
    ],
    providers: [
       ErrorInterceptorProvider,
