@@ -4,4 +4,8 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EverestLMS.Common\EverestLMS.Common.csproj" />
+  </ItemGroup>
+
 </Project>

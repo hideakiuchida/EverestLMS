@@ -91,9 +91,30 @@
     <Build Include="dbo\Stored Procedures\GetConocimientosPorPartipante.sql" />
     <Build Include="dbo\Stored Procedures\DesasignarSherpaAutomaticamente.sql" />
     <Build Include="dbo\Tables\Sede.sql" />
+    <Build Include="dbo\Tables\Calendario.sql" />
+    <Build Include="dbo\Tables\EventoParticipante.sql" />
+    <Build Include="dbo\Tables\CriterioAceptacion.sql" />
+    <Build Include="dbo\Stored Procedures\CreateEvento.sql" />
+    <Build Include="dbo\Stored Procedures\DeleteEvento.sql" />
+    <Build Include="dbo\Stored Procedures\CreateCriterioAceptacion.sql" />
+    <Build Include="dbo\Stored Procedures\DeleteCriterioAceptacion.sql" />
+    <Build Include="dbo\Tables\Leccion.sql" />
+    <Build Include="dbo\Tables\Pregunta.sql" />
+    <Build Include="dbo\Tables\Respuesta.sql" />
+    <Build Include="dbo\Tables\LeccionMaterial.sql" />
+    <Build Include="dbo\Tables\ResultadoExamen.sql" />
+    <Build Include="dbo\Tables\Dificultad.sql" />
+    <Build Include="dbo\Tables\TipoContenido.sql" />
+    <None Include="PostDeploymentData\01_TipoContenido.sql" />
+    <None Include="PostDeploymentData\01_Dificultad.sql" />
+    <Build Include="dbo\Stored Procedures\CreateCurso.sql" />
+    <Build Include="dbo\Stored Procedures\EditCurso.sql" />
+    <Build Include="dbo\Stored Procedures\DeleteCurso.sql" />
+    <Build Include="dbo\Tables\Idioma.sql" />
+    <Build Include="dbo\Stored Procedures\GetEtapas.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="EverestLMS.Database.publish.xml" />
+    <Build Include="dbo\Tables\Evento.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="PostDeploymentData\_Script.PostDeployment.sql" />
@@ -103,5 +124,11 @@
     <None Include="PostDeploymentData\02_Etapa.sql" />
     <None Include="PostDeploymentData\03_Curso.sql" />
     <None Include="PostDeploymentData\01_Sede.sql" />
+    <None Include="PostDeploymentData\01_Calendario.sql" />
+    <None Include="PostDeploymentData\02_Evento.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="EverestLMS.Database.publish.xml" />
+    <None Include="PostDeploymentData\01_Idioma.sql" />
   </ItemGroup>
 </Project>

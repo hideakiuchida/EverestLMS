@@ -1,0 +1,34 @@
+<div class="panel panel-default border p-4">
+    <form [formGroup]="criterioAceptacionForm" (ngSubmit)="registrarCriterioAceptacion()" class="m-3">
+        <h1 class="text-center text-primary">Criterios de Aceptación</h1>
+        <hr>
+
+        <!--descripción-->
+        <div class="form-group" [ngClass]="{'has-error': criterioAceptacionForm.get('descripcion').errors && criterioAceptacionForm.get('descripcion').touched}">
+            <label for="descripcion">Descripción: </label>
+            <textarea class="form-control" placeholder="Ingresa la descripción" formControlName="descripcion"></textarea>
+            <span class="help-block" *ngIf="criterioAceptacionForm.get('descripcion').hasError('required') && criterioAceptacionForm.get('descripcion').touched">
+                Descripción es requerido
+            </span>
+            <span class="help-block" *ngIf="criterioAceptacionForm.get('descripcion').hasError('minlength') && criterioAceptacionForm.get('descripcion').touched">
+                El título debe tener al menos 4 caracteres de longitud
+            </span>
+            <span class="help-block" *ngIf="criterioAceptacionForm.get('descripcion').hasError('maxlength') && criterioAceptacionForm.get('descripcion').touched">
+                El título debe tener como máximo 400 caracteres de longitud
+            </span>
+        </div>
+
+        <!--medida-->
+        <div class="form-group" [ngClass]="{'has-error': criterioAceptacionForm.get('titulo').errors && criterioAceptacionForm.get('titulo').touched}">
+            <label for="medida">Medida: </label>
+            <input type="text" class="form-control col-md-4" placeholder="Ingresa la medida" formControlName="medida" />
+        </div>
+
+        <!--valor-->
+        <div class="form-group" [ngClass]="{'has-error': criterioAceptacionForm.get('valor').errors && criterioAceptacionForm.get('valor').touched}">
+            <label for="valor">Valor: </label>
+            <input type="text" class="form-control col-md-4" placeholder="Ingresa el valor" formControlName="valor" />
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+</div>

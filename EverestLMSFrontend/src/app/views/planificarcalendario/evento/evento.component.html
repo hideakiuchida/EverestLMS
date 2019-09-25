@@ -1,0 +1,87 @@
+<form [formGroup]="eventoForm" (ngSubmit)="registrarEvento()" class="m-3">
+    <h1 class="text-center text-primary">Evento</h1>
+    <hr>
+
+    <!--título-->
+    <div class="form-group" [ngClass]="{'has-error': eventoForm.get('titulo').errors && eventoForm.get('titulo').touched}">
+        <label for="titulo">Título: </label>
+        <input type="text" class="form-control col-md-4" placeholder="Ingresa el título" formControlName="titulo" />
+        <span class="help-block" *ngIf="eventoForm.get('titulo').hasError('required') && eventoForm.get('titulo').touched">
+          Título es requerido
+        </span>
+        <span class="help-block" *ngIf="eventoForm.get('titulo').hasError('minlength') && eventoForm.get('titulo').touched">
+           El título debe tener al menos 4 caracteres de longitud
+        </span>
+        <span class="help-block" *ngIf="eventoForm.get('titulo').hasError('maxlength') && eventoForm.get('titulo').touched">
+           El título debe tener como máximo 100 caracteres de longitud
+        </span>
+    </div>
+
+    <!--descripción-->
+    <div class="form-group" [ngClass]="{'has-error': eventoForm.get('descripcion').errors && eventoForm.get('descripcion').touched}">
+        <label for="descripcion">Descripción: </label>
+        <textarea class="form-control" placeholder="Ingresa la descripción" formControlName="descripcion"></textarea>
+        <span class="help-block" *ngIf="eventoForm.get('descripcion').hasError('required') && eventoForm.get('descripcion').touched">
+            Descripción es requerido
+        </span>
+        <span class="help-block" *ngIf="eventoForm.get('descripcion').hasError('minlength') && eventoForm.get('descripcion').touched">
+            El título debe tener al menos 4 caracteres de longitud
+        </span>
+        <span class="help-block" *ngIf="eventoForm.get('descripcion').hasError('maxlength') && eventoForm.get('descripcion').touched">
+            El título debe tener como máximo 400 caracteres de longitud
+        </span>
+    </div>
+
+    <!-- fecha inicio -->
+    <div class="form-group" [ngClass]="{'has-error': eventoForm.get('fechaInicio').touched && eventoForm.get('fechaInicio').hasError('required')}">
+        <label for="fechaInicio">Fecha Inicio: </label>
+        <input class="form-control" type="text" bsDatepicker [bsConfig]="bsConfig" placeholder="Selecciona la fecha de inicio" formControlName="fechaInicio">
+        <span class="help-block" *ngIf="eventoForm.get('fechaInicio').touched && eventoForm.get('fechaInicio').hasError('required')">
+            La fecha de inicio es requerido
+        </span>
+    </div>
+    <!-- hora inicio -->
+    <div class="form-group" [ngClass]="{'has-error': eventoForm.get('horaInicio').touched && eventoForm.get('horaInicio').hasError('required')}">
+        <label for="horaInicio">Hora Inicio: </label>
+        <timepicker formControlName="horaInicio"></timepicker>
+        <span class="help-block" *ngIf="eventoForm.get('horaInicio').touched && eventoForm.get('horaInicio').hasError('required')">
+            La hora de inicio es requerido
+        </span>
+    </div>
+
+    <!-- fecha final -->
+    <div class="form-group" [ngClass]="{'has-error': eventoForm.get('fechaFinal').touched && eventoForm.get('fechaFinal').hasError('required')}">
+        <label for="fechaFinal">Fecha Final: </label>
+        <input class="form-control" type="text" bsDatepicker [bsConfig]="bsConfig" placeholder="Selecciona la fecha final" formControlName="fechaFinal">
+        <span class="help-block" *ngIf="eventoForm.get('fechaFinal').touched && eventoForm.get('fechaFinal').hasError('required')">
+            La fecha final es requerida
+        </span>
+    </div>
+    <!-- hora final -->
+    <div class="form-group" [ngClass]="{'has-error': eventoForm.get('horaFinal').touched && eventoForm.get('horaFinal').hasError('required')}">
+        <label for="horaFinal">Hora Final: </label>
+        <timepicker formControlName="horaFinal"></timepicker>
+        <span class="help-block" *ngIf="eventoForm.get('horaInicio').touched && eventoForm.get('horaInicio').hasError('required')">
+            La hora final es requerido
+        </span>
+    </div>
+
+    <!--color primario-->
+    <div class="form-group" [ngClass]="{'has-error': eventoForm.get('colorPrimario').errors && eventoForm.get('colorPrimario').touched}">
+        <label for="colorPrimario">Color Primario: </label>
+        <input type="color" formControlName="colorPrimario" class="ml-2">
+        <span class="help-block" *ngIf="eventoForm.get('colorPrimario').hasError('required') && eventoForm.get('colorPrimario').touched">
+            El color primario es requerido
+        </span>
+    </div>
+
+    <!--color secundario-->
+    <div class="form-group" [ngClass]="{'has-error': eventoForm.get('colorSecundario').errors && eventoForm.get('colorSecundario').touched}">
+        <label for="colorSecundario">Color Secundario: </label>
+        <input type="color" formControlName="colorSecundario" class="ml-2">
+        <span class="help-block" *ngIf="eventoForm.get('colorSecundario').hasError('required') && eventoForm.get('colorSecundario').touched">
+            El color secundario es requerido
+        </span>
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</form>

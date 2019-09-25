@@ -4,6 +4,7 @@
 .vs
 
 # User-specific files
+*.Database.jfm
 *.suo
 *.user
 *.sln.docstates

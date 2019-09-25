@@ -9,10 +9,14 @@ Post-Deployment Script Template
                SELECT * FROM [$(TableName)]					
 --------------------------------------------------------------------------------------
 */
-
+:r .\01_Idioma.sql
+:r .\01_Calendario.sql
 :r .\01_Conocimiento.sql
 :r .\01_LineaCarrera.sql
 :r .\01_Nivel.sql
 :r .\01_Sede.sql
+:r .\01_TipoContenido.sql
+:r .\01_Dificultad.sql
 :r .\02_Etapa.sql
+:r .\02_Evento.sql
 :r .\03_Curso.sql

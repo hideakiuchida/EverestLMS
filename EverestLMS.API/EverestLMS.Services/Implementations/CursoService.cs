@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
+using EverestLMS.Entities.Models;
 using EverestLMS.Repository.Interfaces;
 using EverestLMS.Services.Interfaces;
 using EverestLMS.ViewModels.Curso;
 using EverestLMS.ViewModels.Participante;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,13 +14,35 @@ namespace EverestLMS.Services.Implementations
     {
         private readonly IPredictionTrainerRepository predictionTrainerRepository;
         private readonly IParticipanteRepository participanteRepository;
+        private readonly ICursoRepository repository;
         private readonly IMapper mapper;
-        public CursoService(IPredictionTrainerRepository predictionTrainerRepository, IParticipanteRepository participanteRepository, IMapper mapper)
+        public CursoService(ICursoRepository repository, IPredictionTrainerRepository predictionTrainerRepository, IParticipanteRepository participanteRepository, IMapper mapper)
         {
             this.predictionTrainerRepository = predictionTrainerRepository;
             this.participanteRepository = participanteRepository;
+            this.repository = repository;
             this.mapper = mapper;
         }
+
+        public async Task<int> CreateCursoAsync(CursoVM cursoVM)
+        {
+            var cursoEntity = mapper.Map<CursoEntity>(cursoVM);
+            var idCurso = await repository.CreateCursoAsync(cursoEntity);
+            return idCurso;
+        }
+
+        public async Task<bool> DeleteCursoAsync(int idEtapa, int idCurso)
+        {
+            return await repository.DeleteCursoAsync(idEtapa, idCurso);
+        }
+
+        public async Task<bool> EditCursoASync(CursoVM cursoVM)
+        {
+            var cursoEntity = mapper.Map<CursoEntity>(cursoVM);
+            var updated = await repository.EditCursoASync(cursoEntity);
+            return updated;
+        }
+
         public async Task<IEnumerable<CursoPredictedByParticipantVM>> GetAllCursosPredictionByParticipantAsync()
         {
             var allItemsInteger = (int)decimal.Zero;
@@ -38,6 +60,13 @@ namespace EverestLMS.Services.Implementations
                 cursoPredictedByParticipantVMs.Add(cursoPredictedByParticipantVM);
             }
             return cursoPredictedByParticipantVMs;
+        }
+
+        public async Task<IEnumerable<CursoDetalleVM>> GetCursosAsync(int? idEtapa, int? idLineaCarrera, int? idNivel, string search)
+        {
+            var cursosEntities = await repository.GetCursosAsync(idEtapa, idLineaCarrera, idNivel, search);
+            var cursosVM = mapper.Map<IEnumerable<CursoDetalleVM>>(cursosEntities);
+            return cursosVM;
         }
 
         public async Task<IEnumerable<CursoPredictionVM>> GetCursosPredictionByParticipantAsync(int id)

@@ -1,0 +1,79 @@
+<div class="panel panel-default border p-4">
+    <div class="panel-body">
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <div class="form-inline md-form form-sm active-cyan active-cyan-2">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                    <input class="form-control form-control-sm ml-3 mr-3 w-75" type="text" placeholder="Buscar" aria-label="Buscar" (keyup)="onKey($event)">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="row form-group">
+                    <label for="selectLineaCarreras" class="col-md-6 control-label font-weight-bold mt-1"> Linea de Carrera:</label>
+                    <select class="form-control col-md-6" #selectedValue name="selectLineaCarreras" id="selectLineaCarreras" [(ngModel)]="selectedLineaCarreraId" (ngModelChange)="lineaCarreraSelected($event)">
+                        <option *ngFor="let lineaCarrera of lineaCarreras" [value]="lineaCarrera.id">
+                            {{lineaCarrera.descripcion}}
+                        </option>
+                    </select>
+                </div>
+                <div class="row form-group">
+                    <label for="selectNiveles" class="col-md-6 control-label font-weight-bold mt-1"> Nivel:</label>
+                    <select class="form-control col-md-6" #selectedValue name="selectNiveles" id="selectNiveles" [(ngModel)]="selectedNivelId" (ngModelChange)="nivelSelected($event)">
+                        <option *ngFor="let nivel of niveles" [value]="nivel.id">
+                            {{nivel.descripcion}}
+                        </option>
+                    </select>
+                </div>
+                <div class="row form-group">
+                    <label for="selectEtapas" class="col-md-6 control-label font-weight-bold mt-1"> Etapa:</label>
+                    <select class="form-control col-md-6" #selectedValue name="selectEtapas" id="selectEtapas" [(ngModel)]="selectedEtapaId" (ngModelChange)="etapaSelected($event)">
+                        <option *ngFor="let etapa of etapas" [value]="etapa.id">
+                            {{etapa.nombre}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4 text-center">
+                <button id="btn-agregar-curso" mat-mini-fab color="warn" [routerLink]="['/formulario-curso']" routerLinkActive="router-link-active">
+                  <strong>+</strong>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="panel-footer">
+        <table class="table table-striped table-bordered table-sm row-border hover" datatable [dtOptions]="dtOptions">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Descripción Etapa</th>
+                    <th>Etapa</th>
+                    <th>Nivel</th>
+                    <th>Línea de Carrera</th>
+                    <th>Puntaje</th>
+                    <th>Dificultad</th>
+                    <th>Idioma</th>
+                    <th>Autor</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let curso of cursos">
+                    <td>{{ curso.nombre }}</td>
+                    <td>{{ curso.nombre }}</td>
+                    <td>{{ curso.descripcionEtapa }}</td>
+                    <td>{{ curso.nombreEtapa }}</td>
+                    <td>{{ curso.nivelDescripcion }}</td>
+                    <td>{{ curso.lineaCarreraDescripcion }}</td>
+                    <td>{{ curso.puntaje }}</td>
+                    <td>{{ curso.dificultadDescripcion }}</td>
+                    <td>{{ curso.idiomaDescripcion }}</td>
+                    <td>{{ curso.autor }}</td>
+                    <td> <button [routerLink]="['/formulario-curso', curso.id]" routerLinkActive="router-link-active">*</button> </td>
+                    <td> <button (click)="eliminarCurso(curso.idEtapa, curso.id)">-</button> </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

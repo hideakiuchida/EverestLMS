@@ -11,10 +11,20 @@ namespace EverestLMS.API.Controllers
     public class ParticipanteController : ControllerBase
     {
         private readonly IParticipanteService service;
+        private readonly ICursoService cursoService;
 
-        public ParticipanteController(IParticipanteService service)
+        public ParticipanteController(IParticipanteService service, ICursoService cursoService)
         {
             this.service = service;
+            this.cursoService = cursoService;
+        }
+
+        [HttpGet]
+        [Route("/{idParticipante}/predicciones")]
+        public async Task<IActionResult> GetCursosPredictionByParticipantAsync(int idParticipante)
+        {
+            var result = await cursoService.GetCursosPredictionByParticipantAsync(idParticipante);
+            return Ok(result);
         }
 
         [HttpGet]

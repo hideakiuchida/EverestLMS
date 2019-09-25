@@ -63,7 +63,7 @@ namespace EverestLMS.Services.Implementations
                 var predictionengine = mlContext.Model.CreatePredictionEngine<CourseEntry, CursoRatingPrediction>(model);
 
                 int? allItemsInteger = default;
-                var cursos = await cursoRepository.GetCursosAsync(allItemsInteger, allItemsInteger);
+                var cursos = await cursoRepository.GetCursosAsync(allItemsInteger, allItemsInteger, allItemsInteger, default);
                 var participantes = await participanteRepository.GetParticipantesAsync(allItemsInteger, allItemsInteger);
                 await predictionTrainerRepository.ClearPredictionsAsync();
                 Log.Information("All predictions has deleted until {date}", DateTime.Now);

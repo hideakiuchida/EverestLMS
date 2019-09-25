@@ -30,13 +30,12 @@ export class AsignarequiposComponent implements OnInit {
   selectedSedeId: any;
   sherpa: Sherpa;
 
-  constructor(private participanteService: ParticipanteService, private nivelService: NivelService,
+  constructor(private participanteService: ParticipanteService,
       private lineaCarreraService: LineaCarreraService, private sedeService: SedeService,
       private asignacionService: AsignacionService,
       private alertify: AlertifyService, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
-    // this.loadNiveles();
     this.loadLineaCarreras();
     this.loadSedes();
     this.loadSherpas(this.selectedNivelId, this.selectedLineaCarreraId, this.selectedSedeId, this.search);
@@ -73,14 +72,6 @@ export class AsignarequiposComponent implements OnInit {
       this.alertify.error(error);
     });
   }
-
-  /*loadNiveles() {
-    this.nivelService.getNiveles().subscribe((niveles: Nivel[]) => {
-      this.niveles = niveles;
-    }, error => {
-      this.alertify.error(error);
-    });
-  }*/
 
   loadSedes() {
     this.sedeService.getSedes().subscribe((sedes: Sede[]) => {

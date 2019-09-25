@@ -1,98 +1,126 @@
-import { Component, ViewChild, TemplateRef } from '@angular/core';
+import { Component, ViewChild, TemplateRef, ChangeDetectionStrategy, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours } from 'date-fns';
 import { Subject } from 'rxjs';
-import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView } from 'angular-calendar';
-
-const colors: any = {
-  red: {
-    primary: '#ad2121',
-    secondary: '#FAE3E3'
-  },
-  blue: {
-    primary: '#1e90ff',
-    secondary: '#D1E8FF'
-  },
-  yellow: {
-    primary: '#e3bc08',
-    secondary: '#FDF1BA'
-  }
-};
+import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView, CalendarDateFormatter } from 'angular-calendar';
+import { Evento } from 'src/app/models/evento';
+import { DatePipe } from '@angular/common';
+import { Calendario } from 'src/app/models/calendario';
+import { AlertifyService } from 'src/app/services/alertify/alertify.service';
+import { CalendarioService } from 'src/app/services/calendario/calendario.service';
+import { CriterioAceptacion } from 'src/app/models/criterioaceptacion';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-calendario',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './calendario.component.html',
   styleUrls: ['./calendario.component.css']
 })
-export class CalendarioComponent {
+export class CalendarioComponent implements OnInit {
   @ViewChild('modalContent') modalContent: TemplateRef<any>;
-  view: any = 'month';
+  view: CalendarView = CalendarView.Month;
+  CalendarView = CalendarView;
   viewDate: Date = new Date();
   activeDayIsOpen: any = true;
-  modalData: {
-    action: string;
-    event: CalendarEvent;
-  };
+  events: CalendarEvent[] = [];
+  eventos: Evento[] = [];
+  locale: String = 'es';
+  refresh: Subject<any> = new Subject();
 
-  constructor() {}
+  calendarios: Calendario[];
+  criteriosAceptacion: CriterioAceptacion[];
+  selectedCalendario: Calendario;
+  selectedCalendarioId: any;
+  selectedFechaInicio: any;
+  selectedFechaFinal: any;
+  isCriteriosAceptacionLoaded: boolean;
 
   actions: CalendarEventAction[] = [
-    {
+    /*{
       label: '<i class="fa fa-fw fa-pencil"></i>',
       onClick: ({ event }: { event: CalendarEvent }): void => {
         this.handleEvent('Edited', event);
       }
-    },
+    },*/
     {
       label: '<i class="fa fa-fw fa-times"></i>',
       onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.events = this.events.filter(iEvent => iEvent !== event);
+        this.deleteEvent(event);
         this.handleEvent('Deleted', event);
       }
     }
   ];
 
-  refresh: Subject<any> = new Subject();
+  constructor(private calendarioService: CalendarioService, private alertifyService: AlertifyService,
+    private datePipe: DatePipe, private spinner: NgxSpinnerService, private router: Router) {
+  }
 
-  events: CalendarEvent[] = [
-    {
-      start: subDays(startOfDay(new Date()), 1),
-      end: addDays(new Date(), 1),
-      title: 'A 3 day event',
-      color: colors.red,
-      actions: this.actions
-    },
-    {
-      start: startOfDay(new Date()),
-      title: 'An event with no end date',
-      color: colors.yellow,
-      actions: this.actions
-    },
-    {
-      start: subDays(endOfMonth(new Date()), 3),
-      end: addDays(endOfMonth(new Date()), 3),
-      title: 'A long event that spans 2 months',
-      color: colors.blue
-    },
-    {
-      start: addHours(startOfDay(new Date()), 2),
-      end: new Date(),
-      title: 'A draggable and resizable event',
-      color: colors.yellow,
-      actions: this.actions,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true
-      },
-      draggable: true
+  ngOnInit() {
+    this.isCriteriosAceptacionLoaded = false;
+    this.loadCalendarios();
+  }
+
+  loadCalendarios() {
+    this.spinner.show();
+    this.calendarioService.getCalendarios().subscribe((calendarios: Calendario[]) => {
+      this.calendarios = calendarios;
+      if (this.calendarios != null && this.calendarios.length > 0) {
+        const calendario = this.calendarios[this.calendarios.length - 1];
+        if (calendario != null) {
+          this.calendarioSelected(calendario.id);
+        }
+      }
+    }, error => {
+      this.alertifyService.error(error);
+    }, () => {
+      this.spinner.hide();
+    });
+  }
+
+  loadCriteriosAceptacion(idCalendario) {
+    this.spinner.show();
+    this.calendarioService.getCriteriosAceptacion(idCalendario).subscribe((criteriosAceptacion: CriterioAceptacion[]) => {
+      this.criteriosAceptacion = criteriosAceptacion;
+    }, error => {
+      this.alertifyService.error(error);
+    }, () => {
+      this.spinner.hide();
+      this.isCriteriosAceptacionLoaded = true;
+    });
+  }
+
+  eliminarCriterioAceptacionEmitter(isEliminado: boolean) {
+    if (isEliminado) {
+      this.loadCriteriosAceptacion(this.selectedCalendarioId);
+      this.router.navigate(['calendario']);
     }
-  ];
+  }
+
+  calendarioSelected(value) {
+    this.selectedCalendarioId = value;
+    this.selectedCalendario = this.calendarios.find(item => item.id === Number(value));
+    this.selectedFechaInicio = this.datePipe.transform(this.selectedCalendario.fechaInicio, 'dd/MM/yyyy');
+    this.selectedFechaFinal = this.datePipe.transform(this.selectedCalendario.fechaFinal, 'dd/MM/yyyy');
+    this.loadEventos(this.selectedCalendarioId);
+    this.loadCriteriosAceptacion(this.selectedCalendarioId);
+  }
+
+  loadEventos(idCalendario) {
+    this.spinner.show();
+    this.calendarioService.getEventos(idCalendario).subscribe((eventos: Evento[]) => {
+      this.eventos = eventos;
+      this.mapEventosToCalendarEvents(this.eventos);
+    }, error => {
+      this.alertifyService.error(error);
+    }, () => {
+      this.spinner.hide();
+    });
+  }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
-      if (
-        (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
-        events.length === 0
-      ) {
+      if ((isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) || events.length === 0) {
         this.activeDayIsOpen = false;
       } else {
         this.activeDayIsOpen = true;
@@ -109,23 +137,50 @@ export class CalendarioComponent {
   }
 
   handleEvent(action: string, event: CalendarEvent): void {
-    this.modalData = { event, action };
-    // this.modal.open(this.modalContent, { size: 'lg' });
+    console.log(action);
+    console.log(event);
+    const evento = this.eventos.find(item => item.id === event.id);
+    console.log(evento);
   }
 
-  addEvent(): void {
-    this.events.push({
-      title: 'New event',
-      start: startOfDay(new Date()),
-      end: endOfDay(new Date()),
-      color: colors.red,
-      draggable: true,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true
+  deleteEvent(eventToDelete: CalendarEvent) {
+    this.calendarioService.deleteEvento(this.selectedCalendarioId, eventToDelete.id).subscribe((isDeleted: boolean) => {
+      if (isDeleted) {
+        this.alertifyService.success('Se eliminó el evento.');
+        this.loadEventos(this.selectedCalendarioId);
+      } else {
+        this.alertifyService.warning('No se puedo eliminar el evento.');
       }
+    }, error =>  {
+      this.alertifyService.error(error);
     });
+  }
+
+  setView(view: CalendarView) {
+    this.view = view;
+  }
+
+  closeOpenMonthViewDay() {
+    this.activeDayIsOpen = false;
+  }
+
+  mapEventosToCalendarEvents(eventos: Evento[]) {
+    this.events = [];
+    for (const evento of eventos) {
+      this.events.push({
+        id: evento.id,
+        title: evento.titulo.toString(),
+        start: new Date(evento.fechaInicio),
+        end: new Date(evento.fechaFinal),
+        color: {primary: evento.colorPrimario.toString(),
+          secondary: evento.colorSecundario.toString()},
+        resizable: {
+          beforeStart: true,
+          afterEnd: true
+        },
+        actions: this.actions
+      });
+    }
     this.refresh.next();
   }
-
 }

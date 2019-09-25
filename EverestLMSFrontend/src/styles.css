@@ -6,4 +6,5 @@
 @import '../node_modules/alertifyjs/build/css/alertify.min.css';
 @import '../node_modules/alertifyjs/build/css/themes/bootstrap.min.css';
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
-@import "../node_modules/angular-calendar/css/angular-calendar.css";
+@import '../node_modules/angular-calendar/css/angular-calendar.css';
+@import '../node_modules/ngx-bootstrap/datepicker/bs-datepicker.css';

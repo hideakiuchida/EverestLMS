@@ -50,7 +50,7 @@ namespace EverestLMS.MLModelGenerator
             {
                 foreach (var nivel in niveles)
                 {
-                    var cursos = cursoRepository.GetCursosAsync(linea.IdLineaCarrera, nivel.IdNivel).Result;
+                    var cursos = cursoRepository.GetCursosAsync(default, linea.IdLineaCarrera, nivel.IdNivel, default).Result;
                     var participantes = participanteRepository.GetParticipantesAsync(linea.IdLineaCarrera, nivel.IdNivel).Result;
 
                     if (cursos == null || cursos.ToList().Count == default(int))

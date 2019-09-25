@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using EverestLMS.Common.Extensions;
 using EverestLMS.Entities.Models;
+using EverestLMS.ViewModels.Calendario;
 using EverestLMS.ViewModels.Conocimiento;
 using EverestLMS.ViewModels.Curso;
+using EverestLMS.ViewModels.Etapa;
 using EverestLMS.ViewModels.LineaCarrera;
 using EverestLMS.ViewModels.Nivel;
 using EverestLMS.ViewModels.Participante;
@@ -22,6 +24,8 @@ namespace EverestLMS.API.Helpers
             CreateMapConocimiento();
             CreateMapCurso();
             CreateMapSede();
+            CreateMapCalendario();
+            CreateMapEtapa();
         }
 
         private void CreateMapParticipante()
@@ -105,6 +109,13 @@ namespace EverestLMS.API.Helpers
                    opt.MapFrom(d => d.IdNivel);
                });
         }
+        private void CreateMapEtapa()
+        {
+            CreateMap<EtapaEntity, EtapaVM>()
+               .ForMember(dest => dest.Id, opt => {
+                   opt.MapFrom(d => d.IdEtapa);
+               });
+        }
         private void CreateMapSede()
         {
             CreateMap<SedeEntity, SedeVM>()
@@ -121,8 +132,54 @@ namespace EverestLMS.API.Helpers
         }
         private void CreateMapCurso()
         {
-            CreateMap<CursoEntity, CursoVM>();
-            CreateMap<CursoPredictionEntity, CursoPredictionVM>();
+            CreateMap<CursoPredictionEntity, CursoPredictionVM>()
+                 .ForMember(dest => dest.Id, opt => {
+                     opt.MapFrom(d => d.IdCurso);
+                 }); ;
+            CreateMap<CursoEntity, CursoVM>()
+               .ForMember(dest => dest.Id, opt => {
+                   opt.MapFrom(d => d.IdCurso);
+               });
+            CreateMap<CursoDetalleEntity, CursoDetalleVM>()
+               .ForMember(dest => dest.Id, opt => {
+                   opt.MapFrom(d => d.IdCurso);
+               });
+            CreateMap<CursoVM, CursoEntity>()
+               .ForMember(dest => dest.IdCurso, opt => {
+                   opt.MapFrom(d => d.Id);
+               });
+
+            CreateMap<DificultadEntity, DificultadVM>()
+               .ForMember(dest => dest.Id, opt => {
+                   opt.MapFrom(d => d.IdDificultad);
+               });
+            CreateMap<IdiomaEntity, IdiomaVM>()
+               .ForMember(dest => dest.Id, opt => {
+                   opt.MapFrom(d => d.IdIdioma);
+               });
+        }
+        private void CreateMapCalendario()
+        {
+            CreateMap<CalendarioEntity, CalendarioVM>()
+                .ForMember(dest => dest.Id, opt => {
+                    opt.MapFrom(d => d.IdCalendario);
+                }); 
+            CreateMap<EventoEntity, EventoVM>()
+                .ForMember(dest => dest.Id, opt => {
+                    opt.MapFrom(d => d.IdEvento);
+                }); 
+            CreateMap<EventoVM, EventoEntity>()
+                .ForMember(dest => dest.IdEvento, opt => {
+                    opt.MapFrom(d => d.Id);
+                });
+            CreateMap<CriterioAceptacionEntity, CriterioAceptacionVM>()
+               .ForMember(dest => dest.Id, opt => {
+                   opt.MapFrom(d => d.IdCriterioAceptacion);
+               });
+            CreateMap<CriterioAceptacionVM, CriterioAceptacionEntity>()
+                .ForMember(dest => dest.IdCriterioAceptacion, opt => {
+                    opt.MapFrom(d => d.Id);
+                });
         }
     }
 }

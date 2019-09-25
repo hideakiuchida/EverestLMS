@@ -65,7 +65,7 @@ namespace EverestLMS.MLPredictionTrainer
             var predictionengine = mlContext.Model.CreatePredictionEngine<CourseEntry, CursoRatingPrediction>(model);
 
             int? allItemsInteger = default;
-            var cursos = cursoRepository.GetCursosAsync(allItemsInteger, allItemsInteger).Result;
+            var cursos = cursoRepository.GetCursosAsync(allItemsInteger, allItemsInteger, allItemsInteger, default).Result;
             var participantes = participanteRepository.GetParticipantesAsync(allItemsInteger, allItemsInteger).Result;
             foreach (var participante in participantes)
             {

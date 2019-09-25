@@ -116,6 +116,10 @@ namespace EverestLMS.API
             services.AddScoped<IPredictionTrainerService, PredictionTrainerService>();
             services.AddScoped<ICursoService, CursoService>();
             services.AddScoped<ISedeService, SedeService>();
+            services.AddScoped<ICalendarioService, CalendarioService>();
+            services.AddScoped<IIdiomaService, IdiomaService>();
+            services.AddScoped<IDificultadService, DificultadService>();
+            services.AddScoped<IEtapaService, EtapaService>();
         }
 
         private void RegisterRepositories(IServiceCollection services)
@@ -128,6 +132,10 @@ namespace EverestLMS.API
             services.AddScoped<IRatingCursoRepository, RatingCursoRepository>();
             services.AddScoped<IPredictionTrainerRepository, PredictionTrainerRepository>();
             services.AddScoped<ISedeRepository, SedeRepository>();
+            services.AddScoped<ICalendarioRepository, CalendarioRepository>();
+            services.AddScoped<IIdiomaRepository, IdiomaRepository>();
+            services.AddScoped<IDificultadRepository, DificultadRepository>();
+            services.AddScoped<IEtapaRepository, EtapaRepository>();
         }
         #endregion
     }
