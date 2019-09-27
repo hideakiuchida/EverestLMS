@@ -25,6 +25,10 @@ getCursos(idEtapa, idLineaCarrera, idNivel, search): Observable<Curso[]>  {
   { params: { idNivel: this._idNivel, idLineaCarrera: this._idLineaCarrera, search: this._search } });
 }
 
+getCurso(idEtapa, idCurso): Observable<Curso[]>  {
+  return this.http.get<Curso[]>(this.baseUrl + 'etapas/' + idEtapa + '/cursos/' + idCurso);
+}
+
 createCurso(idEtapa, curso: CursoToRegister) {
   return this.http.post(this.baseUrl + 'etapas/' + idEtapa + '/cursos', curso);
 }

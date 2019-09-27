@@ -112,6 +112,7 @@
     <Build Include="dbo\Stored Procedures\DeleteCurso.sql" />
     <Build Include="dbo\Tables\Idioma.sql" />
     <Build Include="dbo\Stored Procedures\GetEtapas.sql" />
+    <Build Include="dbo\Stored Procedures\GetCurso.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Evento.sql" />

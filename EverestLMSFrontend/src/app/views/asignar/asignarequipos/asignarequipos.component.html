@@ -29,7 +29,7 @@
             <button class="btn btn-info mt-3" style="width: 220px" (click)="generarDesasignacion()">Desasignación Automática</button>
         </div>
     </div>
-    <div class="row">
+    <div class="row" *ngIf="sherpas != null && sherpas.length > 0">
         <div class="col-md-4 border">
             <ul class="list-items">
                 <li *ngFor="let sherpa of sherpas" [class.selected]="sherpa === selectedSherpa" (click)="onSelect(sherpa)">

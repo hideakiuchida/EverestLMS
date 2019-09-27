@@ -61,7 +61,7 @@
             <tbody>
                 <tr *ngFor="let curso of cursos">
                     <td>{{ curso.nombre }}</td>
-                    <td>{{ curso.nombre }}</td>
+                    <td>{{ curso.descripcion }}</td>
                     <td>{{ curso.descripcionEtapa }}</td>
                     <td>{{ curso.nombreEtapa }}</td>
                     <td>{{ curso.nivelDescripcion }}</td>
@@ -70,7 +70,7 @@
                     <td>{{ curso.dificultadDescripcion }}</td>
                     <td>{{ curso.idiomaDescripcion }}</td>
                     <td>{{ curso.autor }}</td>
-                    <td> <button [routerLink]="['/formulario-curso', curso.id]" routerLinkActive="router-link-active">*</button> </td>
+                    <td> <button [routerLink]="['/editar-curso', curso.idEtapa, curso.id]" routerLinkActive="router-link-active">*</button> </td>
                     <td> <button (click)="eliminarCurso(curso.idEtapa, curso.id)">-</button> </td>
                 </tr>
             </tbody>

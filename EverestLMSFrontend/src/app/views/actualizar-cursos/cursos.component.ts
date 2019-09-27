@@ -5,9 +5,8 @@ import { Curso } from 'src/app/models/curso';
 import { Nivel } from 'src/app/models/nivel';
 import { LineaCarrera } from 'src/app/models/lineacarrera';
 import { Etapa } from 'src/app/models/etapa';
-import { NivelService } from 'src/app/services/nivel/nivel.service';
-import { LineaCarreraService } from 'src/app/services/lineacarrera/lineacarrera.service';
 import { EtapaService } from 'src/app/services/etapa/etapa.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-cursos',
@@ -26,14 +25,16 @@ export class CursosComponent implements OnInit {
   dtOptions: DataTables.Settings = {};
   isFirstLoad: boolean;
 
-  constructor(private cursoService: CursosService, private nivelService: NivelService,
-    private lineaCarreraService: LineaCarreraService, private etapaService: EtapaService, private alertify: AlertifyService) { }
+  constructor(private cursoService: CursosService, private etapaService: EtapaService,
+    private route: ActivatedRoute, private alertify: AlertifyService) { }
 
   ngOnInit() {
     this.isFirstLoad = true;
+    this.route.data.subscribe(data => {
+      this.niveles = data['niveles'];
+      this.lineaCarreras = data['lineaCarreras'];
+    });
     this.initDatatable();
-    this.loadLineaCarreras();
-    this.loadNiveles();
     this.loadEtapas(this.selectedLineaCarreraId, this.selectedNivelId);
   }
 
@@ -72,22 +73,6 @@ export class CursosComponent implements OnInit {
     this.loadCursos(this.selectedEtapaId, this.selectedLineaCarreraId, this.selectedNivelId, this.search);
   }
 
-  loadLineaCarreras() {
-    this.lineaCarreraService.getLineaCarreras().subscribe((lineaCarreras: LineaCarrera[]) => {
-       this.lineaCarreras = lineaCarreras;
-    }, error => {
-      this.alertify.error(error);
-    });
-  }
-
-  loadNiveles() {
-    this.nivelService.getNiveles().subscribe((niveles: Nivel[]) => {
-       this.niveles = niveles;
-    }, error => {
-      this.alertify.error(error);
-    });
-  }
-
   loadEtapas(idLineaCarrera, idNivel) {
     this.etapaService.getEtapas(idLineaCarrera, idNivel, null).subscribe((etapas: Etapa[]) => {
        this.etapas = etapas;
@@ -115,6 +100,7 @@ export class CursosComponent implements OnInit {
     this.cursoService.deleteCurso(idEtapa, idCurso).subscribe((deleted: boolean) => {
       if (deleted) {
         this.alertify.success('Se elimino el curso');
+        this.loadCursos(this.selectedEtapaId, this.selectedLineaCarreraId, this.selectedNivelId, this.search);
       } else {
         this.alertify.warning('No se pudo eliminar el curso');
       }

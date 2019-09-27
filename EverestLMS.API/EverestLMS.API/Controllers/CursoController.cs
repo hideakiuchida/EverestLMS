@@ -17,6 +17,14 @@ namespace EverestLMS.API.Controllers
         }
 
         [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> GetCursosAsync(int idEtapa, int id)
+        {
+            var result = await service.GetCursoAsync(idEtapa, id);
+            return Ok(result);
+        }
+
+        [HttpGet]
         public async Task<IActionResult> GetCursosAsync(int idEtapa, int? idLineaCarrera, int? idNivel, string search)
         {
             var result = await service.GetCursosAsync(idEtapa, idLineaCarrera, idNivel, search);
@@ -24,7 +32,7 @@ namespace EverestLMS.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateCursoAsync(int idEtapa, CursoVM cursoVM)
+        public async Task<IActionResult> CreateCursoAsync(int idEtapa, CursoToCreateVM cursoVM)
         {
             cursoVM.IdEtapa = idEtapa;
             var result = await service.CreateCursoAsync(cursoVM);
@@ -33,7 +41,7 @@ namespace EverestLMS.API.Controllers
 
         [HttpPut]
         [Route("{id}")]
-        public async Task<IActionResult> EditCursoAsync(int idEtapa, int id, CursoVM cursoVM)
+        public async Task<IActionResult> EditCursoAsync(int idEtapa, int id, CursoToUpdateVM cursoVM)
         {
             cursoVM.IdEtapa = idEtapa;
             cursoVM.Id = id;

@@ -98,6 +98,23 @@ namespace EverestLMS.Repository.DapperImplementations
             }
         }
 
+        public async Task<CursoToUpdateEntity> GetCursoAsync(int idEtapa, int idCurso)
+        {
+            try
+            {
+                if (_dbConnection.State == ConnectionState.Closed)
+                    _dbConnection.Open();
+                var result = await _dbConnection.QueryAsync<CursoToUpdateEntity>("GetCurso", new { IdEtapa = idEtapa, IdCurso = idCurso }, commandType: CommandType.StoredProcedure);
+                _dbConnection.Close();
+                return result.FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                logger?.LogError("An error ocurred with exception: {@Exception}", ex);
+                return default;
+            }
+        }
+
         public async Task<IEnumerable<CursoDetalleEntity>> GetCursosAsync(int? idEtapa, int? idLineaCarrera, int? idNivel, string search)
         {
             try

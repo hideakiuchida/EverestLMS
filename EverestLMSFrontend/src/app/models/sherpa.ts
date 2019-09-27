@@ -1,4 +1,5 @@
 import { Conocimiento } from './conocimiento';
+import { Escalador } from './escalador';
 
 export interface Sherpa {
     id: number;
@@ -19,4 +20,5 @@ export interface Sherpa {
     conocimientosString: string;
     añosExperiencia: number;
     calificacion: number;
+    escaladores: Escalador[];
 }

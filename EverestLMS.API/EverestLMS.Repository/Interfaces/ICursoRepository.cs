@@ -11,5 +11,6 @@ namespace EverestLMS.Repository.Interfaces
         Task<int> CreateCursoAsync(CursoEntity cursoEntity);
         Task<bool> EditCursoASync(CursoEntity cursoEntity);
         Task<bool> DeleteCursoAsync(int idEtapa, int idCurso);
+        Task<CursoToUpdateEntity> GetCursoAsync(int idEtapa, int idCurso);
     }
 }

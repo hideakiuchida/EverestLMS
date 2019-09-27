@@ -24,7 +24,7 @@ namespace EverestLMS.Services.Implementations
             this.mapper = mapper;
         }
 
-        public async Task<int> CreateCursoAsync(CursoVM cursoVM)
+        public async Task<int> CreateCursoAsync(CursoToCreateVM cursoVM)
         {
             var cursoEntity = mapper.Map<CursoEntity>(cursoVM);
             var idCurso = await repository.CreateCursoAsync(cursoEntity);
@@ -36,7 +36,7 @@ namespace EverestLMS.Services.Implementations
             return await repository.DeleteCursoAsync(idEtapa, idCurso);
         }
 
-        public async Task<bool> EditCursoASync(CursoVM cursoVM)
+        public async Task<bool> EditCursoASync(CursoToUpdateVM cursoVM)
         {
             var cursoEntity = mapper.Map<CursoEntity>(cursoVM);
             var updated = await repository.EditCursoASync(cursoEntity);
@@ -60,6 +60,13 @@ namespace EverestLMS.Services.Implementations
                 cursoPredictedByParticipantVMs.Add(cursoPredictedByParticipantVM);
             }
             return cursoPredictedByParticipantVMs;
+        }
+
+        public async Task<CursoToUpdateVM> GetCursoAsync(int idEtapa, int idCurso)
+        {
+            var cursoEntity = await repository.GetCursoAsync(idEtapa, idCurso);
+            var cursoVM = mapper.Map<CursoToUpdateVM>(cursoEntity);
+            return cursoVM;
         }
 
         public async Task<IEnumerable<CursoDetalleVM>> GetCursosAsync(int? idEtapa, int? idLineaCarrera, int? idNivel, string search)

@@ -5,7 +5,7 @@
     [IdDificultad]  INT           NULL,
     [Idioma]        INT           NULL,
     [Puntaje]       INT           NOT NULL,
-    [Imagen]        VARCHAR (200) NOT NULL,
+    [Imagen]        VARCHAR (200) NULL,
     [Autor]         VARCHAR (200) NOT NULL,
     [FechaCreacion] DATETIME2 (0) NOT NULL,
     [IdEtapa]       INT           NULL,

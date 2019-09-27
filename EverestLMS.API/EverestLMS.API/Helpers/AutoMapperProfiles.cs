@@ -144,9 +144,23 @@ namespace EverestLMS.API.Helpers
                .ForMember(dest => dest.Id, opt => {
                    opt.MapFrom(d => d.IdCurso);
                });
-            CreateMap<CursoVM, CursoEntity>()
+            CreateMap<CursoToUpdateVM, CursoEntity>()
                .ForMember(dest => dest.IdCurso, opt => {
                    opt.MapFrom(d => d.Id);
+               })
+               .ForMember(dest => dest.Idioma, opt => {
+                   opt.MapFrom(d => d.IdIdioma);
+               });
+            CreateMap<CursoToUpdateEntity, CursoToUpdateVM>()
+               .ForMember(dest => dest.Id, opt => {
+                   opt.MapFrom(d => d.IdCurso);
+               })
+               .ForMember(dest => dest.IdIdioma, opt => {
+                   opt.MapFrom(d => d.Idioma);
+               });
+            CreateMap<CursoToCreateVM, CursoEntity>()
+               .ForMember(dest => dest.Idioma, opt => {
+                   opt.MapFrom(d => d.IdIdioma);
                });
 
             CreateMap<DificultadEntity, DificultadVM>()

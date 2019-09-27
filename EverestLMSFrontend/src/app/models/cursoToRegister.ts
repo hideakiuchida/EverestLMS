@@ -5,7 +5,9 @@ export interface CursoToRegister {
     idEtapa: number;
     puntaje: number;
     idDificultad: number;
-    idioma: number;
-    numeroOrden: number;
+    idIdioma: number;
     autor: string;
+    imagen: string;
+    idNivel?: number;
+    idLineaCarrera?: number;
 }

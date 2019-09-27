@@ -38,8 +38,15 @@ import { CriterioAceptacionComponent } from './views/planificarcalendario/criter
 import { CriteriosAceptacionResolver } from './resolvers/calendario/criteriosaceptacion.resolver';
 // tslint:disable-next-line:max-line-length
 import { RegistrocristerioaceptacionComponent } from './views/planificarcalendario/registrocristerioaceptacion/registrocristerioaceptacion.component';
-import { CursosComponent } from './views/cursos/cursos.component';
+import { NivelResolver } from './resolvers/nivel/nivel.resolver';
+import { LineaCarreraResolver } from './resolvers/lineacarrera/lineacarrera.resolver';
+import { CursosComponent } from './views/actualizar-cursos/cursos.component';
+import { FormularioCursoComponent } from './views/actualizar-cursos/formulario-curso/formulario-curso.component';
 import { CursosService } from './services/curso/cursos.service';
+import { IdiomaResolver } from './resolvers/idiomas/idioma.resolver';
+import { DificultadResolver } from './resolvers/dificultades/dificultad.resolver';
+import { CursoResolver } from './resolvers/curso/curso.resolver';
+import { EditarCursoComponent } from './views/actualizar-cursos/editar-curso/editar-curso.component';
 
 registerLocaleData(localeEs);
 
@@ -56,7 +63,9 @@ registerLocaleData(localeEs);
       EventoComponent,
       CriterioAceptacionComponent,
       RegistrocristerioaceptacionComponent,
-      CursosComponent
+      CursosComponent,
+      FormularioCursoComponent,
+      EditarCursoComponent
    ],
    imports: [
       BrowserModule,
@@ -88,6 +97,11 @@ registerLocaleData(localeEs);
       SedeService,
       SherpaResolver,
       EscaladoresResolver,
+      NivelResolver,
+      LineaCarreraResolver,
+      IdiomaResolver,
+      DificultadResolver,
+      CursoResolver,
       CriteriosAceptacionResolver,
       DatePipe,
       CursosService
