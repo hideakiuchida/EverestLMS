@@ -2,6 +2,7 @@
 using EverestLMS.Common.Extensions;
 using EverestLMS.Entities.Models;
 using EverestLMS.ViewModels.Calendario;
+using EverestLMS.ViewModels.CloudinaryFile;
 using EverestLMS.ViewModels.Conocimiento;
 using EverestLMS.ViewModels.Curso;
 using EverestLMS.ViewModels.Etapa;
@@ -26,8 +27,10 @@ namespace EverestLMS.API.Helpers
             CreateMapSede();
             CreateMapCalendario();
             CreateMapEtapa();
+            CreateMapCloudinaryFile();
         }
 
+        #region Privates Methods
         private void CreateMapParticipante()
         {
             CreateMap<ParticipanteToCreateVM, ParticipanteEntity>()
@@ -195,5 +198,19 @@ namespace EverestLMS.API.Helpers
                     opt.MapFrom(d => d.Id);
                 });
         }
+
+        private void CreateMapCloudinaryFile()
+        {
+            CreateMap<CloudinaryFileEntity, CloudinaryFileVM>()
+                .ForMember(dest => dest.Id, opt => {
+                    opt.MapFrom(d => d.IdCloudinaryFile);
+                });
+            CreateMap<CloudinaryFileToCreateVM, CloudinaryFileEntity>();
+            CreateMap<CloudinaryFileToUpdateVM, CloudinaryFileEntity>()
+                .ForMember(dest => dest.IdCloudinaryFile, opt => {
+                    opt.MapFrom(d => d.Id);
+                });
+        }
+        #endregion
     }
 }

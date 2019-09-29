@@ -113,6 +113,24 @@
     <Build Include="dbo\Tables\Idioma.sql" />
     <Build Include="dbo\Stored Procedures\GetEtapas.sql" />
     <Build Include="dbo\Stored Procedures\GetCurso.sql" />
+    <Build Include="dbo\Tables\CloudinaryFile.sql" />
+    <Build Include="dbo\Tables\Usuario.sql" />
+    <Build Include="dbo\Tables\Rol.sql" />
+    <Build Include="dbo\Stored Procedures\CreateCloudinaryFile.sql" />
+    <Build Include="dbo\Stored Procedures\EditCloudinaryFile.sql" />
+    <Build Include="dbo\Stored Procedures\DeleteCloudinaryFile.sql" />
+    <Build Include="dbo\Stored Procedures\GetCloudinaryFiles.sql" />
+    <Build Include="dbo\Stored Procedures\GetCloudinaryFile.sql" />
+    <Build Include="dbo\Stored Procedures\GetLecciones.sql" />
+    <Build Include="dbo\Stored Procedures\CreateLeccion.sql" />
+    <Build Include="dbo\Stored Procedures\EditLeccion.sql" />
+    <Build Include="dbo\Stored Procedures\DeleteLeccion.sql" />
+    <Build Include="dbo\Stored Procedures\GetLeccion.sql" />
+    <Build Include="dbo\Stored Procedures\CreateLeccionMaterial.sql" />
+    <Build Include="dbo\Stored Procedures\EditLeccionMaterial.sql" />
+    <Build Include="dbo\Stored Procedures\DeleteLeccionMaterial.sql" />
+    <Build Include="dbo\Stored Procedures\GetLeccionesMaterial.sql" />
+    <Build Include="dbo\Stored Procedures\GetLeccionMaterial.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Evento.sql" />
@@ -131,5 +149,6 @@
   <ItemGroup>
     <None Include="EverestLMS.Database.publish.xml" />
     <None Include="PostDeploymentData\01_Idioma.sql" />
+    <None Include="PostDeploymentData\01_Rol.sql" />
   </ItemGroup>
 </Project>

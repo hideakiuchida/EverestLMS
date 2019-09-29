@@ -17,6 +17,8 @@ import { IdiomaResolver } from './resolvers/idiomas/idioma.resolver';
 import { DificultadResolver } from './resolvers/dificultades/dificultad.resolver';
 import { CursoResolver } from './resolvers/curso/curso.resolver';
 import { EditarCursoComponent } from './views/actualizar-cursos/editar-curso/editar-curso.component';
+import { EditarImagenComponent } from './views/actualizar-cursos/editar-imagen/editar-imagen.component';
+import { CursoImagenResolver } from './resolvers/curso/curso-imagen.resolver';
 
 export const appRoutes: Routes = [
     { path: 'home', component: HomeComponent},
@@ -26,6 +28,7 @@ export const appRoutes: Routes = [
         resolve: {niveles: NivelResolver, lineaCarreras: LineaCarreraResolver}},
     { path: 'formulario-curso', component: FormularioCursoComponent,
         resolve: {niveles: NivelResolver, lineaCarreras: LineaCarreraResolver, idiomas: IdiomaResolver, dificultades: DificultadResolver}},
+    { path: 'editar-imagen/:idEtapa/:idCurso', component: EditarImagenComponent, resolve: {imagenes: CursoImagenResolver}},
     { path: 'editar-curso/:idEtapa/:idCurso', component: EditarCursoComponent,
         resolve: {niveles: NivelResolver, lineaCarreras: LineaCarreraResolver, idiomas: IdiomaResolver,
                   dificultades: DificultadResolver, curso: CursoResolver}},

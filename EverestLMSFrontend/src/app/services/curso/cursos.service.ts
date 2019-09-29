@@ -4,6 +4,7 @@ import { Curso } from 'src/app/models/curso';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { CursoToRegister } from 'src/app/models/cursoToRegister';
+import { Imagen } from 'src/app/models/imagen';
 
 @Injectable({
   providedIn: 'root'
@@ -39,5 +40,17 @@ editCurso(idEtapa, idCurso, curso: CursoToRegister) {
 
 deleteCurso(idEtapa, idCurso) {
   return this.http.delete(this.baseUrl + 'etapas/' + idEtapa + '/cursos/' + idCurso);
+}
+
+getImagenes(idEtapa, idCurso) {
+  return this.http.get<Imagen[]>(this.baseUrl + 'etapas/' + idEtapa + '/cursos/' + idCurso + '/imagenes');
+}
+
+getImagen(idEtapa, idCurso, idImagen) {
+  return this.http.get<Imagen>(this.baseUrl + 'etapas/' + idEtapa + '/cursos/' + idCurso + '/imagenes/' + idImagen);
+}
+
+deleteImagen(idEtapa, idCurso, idImagen) {
+  return this.http.delete(this.baseUrl + 'etapas/' + idEtapa + '/cursos/' + idCurso + '/imagenes/' + idImagen);
 }
 }

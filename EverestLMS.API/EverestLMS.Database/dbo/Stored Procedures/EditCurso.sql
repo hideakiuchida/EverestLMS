@@ -21,6 +21,6 @@ SET NOCOUNT ON;
 	Puntaje = CASE WHEN @Puntaje IS NULL THEN Puntaje ELSE @Puntaje END,
 	Imagen = CASE WHEN @Imagen IS NULL THEN Imagen ELSE @Imagen END,
 	Autor = CASE WHEN @Autor IS NULL THEN Autor ELSE @Autor END
-    WHERE IdCurso = @IdCurso AND @IdEtapa = IdEtapa;
+    WHERE IdCurso = @IdCurso AND IdEtapa = @IdEtapa;
 	SELECT @@ROWCOUNT;
 END;

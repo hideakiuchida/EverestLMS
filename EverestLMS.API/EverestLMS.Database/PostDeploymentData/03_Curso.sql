@@ -1,4 +1,5 @@
-﻿DELETE FROM curso;
+﻿DELETE FROM CloudinaryFile;
+DELETE FROM curso;
 
 INSERT INTO curso (IdCurso,Nombre,Descripcion,IdDificultad,Idioma,Puntaje,Imagen,Autor,FechaCreacion,IdEtapa) VALUES (1,'Metodología de Análisis de Negocio de Avantica','Metodología de Análisis de Negocio de Avantica',1,1,10,'Imagen','Alonso Uchida','2019-05-30 00:00:00',1);
 INSERT INTO curso (IdCurso,Nombre,Descripcion,IdDificultad,Idioma,Puntaje,Imagen,Autor,FechaCreacion,IdEtapa) VALUES (2,'Funciones de un analista funcional / requerimientos','Funciones de un analista funcional / requerimientos',1,1,10,'Imagen','Alonso Uchida','2019-05-30 00:00:00',1);

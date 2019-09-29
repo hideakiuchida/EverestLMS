@@ -12,6 +12,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import localeEs from '@angular/common/locales/es';
 import { BsDatepickerModule, TimepickerModule } from 'ngx-bootstrap';
+import { FileUploadModule } from 'ng2-file-upload';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './views/nav/nav.component';
@@ -47,6 +48,8 @@ import { IdiomaResolver } from './resolvers/idiomas/idioma.resolver';
 import { DificultadResolver } from './resolvers/dificultades/dificultad.resolver';
 import { CursoResolver } from './resolvers/curso/curso.resolver';
 import { EditarCursoComponent } from './views/actualizar-cursos/editar-curso/editar-curso.component';
+import { EditarImagenComponent } from './views/actualizar-cursos/editar-imagen/editar-imagen.component';
+import { CursoImagenResolver } from './resolvers/curso/curso-imagen.resolver';
 
 registerLocaleData(localeEs);
 
@@ -65,7 +68,8 @@ registerLocaleData(localeEs);
       RegistrocristerioaceptacionComponent,
       CursosComponent,
       FormularioCursoComponent,
-      EditarCursoComponent
+      EditarCursoComponent,
+      EditarImagenComponent
    ],
    imports: [
       BrowserModule,
@@ -78,6 +82,7 @@ registerLocaleData(localeEs);
       MatIconModule,
       NgxSpinnerModule,
       BrowserAnimationsModule,
+      FileUploadModule,
       FlatpickrModule.forRoot(),
       CalendarModule.forRoot({
         provide: DateAdapter,
@@ -104,7 +109,8 @@ registerLocaleData(localeEs);
       CursoResolver,
       CriteriosAceptacionResolver,
       DatePipe,
-      CursosService
+      CursosService,
+      CursoImagenResolver
    ],
    bootstrap: [
       AppComponent

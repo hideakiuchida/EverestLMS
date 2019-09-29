@@ -1,4 +1,5 @@
 ﻿using EverestLMS.Services.Interfaces;
+using EverestLMS.ViewModels.CloudinaryFile;
 using EverestLMS.ViewModels.Curso;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -10,10 +11,12 @@ namespace EverestLMS.API.Controllers
     public class CursoController : ControllerBase
     {
         private readonly ICursoService service;
+        private readonly ICloudinaryFileService cloudinaryFileService;
 
-        public CursoController(ICursoService service)
+        public CursoController(ICursoService service, ICloudinaryFileService cloudinaryFileService)
         {
             this.service = service;
+            this.cloudinaryFileService = cloudinaryFileService;
         }
 
         [HttpGet]
@@ -57,5 +60,47 @@ namespace EverestLMS.API.Controllers
             return Ok(result);
         }
 
+        [HttpGet]
+        [Route("{id}/imagenes/{idImagen}")]
+        public async Task<IActionResult> GetSepecificCloudinaryFilesAsync(int id, int idImagen)
+        {
+            var result = await cloudinaryFileService.GetSpecificCloudinaryFilesAsync(idImagen, id);
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("{id}/imagenes")]
+        public async Task<IActionResult> GetCloudinaryFilesAsync(int id)
+        {
+            var result = await cloudinaryFileService.GetCloudinaryFilesAsync(id);
+            return Ok(result);
+        }
+
+        [HttpPost]
+        [Route("{id}/imagenes")]
+        public async Task<IActionResult> CreateCloudinaryFileAsync(int id, [FromForm]CloudinaryFileToCreateVM cloudinaryFileToCreateVM)
+        {
+            cloudinaryFileToCreateVM.IdReferencia = id;
+            var result = await cloudinaryFileService.CreateCloudinaryFileAsync(cloudinaryFileToCreateVM);
+            return Ok(result);
+        }
+
+        [HttpPut]
+        [Route("{id}/imagenes/{idImagen}")]
+        public async Task<IActionResult> EditCloudinaryFileAsync(int id, int idImagen, [FromForm]CloudinaryFileToUpdateVM cloudinaryFileToUpdateVM)
+        {
+            cloudinaryFileToUpdateVM.IdReferencia = id;
+            cloudinaryFileToUpdateVM.Id = idImagen;
+            var result = await cloudinaryFileService.EditCloudinaryFileAsync(cloudinaryFileToUpdateVM);
+            return Ok(result);
+        }
+
+        [HttpDelete]
+        [Route("{id}/imagenes/{idImagen}")]
+        public async Task<IActionResult> DeleteCloudinaryFileAsync(int id, int idImagen)
+        {
+            var result = await cloudinaryFileService.DeleteCloudinaryFileAsync(idImagen, id);
+            return Ok(result);
+        }
     }
 }

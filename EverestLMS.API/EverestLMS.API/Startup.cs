@@ -43,6 +43,7 @@ namespace EverestLMS.API
             services.AddCors();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddLogging(loggingBuilder => loggingBuilder.AddSerilog(dispose: true));
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
             services.AddSwaggerGen(x =>
             {
                 x.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "Everest LMS API", Version = "v1" });
@@ -120,6 +121,7 @@ namespace EverestLMS.API
             services.AddScoped<IIdiomaService, IdiomaService>();
             services.AddScoped<IDificultadService, DificultadService>();
             services.AddScoped<IEtapaService, EtapaService>();
+            services.AddScoped<ICloudinaryFileService, CloudinaryFileService>();
         }
 
         private void RegisterRepositories(IServiceCollection services)
@@ -136,6 +138,7 @@ namespace EverestLMS.API
             services.AddScoped<IIdiomaRepository, IdiomaRepository>();
             services.AddScoped<IDificultadRepository, DificultadRepository>();
             services.AddScoped<IEtapaRepository, EtapaRepository>();
+            services.AddScoped<ICloudinaryFileRepository, CloudinaryFileRepository>();
         }
         #endregion
     }

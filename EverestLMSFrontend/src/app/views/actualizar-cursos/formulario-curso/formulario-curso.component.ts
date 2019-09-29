@@ -26,6 +26,7 @@ export class FormularioCursoComponent implements OnInit {
   selectedLineaCarreraId: any;
   cursoForm: FormGroup;
   cursoToRegiter: CursoToRegister;
+  idCurso: number;
 
   constructor(private formBuilder: FormBuilder, private cursoService: CursosService, private etapaService: EtapaService,
     private route: ActivatedRoute, private alertify: AlertifyService, private router: Router) { }
@@ -81,12 +82,13 @@ export class FormularioCursoComponent implements OnInit {
       this.cursoToRegiter = Object.assign({}, this.cursoForm.value);
       this.cursoToRegiter.autor = 'Alonso Uchida'; // TODO cambiar por usuario del Token
       this.cursoToRegiter.imagen = 'Imagen 1';
-      this.cursoService.createCurso(this.cursoToRegiter.idEtapa, this.cursoToRegiter).subscribe(() => {
+      this.cursoService.createCurso(this.cursoToRegiter.idEtapa, this.cursoToRegiter).subscribe((idCurso: number) => {
+        this.idCurso = idCurso;
         this.alertify.success('Se registró existosamente.');
       }, error => {
         this.alertify.error(error);
       }, () => {
-        this.router.navigate(['cursos']);
+        this.router.navigate(['editar-imagen', this.cursoToRegiter.idEtapa, this.idCurso]);
       });
     } else {
       this.alertify.warning('Falta llenar campos.');

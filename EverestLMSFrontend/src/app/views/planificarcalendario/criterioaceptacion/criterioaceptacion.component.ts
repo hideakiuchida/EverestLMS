@@ -2,7 +2,6 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CriterioAceptacion } from 'src/app/models/criterioaceptacion';
 import { CalendarioService } from 'src/app/services/calendario/calendario.service';
 import { AlertifyService } from 'src/app/services/alertify/alertify.service';
-import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-criterioaceptacion',

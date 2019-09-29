@@ -90,7 +90,7 @@ export class EditarCursoComponent implements OnInit {
       }, error => {
         this.alertify.error(error);
       }, () => {
-        this.router.navigate(['cursos']);
+        this.router.navigate(['editar-imagen', this.cursoToRegiter.idEtapa, this.cursoToRegiter.id]);
       });
     } else {
       this.alertify.warning('Falta llenar campos.');

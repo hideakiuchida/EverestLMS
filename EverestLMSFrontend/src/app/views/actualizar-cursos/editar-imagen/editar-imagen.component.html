@@ -1,0 +1,68 @@
+<div class="container">
+    <h3 class="text-center text-primary mt-3 mb-3">Agregar Imagen del Curso</h3>
+    <div class="row text-center" *ngIf="imagen">
+        <div class="col-md-12">
+            <img class="thumbnail" src="{{imagen.url}}" alt="">
+            <div>
+                <button type="button" class="btn btn-xs btn-danger" (click)="eliminarImagen(imagen.id)">
+              <i class="fa fa-trash-o"></i>
+            </button>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="nombre" class="font-weight-bold">Seleccionar Imagen: </label>
+                <input type="file" ng2FileSelect [uploader]="uploader" [disabled]="imagen" />
+            </div>
+
+        </div>
+
+        <div class="col-md-9" style="margin-bottom: 40px">
+
+            <h3>Subir a la cola</h3>
+            <p>Tamaño de cola: {{ uploader?.queue?.length }}</p>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th width="50%">Nombre</th>
+                        <th>Tamaño</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of uploader.queue">
+                        <td><strong>{{ item?.file?.name }}</strong></td>
+                        <td nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div *ngIf="uploader?.queue?.length">
+                <div>
+                    Cola en Progreso:
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-success btn-s m-1" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+                    <span class="glyphicon glyphicon-upload"></span> Subir todo
+                </button>
+                <button type="button" class="btn btn-warning btn-s  m-1" (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
+                    <span class="glyphicon glyphicon-ban-circle"></span> Cancelar
+                </button>
+                <button type="button" class="btn btn-danger btn-s  m-1" (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
+                    <span class="glyphicon glyphicon-trash"></span> Remover
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row text-center col-md-12">
+        <button type="button" class="btn btn-primary col-md-12" [routerLink]="['/cursos']">Finalizar</button>
+    </div>
+
+</div>
