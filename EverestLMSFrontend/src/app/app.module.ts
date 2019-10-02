@@ -50,6 +50,31 @@ import { CursoResolver } from './resolvers/curso/curso.resolver';
 import { EditarCursoComponent } from './views/actualizar-cursos/editar-curso/editar-curso.component';
 import { EditarImagenComponent } from './views/actualizar-cursos/editar-imagen/editar-imagen.component';
 import { CursoImagenResolver } from './resolvers/curso/curso-imagen.resolver';
+import { LeccionService } from './services/leccion/leccion.service';
+import { LeccionMaterialResolver } from './resolvers/leccion/leccion-material.resolver';
+import { LeccionMaterialesResolver } from './resolvers/leccion/leccion-materiales.resolver';
+import { LeccionResolver } from './resolvers/leccion/leccion.resolver';
+import { ActualizarLeccionesComponent } from './views/actualizar-lecciones/actualizar-lecciones.component';
+import { RegistrarLeccionComponent } from './views/actualizar-lecciones/registrar-leccion/registrar-leccion.component';
+import { EditarLeccionComponent } from './views/actualizar-lecciones/editar-leccion/editar-leccion.component';
+// tslint:disable-next-line:max-line-length
+import { ActualizarLeccionMaterialComponent } from './views/actualizar-lecciones/actualizar-leccion-material/actualizar-leccion-material.component';
+// tslint:disable-next-line:max-line-length
+import { RegistrarLeccionMaterialComponent } from './views/actualizar-lecciones/actualizar-leccion-material/registrar-leccion-material/registrar-leccion-material.component';
+import { TipoContenidoResolver } from './resolvers/tipocontenido/tipocontenido.resolver';
+import { TipocontenidoService } from './services/tipocontenido/tipocontenido.service';
+// tslint:disable-next-line:max-line-length
+import { RegistrarVideoMaterialComponent } from './views/actualizar-lecciones/actualizar-leccion-material/registrar-video-material/registrar-video-material.component';
+// tslint:disable-next-line:max-line-length
+import { RegistrarPresentacionMaterialComponent } from './views/actualizar-lecciones/actualizar-leccion-material/registrar-presentacion-material/registrar-presentacion-material.component';
+import { RealizarCursosComponent } from './views/realizar-cursos/realizar-cursos.component';
+import { CursosPrediccionParticipanteResolver } from './resolvers/curso-participante/cursos-prediccion-participante.resolver';
+import { CursosParticipanteResolver } from './resolvers/curso-participante/cursos-participante.resolver';
+import { CursoParticipanteService } from './services/curso-participante/curso-participante.service';
+import { EtapaService } from './services/etapa/etapa.service';
+import { EtapaParticipanteService } from './services/etapa-participante/etapa-participante.service';
+import { EtapasParticipanteResolver } from './resolvers/etapa-participante/etapa-participante.resolver';
+import { CursoCardComponent } from './views/realizar-cursos/curso-card/curso-card.component';
 
 registerLocaleData(localeEs);
 
@@ -69,7 +94,16 @@ registerLocaleData(localeEs);
       CursosComponent,
       FormularioCursoComponent,
       EditarCursoComponent,
-      EditarImagenComponent
+      EditarImagenComponent,
+      ActualizarLeccionesComponent,
+      RegistrarLeccionComponent,
+      EditarLeccionComponent,
+      ActualizarLeccionMaterialComponent,
+      RegistrarLeccionMaterialComponent,
+      RegistrarVideoMaterialComponent,
+      RegistrarPresentacionMaterialComponent,
+      RealizarCursosComponent,
+      CursoCardComponent
    ],
    imports: [
       BrowserModule,
@@ -110,7 +144,19 @@ registerLocaleData(localeEs);
       CriteriosAceptacionResolver,
       DatePipe,
       CursosService,
-      CursoImagenResolver
+      CursoImagenResolver,
+      LeccionService,
+      LeccionMaterialResolver,
+      LeccionMaterialesResolver,
+      LeccionResolver,
+      TipoContenidoResolver,
+      TipocontenidoService,
+      CursosPrediccionParticipanteResolver,
+      CursosParticipanteResolver,
+      CursoParticipanteService,
+      EtapaService,
+      EtapaParticipanteService,
+      EtapasParticipanteResolver
    ],
    bootstrap: [
       AppComponent

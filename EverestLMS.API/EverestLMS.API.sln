@@ -29,13 +29,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. Web", "4. Web", "{DA40D0
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5. Tests", "5. Tests", "{1456D2F9-FCCF-46F8-A2CD-8AC61C565146}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EverestLMS.MLModelGenerator", "EverestLMS.MLModelGenerator\EverestLMS.MLModelGenerator.csproj", "{AE3E5A58-B1E7-4DCA-A76A-FAEA67530C57}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EverestLMS.GeneradorCursoRating", "EverestLMS.MLModelGenerator\EverestLMS.GeneradorCursoRating.csproj", "{AE3E5A58-B1E7-4DCA-A76A-FAEA67530C57}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EverestLMS.MLPredictionTrainer", "EverestLMS.MLPredictionTrainer\EverestLMS.MLPredictionTrainer.csproj", "{781A6817-A9D0-46CA-9897-F961E8A5F297}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EverestLMS.Scheduler", "EverestLMS.Scheduler\EverestLMS.Scheduler.csproj", "{686B3DB4-546A-445E-9151-A84F0BA12EC8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EverestLMS.Core", "EverestLMS.Core\EverestLMS.Core.csproj", "{E32B0E7F-A313-4130-9728-63AA5D1B2CEB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EverestLMS.Core", "EverestLMS.Core\EverestLMS.Core.csproj", "{E32B0E7F-A313-4130-9728-63AA5D1B2CEB}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "EverestLMS.Database", "EverestLMS.Database\EverestLMS.Database.sqlproj", "{09FF1250-3972-46D7-8922-728A2AA1CA2C}"
 EndProject

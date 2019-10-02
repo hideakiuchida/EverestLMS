@@ -3,7 +3,10 @@
 	@Descripcion varchar(100),
 	@IdPublico varchar(100),
 	@Url varchar(500),	
-	@IdReferencia INT NULL
+	@IdCurso INT NULL,
+	@IdPregunta INT NULL,
+	@IdRespuesta INT NULL,
+	@IdUsuario INT NULL
 AS
 BEGIN
 	UPDATE  [dbo].[CloudinaryFile] 
@@ -11,6 +14,9 @@ BEGIN
 	IdPublico = CASE WHEN @IdPublico IS NULL THEN IdPublico ELSE @IdPublico END, 
 	[Url] = CASE WHEN @Url IS NULL THEN [Url] ELSE @Url END
     WHERE IdCloudinaryFile = @IdCloudinaryFile 
-	AND (@IdReferencia IS NULL OR IdReferencia = @IdReferencia);
+	AND (@IdCurso IS NULL OR IdCurso = @IdCurso)
+	AND (@IdPregunta IS NULL OR IdPregunta = @IdPregunta)
+	AND (@IdRespuesta IS NULL OR IdRespuesta = @IdRespuesta)
+	AND (@IdUsuario IS NULL OR IdUsuario = @IdUsuario);
 	SELECT @@ROWCOUNT;
 END

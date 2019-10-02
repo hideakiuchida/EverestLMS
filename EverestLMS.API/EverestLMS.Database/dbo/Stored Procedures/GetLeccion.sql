@@ -7,7 +7,6 @@ BEGIN
 SELECT l.[IdLeccion]
       ,l.[Nombre]
       ,l.[Descripcion]
-      ,l.[IdDificultad]
       ,l.[Puntaje]
       ,l.[NumeroOrden]
       ,l.[FechaCreacion]

@@ -6,6 +6,8 @@ BEGIN
 SELECT [IdLeccionMaterial]
       ,[Titulo]
       ,[ContenidoTexto]
+	  ,[IdPublico]
+	  ,[Url]
       ,[IdPresentacion]
       ,[IdTipoContenido]
       ,[IdLeccion]

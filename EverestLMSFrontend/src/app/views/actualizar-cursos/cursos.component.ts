@@ -43,7 +43,7 @@ export class CursosComponent implements OnInit {
       pagingType: 'full_numbers',
       pageLength: 10,
       processing: true,
-      paging: false,
+      paging: true,
       searching: false,
       info: false
     };

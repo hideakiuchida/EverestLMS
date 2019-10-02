@@ -30,7 +30,10 @@ namespace EverestLMS.Repository.DapperImplementations
                         cloudinaryFileEntity.Descripcion,
                         cloudinaryFileEntity.IdPublico,
                         cloudinaryFileEntity.Url,
-                        cloudinaryFileEntity.IdReferencia
+                        cloudinaryFileEntity.IdCurso,
+                        cloudinaryFileEntity.IdPregunta,
+                        cloudinaryFileEntity.IdRespuesta,
+                        cloudinaryFileEntity.IdUsuario
                     },
                     commandType: CommandType.StoredProcedure);
                 return result.FirstOrDefault();
@@ -42,7 +45,7 @@ namespace EverestLMS.Repository.DapperImplementations
             }
         }
 
-        public async Task<bool> DeleteCloudinaryFileAsync(int idCloudinaryFile, int? idReferencia)
+        public async Task<bool> DeleteCloudinaryFileAsync(int idCloudinaryFile, int? idCurso = null, int? idLeccionMaterial = null, int? idPregunta = null, int? idRespuesta = null, int? idUsuario = null)
         {
             try
             {
@@ -52,7 +55,10 @@ namespace EverestLMS.Repository.DapperImplementations
                     new
                     {
                         IdCloudinaryFile = idCloudinaryFile,
-                        IdReferencia = idReferencia
+                        IdCurso = idCurso,
+                        IdPregunta = idPregunta,
+                        IdRespuesta = idRespuesta,
+                        IdUsuario = idUsuario
                     },
                     commandType: CommandType.StoredProcedure);
                 return result.FirstOrDefault() > default(int);
@@ -77,7 +83,10 @@ namespace EverestLMS.Repository.DapperImplementations
                         cloudinaryFileEntity.Descripcion,
                         cloudinaryFileEntity.IdPublico,
                         cloudinaryFileEntity.Url,
-                        cloudinaryFileEntity.IdReferencia
+                        cloudinaryFileEntity.IdCurso,
+                        cloudinaryFileEntity.IdPregunta,
+                        cloudinaryFileEntity.IdRespuesta,
+                        cloudinaryFileEntity.IdUsuario
                     },
                     commandType: CommandType.StoredProcedure);
                 return result.FirstOrDefault() > default(int);
@@ -89,7 +98,7 @@ namespace EverestLMS.Repository.DapperImplementations
             }
         }
 
-        public async Task<IEnumerable<CloudinaryFileEntity>> GetCloudinaryFilesAsync(int? idReferencia)
+        public async Task<IEnumerable<CloudinaryFileEntity>> GetCloudinaryFilesAsync(int? idCurso = null, int? idLeccionMaterial = null, int? idPregunta = null, int? idRespuesta = null, int? idUsuario = null)
         {
             try
             {
@@ -98,7 +107,10 @@ namespace EverestLMS.Repository.DapperImplementations
                 var result = await _dbConnection.QueryAsync<CloudinaryFileEntity>("GetCloudinaryFiles",
                     new
                     {
-                        IdReferencia = idReferencia
+                        IdCurso = idCurso,
+                        IdPregunta = idPregunta,
+                        IdRespuesta = idRespuesta,
+                        IdUsuario = idUsuario
                     },
                     commandType: CommandType.StoredProcedure);
                 return result.ToList();
@@ -110,7 +122,7 @@ namespace EverestLMS.Repository.DapperImplementations
             }
         }
 
-        public async Task<CloudinaryFileEntity> GetSpecificCloudinaryFilesAsync(int idCloudinaryFile, int? idReferencia)
+        public async Task<CloudinaryFileEntity> GetSpecificCloudinaryFilesAsync(int idCloudinaryFile, int? idCurso = null, int? idLeccionMaterial = null, int? idPregunta = null, int? idRespuesta = null, int? idUsuario = null)
         {
             try
             {
@@ -120,7 +132,10 @@ namespace EverestLMS.Repository.DapperImplementations
                     new
                     {
                         IdCloudinaryFile = idCloudinaryFile,
-                        IdReferencia = idReferencia
+                        IdCurso = idCurso,
+                        IdPregunta = idPregunta,
+                        IdRespuesta = idRespuesta,
+                        IdUsuario = idUsuario
                     },
                     commandType: CommandType.StoredProcedure);
                 return result.FirstOrDefault();

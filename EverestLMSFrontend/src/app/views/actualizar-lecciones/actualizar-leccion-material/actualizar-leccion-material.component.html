@@ -1,0 +1,41 @@
+<div class="panel panel-default border p-4">
+    <div class="panel-body">
+        <table class="table table-striped table-bordered table-sm row-border hover" datatable [dtOptions]="dtOptions">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Titulo</th>
+                    <th>Tipo Contenido</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let leccionMaterial of leccionesMaterial">
+                    <td>{{ leccionMaterial.id }}</td>
+                    <td>{{ leccionMaterial.titulo}}</td>
+                    <td>{{ leccionMaterial.idTipoContenido}}</td>
+                    <td> <button (click)="eliminarLeccionMaterial(leccionMaterial.id)">-</button> </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="panel-footer border rounded ">
+        <div class="row m-4">
+            <div class="col-md-6">
+                <p>Tipo de Contenido:</p>
+                <ul class="list-group">
+                    <li class="list-group-item" *ngFor="let item of tipoContenidos">
+                        <input type="radio" [(ngModel)]="selectedContenidoId" name="list_name" value="{{item.id}}" /> {{item.descripcion}}
+
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-6 m-5 text-center">
+                <button id="btn-agregar-curso" class="btn btn-success col-md-6" (click)="registrarLeccionMaterial()" routerLinkActive="router-link-active">Agregar</button>
+            </div>
+        </div>
+    </div>
+    <div class="row m-3">
+        <button type="button" class="btn btn-primary col-md-12" [routerLink]="['/actualizar-lecciones']">Finalizar</button>
+    </div>
+</div>

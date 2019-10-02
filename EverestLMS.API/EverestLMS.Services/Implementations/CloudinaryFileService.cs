@@ -39,18 +39,19 @@ namespace EverestLMS.Services.Implementations
             return result;
         }
 
-        public async Task<bool> DeleteCloudinaryFileAsync(int idCloudinaryFile, int? idReferencia)
+        public async Task<bool> DeleteCloudinaryFileAsync(int idCloudinaryFile, int? idCurso = null, int? idLeccionMaterial = null, int? idPregunta = null, int? idRespuesta = null, int? idUsuario = null)
         {
-            var deletedOncloudinary = await DeleteFileInCloudinary(idCloudinaryFile, idReferencia);
+            var deletedOncloudinary = await DeleteFileInCloudinary(idCloudinaryFile, idCurso, idLeccionMaterial, idPregunta, idRespuesta, idUsuario);
             if (!deletedOncloudinary)
                 return deletedOncloudinary;
-            var deleted = await cloudinaryFileRepository.DeleteCloudinaryFileAsync(idCloudinaryFile, idReferencia);
+            var deleted = await cloudinaryFileRepository.DeleteCloudinaryFileAsync(idCloudinaryFile, idCurso, idLeccionMaterial, idPregunta, idRespuesta, idUsuario);
             return deleted;
         }
 
         public async Task<bool> EditCloudinaryFileAsync(CloudinaryFileToUpdateVM cloudinaryFileToUpdateVM)
         {
-            var deletedOncloudinary = await DeleteFileInCloudinary(cloudinaryFileToUpdateVM.Id, cloudinaryFileToUpdateVM.IdReferencia);
+            var deletedOncloudinary = await DeleteFileInCloudinary(cloudinaryFileToUpdateVM.Id, cloudinaryFileToUpdateVM.IdCurso, null, cloudinaryFileToUpdateVM.IdPregunta,
+                cloudinaryFileToUpdateVM.IdRespuesta, cloudinaryFileToUpdateVM.IdUsuario);
             if (!deletedOncloudinary)
                 return deletedOncloudinary;
             var cloudinaryFileEntity = UploadingToCloudinary(cloudinaryFileToUpdateVM);
@@ -58,16 +59,16 @@ namespace EverestLMS.Services.Implementations
             return result;
         }
 
-        public async Task<IEnumerable<CloudinaryFileVM>> GetCloudinaryFilesAsync(int? idReferencia)
+        public async Task<IEnumerable<CloudinaryFileVM>> GetCloudinaryFilesAsync(int? idCurso = null, int? idLeccionMaterial = null, int? idPregunta = null, int? idRespuesta = null, int? idUsuario = null)
         {
-            var entities = await cloudinaryFileRepository.GetCloudinaryFilesAsync(idReferencia);
+            var entities = await cloudinaryFileRepository.GetCloudinaryFilesAsync(idCurso, idLeccionMaterial, idPregunta, idRespuesta, idUsuario);
             var result = mapper.Map<IEnumerable<CloudinaryFileVM>>(entities);
             return result;
         }
 
-        public async Task<CloudinaryFileVM> GetSpecificCloudinaryFilesAsync(int idCloudinaryFile, int? idReferencia)
+        public async Task<CloudinaryFileVM> GetSpecificCloudinaryFilesAsync(int idCloudinaryFile, int? idCurso = null, int? idLeccionMaterial = null, int? idPregunta = null, int? idRespuesta = null, int? idUsuario = null)
         {
-            var entity = await cloudinaryFileRepository.GetSpecificCloudinaryFilesAsync(idCloudinaryFile, idReferencia);
+            var entity = await cloudinaryFileRepository.GetSpecificCloudinaryFilesAsync(idCloudinaryFile, idCurso, idLeccionMaterial, idPregunta, idRespuesta, idUsuario);
             var result = mapper.Map<CloudinaryFileVM>(entity);
             return result;
         }
@@ -98,10 +99,10 @@ namespace EverestLMS.Services.Implementations
             return cloudinaryFileEntity;
         }
 
-        private async Task<bool> DeleteFileInCloudinary(int idCloudinaryFile, int? idReferencia)
+        private async Task<bool> DeleteFileInCloudinary(int idCloudinaryFile, int? idCurso = null, int? idLeccionMaterial = null, int? idPregunta = null, int? idRespuesta = null, int? idUsuario = null)
         {
-            var entity = await cloudinaryFileRepository.GetSpecificCloudinaryFilesAsync(idCloudinaryFile, idReferencia);
-            if (entity.IdPublico != null)
+            var entity = await cloudinaryFileRepository.GetSpecificCloudinaryFilesAsync(idCloudinaryFile, idCurso, idLeccionMaterial, idPregunta, idRespuesta, idUsuario);
+            if (entity?.IdPublico != null)
             {
                 var deleteParams = new DeletionParams(entity.IdPublico);
                 var result = this.cloudinary.Destroy(deleteParams);

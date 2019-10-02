@@ -7,5 +7,6 @@ namespace EverestLMS.Services.Interfaces
     public interface IEtapaService
     {
         Task<IEnumerable<EtapaVM>> GetAllAsync(int? idNivel, int? idLineaCarrera, string search);
+        Task<IEnumerable<EtapaVM>> GetByParticipanteAsync(int idParticipante);
     }
 }

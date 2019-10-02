@@ -22,5 +22,12 @@ namespace EverestLMS.Services.Implementations
             var etapasViewModel = mapper.Map<IEnumerable<EtapaVM>>(etapas);
             return etapasViewModel;
         }
+
+        public async Task<IEnumerable<EtapaVM>> GetByParticipanteAsync(int idParticipante)
+        {
+            var etapas = await repository.GetByParticipanteAsync(idParticipante);
+            var etapasViewModel = mapper.Map<IEnumerable<EtapaVM>>(etapas);
+            return etapasViewModel;
+        }
     }
 }

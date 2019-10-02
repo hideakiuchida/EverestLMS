@@ -2,6 +2,8 @@
 (
 	[IdLeccionMaterial] INT NOT NULL IDENTITY (1, 1) PRIMARY KEY,
 	[Titulo] VARCHAR(100) NOT NULL,
+	[IdPublico] VARCHAR(100) NULL,
+	[Url] VARCHAR(500) NULL,
 	[ContenidoTexto] TEXT NULL,
 	[IdPresentacion] VARCHAR(500) NULL,
 	[IdTipoContenido] INT NOT NULL,

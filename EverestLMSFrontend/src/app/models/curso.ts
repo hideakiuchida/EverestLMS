@@ -11,4 +11,6 @@ export interface Curso {
     idiomaDescripcion: string;
     autor: string;
     idEtapa: number;
+    rating?: number;
+    imagen?: string;
 }

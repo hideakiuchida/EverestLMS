@@ -52,22 +52,5 @@ namespace EverestLMS.Repository.DapperImplementations
                 return default;
             }    
         }
-
-        public async Task<IEnumerable<CursoPredictionEntity>> GetCursosPredictionByParticipantAsync(int id)
-        {
-            try
-            {
-                if (_dbConnection.State == ConnectionState.Closed)
-                    _dbConnection.Open();
-                var result = await _dbConnection.QueryAsync<CursoPredictionEntity>("GetCursosPredictionByParticipant", new { Id = id }, commandType: CommandType.StoredProcedure);
-                _dbConnection.Close();
-                return result.ToList();
-            }
-            catch (Exception ex)
-            {
-                logger?.LogError("An error ocurred with exception: {@Exception}", ex);
-                return default;
-            }     
-        }
     }
 }

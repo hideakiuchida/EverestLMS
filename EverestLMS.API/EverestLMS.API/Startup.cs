@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Serilog;
 using System;
 using System.Data;
@@ -122,6 +121,8 @@ namespace EverestLMS.API
             services.AddScoped<IDificultadService, DificultadService>();
             services.AddScoped<IEtapaService, EtapaService>();
             services.AddScoped<ICloudinaryFileService, CloudinaryFileService>();
+            services.AddScoped<ILeccionService, LeccionService>();
+            services.AddScoped<ITipoContenidoService, TipoContenidoService>();
         }
 
         private void RegisterRepositories(IServiceCollection services)
@@ -139,6 +140,8 @@ namespace EverestLMS.API
             services.AddScoped<IDificultadRepository, DificultadRepository>();
             services.AddScoped<IEtapaRepository, EtapaRepository>();
             services.AddScoped<ICloudinaryFileRepository, CloudinaryFileRepository>();
+            services.AddScoped<ILeccionRepository, LeccionRepository>();
+            services.AddScoped<ITipoContenidoRepository, TipoContenidoRepository>();
         }
         #endregion
     }

@@ -6,7 +6,8 @@ namespace EverestLMS.Services.Interfaces
 {
     public interface ICursoService
     {
-        Task<IEnumerable<CursoPredictionVM>> GetCursosPredictionByParticipantAsync(int id);
+        Task<IEnumerable<CursoPredictionVM>> GetCursosPredictionByParticipanteAsync(int idParticipante, int? idEtapa = null, int? idIdioma = null);
+        Task<IEnumerable<CursoVM>> GetCursosByParticipanteAsync(int idParticipante, int? idEtapa = null, int? idIdioma = null);
         Task<IEnumerable<CursoPredictedByParticipantVM>> GetAllCursosPredictionByParticipantAsync();
         Task<IEnumerable<CursoDetalleVM>> GetCursosAsync(int? idEtapa, int? idLineaCarrera, int? idNivel, string search);
         Task<int> CreateCursoAsync(CursoToCreateVM cursoVM);

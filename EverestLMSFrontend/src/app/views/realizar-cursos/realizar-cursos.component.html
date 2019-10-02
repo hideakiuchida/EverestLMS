@@ -1,0 +1,40 @@
+<div class="container">
+    <div class="row equal border border rounded p-3 mt-2">
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="row form-group">
+                    <label for="selectEtapas" class="col-md-6 control-label font-weight-bold mt-1"> Etapas:</label>
+                    <select class="form-control col-md-6" #selectedValue name="selectEtapas" id="selectEtapas" [(ngModel)]="selectedEtapaId" (ngModelChange)="etapaSelected($event)">
+                        <option *ngFor="let etapa of etapas" [value]="etapa.id">
+                            {{etapa.descripcion}}
+                        </option>
+                    </select>
+                </div>
+                <div class="row form-group">
+                    <label for="selectIdiomas" class="col-md-6 control-label font-weight-bold mt-1"> Idioma:</label>
+                    <select class="form-control col-md-6" #selectedValue name="selectIdiomas" id="selectIdiomas" [(ngModel)]="selectedIdiomaId" (ngModelChange)="idiomaSelected($event)">
+                        <option *ngFor="let idioma of idiomas" [value]="idioma.id">
+                            {{idioma.descripcion}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div *ngFor="let curso of cursos" class="col-lg-2 col-md-3 col-sm-6">
+                <app-curso-card [curso]="curso"></app-curso-card>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row equal border border rounded p-3" *ngIf="cursosPrediccion.length > 0">
+        <div class="row m-2">
+            <h4>Por Sugerencia: </h4>
+        </div>
+        <div class="row">
+            <div *ngFor="let cursoPrediccion of cursosPrediccion" class="col-lg-2 col-md-3 col-sm-6">
+                <app-curso-card [curso]="cursoPrediccion"></app-curso-card>
+            </div>
+        </div>
+    </div>
+</div>

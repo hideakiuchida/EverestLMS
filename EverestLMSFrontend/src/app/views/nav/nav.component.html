@@ -11,6 +11,12 @@
         <li class="nav-item active" routerLinkActive="active">
             <a class="nav-link" [routerLink]="['/cursos']">Cursos</a>
         </li>
+        <li class="nav-item active" routerLinkActive="active">
+            <a class="nav-link" [routerLink]="['/actualizar-lecciones']">Lecciones</a>
+        </li>
+        <li class="nav-item active" routerLinkActive="active">
+            <a class="nav-link" [routerLink]="['/realizar-cursos', idParticipante]">Realizar Cursos</a>
+        </li>
     </ul>
     <form #loginForm="ngForm" class="form-inline my-2 my-lg-0" (ngSubmit)="login()">
         <input class="form-control mr-sm-2" type="text" name="username" placeholder="Usuario" required [(ngModel)]="model.username" />

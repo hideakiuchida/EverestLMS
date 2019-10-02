@@ -51,7 +51,7 @@ namespace EverestLMS.Services.Implementations
             List<CursoPredictedByParticipantVM> cursoPredictedByParticipantVMs = new List<CursoPredictedByParticipantVM>();
             foreach (var item in participantesVM)
             {
-                var cursos = await GetCursosPredictionByParticipantAsync(item.Id);
+                var cursos = await GetCursosPredictionByParticipanteAsync(item.Id);
                 var cursoPredictedByParticipantVM = new CursoPredictedByParticipantVM();
                 cursoPredictedByParticipantVM.Id = item.Id;
                 cursoPredictedByParticipantVM.Nombre = item.Nombre;
@@ -76,9 +76,16 @@ namespace EverestLMS.Services.Implementations
             return cursosVM;
         }
 
-        public async Task<IEnumerable<CursoPredictionVM>> GetCursosPredictionByParticipantAsync(int id)
+        public async Task<IEnumerable<CursoVM>> GetCursosByParticipanteAsync(int idParticipante, int? idEtapa = null, int? idIdioma = null)
         {
-            var cursosPredicted = await predictionTrainerRepository.GetCursosPredictionByParticipantAsync(id);
+            var cursos = await repository.GetCursosByParticipanteAsync(idParticipante, idEtapa, idIdioma);
+            var cursosVM = mapper.Map<IEnumerable<CursoVM>>(cursos);
+            return cursosVM;
+        }
+
+        public async Task<IEnumerable<CursoPredictionVM>> GetCursosPredictionByParticipanteAsync(int idParticipante, int? idEtapa = null, int? idIdioma = null)
+        {
+            var cursosPredicted = await repository.GetCursosPredictionByParticipanteAsync(idParticipante, idEtapa, idIdioma);
             var cursosPredictedVM = mapper.Map<IEnumerable<CursoPredictionVM>>(cursosPredicted);
             return cursosPredictedVM;
         }

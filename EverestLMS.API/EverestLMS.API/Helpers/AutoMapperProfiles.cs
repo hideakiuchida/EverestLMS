@@ -6,12 +6,14 @@ using EverestLMS.ViewModels.CloudinaryFile;
 using EverestLMS.ViewModels.Conocimiento;
 using EverestLMS.ViewModels.Curso;
 using EverestLMS.ViewModels.Etapa;
+using EverestLMS.ViewModels.Leccion;
 using EverestLMS.ViewModels.LineaCarrera;
 using EverestLMS.ViewModels.Nivel;
 using EverestLMS.ViewModels.Participante;
 using EverestLMS.ViewModels.Participante.Escalador;
 using EverestLMS.ViewModels.Participante.Sherpa;
 using EverestLMS.ViewModels.Sede;
+using EverestLMS.ViewModels.TipoContenido;
 
 namespace EverestLMS.API.Helpers
 {
@@ -28,6 +30,8 @@ namespace EverestLMS.API.Helpers
             CreateMapCalendario();
             CreateMapEtapa();
             CreateMapCloudinaryFile();
+            CreateMapLeccion();
+            CreateMapTipoContenido();
         }
 
         #region Privates Methods
@@ -210,6 +214,41 @@ namespace EverestLMS.API.Helpers
                 .ForMember(dest => dest.IdCloudinaryFile, opt => {
                     opt.MapFrom(d => d.Id);
                 });
+        }
+
+        private void CreateMapLeccion()
+        {
+            CreateMap<LeccionEntity, LeccionVM>()
+                .ForMember(dest => dest.Id, opt => {
+                    opt.MapFrom(d => d.IdLeccion);
+                });
+            CreateMap<LeccionDetalleEntity, LeccionDetalleVM>()
+                .ForMember(dest => dest.Id, opt => {
+                    opt.MapFrom(d => d.IdLeccion);
+                });
+            CreateMap<LeccionToCreateVM, LeccionEntity>();
+            CreateMap<LeccionToUpdateVM, LeccionEntity>()
+                .ForMember(dest => dest.IdLeccion, opt => {
+                    opt.MapFrom(d => d.Id);
+                });
+            CreateMap<LeccionMaterialEntity, LeccionMaterialVM>()
+                .ForMember(dest => dest.Id, opt => {
+                    opt.MapFrom(d => d.IdLeccionMaterial);
+                });
+            CreateMap<LeccionMaterialVM, LeccionMaterialEntity>()
+                .ForMember(dest => dest.IdLeccionMaterial, opt => {
+                    opt.MapFrom(d => d.Id);
+                });
+            CreateMap<LeccionMaterialToCreateVM, LeccionMaterialEntity>();
+            CreateMap<LeccionMaterialVideoToCreateVM, LeccionMaterialEntity>();
+        }
+
+        private void CreateMapTipoContenido()
+        {
+            CreateMap<TipoContenidoEntity, TipoContenidoVM>()
+              .ForMember(dest => dest.Id, opt => {
+                  opt.MapFrom(d => d.IdTipoContenido);
+              });
         }
         #endregion
     }

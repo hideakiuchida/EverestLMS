@@ -6,10 +6,10 @@ namespace EverestLMS.Repository.Interfaces
 {
     public interface ICloudinaryFileRepository
     {
-        Task<CloudinaryFileEntity> GetSpecificCloudinaryFilesAsync(int idCloudinaryFile, int? idReferencia);
-        Task<IEnumerable<CloudinaryFileEntity>> GetCloudinaryFilesAsync(int? idReferencia);
+        Task<CloudinaryFileEntity> GetSpecificCloudinaryFilesAsync(int idCloudinaryFile, int? idCurso = null, int? idLeccionMaterial = null, int? idPregunta = null, int? idRespuesta = null, int? idUsuario = null);
+        Task<IEnumerable<CloudinaryFileEntity>> GetCloudinaryFilesAsync(int? idCurso = null, int? idLeccionMaterial = null, int? idPregunta = null, int? idRespuesta = null, int? idUsuario = null);
         Task<int> CreateCloudinaryFileAsync(CloudinaryFileEntity cloudinaryFileEntity);
         Task<bool> EditCloudinaryFileAsync(CloudinaryFileEntity cloudinaryFileEntity);
-        Task<bool> DeleteCloudinaryFileAsync(int idCloudinaryFile, int? idReferencia);
+        Task<bool> DeleteCloudinaryFileAsync(int idCloudinaryFile, int? idCurso = null, int? idLeccionMaterial = null, int? idPregunta = null, int? idRespuesta = null, int? idUsuario = null);
     }
 }

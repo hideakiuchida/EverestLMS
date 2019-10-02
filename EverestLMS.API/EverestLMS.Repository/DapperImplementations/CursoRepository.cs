@@ -60,7 +60,7 @@ namespace EverestLMS.Repository.DapperImplementations
                         IdCurso = idCurso
                     },
                     commandType: CommandType.StoredProcedure);
-                return result.FirstOrDefault() > 0;
+                return result.FirstOrDefault() > default(int);
             }
             catch (Exception ex)
             {
@@ -89,7 +89,7 @@ namespace EverestLMS.Repository.DapperImplementations
                         cursoEntity.Autor
                     },
                     commandType: CommandType.StoredProcedure);
-                return result.FirstOrDefault() > 0;
+                return result.FirstOrDefault() > default(int);
             }
             catch (Exception ex)
             {
@@ -132,13 +132,32 @@ namespace EverestLMS.Repository.DapperImplementations
             }
         }
 
-        public async Task<IEnumerable<CursoPredictionEntity>> GetCursosPredictionByParticipantAsync(int? idLineaCarrera, int? idNivel)
+        public async Task<IEnumerable<CursoEntity>> GetCursosByParticipanteAsync(int idParticipante, int? idEtapa = null, int? idIdioma = null)
         {
             try
             {
                 if (_dbConnection.State == ConnectionState.Closed)
                     _dbConnection.Open();
-                var result = await _dbConnection.QueryAsync<CursoPredictionEntity>("GetCursosPredictionByParticipant", new { IdNivel = idNivel, IdLineaCarrera = idLineaCarrera }, commandType: CommandType.StoredProcedure);
+                var result = await _dbConnection.QueryAsync<CursoPredictionEntity>("GetCursosByParticipante",
+                    new { Id = idParticipante, IdEtapa = idEtapa, IdIdioma = idIdioma }, commandType: CommandType.StoredProcedure);
+                _dbConnection.Close();
+                return result.ToList();
+            }
+            catch (Exception ex)
+            {
+                logger?.LogError("An error ocurred with exception: {@Exception}", ex);
+                return default;
+            }
+        }
+
+        public async Task<IEnumerable<CursoPredictionEntity>> GetCursosPredictionByParticipanteAsync(int idParticipante, int? idEtapa = null, int? idIdioma = null)
+        {
+            try
+            {
+                if (_dbConnection.State == ConnectionState.Closed)
+                    _dbConnection.Open();
+                var result = await _dbConnection.QueryAsync<CursoPredictionEntity>("GetCursosPredictionByParticipante", 
+                    new { Id = idParticipante, IdEtapa = idEtapa, IdIdioma = idIdioma }, commandType: CommandType.StoredProcedure);
                 _dbConnection.Close();
                 return result.ToList();
             }

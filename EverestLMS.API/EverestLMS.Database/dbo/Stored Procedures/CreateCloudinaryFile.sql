@@ -2,7 +2,10 @@
 	@Descripcion varchar(100),
 	@IdPublico varchar(100),
 	@Url varchar(500),	
-	@IdReferencia INT NULL
+	@IdCurso INT NULL,
+	@IdPregunta INT NULL,
+	@IdRespuesta INT NULL,
+	@IdUsuario INT NULL
 AS
 BEGIN
 INSERT INTO [dbo].[CloudinaryFile]
@@ -10,12 +13,18 @@ INSERT INTO [dbo].[CloudinaryFile]
            ,[IdPublico]
            ,[Url]
            ,[FechaCreacion]
-           ,[IdReferencia])
+           ,[IdCurso]
+		   ,[IdPregunta]
+		   ,[IdRespuesta]
+		   ,[IdUsuario])
      VALUES
            (@Descripcion
            ,@IdPublico
            ,@Url
            ,GETDATE()
-           ,@IdReferencia);
+           ,@IdCurso
+		   ,@IdPregunta
+		   ,@IdRespuesta
+		   ,@IdUsuario);
 SELECT SCOPE_IDENTITY();
 END

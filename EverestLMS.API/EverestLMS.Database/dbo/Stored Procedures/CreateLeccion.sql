@@ -1,16 +1,21 @@
 ﻿CREATE PROCEDURE [dbo].[CreateLeccion]
 	@Nombre varchar(200),
 	@Descripcion varchar(max),
-	@IdDificultad int,
 	@Puntaje int,
-	@NumeroOrden int,
 	@IdCurso int
 AS
 BEGIN
+
+DECLARE @NuevoNumeroOrden INT;
+DECLARE @ActualNumeroOrden INT;
+
+SET @ActualNumeroOrden = (SELECT TOP 1 [NumeroOrden] FROM [dbo].[Leccion] WHERE IdCurso = @IdCurso ORDER BY [NumeroOrden] DESC);
+SET @ActualNumeroOrden = ISNULL(@ActualNumeroOrden, 0);
+SET @NuevoNumeroOrden = @ActualNumeroOrden + 1;
+
 INSERT INTO [dbo].[Leccion]
            ([Nombre]
            ,[Descripcion]
-           ,[IdDificultad]
            ,[Puntaje]
            ,[NumeroOrden]
            ,[FechaCreacion]
@@ -18,9 +23,8 @@ INSERT INTO [dbo].[Leccion]
      VALUES
            (@Nombre
            ,@Descripcion
-           ,@IdDificultad
            ,@Puntaje
-           ,@NumeroOrden
+           ,@NuevoNumeroOrden
 		   , GETDATE()
            ,@IdCurso);
 SELECT SCOPE_IDENTITY();

@@ -19,6 +19,7 @@ namespace EverestLMS.API.Controllers
             this.cloudinaryFileService = cloudinaryFileService;
         }
 
+        #region Cursos
         [HttpGet]
         [Route("{id}")]
         public async Task<IActionResult> GetCursosAsync(int idEtapa, int id)
@@ -59,7 +60,9 @@ namespace EverestLMS.API.Controllers
             var result = await service.DeleteCursoAsync(idEtapa, id);
             return Ok(result);
         }
+        #endregion
 
+        #region Imagenes de Cursos
         [HttpGet]
         [Route("{id}/imagenes/{idImagen}")]
         public async Task<IActionResult> GetSepecificCloudinaryFilesAsync(int id, int idImagen)
@@ -80,7 +83,7 @@ namespace EverestLMS.API.Controllers
         [Route("{id}/imagenes")]
         public async Task<IActionResult> CreateCloudinaryFileAsync(int id, [FromForm]CloudinaryFileToCreateVM cloudinaryFileToCreateVM)
         {
-            cloudinaryFileToCreateVM.IdReferencia = id;
+            cloudinaryFileToCreateVM.IdCurso = id;
             var result = await cloudinaryFileService.CreateCloudinaryFileAsync(cloudinaryFileToCreateVM);
             return Ok(result);
         }
@@ -89,7 +92,7 @@ namespace EverestLMS.API.Controllers
         [Route("{id}/imagenes/{idImagen}")]
         public async Task<IActionResult> EditCloudinaryFileAsync(int id, int idImagen, [FromForm]CloudinaryFileToUpdateVM cloudinaryFileToUpdateVM)
         {
-            cloudinaryFileToUpdateVM.IdReferencia = id;
+            cloudinaryFileToUpdateVM.IdCurso = id;
             cloudinaryFileToUpdateVM.Id = idImagen;
             var result = await cloudinaryFileService.EditCloudinaryFileAsync(cloudinaryFileToUpdateVM);
             return Ok(result);
@@ -102,5 +105,6 @@ namespace EverestLMS.API.Controllers
             var result = await cloudinaryFileService.DeleteCloudinaryFileAsync(idImagen, id);
             return Ok(result);
         }
+        #endregion
     }
 }

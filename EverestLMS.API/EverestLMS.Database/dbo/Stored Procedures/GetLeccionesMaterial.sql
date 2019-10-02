@@ -4,6 +4,8 @@ AS
 BEGIN
 SELECT [IdLeccionMaterial]
       ,[Titulo]
+	  ,[IdPublico]
+	  ,[Url]
       ,[ContenidoTexto]
       ,[IdPresentacion]
       ,[IdTipoContenido]

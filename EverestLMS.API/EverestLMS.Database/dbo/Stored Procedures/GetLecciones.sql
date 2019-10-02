@@ -13,6 +13,7 @@ SET NOCOUNT ON;
 	le.Nombre, 
 	le.Descripcion, 
 	le.IdCurso, 
+	c.Descripcion as CursoDescripcion,
 	i.Descripcion as IdiomaDescripcion,
 	e.Descripcion as EtapaDescripcion,
 	e.Nombre as NombreEtapa,

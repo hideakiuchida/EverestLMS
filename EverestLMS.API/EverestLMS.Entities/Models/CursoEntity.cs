@@ -13,6 +13,7 @@ namespace EverestLMS.Entities.Models
         public string Imagen { get; set; }
         public string Autor { get; set; }
         public DateTime FechaCreacion { get; set; }
+        public string NombreEtapa { get; set; }
         public int IdEtapa { get; set; }
     }
 }

@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EverestLMS.MLModelGenerator
+namespace EverestLMS.GeneradorCursoRating
 {
     public class Program
     {
@@ -21,7 +21,7 @@ namespace EverestLMS.MLModelGenerator
 
         public static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Comenzó Generador Curso Rating!");
             IDbConnection connection = new SqlConnection(connectionString);
             nivelRepository = new NivelRepository(connection, default);
             lineaCarreraRepository = new LineaCarreraRepository(connection, default);
@@ -32,13 +32,18 @@ namespace EverestLMS.MLModelGenerator
             ratingCursoRepository = new RatingCursoRepository(connection, default);
             try
             {
-                GenerarRatingCursosAleatorios();
+                for (int i = 0; i < 3; i++)
+                {
+                    GenerarRatingCursosAleatorios();
+                }
+                
             }
             catch (Exception ex)
             {
-                throw;
+                Console.WriteLine("Excepción: " + ex.Message);
             }
-            
+            Console.WriteLine("Finalizó Generador Curso Rating!");
+            Console.ReadLine();
         }
 
         static void GenerarRatingCursosAleatorios()
@@ -78,8 +83,7 @@ namespace EverestLMS.MLModelGenerator
                     }
                 }
             }
-            Console.WriteLine("Termino");
-            Console.ReadLine();
+            
         }
     }
 }

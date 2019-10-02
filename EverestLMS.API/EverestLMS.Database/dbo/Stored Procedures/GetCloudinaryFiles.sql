@@ -1,5 +1,8 @@
 ﻿CREATE PROCEDURE [dbo].[GetCloudinaryFiles]
-	@IdReferencia INT NULL
+	@IdCurso INT NULL,
+	@IdPregunta INT NULL,
+	@IdRespuesta INT NULL,
+	@IdUsuario INT NULL
 AS
 BEGIN
 	SELECT [IdCloudinaryFile]
@@ -7,7 +10,13 @@ BEGIN
       ,[IdPublico]
       ,[Url]
       ,[FechaCreacion]
-      ,[IdReferencia]
+      ,[IdCurso]
+	  ,[IdPregunta]
+	  ,[IdRespuesta]
+	  ,[IdUsuario]
   FROM [dbo].[CloudinaryFile]
-  WHERE (@IdReferencia IS NULL OR IdReferencia = @IdReferencia);
+  WHERE (@IdCurso IS NULL OR IdCurso = @IdCurso)
+	AND (@IdPregunta IS NULL OR IdPregunta = @IdPregunta)
+	AND (@IdRespuesta IS NULL OR IdRespuesta = @IdRespuesta)
+	AND (@IdUsuario IS NULL OR IdUsuario = @IdUsuario);
 END

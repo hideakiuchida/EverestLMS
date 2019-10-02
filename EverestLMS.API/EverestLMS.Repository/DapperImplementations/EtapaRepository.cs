@@ -35,5 +35,23 @@ namespace EverestLMS.Repository.DapperImplementations
                 return default;
             }
         }
+
+        public async Task<IEnumerable<EtapaEntity>> GetByParticipanteAsync(int idParticipante)
+        {
+            try
+            {
+                if (_dbConnection.State == ConnectionState.Closed)
+                    _dbConnection.Open();
+                var result = await _dbConnection.QueryAsync<EtapaEntity>("GetEtapasByParticipante", new { IdParticipante = idParticipante },
+                    commandType: CommandType.StoredProcedure);
+                _dbConnection.Close();
+                return result.ToList();
+            }
+            catch (Exception ex)
+            {
+                logger?.LogError("An error ocurred with exception: {@Exception}", ex);
+                return default;
+            }
+        }
     }
 }

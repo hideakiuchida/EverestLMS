@@ -21,5 +21,6 @@ namespace EverestLMS.API.Controllers
             var result = await service.GetAllAsync(idNivel, idLineaCarrera, search);
             return Ok(result);
         }
+
     }
 }

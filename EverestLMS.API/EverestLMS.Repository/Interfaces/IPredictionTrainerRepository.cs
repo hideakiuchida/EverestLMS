@@ -8,6 +8,5 @@ namespace EverestLMS.Repository.Interfaces
     {
         Task<int> CreatePredictionCourseForParticipantAsync(RatingCursoEntity ratingCursoEntity);
         Task ClearPredictionsAsync();
-        Task<IEnumerable<CursoPredictionEntity>> GetCursosPredictionByParticipantAsync(int id);
     }
 }
