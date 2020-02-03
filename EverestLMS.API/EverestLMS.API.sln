@@ -29,7 +29,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. Web", "4. Web", "{DA40D0
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5. Tests", "5. Tests", "{1456D2F9-FCCF-46F8-A2CD-8AC61C565146}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EverestLMS.GeneradorCursoRating", "EverestLMS.MLModelGenerator\EverestLMS.GeneradorCursoRating.csproj", "{AE3E5A58-B1E7-4DCA-A76A-FAEA67530C57}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EverestLMS.PopulateData", "EverestLMS.MLModelGenerator\EverestLMS.PopulateData.csproj", "{AE3E5A58-B1E7-4DCA-A76A-FAEA67530C57}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EverestLMS.MLPredictionTrainer", "EverestLMS.MLPredictionTrainer\EverestLMS.MLPredictionTrainer.csproj", "{781A6817-A9D0-46CA-9897-F961E8A5F297}"
 EndProject

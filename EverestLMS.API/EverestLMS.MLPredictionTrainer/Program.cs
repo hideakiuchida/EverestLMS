@@ -1,10 +1,9 @@
-﻿using EverestLMS.Entities.Models;
+﻿using EverestLMS.Common.Connections;
 using EverestLMS.Repository.DapperImplementations;
 using EverestLMS.Repository.Interfaces;
 using Microsoft.ML;
 using Microsoft.ML.Data;
 using Microsoft.ML.Trainers;
-using MySql.Data.MySqlClient;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -14,7 +13,7 @@ namespace EverestLMS.MLPredictionTrainer
 {
     class Program
     {
-        static string connectionString = "Server=HIDEAKIUCHIDA;Database=EVERESTLMS;Integrated Security=True;";
+        static string connectionString = ConnectionSettings.ConnectionString;
         static IRatingCursoRepository ratingCursoRepository;
         static ICursoRepository cursoRepository;
         static IParticipanteRepository participanteRepository;

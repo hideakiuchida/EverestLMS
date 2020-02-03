@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -8,6 +8,7 @@
   <ItemGroup>
     <ProjectReference Include="..\EverestLMS.API\EverestLMS.API.csproj" />
     <ProjectReference Include="..\EverestLMS.Core\EverestLMS.Core.csproj" />
+    <ProjectReference Include="..\EverestLMS.Repository\EverestLMS.Repository.csproj" />
     <ProjectReference Include="..\EverestLMS.Services\EverestLMS.Services.csproj" />
   </ItemGroup>
 
