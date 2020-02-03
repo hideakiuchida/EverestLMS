@@ -9,6 +9,7 @@ Post-Deployment Script Template
                SELECT * FROM [$(TableName)]					
 --------------------------------------------------------------------------------------
 */
+:r .\01_Rol.sql
 :r .\01_Idioma.sql
 :r .\01_Calendario.sql
 :r .\01_Conocimiento.sql

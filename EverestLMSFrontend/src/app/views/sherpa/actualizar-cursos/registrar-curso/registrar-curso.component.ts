@@ -12,11 +12,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CursoToRegister } from 'src/app/models/cursoToRegister';
 
 @Component({
-  selector: 'app-formulario-curso',
-  templateUrl: './formulario-curso.component.html',
-  styleUrls: ['./formulario-curso.component.css']
+  selector: 'app-registrar-curso',
+  templateUrl: './registrar-curso.component.html',
+  styleUrls: ['./registrar-curso.component.css']
 })
-export class FormularioCursoComponent implements OnInit {
+export class RegistrarCursoComponent implements OnInit {
   niveles: Nivel[];
   lineaCarreras: LineaCarrera[];
   etapas: Etapa[];
