@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
-using EverestLMS.Common.Serttings;
+using EverestLMS.Common.Settings;
 using EverestLMS.Entities.Models;
 using EverestLMS.Repository.Interfaces;
 using EverestLMS.Services.Interfaces;

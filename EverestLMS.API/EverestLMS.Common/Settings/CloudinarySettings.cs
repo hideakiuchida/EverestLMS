@@ -1,4 +1,4 @@
-﻿namespace EverestLMS.Common.Serttings
+﻿namespace EverestLMS.Common.Settings
 {
     public class CloudinarySettings
     {

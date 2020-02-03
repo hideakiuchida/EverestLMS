@@ -151,5 +151,6 @@
     <None Include="EverestLMS.Database.publish.xml" />
     <None Include="PostDeploymentData\01_Idioma.sql" />
     <None Include="PostDeploymentData\01_Rol.sql" />
+    <None Include="EverestLMS.Avantica.Database.publish.xml" />
   </ItemGroup>
 </Project>

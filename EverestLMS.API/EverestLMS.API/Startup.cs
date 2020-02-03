@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using EverestLMS.Common.Extensions;
-using EverestLMS.Common.Serttings;
+using EverestLMS.Common.Settings;
 using EverestLMS.Repository.DapperImplementations;
 using EverestLMS.Repository.Interfaces;
 using EverestLMS.Scheduler;
