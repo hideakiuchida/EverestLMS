@@ -1,10 +1,12 @@
 ﻿using EverestLMS.Common.Connections;
+using EverestLMS.Entities.Models;
 using EverestLMS.Repository.DapperImplementations;
 using EverestLMS.Repository.Interfaces;
 using Microsoft.ML;
 using Microsoft.ML.Data;
 using Microsoft.ML.Trainers;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -35,13 +37,29 @@ namespace EverestLMS.MLPredictionTrainer
 
         static void Main(string[] args)
         {
+            Console.WriteLine("Start Training ML");
             IDbConnection connection = new SqlConnection(connectionString);
             ratingCursoRepository = new RatingCursoRepository(connection, default);
             cursoRepository = new CursoRepository(connection, default);
             participanteRepository = new ParticipanteRepository(connection, default);
 
-            var ratingCursos = ratingCursoRepository.GetAllAsync().Result;
+            try
+            {
+                int? allItemsInteger = default;
+                var cursos = cursoRepository.GetCursosAsync(allItemsInteger, allItemsInteger, allItemsInteger, default).Result;
+                var participantes = participanteRepository.GetParticipantesAsync(allItemsInteger, allItemsInteger).Result;
+                var ratingCursos = ratingCursoRepository.GetAllAsync().Result;
+                MatrixFactorizationTrainModel(ratingCursos, cursos, participantes);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception: {ex.Message}");
+            }
+            Console.WriteLine("End Training ML");
+        }
 
+        private static void MatrixFactorizationTrainModel(IEnumerable<RatingCursoEntity> ratingCursos, IEnumerable<CursoDetalleEntity> cursos, IEnumerable<ParticipanteEntity> participantes)
+        {
             var ratingCursosToTrain = ratingCursos.Select(x => new CourseEntry { IdCurso = Convert.ToUInt32(x.IdCurso), IdParticipante = Convert.ToUInt32(x.IdParticipante), Rating = (float)x.Rating }).ToList();
 
             MLContext mlContext = new MLContext();
@@ -63,9 +81,6 @@ namespace EverestLMS.MLPredictionTrainer
 
             var predictionengine = mlContext.Model.CreatePredictionEngine<CourseEntry, CursoRatingPrediction>(model);
 
-            int? allItemsInteger = default;
-            var cursos = cursoRepository.GetCursosAsync(allItemsInteger, allItemsInteger, allItemsInteger, default).Result;
-            var participantes = participanteRepository.GetParticipantesAsync(allItemsInteger, allItemsInteger).Result;
             foreach (var participante in participantes)
             {
                 var topCursos = cursos.ToList().Select(x => new
@@ -83,8 +98,9 @@ namespace EverestLMS.MLPredictionTrainer
                     Console.WriteLine($" Participante: {participante.IdParticipante}  {participante.Nombre} Curso: {item.Curso} prediction.Rating: {Math.Round(item.Score)}  {item.Score} ");
                 }
             }
-   
+
             Console.ReadLine();
         }
+
     }
 }

@@ -59,13 +59,7 @@ namespace EverestLMS.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler(builder => 
+            app.UseExceptionHandler(builder => 
                 {
                     builder.Run(async context => {
                         context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
@@ -73,13 +67,13 @@ namespace EverestLMS.API
                         var error = context.Features.Get<IExceptionHandlerFeature>();
                         if(error != null)
                         {
+                            Log.Error("An error ocurred with exception: {@Exception}", error);
                             context.Response.AddApplicationError(error.Error.Message);
                             await context.Response.WriteAsync(error.Error.Message);
                         }
                     });
                 });
-                //app.UseHsts();
-            }
+
 
             //app.UseHttpsRedirection();
             app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().AllowCredentials());

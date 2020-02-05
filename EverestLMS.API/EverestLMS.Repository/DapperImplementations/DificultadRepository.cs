@@ -31,7 +31,7 @@ namespace EverestLMS.Repository.DapperImplementations
             catch (Exception ex)
             {
                 logger?.LogError("An error ocurred with exception: {@Exception}", ex);
-                return default;
+                throw;
             }
         }
     }
