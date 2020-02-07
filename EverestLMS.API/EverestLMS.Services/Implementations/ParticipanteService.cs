@@ -10,6 +10,7 @@ using EverestLMS.ViewModels.Participante;
 using EverestLMS.ViewModels.Participante.Escalador;
 using EverestLMS.ViewModels.Participante.Sherpa;
 using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -122,7 +123,7 @@ namespace EverestLMS.Services.Implementations
                 (int)SedeEnum.SanCarlos, (int)SedeEnum.SanJose };
             int countNoAsignados = default;
             int countAsignadosTotal = default;
-            int maxQuantityEscaladores = config.GetValue<int>("AppSettings:MaximunQuantityEscaladores");
+            int maxQuantityEscaladores = Convert.ToInt32(config.GetSection("AppSettings:MaximunQuantityEscaladores").Value);
             foreach (var idLineaCarrera in lineaCarreras)
             {
                 foreach (var idSede in sedes)

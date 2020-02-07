@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
 using Serilog;
 using System;
 using System.Data;
@@ -39,15 +40,15 @@ namespace EverestLMS.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers();
             services.AddCors();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddLogging(loggingBuilder => loggingBuilder.AddSerilog(dispose: true));
             services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
             services.AddSwaggerGen(x =>
             {
-                x.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "Everest LMS API", Version = "v1" });
+                x.SwaggerDoc("v1", new OpenApiInfo { Version = "1.0", Description = "EverestLMS" });
             });
-            services.AddAutoMapper();
+            services.AddAutoMapper(typeof(Startup));
 
             services.AddScoped<IDbConnection>(x => new SqlConnection(Configuration.GetConnectionString("SqlConnection")));
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
@@ -57,7 +58,7 @@ namespace EverestLMS.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseExceptionHandler(builder => 
                 {
@@ -75,11 +76,19 @@ namespace EverestLMS.API
                 });
 
 
-            //app.UseHttpsRedirection();
-            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().AllowCredentials());
+            app.UseRouting();
+
+            /*app.UseAuthentication();
+             app.UseAuthorization();
+             */
+
+            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
             app.UseSwagger();
             app.UseSwaggerUI(x => { x.SwaggerEndpoint("/swagger/v1/swagger.json", "Everest LMS!"); });
-            app.UseMvc();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
             //Register Scheduler to Predict with ML .NET the recommendations of courses
             RegisterScheduler(() => GetPredictionInstance().CreatePredictionCoursesForParticipants());
         }
@@ -94,10 +103,10 @@ namespace EverestLMS.API
         private IPredictionTrainerService GetPredictionInstance()
         {
             IDbConnection connection = new SqlConnection(Configuration.GetConnectionString("SqlConnection"));
-            var ratingCursoRepository = new RatingCursoRepository(connection, default);
-            var cursoRepository = new CursoRepository(connection, default);
-            var participanteRepository = new ParticipanteRepository(connection, default);
-            var predictionTrainerRepository = new PredictionTrainerRepository(connection, default);
+            var ratingCursoRepository = new RatingCursoRepository(connection);
+            var cursoRepository = new CursoRepository(connection);
+            var participanteRepository = new ParticipanteRepository(connection);
+            var predictionTrainerRepository = new PredictionTrainerRepository(connection);
             var predictionTraienerService = new PredictionTrainerService(ratingCursoRepository, cursoRepository, participanteRepository, predictionTrainerRepository, Configuration);
             return predictionTraienerService;
         }

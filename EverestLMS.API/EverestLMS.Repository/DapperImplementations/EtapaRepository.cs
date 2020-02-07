@@ -1,7 +1,6 @@
 ﻿using Dapper;
 using EverestLMS.Entities.Models;
 using EverestLMS.Repository.Interfaces;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,46 +11,28 @@ namespace EverestLMS.Repository.DapperImplementations
 {
     public class EtapaRepository : BaseConnection, IEtapaRepository
     {
-        private readonly ILogger<EtapaRepository> logger;
-        public EtapaRepository(IDbConnection dbConnection, ILogger<EtapaRepository> logger) : base(dbConnection)
+        public EtapaRepository(IDbConnection dbConnection) : base(dbConnection)
         {
-            this.logger = logger;
         }
 
         public async Task<IEnumerable<EtapaEntity>> GetAllAsync(int? idNivel, int? idLineaCarrera, string search)
         {
-            try
-            {
-                if (_dbConnection.State == ConnectionState.Closed)
-                    _dbConnection.Open();
-                var result = await _dbConnection.QueryAsync<EtapaEntity>("GetEtapas", new { IdNivel = idNivel, IdLineaCarrera = idLineaCarrera, Search = search },
-                    commandType: CommandType.StoredProcedure);
-                _dbConnection.Close();
-                return result.ToList();
-            }
-            catch (Exception ex)
-            {
-                logger?.LogError("An error ocurred with exception: {@Exception}", ex);
-                throw;
-            }
+            if (_dbConnection.State == ConnectionState.Closed)
+                _dbConnection.Open();
+            var result = await _dbConnection.QueryAsync<EtapaEntity>("GetEtapas", new { IdNivel = idNivel, IdLineaCarrera = idLineaCarrera, Search = search },
+                commandType: CommandType.StoredProcedure);
+            _dbConnection.Close();
+            return result.ToList();
         }
 
         public async Task<IEnumerable<EtapaEntity>> GetByParticipanteAsync(int idParticipante)
         {
-            try
-            {
-                if (_dbConnection.State == ConnectionState.Closed)
-                    _dbConnection.Open();
-                var result = await _dbConnection.QueryAsync<EtapaEntity>("GetEtapasByParticipante", new { IdParticipante = idParticipante },
-                    commandType: CommandType.StoredProcedure);
-                _dbConnection.Close();
-                return result.ToList();
-            }
-            catch (Exception ex)
-            {
-                logger?.LogError("An error ocurred with exception: {@Exception}", ex);
-                throw;
-            }
+            if (_dbConnection.State == ConnectionState.Closed)
+                _dbConnection.Open();
+            var result = await _dbConnection.QueryAsync<EtapaEntity>("GetEtapasByParticipante", new { IdParticipante = idParticipante },
+                commandType: CommandType.StoredProcedure);
+            _dbConnection.Close();
+            return result.ToList();
         }
     }
 }

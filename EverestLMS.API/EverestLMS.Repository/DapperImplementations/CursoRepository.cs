@@ -1,8 +1,6 @@
 ﻿using Dapper;
 using EverestLMS.Entities.Models;
 using EverestLMS.Repository.Interfaces;
-using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -12,160 +10,101 @@ namespace EverestLMS.Repository.DapperImplementations
 {
     public class CursoRepository : BaseConnection, ICursoRepository
     {
-        private ILogger<CursoRepository> logger;
-
-        public CursoRepository(IDbConnection dbConnection, ILogger<CursoRepository> logger) : base(dbConnection)
+        public CursoRepository(IDbConnection dbConnection) : base(dbConnection)
         {
-            this.logger = logger;
         }
 
         public async Task<int> CreateCursoAsync(CursoEntity cursoEntity)
         {
-            try
-            {
-                if (_dbConnection.State == ConnectionState.Closed)
-                    _dbConnection.Open();
-                var result = await _dbConnection.QueryAsync<int>("CreateCurso",
-                    new
-                    {
-                        cursoEntity.Nombre,
-                        cursoEntity.Descripcion,
-                        cursoEntity.IdDificultad,
-                        cursoEntity.Idioma,
-                        cursoEntity.Imagen,
-                        cursoEntity.Puntaje,
-                        cursoEntity.IdEtapa,
-                        cursoEntity.Autor
-                    },
-                    commandType: CommandType.StoredProcedure);
-                return result.FirstOrDefault();
-            }
-            catch (Exception ex)
-            {
-                logger?.LogError("An error ocurred with exception: {@Exception}", ex);
-                throw;
-            }
+            if (_dbConnection.State == ConnectionState.Closed)
+                _dbConnection.Open();
+            var result = await _dbConnection.QueryAsync<int>("CreateCurso",
+                new
+                {
+                    cursoEntity.Nombre,
+                    cursoEntity.Descripcion,
+                    cursoEntity.IdDificultad,
+                    cursoEntity.Idioma,
+                    cursoEntity.Imagen,
+                    cursoEntity.Puntaje,
+                    cursoEntity.IdEtapa,
+                    cursoEntity.Autor
+                },
+                commandType: CommandType.StoredProcedure);
+            return result.FirstOrDefault();
         }
 
         public async Task<bool> DeleteCursoAsync(int idEtapa, int idCurso)
         {
-            try
-            {
-                if (_dbConnection.State == ConnectionState.Closed)
-                    _dbConnection.Open();
-                var result = await _dbConnection.QueryAsync<int>("DeleteCurso",
-                    new
-                    {
-                        IdEtapa = idEtapa,
-                        IdCurso = idCurso
-                    },
-                    commandType: CommandType.StoredProcedure);
-                return result.FirstOrDefault() > default(int);
-            }
-            catch (Exception ex)
-            {
-                logger?.LogError("An error ocurred with exception: {@Exception}", ex);
-                throw;
-            }
+            if (_dbConnection.State == ConnectionState.Closed)
+                _dbConnection.Open();
+            var result = await _dbConnection.QueryAsync<int>("DeleteCurso",
+                new
+                {
+                    IdEtapa = idEtapa,
+                    IdCurso = idCurso
+                },
+                commandType: CommandType.StoredProcedure);
+            return result.FirstOrDefault() > default(int);
         }
 
         public async Task<bool> EditCursoASync(CursoEntity cursoEntity)
         {
-            try
-            {
-                if (_dbConnection.State == ConnectionState.Closed)
-                    _dbConnection.Open();
-                var result = await _dbConnection.QueryAsync<int>("EditCurso",
-                    new
-                    {
-                        cursoEntity.IdCurso,
-                        cursoEntity.Nombre,
-                        cursoEntity.Descripcion,
-                        cursoEntity.IdDificultad,
-                        cursoEntity.Idioma,
-                        cursoEntity.Imagen,
-                        cursoEntity.Puntaje,
-                        cursoEntity.IdEtapa,
-                        cursoEntity.Autor
-                    },
-                    commandType: CommandType.StoredProcedure);
-                return result.FirstOrDefault() > default(int);
-            }
-            catch (Exception ex)
-            {
-                logger?.LogError("An error ocurred with exception: {@Exception}", ex);
-                throw;
-            }
+            if (_dbConnection.State == ConnectionState.Closed)
+                _dbConnection.Open();
+            var result = await _dbConnection.QueryAsync<int>("EditCurso",
+                new
+                {
+                    cursoEntity.IdCurso,
+                    cursoEntity.Nombre,
+                    cursoEntity.Descripcion,
+                    cursoEntity.IdDificultad,
+                    cursoEntity.Idioma,
+                    cursoEntity.Imagen,
+                    cursoEntity.Puntaje,
+                    cursoEntity.IdEtapa,
+                    cursoEntity.Autor
+                },
+                commandType: CommandType.StoredProcedure);
+            return result.FirstOrDefault() > default(int);
         }
 
         public async Task<CursoToUpdateEntity> GetCursoAsync(int idEtapa, int idCurso)
         {
-            try
-            {
-                if (_dbConnection.State == ConnectionState.Closed)
-                    _dbConnection.Open();
-                var result = await _dbConnection.QueryAsync<CursoToUpdateEntity>("GetCurso", new { IdEtapa = idEtapa, IdCurso = idCurso }, commandType: CommandType.StoredProcedure);
-                _dbConnection.Close();
-                return result.FirstOrDefault();
-            }
-            catch (Exception ex)
-            {
-                logger?.LogError("An error ocurred with exception: {@Exception}", ex);
-                throw;
-            }
+            if (_dbConnection.State == ConnectionState.Closed)
+                _dbConnection.Open();
+            var result = await _dbConnection.QueryAsync<CursoToUpdateEntity>("GetCurso", new { IdEtapa = idEtapa, IdCurso = idCurso }, commandType: CommandType.StoredProcedure);
+            _dbConnection.Close();
+            return result.FirstOrDefault();
         }
 
         public async Task<IEnumerable<CursoDetalleEntity>> GetCursosAsync(int? idEtapa, int? idLineaCarrera, int? idNivel, string search)
         {
-            try
-            {
-                if (_dbConnection.State == ConnectionState.Closed)
-                    _dbConnection.Open();
-                var result = await _dbConnection.QueryAsync<CursoDetalleEntity>("GetCursos", new { IdEtapa = idEtapa, IdNivel = idNivel, IdLineaCarrera = idLineaCarrera, Search = search }, commandType: CommandType.StoredProcedure);
-                _dbConnection.Close();
-                return result.ToList();
-            }
-            catch (Exception ex)
-            {
-                logger?.LogError("An error ocurred with exception: {@Exception}", ex);
-                throw;
-            }
+            if (_dbConnection.State == ConnectionState.Closed)
+                _dbConnection.Open();
+            var result = await _dbConnection.QueryAsync<CursoDetalleEntity>("GetCursos", new { IdEtapa = idEtapa, IdNivel = idNivel, IdLineaCarrera = idLineaCarrera, Search = search }, commandType: CommandType.StoredProcedure);
+            _dbConnection.Close();
+            return result.ToList();
         }
 
         public async Task<IEnumerable<CursoEntity>> GetCursosByParticipanteAsync(int idParticipante, int? idEtapa = null, int? idIdioma = null)
         {
-            try
-            {
-                if (_dbConnection.State == ConnectionState.Closed)
-                    _dbConnection.Open();
-                var result = await _dbConnection.QueryAsync<CursoPredictionEntity>("GetCursosByParticipante",
-                    new { Id = idParticipante, IdEtapa = idEtapa, IdIdioma = idIdioma }, commandType: CommandType.StoredProcedure);
-                _dbConnection.Close();
-                return result.ToList();
-            }
-            catch (Exception ex)
-            {
-                logger?.LogError("An error ocurred with exception: {@Exception}", ex);
-                throw;
-            }
+            if (_dbConnection.State == ConnectionState.Closed)
+                _dbConnection.Open();
+            var result = await _dbConnection.QueryAsync<CursoPredictionEntity>("GetCursosByParticipante",
+                new { Id = idParticipante, IdEtapa = idEtapa, IdIdioma = idIdioma }, commandType: CommandType.StoredProcedure);
+            _dbConnection.Close();
+            return result.ToList();
         }
 
         public async Task<IEnumerable<CursoPredictionEntity>> GetCursosPredictionByParticipanteAsync(int idParticipante, int? idEtapa = null, int? idIdioma = null)
         {
-            try
-            {
-                if (_dbConnection.State == ConnectionState.Closed)
-                    _dbConnection.Open();
-                var result = await _dbConnection.QueryAsync<CursoPredictionEntity>("GetCursosPredictionByParticipante", 
-                    new { Id = idParticipante, IdEtapa = idEtapa, IdIdioma = idIdioma }, commandType: CommandType.StoredProcedure);
-                _dbConnection.Close();
-                return result.ToList();
-            }
-            catch (Exception ex)
-            {
-                logger?.LogError("An error ocurred with exception: {@Exception}", ex);
-                throw;
-            }   
+            if (_dbConnection.State == ConnectionState.Closed)
+                _dbConnection.Open();
+            var result = await _dbConnection.QueryAsync<CursoPredictionEntity>("GetCursosPredictionByParticipante", 
+                new { Id = idParticipante, IdEtapa = idEtapa, IdIdioma = idIdioma }, commandType: CommandType.StoredProcedure);
+            _dbConnection.Close();
+            return result.ToList(); 
         }
     }
 }

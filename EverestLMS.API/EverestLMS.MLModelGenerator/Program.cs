@@ -34,12 +34,12 @@ namespace EverestLMS.PopulateData
         {
             Console.WriteLine("Comenzó Generador de Data!");
             connection = new SqlConnection(connectionString);
-            nivelRepository = new NivelRepository(connection, default);
-            lineaCarreraRepository = new LineaCarreraRepository(connection, default);
-            conocimientoRepository = new ConocimientoRepository(connection, default);
-            participanteRepository = new ParticipanteRepository(connection, default);
-            ratingCursoRepository = new RatingCursoRepository(connection, default);
-            cursoRepository = new CursoRepository(connection, default);
+            nivelRepository = new NivelRepository(connection);
+            lineaCarreraRepository = new LineaCarreraRepository(connection);
+            conocimientoRepository = new ConocimientoRepository(connection);
+            participanteRepository = new ParticipanteRepository(connection);
+            ratingCursoRepository = new RatingCursoRepository(connection);
+            cursoRepository = new CursoRepository(connection);
 
             var myProfile = new AutoMapperProfiles();
             var configuration = new MapperConfiguration(cfg => cfg.AddProfile(myProfile));
@@ -129,9 +129,9 @@ namespace EverestLMS.PopulateData
         static async Task GenerarCursoImagenes()
         {
             Console.WriteLine("Generar Curso Imagenes");
-            ICursoRepository cursoRepository = new CursoRepository(connection, default);
+            ICursoRepository cursoRepository = new CursoRepository(connection);
             var cursos = await cursoRepository.GetCursosAsync(default, default, default, default);
-            ICloudinaryFileRepository cloudinaryFileRepository = new CloudinaryFileRepository(connection, default);
+            ICloudinaryFileRepository cloudinaryFileRepository = new CloudinaryFileRepository(connection);
             foreach (var item in cursos)
             {
                 var cloudinaryFileEntity = new CloudinaryFileEntity();

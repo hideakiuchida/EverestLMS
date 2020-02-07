@@ -1,7 +1,4 @@
-﻿using Newtonsoft.Json;
-using System.ComponentModel.DataAnnotations;
-
-namespace EverestLMS.ViewModels.Curso
+﻿namespace EverestLMS.ViewModels.Curso
 {
     public class CursoToUpdateVM : CursoToCreateVM
     {

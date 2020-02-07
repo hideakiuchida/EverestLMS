@@ -39,9 +39,9 @@ namespace EverestLMS.MLPredictionTrainer
         {
             Console.WriteLine("Start Training ML");
             IDbConnection connection = new SqlConnection(connectionString);
-            ratingCursoRepository = new RatingCursoRepository(connection, default);
-            cursoRepository = new CursoRepository(connection, default);
-            participanteRepository = new ParticipanteRepository(connection, default);
+            ratingCursoRepository = new RatingCursoRepository(connection);
+            cursoRepository = new CursoRepository(connection);
+            participanteRepository = new ParticipanteRepository(connection);
 
             try
             {
