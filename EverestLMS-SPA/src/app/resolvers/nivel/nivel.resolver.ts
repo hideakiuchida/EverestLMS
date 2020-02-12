@@ -6,7 +6,9 @@ import { catchError } from 'rxjs/operators';
 import { Nivel } from 'src/app/models/nivel';
 import { NivelService } from 'src/app/services/nivel/nivel.service';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+  })
 export class NivelResolver implements Resolve<Nivel[]> {
 
     constructor(private service: NivelService,

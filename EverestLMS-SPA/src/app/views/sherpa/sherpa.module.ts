@@ -1,15 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DataTablesModule } from 'angular-datatables';
-import {MatButtonModule, MatIconModule} from '@angular/material';
-import { NgxSpinnerModule } from 'ngx-spinner';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FlatpickrModule } from 'angularx-flatpickr';
-import localeEs from '@angular/common/locales/es';
-import { BsDatepickerModule, TimepickerModule } from 'ngx-bootstrap';
-import { FileUploadModule } from 'ng2-file-upload';
 
 import { CursosComponent } from './actualizar-cursos/cursos.component';
 import { RegistrarCursoComponent } from './actualizar-cursos/registrar-curso/registrar-curso.component';
@@ -35,7 +24,7 @@ import { LeccionMaterialesResolver } from 'src/app/resolvers/leccion/leccion-mat
 import { LeccionResolver } from 'src/app/resolvers/leccion/leccion.resolver';
 import { TipoContenidoResolver } from 'src/app/resolvers/tipocontenido/tipocontenido.resolver';
 import { TipocontenidoService } from 'src/app/services/tipocontenido/tipocontenido.service';
-import { RouterModule } from '@angular/router';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
    declarations: [
@@ -52,21 +41,7 @@ import { RouterModule } from '@angular/router';
       RegistrarPresentacionMaterialComponent
    ],
    imports: [
-      BrowserModule,
-      HttpClientModule,
-      FormsModule,
-      ReactiveFormsModule,
-      DataTablesModule,
-      MatButtonModule,
-      MatIconModule,
-      NgxSpinnerModule,
-      BrowserAnimationsModule,
-      FileUploadModule,
-      FlatpickrModule.forRoot(),
-      BsDatepickerModule.forRoot(),
-      TimepickerModule.forRoot(),
-      NgbModule,
-      RouterModule,
+      SharedModule
    ],
    providers: [
       CursosService,

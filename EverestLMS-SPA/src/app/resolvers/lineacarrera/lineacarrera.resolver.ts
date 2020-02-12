@@ -6,7 +6,9 @@ import { catchError } from 'rxjs/operators';
 import { LineaCarrera } from 'src/app/models/lineacarrera';
 import { LineaCarreraService } from 'src/app/services/lineacarrera/lineacarrera.service';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+  })
 export class LineaCarreraResolver implements Resolve<LineaCarrera[]> {
 
     constructor(private service: LineaCarreraService,

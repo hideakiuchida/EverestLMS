@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { HomeComponent } from './views/common/home/home.component';
+import { HomeComponent } from './views/shared/home/home.component';
 import { AsignarequiposComponent } from './views/admin/asignar/asignarequipos/asignarequipos.component';
 import { CalendarioComponent } from './views/admin/planificarcalendario/calendario/calendario.component';
 import { ActualizarLeccionesComponent } from './views/sherpa/actualizar-lecciones/actualizar-lecciones.component';
