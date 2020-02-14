@@ -128,5 +128,8 @@
       }
     }
   },
-  "defaultProject": "EverestLMSFrontend"
+  "defaultProject": "EverestLMSFrontend",
+  "cli": {
+    "analytics": false
+  }
 }
