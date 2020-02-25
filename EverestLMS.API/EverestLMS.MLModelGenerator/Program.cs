@@ -54,7 +54,7 @@ namespace EverestLMS.PopulateData
                 await GenerarSherpas();
                 await GenerarCursoImagenes();
                 for (int i = 0; i < 3; i++)
-                    GenerarRatingCursosAleatorios();
+                    await GenerarRatingCursosAleatorios();
 
             }
             catch (Exception ex)
@@ -65,17 +65,17 @@ namespace EverestLMS.PopulateData
             Console.ReadLine();
         }
 
-        static void GenerarRatingCursosAleatorios()
+        static async Task GenerarRatingCursosAleatorios()
         {
-            var niveles = nivelRepository.GetAllAsync().Result;
-            var lineas = lineaCarreraRepository.GetAllAsync().Result;
+            var niveles = await nivelRepository.GetAllAsync();
+            var lineas = await lineaCarreraRepository.GetAllAsync();
 
             foreach (var linea in lineas)
             {
                 foreach (var nivel in niveles)
                 {
-                    var cursos = cursoRepository.GetCursosAsync(default, linea.IdLineaCarrera, nivel.IdNivel, default).Result;
-                    var participantes = participanteRepository.GetParticipantesAsync(linea.IdLineaCarrera, nivel.IdNivel).Result;
+                    var cursos = await cursoRepository.GetCursosAsync(default, linea.IdLineaCarrera, nivel.IdNivel, default);
+                    var participantes = await participanteRepository.GetParticipantesAsync(linea.IdLineaCarrera, nivel.IdNivel);
 
                     if (cursos == null || cursos.ToList().Count == default(int))
                         continue;
@@ -94,7 +94,7 @@ namespace EverestLMS.PopulateData
                             ratingCursoEntity.Rating = ratingCurso;
                             if (ratingCursoEntity != null)
                             {
-                                ratingCursoRepository.CreateAsync(ratingCursoEntity);
+                                await ratingCursoRepository.CreateAsync(ratingCursoEntity);
                                 count++;
                                 Console.WriteLine($"{count} RatingCursoEntity: {curso.Nombre} {participante.Nombre} {ratingCurso}");
                             }                          

@@ -25,7 +25,7 @@ export class CalendarioComponent implements OnInit {
   activeDayIsOpen: any = true;
   events: CalendarEvent[] = [];
   eventos: Evento[] = [];
-  locale: String = 'es';
+  locale = 'es';
   refresh: Subject<any> = new Subject();
 
   calendarios: Calendario[];
