@@ -25,9 +25,9 @@ export class AsignarequiposComponent implements OnInit {
   lineaCarreras: LineaCarrera[];
   sedes: Sede[];
   search: any;
-  selectedNivelId: any;
-  selectedLineaCarreraId: any;
-  selectedSedeId: any;
+  selectedNivelId: any = '';
+  selectedLineaCarreraId: any = '';
+  selectedSedeId: any = '';
   sherpa: Sherpa;
 
   constructor(private participanteService: ParticipanteService,
@@ -75,7 +75,11 @@ export class AsignarequiposComponent implements OnInit {
 
   loadSedes() {
     this.sedeService.getSedes().subscribe((sedes: Sede[]) => {
-      this.sedes = sedes;
+      if (sedes != null) {
+        var defaultSede = { id: this.selectedSedeId, descripcion: 'Todos'};
+        sedes.push(defaultSede);
+        this.sedes = sedes;
+      } 
     }, error => {
       this.alertify.error(error);
     });
@@ -83,6 +87,11 @@ export class AsignarequiposComponent implements OnInit {
 
   loadLineaCarreras() {
     this.lineaCarreraService.getLineaCarreras().subscribe((lineaCarreras: LineaCarrera[]) => {
+      if (lineaCarreras != null) {
+        var defaultLinea = { id: this.selectedLineaCarreraId, descripcion: 'Todos'};
+        lineaCarreras.push(defaultLinea);
+        this.lineaCarreras = lineaCarreras;
+      } 
        this.lineaCarreras = lineaCarreras;
     }, error => {
       this.alertify.error(error);

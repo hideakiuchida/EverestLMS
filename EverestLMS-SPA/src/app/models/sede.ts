@@ -1,4 +1,4 @@
 export interface Sede {
-    id: number;
+    id?: number;
     descripcion: string;
 }
