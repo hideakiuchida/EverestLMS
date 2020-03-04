@@ -24,7 +24,7 @@
 
         <!--valor-->
         <div class="form-group" [ngClass]="{'has-error': criterioAceptacionForm.get('valor')?.errors && criterioAceptacionForm.get('valor')?.touched}">
-            <input type="number" class="form-control" placeholder="Ingresa el valor decimal: ejm 1234567891.15" step="any" min="0" max="10" formControlName="valor" />
+            <input type="number" class="form-control" placeholder="Ingresa el valor númerico" formControlName="valor" />
         </div>
         <button type="submit" class="btn btn-primary">Guardar</button>
     </form>

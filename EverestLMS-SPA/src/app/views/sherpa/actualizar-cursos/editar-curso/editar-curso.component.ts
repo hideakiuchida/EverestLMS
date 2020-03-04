@@ -77,7 +77,7 @@ export class EditarCursoComponent implements OnInit {
     this.etapaService.getEtapas(idLineaCarrera, idNivel, null).subscribe((etapas: Etapa[]) => {
        this.etapas = etapas;
     }, error => {
-      this.alertify.error(error);
+      this.alertify.error(error.error);
     });
   }
 
@@ -88,7 +88,7 @@ export class EditarCursoComponent implements OnInit {
       this.cursoService.editCurso(this.cursoToRegiter.idEtapa, this.cursoToRegiter.id, this.cursoToRegiter).subscribe(() => {
         this.alertify.success('Se actualizó existosamente.');
       }, error => {
-        this.alertify.error(error);
+        this.alertify.error(error.error);
       }, () => {
         this.router.navigate(['editar-imagen', this.cursoToRegiter.idEtapa, this.cursoToRegiter.id]);
       });

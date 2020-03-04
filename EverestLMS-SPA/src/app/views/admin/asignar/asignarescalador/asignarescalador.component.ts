@@ -58,7 +58,7 @@ export class AsignarescaladorComponent implements OnInit {
         this.alertify.message('No existe escaladores sin asignar para el sherpa.');
       }
     }, error => {
-      this.alertify.error(error);
+      this.alertify.error(error.error);
     });
   }
 
@@ -66,7 +66,7 @@ export class AsignarescaladorComponent implements OnInit {
     this.participanteService.getEscalador(id).subscribe((escalador: Escalador) => {
       this.escalador = escalador;
     }, error => {
-      this.alertify.error(error);
+      this.alertify.error(error.error);
     });
   }
 

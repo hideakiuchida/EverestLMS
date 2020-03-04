@@ -87,7 +87,7 @@ export class ActualizarLeccionesComponent implements OnInit {
         this.loadCursos(this.selectedEtapaId , this.selectedLineaCarreraId, this.selectedNivelId);
        }
     }, error => {
-      this.alertify.error(error);
+      this.alertify.error(error.error);
     });
   }
 
@@ -99,7 +99,7 @@ export class ActualizarLeccionesComponent implements OnInit {
         this.loadLecciones(this.selectedEtapaId, this.selectedCursoId, this.selectedLineaCarreraId, this.selectedNivelId, this.search);
        }
     }, error => {
-      this.alertify.error(error);
+      this.alertify.error(error.error);
     });
   }
 
@@ -107,7 +107,7 @@ export class ActualizarLeccionesComponent implements OnInit {
     this.leccionService.getLecciones(idEtapa, idCurso, idLineaCarrera, idNivel, search).subscribe((lecciones: Leccion[]) => {
       this.lecciones = lecciones;
     }, error => {
-      this.alertify.error(error);
+      this.alertify.error(error.error);
     });
   }
 
@@ -120,7 +120,7 @@ export class ActualizarLeccionesComponent implements OnInit {
         this.alertify.warning('No se pudo eliminar la lección');
       }
     }, error => {
-      this.alertify.error(error);
+      this.alertify.error(error.error);
     });
   }
 }

@@ -69,7 +69,7 @@ export class AsignarequiposComponent implements OnInit {
         this.loadSherpa(this.selectedSherpa.id);
       }
     }, error => {
-      this.alertify.error(error);
+      this.alertify.error(error.error);
     });
   }
 
@@ -81,7 +81,7 @@ export class AsignarequiposComponent implements OnInit {
         this.sedes = sedes;
       } 
     }, error => {
-      this.alertify.error(error);
+      this.alertify.error(error.error);
     });
   }
 
@@ -94,7 +94,7 @@ export class AsignarequiposComponent implements OnInit {
       } 
        this.lineaCarreras = lineaCarreras;
     }, error => {
-      this.alertify.error(error);
+      this.alertify.error(error.error);
     });
   }
 
@@ -112,7 +112,7 @@ export class AsignarequiposComponent implements OnInit {
       }
       this.sherpa = sherpa;
     }, error => {
-      this.alertify.error(error);
+      this.alertify.error(error.error);
     });
   }
 
@@ -130,7 +130,7 @@ export class AsignarequiposComponent implements OnInit {
       this.loadSherpas(this.selectedNivelId, this.selectedLineaCarreraId, this.selectedSedeId, this.search);
     }, error => {
       this.spinner.hide();
-      this.alertify.error(error);
+      this.alertify.error(error.error);
     });
   }
 
@@ -139,7 +139,7 @@ export class AsignarequiposComponent implements OnInit {
       this.alertify.success(mensaje.message);
       this.loadSherpas(this.selectedNivelId, this.selectedLineaCarreraId, this.selectedSedeId, this.search);
     }, error => {
-      this.alertify.error(error);
+      this.alertify.error(error.error);
     });
   }
 

@@ -34,7 +34,7 @@ export class SherpaDetalleComponent implements OnInit {
       this.alertify.success(mensaje.message);
       this.desasignarEmitter.emit(true);
     }, error => {
-      this.alertify.error(error);
+      this.alertify.error(error.error);
     });
   }
 }

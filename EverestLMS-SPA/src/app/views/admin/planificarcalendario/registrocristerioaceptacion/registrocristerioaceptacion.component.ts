@@ -27,7 +27,7 @@ export class RegistrocristerioaceptacionComponent implements OnInit {
     this.criterioAceptacionForm = this.formBuilder.group({
       descripcion: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(1000)]],
       medida: [''],
-      valor: ['', [ Validators.pattern(/^\d+\.\d{2}$/), Validators.maxLength(10)]]
+      valor: ['', [ Validators.pattern(/^\d*\.?\d{1,2}$/), Validators.maxLength(10)]]
     });
   }
 

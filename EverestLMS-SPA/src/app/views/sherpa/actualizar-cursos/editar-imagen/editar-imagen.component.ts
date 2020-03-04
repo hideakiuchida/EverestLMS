@@ -69,7 +69,7 @@ export class EditarImagenComponent implements OnInit {
     this.cursoService.getImagen(idEtapa, idCurso, idImagen).subscribe((imagen: Imagen) => {
       this.imagen = imagen;
     }, error => {
-      this.alertify.error(error);
+      this.alertify.error(error.error);
     });
   }
 
@@ -81,7 +81,7 @@ export class EditarImagenComponent implements OnInit {
         this.imagen = null;
       }
     }, error => {
-      this.alertify.error(error);
+      this.alertify.error(error.error);
     });
   }
 

@@ -49,7 +49,7 @@ export class ActualizarLeccionMaterialComponent implements OnInit {
     this.leccionService.getLeccionMateriales(idEtapa, idCurso, idLeccion).subscribe((leccionesMaterial: LeccionMaterial[]) => {
       this.leccionesMaterial = leccionesMaterial;
     }, error => {
-      this.alertify.error(error);
+      this.alertify.error(error.error);
     });
   }
 
@@ -75,7 +75,7 @@ export class ActualizarLeccionMaterialComponent implements OnInit {
         this.alertify.warning('No se pudo eliminar la lección material');
       }
     }, error => {
-      this.alertify.error(error);
+      this.alertify.error(error.error);
     });
   }
 }

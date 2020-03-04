@@ -64,7 +64,8 @@ export class CalendarioComponent implements OnInit {
     this.calendarioService.getCalendarios().subscribe((calendarios: Calendario[]) => {
       this.calendarios = calendarios;
       if (this.calendarios != null && this.calendarios.length > 0) {
-        const calendario = this.calendarios[this.calendarios.length - 1];
+        var currentDate = new Date();
+        const calendario = this.calendarios.filter(x => new Date(x.fechaInicio) <= currentDate && new Date(x.fechaFinal) >= currentDate)[0];
         if (calendario != null) {
           this.selectedCalendarioId = calendario.id;
           this.loadEventos(this.selectedCalendarioId);
@@ -73,7 +74,7 @@ export class CalendarioComponent implements OnInit {
         }
       }
     }, error => {
-      this.alertifyService.error(error);
+      this.alertifyService.error(error.error);
     }, () => {
       this.spinner.hide();
     });
@@ -84,7 +85,7 @@ export class CalendarioComponent implements OnInit {
     this.calendarioService.getCriteriosAceptacion(idCalendario).subscribe((criteriosAceptacion: CriterioAceptacion[]) => {
       this.criteriosAceptacion = criteriosAceptacion;
     }, error => {
-      this.alertifyService.error(error);
+      this.alertifyService.error(error.error);
     }, () => {
       this.spinner.hide();
     });
@@ -109,7 +110,7 @@ export class CalendarioComponent implements OnInit {
       this.eventos = eventos;
       this.mapEventosToCalendarEvents(this.eventos);
     }, error => {
-      this.alertifyService.error(error);
+      this.alertifyService.error(error.error);
     }, () => {
       this.spinner.hide();
     });
@@ -149,7 +150,7 @@ export class CalendarioComponent implements OnInit {
         this.alertifyService.warning('No se puedo eliminar el evento.');
       }
     }, error =>  {
-      this.alertifyService.error(error);
+      this.alertifyService.error(error.error);
     });
   }
 

@@ -55,7 +55,7 @@ export class EventoComponent implements OnInit {
       this.calendarioService.createEvento(this.idCalendario, evento).subscribe(() => {
         this.alertify.success('Se registró exitosamente.');
       }, error => {
-        this.alertify.error(error);
+        this.alertify.error(error.error);
       }, () => {
         this.router.navigate(['calendario']);
       });

@@ -84,7 +84,7 @@ export class CursosComponent implements OnInit {
         this.loadCursos(this.selectedEtapaId, this.selectedLineaCarreraId, this.selectedNivelId, this.search);
        }
     }, error => {
-      this.alertify.error(error);
+      this.alertify.error(error.error);
     });
   }
 
@@ -92,7 +92,7 @@ export class CursosComponent implements OnInit {
     this.cursoService.getCursos(idEtapa, idLineaCarrera, idNivel, search).subscribe((cursos: Curso[]) => {
       this.cursos = cursos;
     }, error => {
-      this.alertify.error(error);
+      this.alertify.error(error.error);
     });
   }
 
@@ -105,7 +105,7 @@ export class CursosComponent implements OnInit {
         this.alertify.warning('No se pudo eliminar el curso');
       }
     }, error => {
-      this.alertify.error(error);
+      this.alertify.error(error.error);
     });
   }
 }
