@@ -12,8 +12,11 @@ import { Imagen } from 'src/app/models/imagen';
 export class CursosService {
   baseUrl = environment.apiUrl;
 
+  // tslint:disable-next-line:variable-name
   _idLineaCarrera: any = '';
+  // tslint:disable-next-line:variable-name
   _idNivel: any = '';
+  // tslint:disable-next-line:variable-name
   _search: any = '';
 
 constructor(private http: HttpClient) { }

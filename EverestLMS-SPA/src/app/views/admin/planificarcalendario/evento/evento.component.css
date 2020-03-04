@@ -1,4 +1,4 @@
-.help-block {
-    color: red;
-    padding: 5px;
+.flex-v-center {
+    display: flex;
+    align-items: center;
 }

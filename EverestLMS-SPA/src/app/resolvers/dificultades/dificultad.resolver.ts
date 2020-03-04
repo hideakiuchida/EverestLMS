@@ -10,7 +10,7 @@ import { DificultadService } from 'src/app/services/dificultad/dificultad.servic
 export class DificultadResolver implements Resolve<Dificultad[]> {
 
     constructor(private service: DificultadService,
-        private router: Router, private alertify: AlertifyService) {}
+                private router: Router, private alertify: AlertifyService) {}
 
     resolve(route: ActivatedRouteSnapshot): Observable<Dificultad[]> {
         return this.service.getDificultades().pipe(

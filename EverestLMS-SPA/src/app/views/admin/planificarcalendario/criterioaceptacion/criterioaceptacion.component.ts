@@ -14,7 +14,7 @@ export class CriterioAceptacionComponent implements OnInit {
   dtOptions: DataTables.Settings = {};
 
   constructor(private calendarioService: CalendarioService,
-    private alertifyService: AlertifyService) { }
+              private alertifyService: AlertifyService) { }
 
   ngOnInit() {
     this.initDataTable();

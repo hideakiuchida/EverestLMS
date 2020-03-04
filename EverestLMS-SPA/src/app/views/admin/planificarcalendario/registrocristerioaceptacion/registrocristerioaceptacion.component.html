@@ -1,11 +1,10 @@
-<div class="panel panel-default border p-4">
+<div class="panel panel-default col-xl-6 col-lg-8 col-md-10 col-sm-12 mx-auto text-center form p-4">
     <form [formGroup]="criterioAceptacionForm" (ngSubmit)="registrarCriterioAceptacion()" class="m-3">
         <h1 class="text-center text-primary">Criterios de Aceptación</h1>
         <hr>
 
         <!--descripción-->
-        <div class="form-group" [ngClass]="{'has-error': criterioAceptacionForm.get('descripcion').errors && criterioAceptacionForm.get('descripcion').touched}">
-            <label for="descripcion">Descripción: </label>
+        <div class="form-group" [ngClass]="{'has-error': criterioAceptacionForm.get('descripcion')?.errors && criterioAceptacionForm.get('descripcion')?.touched}">
             <textarea class="form-control" placeholder="Ingresa la descripción" formControlName="descripcion"></textarea>
             <span class="help-block" *ngIf="criterioAceptacionForm.get('descripcion').hasError('required') && criterioAceptacionForm.get('descripcion').touched">
                 Descripción es requerido
@@ -19,15 +18,13 @@
         </div>
 
         <!--medida-->
-        <div class="form-group" [ngClass]="{'has-error': criterioAceptacionForm.get('titulo').errors && criterioAceptacionForm.get('titulo').touched}">
-            <label for="medida">Medida: </label>
-            <input type="text" class="form-control col-md-4" placeholder="Ingresa la medida" formControlName="medida" />
+        <div class="form-group" [ngClass]="{'has-error': criterioAceptacionForm.get('titulo')?.errors && criterioAceptacionForm.get('titulo')?.touched}">
+            <input type="text" class="form-control" placeholder="Ingresa la medida" formControlName="medida" />
         </div>
 
         <!--valor-->
-        <div class="form-group" [ngClass]="{'has-error': criterioAceptacionForm.get('valor').errors && criterioAceptacionForm.get('valor').touched}">
-            <label for="valor">Valor: </label>
-            <input type="text" class="form-control col-md-4" placeholder="Ingresa el valor" formControlName="valor" />
+        <div class="form-group" [ngClass]="{'has-error': criterioAceptacionForm.get('valor')?.errors && criterioAceptacionForm.get('valor')?.touched}">
+            <input type="number" class="form-control" placeholder="Ingresa el valor decimal: ejm 1234567891.15" step="any" min="0" max="10" formControlName="valor" />
         </div>
         <button type="submit" class="btn btn-primary">Guardar</button>
     </form>

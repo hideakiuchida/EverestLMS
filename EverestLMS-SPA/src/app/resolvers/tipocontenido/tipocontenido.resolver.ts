@@ -10,7 +10,7 @@ import { TipocontenidoService } from 'src/app/services/tipocontenido/tipoconteni
 export class TipoContenidoResolver implements Resolve<TipoContenido[]> {
 
     constructor(private service: TipocontenidoService,
-        private router: Router, private alertify: AlertifyService) {}
+                private router: Router, private alertify: AlertifyService) {}
 
     resolve(route: ActivatedRouteSnapshot): Observable<TipoContenido[]> {
         return this.service.getTiposContenido().pipe(

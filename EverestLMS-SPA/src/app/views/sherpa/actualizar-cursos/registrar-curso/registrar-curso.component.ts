@@ -29,16 +29,15 @@ export class RegistrarCursoComponent implements OnInit {
   idCurso: number;
 
   constructor(private formBuilder: FormBuilder, private cursoService: CursosService, private etapaService: EtapaService,
-    private route: ActivatedRoute, private alertify: AlertifyService, private router: Router) { }
+              private route: ActivatedRoute, private alertify: AlertifyService, private router: Router) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
-      this.niveles = data['niveles'];
-      this.lineaCarreras = data['lineaCarreras'];
-      this.idiomas = data['idiomas'];
-      this.dificultades = data['dificultades'];
+      this.niveles = data.niveles;
+      this.lineaCarreras = data.lineaCarreras;
+      this.idiomas = data.idiomas;
+      this.dificultades = data.dificultades;
     });
-    this.loadEtapas(this.selectedLineaCarreraId, this.selectedNivelId);
     this.createCursonForm();
   }
 
@@ -72,6 +71,7 @@ export class RegistrarCursoComponent implements OnInit {
   loadEtapas(idLineaCarrera, idNivel) {
     this.etapaService.getEtapas(idLineaCarrera, idNivel, null).subscribe((etapas: Etapa[]) => {
        this.etapas = etapas;
+       this.cursoForm.controls.idEtapa.setValue(this.etapas[0].id);
     }, error => {
       this.alertify.error(error);
     });
@@ -80,6 +80,10 @@ export class RegistrarCursoComponent implements OnInit {
   registrarCurso() {
     if (this.cursoForm.valid) {
       this.cursoToRegiter = Object.assign({}, this.cursoForm.value);
+      this.cursoToRegiter.idDificultad = +this.cursoToRegiter.idDificultad;
+      this.cursoToRegiter.idIdioma = +this.cursoToRegiter.idIdioma;
+      this.cursoToRegiter.idLineaCarrera = +this.cursoToRegiter.idLineaCarrera;
+      this.cursoToRegiter.idNivel = +this.cursoToRegiter.idNivel;
       this.cursoToRegiter.autor = 'Alonso Uchida'; // TODO cambiar por usuario del Token
       this.cursoToRegiter.imagen = 'Imagen 1';
       this.cursoService.createCurso(this.cursoToRegiter.idEtapa, this.cursoToRegiter).subscribe((idCurso: number) => {

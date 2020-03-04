@@ -10,9 +10,10 @@ import { CursosService } from 'src/app/services/curso/cursos.service';
 export class CursoResolver implements Resolve<CursoToRegister> {
 
     constructor(private service: CursosService,
-        private router: Router, private alertify: AlertifyService) {}
+                private router: Router, private alertify: AlertifyService) {}
 
     resolve(route: ActivatedRouteSnapshot): Observable<CursoToRegister> {
+        // tslint:disable-next-line:no-string-literal
         return this.service.getCurso(route.params['idEtapa'], route.params['idCurso']).pipe(
             catchError(error => {
                 this.alertify.error('Problema obteniendo información.');

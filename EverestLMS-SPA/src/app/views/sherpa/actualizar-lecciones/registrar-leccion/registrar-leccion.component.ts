@@ -29,14 +29,14 @@ export class RegistrarLeccionComponent implements OnInit {
   idLeccion: number;
 
   constructor(private formBuilder: FormBuilder, private leccionService: LeccionService, private cursoService: CursosService,
-    private etapaService: EtapaService, private route: ActivatedRoute, private alertify: AlertifyService, private router: Router) { }
+              private etapaService: EtapaService, private route: ActivatedRoute,
+              private alertify: AlertifyService, private router: Router) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
-      this.niveles = data['niveles'];
-      this.lineaCarreras = data['lineaCarreras'];
+      this.niveles = data.niveles;
+      this.lineaCarreras = data.lineaCarreras;
     });
-    this.loadEtapas(this.selectedLineaCarreraId, this.selectedNivelId);
     this.createLeccionForm();
   }
 
@@ -75,19 +75,29 @@ export class RegistrarLeccionComponent implements OnInit {
 
   loadEtapas(idLineaCarrera, idNivel) {
     this.etapaService.getEtapas(idLineaCarrera, idNivel, null).subscribe((etapas: Etapa[]) => {
-       this.etapas = etapas;
-       this.selectedEtapaId = etapas[0].id;
-       this.loadCursos(this.selectedEtapaId, this.selectedLineaCarreraId, this.selectedNivelId);
+      if (etapas.length > 0) {
+        this.etapas = etapas;
+        this.selectedEtapaId = etapas[0].id;
+        this.leccionForm.controls.idEtapa.setValue(this.selectedEtapaId);
+        this.loadCursos(this.selectedEtapaId, this.selectedLineaCarreraId, this.selectedNivelId);
+      } else {
+        this.alertify.warning('No existen etapas en base a estos criterios seleccionados');
+      }
     }, error => {
-      this.alertify.error(error);
+      this.alertify.error(error.error);
     });
   }
 
   loadCursos(idEtapa, idLineaCarrera, idNivel) {
     this.cursoService.getCursos(idEtapa, idLineaCarrera, idNivel, null).subscribe((cursos: Curso[]) => {
-      this.cursos = cursos;
+      if (cursos.length > 0) {
+        this.cursos = cursos;
+        this.leccionForm.controls.idCurso.setValue(this.cursos[0].id);
+      } else {
+        this.alertify.warning('No existen cursos en base a los criterios seleccionados');
+      }
     }, error => {
-      this.alertify.error(error);
+      this.alertify.error(error.error);
     });
   }
 
@@ -99,7 +109,7 @@ export class RegistrarLeccionComponent implements OnInit {
         this.idLeccion = idLeccion;
         this.alertify.success('Se registró existosamente.');
       }, error => {
-        this.alertify.error(error);
+        this.alertify.error(error.error);
       }, () => {
         this.router.navigate(['actualizar-leccion-material', this.leccionToRegiter.idEtapa, this.leccionToRegiter.idCurso, this.idLeccion]);
       });

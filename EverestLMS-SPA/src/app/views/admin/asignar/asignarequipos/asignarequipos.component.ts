@@ -31,9 +31,9 @@ export class AsignarequiposComponent implements OnInit {
   sherpa: Sherpa;
 
   constructor(private participanteService: ParticipanteService,
-      private lineaCarreraService: LineaCarreraService, private sedeService: SedeService,
-      private asignacionService: AsignacionService,
-      private alertify: AlertifyService, private spinner: NgxSpinnerService) { }
+              private lineaCarreraService: LineaCarreraService, private sedeService: SedeService,
+              private asignacionService: AsignacionService,
+              private alertify: AlertifyService, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     this.loadLineaCarreras();

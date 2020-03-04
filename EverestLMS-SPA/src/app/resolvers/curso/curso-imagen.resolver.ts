@@ -10,9 +10,10 @@ import { Imagen } from 'src/app/models/imagen';
 export class CursoImagenResolver implements Resolve<Imagen[]> {
 
     constructor(private service: CursosService,
-        private router: Router, private alertify: AlertifyService) {}
+                private router: Router, private alertify: AlertifyService) {}
 
     resolve(route: ActivatedRouteSnapshot): Observable<Imagen[]> {
+        // tslint:disable-next-line:no-string-literal
         return this.service.getImagenes(route.params['idEtapa'], route.params['idCurso']).pipe(
             catchError(error => {
                 this.alertify.error('Problema obteniendo información.');

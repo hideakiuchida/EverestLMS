@@ -10,9 +10,10 @@ import { CalendarioService } from 'src/app/services/calendario/calendario.servic
 export class CriteriosAceptacionResolver implements Resolve<CriterioAceptacion[]> {
 
     constructor(private calendarioService: CalendarioService,
-        private router: Router, private alertify: AlertifyService) {}
+                private router: Router, private alertify: AlertifyService) {}
 
     resolve(route: ActivatedRouteSnapshot): Observable<CriterioAceptacion[]> {
+        // tslint:disable-next-line:no-string-literal
         return this.calendarioService.getCriteriosAceptacion(route.params['idCalendario']).pipe(
             catchError(error => {
                 this.alertify.error('Problema obteniendo información.');

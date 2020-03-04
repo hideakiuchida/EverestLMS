@@ -23,7 +23,7 @@ export class EditarImagenComponent implements OnInit {
 
   ngOnInit() {
     this.route.data.subscribe(data => {
-      const imagenes = data['imagenes'];
+      const imagenes = data.imagenes;
       if  (imagenes != null && imagenes.length > 0) {
         this.imagen = imagenes[0];
       }
@@ -60,7 +60,7 @@ export class EditarImagenComponent implements OnInit {
         this.alertify.success('La imagen se eliminó.');
         this.loadImagenes(this.idEtapa, this.idCurso);
       }, error => {
-        this.alertify.error(error);
+        this.alertify.error(error.error);
       });
     });
   }

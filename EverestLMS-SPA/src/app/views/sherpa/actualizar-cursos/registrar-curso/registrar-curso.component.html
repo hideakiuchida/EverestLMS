@@ -1,10 +1,9 @@
-<div class="panel panel-default border p-4">
+<div class="panel panel-default col-xl-6 col-lg-8 col-md-10 col-sm-12 mx-auto text-center form p-4">
     <form [formGroup]="cursoForm" (ngSubmit)="registrarCurso()" class="m-3">
         <h1 class="text-center text-primary">Crear Curso</h1>
         <hr>
 
         <div class="form-group" [ngClass]="{'has-error': cursoForm.get('nombre').errors && cursoForm.get('nombre').touched}">
-            <label for="nombre" class="font-weight-bold">Nombre: </label>
             <input type="text" class="form-control" placeholder="Ingresa el nombre" formControlName="nombre" />
             <span class="help-block" *ngIf="cursoForm.get('nombre').hasError('required') && cursoForm.get('nombre').touched">
             Nombre es requerido
@@ -18,7 +17,6 @@
         </div>
 
         <div class="form-group" [ngClass]="{'has-error': cursoForm.get('descripcion').errors && cursoForm.get('descripcion').touched}">
-            <label for="descripcion" class="font-weight-bold">Descripción: </label>
             <textarea class="form-control" placeholder="Ingresa la descripción" formControlName="descripcion"></textarea>
             <span class="help-block" *ngIf="cursoForm.get('descripcion').hasError('required') && cursoForm.get('descripcion').touched">
               Descripción es requerido
@@ -31,8 +29,8 @@
           </span>
         </div>
 
-        <div class="form-group" [ngClass]="{'has-error': cursoForm.get('idLineaCarrera').errors && cursoForm.get('idLineaCarrera').touched}">
-            <label for="selectLineaCarreras" class="font-weight-bold"> Linea de Carrera:</label>
+        <div class="form-group row" [ngClass]="{'has-error': cursoForm.get('idLineaCarrera').errors && cursoForm.get('idLineaCarrera').touched}">
+            <label for="selectLineaCarreras" class="col-md-3 ml-2" style="text-align: left !important;"> Linea de Carrera:</label>
             <select class="form-control col-md-6" #selectedValue name="selectLineaCarreras" id="selectLineaCarreras" formControlName="idLineaCarrera" (change)="lineaCarreraSelected($event)">
               <option *ngFor="let lineaCarrera of lineaCarreras" [value]="lineaCarrera.id">
                   {{lineaCarrera.descripcion}}
@@ -43,8 +41,8 @@
           </span>
         </div>
 
-        <div class="form-group" [ngClass]="{'has-error': cursoForm.get('idNivel').errors && cursoForm.get('idNivel').touched}">
-            <label for="selectNiveles" class="font-weight-bold"> Nivel:</label>
+        <div class="form-group row" [ngClass]="{'has-error': cursoForm.get('idNivel').errors && cursoForm.get('idNivel').touched}">
+            <label for="selectNiveles" class="col-md-3 ml-2" style="text-align: left !important;"> Nivel:</label>
             <select class="form-control col-md-6" #selectedValue name="selectNiveles" id="selectNiveles" formControlName="idNivel" (change)="nivelSelected($event)">
               <option *ngFor="let nivel of niveles" [value]="nivel.id">
                   {{nivel.descripcion}}
@@ -55,8 +53,8 @@
           </span>
         </div>
 
-        <div class="form-group" [ngClass]="{'has-error': cursoForm.get('idEtapa').errors && cursoForm.get('idEtapa').touched}">
-            <label for="selectEtapas" class="font-weight-bold"> Etapa:</label>
+        <div class="form-group row" [ngClass]="{'has-error': cursoForm.get('idEtapa').errors && cursoForm.get('idEtapa').touched}">
+            <label for="selectEtapas" class="col-md-3 ml-2" style="text-align: left !important;"> Etapa:</label>
             <select class="form-control col-md-6" #selectedValue name="selectEtapas" id="selectEtapas" formControlName="idEtapa">
               <option *ngFor="let etapa of etapas" [value]="etapa.id">
                   {{etapa.nombre}}
@@ -67,8 +65,8 @@
           </span>
         </div>
 
-        <div class="form-group" [ngClass]="{'has-error': cursoForm.get('idDificultad').errors && cursoForm.get('idDificultad').touched}">
-            <label for="selectDificultades" class="font-weight-bold"> Dificultad:</label>
+        <div class="form-group row" [ngClass]="{'has-error': cursoForm.get('idDificultad').errors && cursoForm.get('idDificultad').touched}">
+            <label for="selectDificultades" class="col-md-3 ml-2" style="text-align: left !important;"> Dificultad:</label>
             <select class="form-control col-md-6" #selectedValue name="selectDificultades" id="selectDificultades" formControlName="idDificultad">
             <option *ngFor="let dificultad of dificultades" [value]="dificultad.id">
                 {{dificultad.descripcion}}
@@ -79,8 +77,8 @@
           </span>
         </div>
 
-        <div class="form-group" [ngClass]="{'has-error': cursoForm.get('idIdioma').errors && cursoForm.get('idIdioma').touched}">
-            <label for="selectIdiomas" class="font-weight-bold"> Idioma:</label>
+        <div class="form-group row" [ngClass]="{'has-error': cursoForm.get('idIdioma').errors && cursoForm.get('idIdioma').touched}">
+            <label for="selectIdiomas" class="col-md-3 ml-2" style="text-align: left !important;"> Idioma:</label>
             <select class="form-control col-md-6" #selectedValue name="selectIdiomas" id="selectIdiomas" formControlName="idIdioma">
           <option *ngFor="let idioma of idiomas" [value]="idioma.id">
               {{idioma.descripcion}}
@@ -92,8 +90,7 @@
         </div>
 
         <div class="form-group" [ngClass]="{'has-error': cursoForm.get('puntaje').errors && cursoForm.get('puntaje').touched}">
-            <label for="puntaje" class="font-weight-bold">Puntaje: </label>
-            <input type="number" class="form-control col-md-6" placeholder="Ingresa el puntaje" formControlName="puntaje" />
+            <input type="number" class="form-control" placeholder="Ingresa el puntaje" formControlName="puntaje" />
             <span class="help-block" *ngIf="cursoForm.get('puntaje').hasError('required') && cursoForm.get('puntaje').touched">
               Puntaje es requerido
           </span>

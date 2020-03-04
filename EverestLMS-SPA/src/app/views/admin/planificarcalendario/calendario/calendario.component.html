@@ -62,7 +62,7 @@
         </section>
     </div>
     <!-- Criterios de Aceptación-->
-    <app-criterioaceptacion (eliminarEmitter)="eliminarCriterioAceptacionEmitter($event)" *ngIf="isCriteriosAceptacionLoaded" [criteriosAceptacion]="criteriosAceptacion"></app-criterioaceptacion>
+    <app-criterioaceptacion (eliminarEmitter)="eliminarCriterioAceptacionEmitter($event)" *ngIf="criteriosAceptacion" [criteriosAceptacion]="criteriosAceptacion"></app-criterioaceptacion>
 
     <div class="float-right">
         <button type="button" class="btn btn-primary mt-2 mb-2" [routerLink]="['/evento', selectedCalendarioId]" routerLinkActive="router-link-active" [disabled]="selectedCalendarioId == undefined"> 

@@ -10,7 +10,7 @@ import { IdiomaService } from 'src/app/services/idioma/idioma.service';
 export class IdiomaResolver implements Resolve<Idioma[]> {
 
     constructor(private service: IdiomaService,
-        private router: Router, private alertify: AlertifyService) {}
+                private router: Router, private alertify: AlertifyService) {}
 
     resolve(route: ActivatedRouteSnapshot): Observable<Idioma[]> {
         return this.service.getIdiomas().pipe(

@@ -16,7 +16,7 @@ export class RegistrocristerioaceptacionComponent implements OnInit {
   criterioAceptacionForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder, private calendarioService: CalendarioService,
-    private alertifyService: AlertifyService, private route: ActivatedRoute, private router: Router) { }
+              private alertifyService: AlertifyService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     this.idCalendario = this.route.snapshot.paramMap.get('idCalendario');
@@ -27,7 +27,7 @@ export class RegistrocristerioaceptacionComponent implements OnInit {
     this.criterioAceptacionForm = this.formBuilder.group({
       descripcion: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(1000)]],
       medida: [''],
-      valor: ['']
+      valor: ['', [ Validators.pattern(/^\d+\.\d{2}$/), Validators.maxLength(10)]]
     });
   }
 
@@ -37,12 +37,12 @@ export class RegistrocristerioaceptacionComponent implements OnInit {
       this.calendarioService.createCriterioAceptacion(this.idCalendario, this.criterioAceptacionToRegister).subscribe(() => {
         this.alertifyService.success('Se registró existosamente.');
       }, error => {
-        this.alertifyService.error(error);
+        this.alertifyService.error(error.error);
       }, () => {
         this.router.navigate(['calendario']);
       });
     } else {
-      this.alertifyService.warning('Falta llenar campos.');
+      this.alertifyService.warning('Los datos no son validos.');
     }
   }
 

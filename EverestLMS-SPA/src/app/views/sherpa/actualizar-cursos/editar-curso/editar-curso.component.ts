@@ -28,15 +28,15 @@ export class EditarCursoComponent implements OnInit {
   cursoToRegiter: CursoToRegister;
 
   constructor(private formBuilder: FormBuilder, private cursoService: CursosService, private etapaService: EtapaService,
-    private route: ActivatedRoute, private alertify: AlertifyService, private router: Router) { }
+              private route: ActivatedRoute, private alertify: AlertifyService, private router: Router) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
-      this.niveles = data['niveles'];
-      this.lineaCarreras = data['lineaCarreras'];
-      this.idiomas = data['idiomas'];
-      this.dificultades = data['dificultades'];
-      this.cursoToRegiter = data['curso'];
+      this.niveles = data.niveles;
+      this.lineaCarreras = data.lineaCarreras;
+      this.idiomas = data.idiomas;
+      this.dificultades = data.dificultades;
+      this.cursoToRegiter = data.curso;
     });
     this.selectedLineaCarreraId = this.cursoToRegiter.idLineaCarrera;
     this.selectedNivelId = this.cursoToRegiter.idNivel;

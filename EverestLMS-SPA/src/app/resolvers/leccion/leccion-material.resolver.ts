@@ -10,10 +10,12 @@ import { LeccionMaterial } from 'src/app/models/leccionMaterial';
 export class LeccionMaterialResolver implements Resolve<LeccionMaterial> {
 
     constructor(private service: LeccionService,
-        private router: Router, private alertify: AlertifyService) {}
+                private router: Router, private alertify: AlertifyService) {}
 
     resolve(route: ActivatedRouteSnapshot): Observable<LeccionMaterial> {
+        // tslint:disable-next-line:no-string-literal
         return this.service.getLeccionMaterial(route.params['idEtapa'], route.params['idCurso'],
+         // tslint:disable-next-line:no-string-literal
          route.params['idLeccion'], route.params['idLeccionMaterial']).pipe(
             catchError(error => {
                 this.alertify.error('Problema obteniendo información.');

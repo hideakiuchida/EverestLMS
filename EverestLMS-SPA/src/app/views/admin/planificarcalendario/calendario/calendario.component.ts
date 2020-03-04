@@ -34,7 +34,6 @@ export class CalendarioComponent implements OnInit {
   selectedCalendarioId: any;
   selectedFechaInicio: any;
   selectedFechaFinal: any;
-  isCriteriosAceptacionLoaded: boolean;
 
   actions: CalendarEventAction[] = [
     /*{
@@ -53,11 +52,10 @@ export class CalendarioComponent implements OnInit {
   ];
 
   constructor(private calendarioService: CalendarioService, private alertifyService: AlertifyService,
-    private datePipe: DatePipe, private spinner: NgxSpinnerService, private router: Router) {
+              private datePipe: DatePipe, private spinner: NgxSpinnerService, private router: Router) {
   }
 
   ngOnInit() {
-    this.isCriteriosAceptacionLoaded = false;
     this.loadCalendarios();
   }
 
@@ -68,7 +66,10 @@ export class CalendarioComponent implements OnInit {
       if (this.calendarios != null && this.calendarios.length > 0) {
         const calendario = this.calendarios[this.calendarios.length - 1];
         if (calendario != null) {
-          this.calendarioSelected(calendario.id);
+          this.selectedCalendarioId = calendario.id;
+          this.loadEventos(this.selectedCalendarioId);
+          this.loadCriteriosAceptacion(this.selectedCalendarioId);
+          this.calendarioSelected(this.selectedCalendarioId);
         }
       }
     }, error => {
@@ -86,24 +87,20 @@ export class CalendarioComponent implements OnInit {
       this.alertifyService.error(error);
     }, () => {
       this.spinner.hide();
-      this.isCriteriosAceptacionLoaded = true;
     });
   }
 
   eliminarCriterioAceptacionEmitter(isEliminado: boolean) {
     if (isEliminado) {
       this.loadCriteriosAceptacion(this.selectedCalendarioId);
-      this.router.navigate(['calendario']);
+      this.router.navigate(['/calendario']);
     }
   }
 
   calendarioSelected(value) {
-    this.selectedCalendarioId = value;
     this.selectedCalendario = this.calendarios.find(item => item.id === Number(value));
     this.selectedFechaInicio = this.datePipe.transform(this.selectedCalendario.fechaInicio, 'dd/MM/yyyy');
     this.selectedFechaFinal = this.datePipe.transform(this.selectedCalendario.fechaFinal, 'dd/MM/yyyy');
-    this.loadEventos(this.selectedCalendarioId);
-    this.loadCriteriosAceptacion(this.selectedCalendarioId);
   }
 
   loadEventos(idCalendario) {

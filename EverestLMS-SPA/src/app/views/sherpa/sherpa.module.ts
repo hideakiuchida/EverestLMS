@@ -15,7 +15,6 @@ import { RegistrarLeccionMaterialComponent } from './actualizar-lecciones/actual
 import { RegistrarVideoMaterialComponent } from './actualizar-lecciones/actualizar-leccion-material/registrar-video-material/registrar-video-material.component';
 // tslint:disable-next-line:max-line-length
 import { RegistrarPresentacionMaterialComponent } from './actualizar-lecciones/actualizar-leccion-material/registrar-presentacion-material/registrar-presentacion-material.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CursosService } from 'src/app/services/curso/cursos.service';
 import { CursoImagenResolver } from 'src/app/resolvers/curso/curso-imagen.resolver';
 import { LeccionService } from 'src/app/services/leccion/leccion.service';
@@ -25,6 +24,8 @@ import { LeccionResolver } from 'src/app/resolvers/leccion/leccion.resolver';
 import { TipoContenidoResolver } from 'src/app/resolvers/tipocontenido/tipocontenido.resolver';
 import { TipocontenidoService } from 'src/app/services/tipocontenido/tipocontenido.service';
 import { SharedModule } from '../shared/shared.module';
+import { DificultadResolver } from 'src/app/resolvers/dificultades/dificultad.resolver';
+import { CursoResolver } from 'src/app/resolvers/curso/curso.resolver';
 
 @NgModule({
    declarations: [
@@ -51,7 +52,9 @@ import { SharedModule } from '../shared/shared.module';
       LeccionMaterialesResolver,
       LeccionResolver,
       TipoContenidoResolver,
-      TipocontenidoService
+      TipocontenidoService,
+      DificultadResolver,
+      CursoResolver
    ]
 })
 export class SherpaModule { }

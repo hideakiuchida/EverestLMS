@@ -78,9 +78,8 @@ namespace EverestLMS.API
 
             app.UseRouting();
 
-            /*app.UseAuthentication();
-             app.UseAuthorization();
-             */
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
             app.UseSwagger();

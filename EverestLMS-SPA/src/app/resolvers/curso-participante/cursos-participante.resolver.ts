@@ -10,9 +10,10 @@ import { CursoParticipanteService } from 'src/app/services/curso-participante/cu
 export class CursosParticipanteResolver implements Resolve<Curso[]> {
 
     constructor(private service: CursoParticipanteService,
-        private router: Router, private alertify: AlertifyService) {}
+                private router: Router, private alertify: AlertifyService) {}
 
     resolve(route: ActivatedRouteSnapshot): Observable<Curso[]> {
+        // tslint:disable-next-line:no-string-literal
         return this.service.getCursosPorParticipante(route.params['idParticipante'], null, null).pipe(
             catchError(error => {
                 this.alertify.error('Problema obteniendo información.');

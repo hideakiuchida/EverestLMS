@@ -12,7 +12,7 @@ import { LineaCarreraService } from 'src/app/services/lineacarrera/lineacarrera.
 export class LineaCarreraResolver implements Resolve<LineaCarrera[]> {
 
     constructor(private service: LineaCarreraService,
-        private router: Router, private alertify: AlertifyService) {}
+                private router: Router, private alertify: AlertifyService) {}
 
     resolve(route: ActivatedRouteSnapshot): Observable<LineaCarrera[]> {
         return this.service.getLineaCarreras().pipe(
