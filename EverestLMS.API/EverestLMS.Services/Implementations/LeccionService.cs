@@ -41,7 +41,7 @@ namespace EverestLMS.Services.Implementations
 
         public async Task<int> CreateLeccionMaterialAsync(LeccionMaterialToCreateVM leccionMaterialVM)
         {
-            var leccionMaterialEntity = mapper.Map<LeccionMaterialEntity>(leccionMaterialVM);
+            var leccionMaterialEntity = mapper.Map<LeccionMaterialDetalleEntity>(leccionMaterialVM);
             var idLeccionMaterial = await leccionRepository.CreateLeccionMaterialAsync(leccionMaterialEntity);
             return idLeccionMaterial;
         }
@@ -92,15 +92,15 @@ namespace EverestLMS.Services.Implementations
             return viewModel;
         }
 
-        public async Task<LeccionMaterialVM> GetSpecificLeccionMaterialAsync(int idLeccion, int idLeccionMaterial)
+        public async Task<LeccionMaterialDetalleVM> GetSpecificLeccionMaterialAsync(int idLeccion, int idLeccionMaterial)
         {
             var entity = await leccionRepository.GetSpecificLeccionMaterialAsync(idLeccion, idLeccionMaterial);
-            var viewModel = mapper.Map<LeccionMaterialVM>(entity);
+            var viewModel = mapper.Map<LeccionMaterialDetalleVM>(entity);
             return viewModel;
         }
 
         #region Private Methods
-        private LeccionMaterialEntity UploadingToCloudinary(LeccionMaterialVideoToCreateVM cloudinaryFileToCreate)
+        private LeccionMaterialDetalleEntity UploadingToCloudinary(LeccionMaterialVideoToCreateVM cloudinaryFileToCreate)
         {
             var file = cloudinaryFileToCreate.File;
             var uploadResult = new ImageUploadResult();
@@ -118,7 +118,7 @@ namespace EverestLMS.Services.Implementations
                 }
             }
 
-            var cloudinaryFileEntity = mapper.Map<LeccionMaterialEntity>(cloudinaryFileToCreate);
+            var cloudinaryFileEntity = mapper.Map<LeccionMaterialDetalleEntity>(cloudinaryFileToCreate);
 
             cloudinaryFileEntity.Url = uploadResult.Uri.ToString();
             cloudinaryFileEntity.IdPublico = uploadResult.PublicId;

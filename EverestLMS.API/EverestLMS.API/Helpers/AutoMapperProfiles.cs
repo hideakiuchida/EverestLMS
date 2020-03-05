@@ -235,12 +235,12 @@ namespace EverestLMS.API.Helpers
                 .ForMember(dest => dest.Id, opt => {
                     opt.MapFrom(d => d.IdLeccionMaterial);
                 });
-            CreateMap<LeccionMaterialVM, LeccionMaterialEntity>()
-                .ForMember(dest => dest.IdLeccionMaterial, opt => {
-                    opt.MapFrom(d => d.Id);
+            CreateMap<LeccionMaterialDetalleEntity, LeccionMaterialDetalleVM>()
+                .ForMember(dest => dest.Id, opt => {
+                    opt.MapFrom(d => d.IdLeccionMaterial);
                 });
-            CreateMap<LeccionMaterialToCreateVM, LeccionMaterialEntity>();
-            CreateMap<LeccionMaterialVideoToCreateVM, LeccionMaterialEntity>();
+            CreateMap<LeccionMaterialToCreateVM, LeccionMaterialDetalleEntity>();
+            CreateMap<LeccionMaterialVideoToCreateVM, LeccionMaterialDetalleEntity>();
         }
 
         private void CreateMapTipoContenido()

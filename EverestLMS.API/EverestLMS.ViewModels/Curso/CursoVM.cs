@@ -1,7 +1,4 @@
-﻿using EverestLMS.Common.Enums;
-using System.ComponentModel.DataAnnotations;
-
-namespace EverestLMS.ViewModels.Curso
+﻿namespace EverestLMS.ViewModels.Curso
 {
     public class CursoVM
     {

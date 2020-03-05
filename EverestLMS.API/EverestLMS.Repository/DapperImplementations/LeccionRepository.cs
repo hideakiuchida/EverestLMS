@@ -31,7 +31,7 @@ namespace EverestLMS.Repository.DapperImplementations
             return result.FirstOrDefault();
         }
 
-        public async Task<int> CreateLeccionMaterialAsync(LeccionMaterialEntity leccionMaterialEntity)
+        public async Task<int> CreateLeccionMaterialAsync(LeccionMaterialDetalleEntity leccionMaterialEntity)
         {
             if (_dbConnection.State == ConnectionState.Closed)
                 _dbConnection.Open();
@@ -131,11 +131,11 @@ namespace EverestLMS.Repository.DapperImplementations
             return result.FirstOrDefault();
         }
 
-        public async Task<LeccionMaterialEntity> GetSpecificLeccionMaterialAsync(int idLeccion, int idLeccionMaterial)
+        public async Task<LeccionMaterialDetalleEntity> GetSpecificLeccionMaterialAsync(int idLeccion, int idLeccionMaterial)
         {
             if (_dbConnection.State == ConnectionState.Closed)
                 _dbConnection.Open();
-            var result = await _dbConnection.QueryAsync<LeccionMaterialEntity>("GetLeccionMaterial", new { IdLeccionMaterial = idLeccionMaterial, IdLeccion = idLeccion }, commandType: CommandType.StoredProcedure);
+            var result = await _dbConnection.QueryAsync<LeccionMaterialDetalleEntity>("GetLeccionMaterial", new { IdLeccionMaterial = idLeccionMaterial, IdLeccion = idLeccion }, commandType: CommandType.StoredProcedure);
             _dbConnection.Close();
             return result.FirstOrDefault();
         }
