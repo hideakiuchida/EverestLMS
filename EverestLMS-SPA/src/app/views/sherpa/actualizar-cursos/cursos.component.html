@@ -4,7 +4,7 @@
             <div class="col-md-4">
                 <div class="form-inline md-form form-sm active-cyan active-cyan-2">
                     <i class="fa fa-search" aria-hidden="true"></i>
-                    <input class="form-control form-control-sm ml-3 mr-3 w-75" type="text" placeholder="Buscar" aria-label="Buscar" (keyup)="onKey($event)">
+                    <input class="form-control form-control-sm ml-3 mr-3 w-75" type="text" placeholder="Buscar por nombre del curso" aria-label="Buscar" (keyup)="onKey($event)">
                 </div>
             </div>
             <div class="col-md-4">
@@ -34,7 +34,7 @@
                 </div>
             </div>
             <div class="col-md-4 text-center">
-                <button id="btn-agregar-curso" mat-mini-fab color="warn" [routerLink]="['/registrar-curso']" routerLinkActive="router-link-active">
+                <button id="btn-agregar-curso" mat-mini-fab color="warn" title="Agregar Curso" [routerLink]="['/registrar-curso']" routerLinkActive="router-link-active">
                   <strong>+</strong>
                 </button>
             </div>

@@ -36,12 +36,20 @@ namespace EverestLMS.API
         }
 
         public IConfiguration Configuration { get; }
+        private const string AllowAllPolicy = "AllowAllPolicy";
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddCors();
+            services.AddCors(options => 
+            {
+                options.AddPolicy(AllowAllPolicy,
+                builder =>
+                {
+                    builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                });
+            });
             services.AddLogging(loggingBuilder => loggingBuilder.AddSerilog(dispose: true));
             services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
             services.AddSwaggerGen(x =>
@@ -75,13 +83,16 @@ namespace EverestLMS.API
                     });
                 });
 
-
             app.UseRouting();
 
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+            app.UseCors(AllowAllPolicy);
+
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+
             app.UseSwagger();
             app.UseSwaggerUI(x => { x.SwaggerEndpoint("/swagger/v1/swagger.json", "Everest LMS!"); });
             app.UseEndpoints(endpoints =>
