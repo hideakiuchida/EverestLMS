@@ -18,7 +18,7 @@ SET NOCOUNT ON;
 	e.Descripcion as EtapaDescripcion,
 	e.Nombre as NombreEtapa,
 	n.Descripcion as NivelDescripcion,
-	l.Descripcion as LineaCarrearaDescripcion,
+	l.Descripcion as LineaCarreraDescripcion,
 	le.Puntaje,
 	d.Descripcion as DificultadDescripcion,
 	c.Autor,

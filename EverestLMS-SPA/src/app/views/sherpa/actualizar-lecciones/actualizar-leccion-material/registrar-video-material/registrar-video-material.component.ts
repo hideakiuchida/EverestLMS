@@ -55,7 +55,7 @@ export class RegistrarVideoMaterialComponent implements OnInit {
     this.leccionService.getVideo(idEtapa, idCurso, idLeccion, idVideo).subscribe((video: Video) => {
       this.video = video;
     }, error => {
-      this.alertify.error(error.error);
+      this.alertify.error(error.message);
     });
   }
 }

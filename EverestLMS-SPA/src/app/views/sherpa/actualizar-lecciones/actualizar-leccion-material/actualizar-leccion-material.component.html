@@ -13,7 +13,7 @@
                 <tr *ngFor="let leccionMaterial of leccionesMaterial">
                     <td>{{ leccionMaterial.id }}</td>
                     <td>{{ leccionMaterial.titulo}}</td>
-                    <td>{{ leccionMaterial.idTipoContenido}}</td>
+                    <td>{{ leccionMaterial.tipoContenidoDescripcion}}</td>
                     <td> <button (click)="eliminarLeccionMaterial(leccionMaterial.id)">-</button> </td>
                 </tr>
             </tbody>

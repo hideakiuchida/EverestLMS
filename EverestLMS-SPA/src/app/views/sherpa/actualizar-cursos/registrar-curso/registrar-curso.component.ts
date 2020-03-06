@@ -73,7 +73,7 @@ export class RegistrarCursoComponent implements OnInit {
        this.etapas = etapas;
        this.cursoForm.controls.idEtapa.setValue(this.etapas[0].id);
     }, error => {
-      this.alertify.error(error.error);
+      this.alertify.error(error.message);
     });
   }
 
@@ -90,7 +90,7 @@ export class RegistrarCursoComponent implements OnInit {
         this.idCurso = idCurso;
         this.alertify.success('Se registró existosamente.');
       }, error => {
-        this.alertify.error(error.error);
+        this.alertify.error(error.message);
       }, () => {
         this.router.navigate(['editar-imagen', this.cursoToRegiter.idEtapa, this.idCurso]);
       });

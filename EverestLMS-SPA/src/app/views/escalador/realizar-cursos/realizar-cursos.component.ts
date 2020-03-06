@@ -48,7 +48,7 @@ export class RealizarCursosComponent implements OnInit {
     this.cursoParticipanteService.getCursosPorParticipante(this.idParticipante, idEtapa, idIdioma).subscribe((cursos: Curso[]) => {
       this.cursos = cursos;
     }, error => {
-      this.alertify.error(error.error);
+      this.alertify.error(error.message);
     });
   }
 }

@@ -42,7 +42,7 @@ export class RegistrarPresentacionMaterialComponent implements OnInit {
       .subscribe(() => {
         this.alertify.success('Se registró existosamente.');
       }, error => {
-        this.alertify.error(error.error);
+        this.alertify.error(error.message);
       }, () => {
         this.router.navigate(['actualizar-leccion-material', this.idEtapa, this.idCurso, this.idLeccion]);
       });

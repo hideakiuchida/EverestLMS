@@ -25,7 +25,7 @@ export class EscaladorDetalleComponent implements OnInit {
       this.alertify.success(mensaje.message);
       this.router.navigate(['/asignarequipos']);
     }, error => {
-      this.alertify.error(error.error);
+      this.alertify.error(error.message);
     });
   }
 }

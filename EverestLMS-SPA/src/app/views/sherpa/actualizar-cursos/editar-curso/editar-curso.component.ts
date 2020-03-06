@@ -77,18 +77,23 @@ export class EditarCursoComponent implements OnInit {
     this.etapaService.getEtapas(idLineaCarrera, idNivel, null).subscribe((etapas: Etapa[]) => {
        this.etapas = etapas;
     }, error => {
-      this.alertify.error(error.error);
+      this.alertify.error(error.message);
     });
   }
 
   editarCurso() {
     if (this.cursoForm.valid) {
       this.cursoToRegiter = Object.assign({}, this.cursoForm.value);
+      this.cursoToRegiter.idDificultad = +this.cursoToRegiter.idDificultad;
+      this.cursoToRegiter.idIdioma = +this.cursoToRegiter.idIdioma;
+      this.cursoToRegiter.idLineaCarrera = +this.cursoToRegiter.idLineaCarrera;
+      this.cursoToRegiter.idNivel = +this.cursoToRegiter.idNivel;
+      this.cursoToRegiter.idEtapa = +this.cursoToRegiter.idEtapa;
       this.cursoToRegiter.imagen = 'Imagen 1';
       this.cursoService.editCurso(this.cursoToRegiter.idEtapa, this.cursoToRegiter.id, this.cursoToRegiter).subscribe(() => {
         this.alertify.success('Se actualizó existosamente.');
       }, error => {
-        this.alertify.error(error.error);
+        this.alertify.error(error.message);
       }, () => {
         this.router.navigate(['editar-imagen', this.cursoToRegiter.idEtapa, this.cursoToRegiter.id]);
       });

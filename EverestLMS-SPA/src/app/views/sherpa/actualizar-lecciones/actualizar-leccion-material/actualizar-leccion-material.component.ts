@@ -4,6 +4,7 @@ import { LeccionService } from 'src/app/services/leccion/leccion.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertifyService } from 'src/app/services/alertify/alertify.service';
 import { TipoContenido } from 'src/app/models/tipocontenido';
+import { LeccionMaterialLite } from 'src/app/models/leccionMaterialLite';
 
 @Component({
   selector: 'app-actualizar-leccion-material',
@@ -11,7 +12,7 @@ import { TipoContenido } from 'src/app/models/tipocontenido';
   styleUrls: ['./actualizar-leccion-material.component.css']
 })
 export class ActualizarLeccionMaterialComponent implements OnInit {
-  leccionesMaterial: LeccionMaterial[];
+  leccionesMaterial: LeccionMaterialLite[];
   tipoContenidos: TipoContenido[];
   selectedContenidoId: any;
   dtOptions: DataTables.Settings = {};
@@ -46,10 +47,10 @@ export class ActualizarLeccionMaterialComponent implements OnInit {
   }
 
   loadLeccionesMaterial(idEtapa, idCurso, idLeccion) {
-    this.leccionService.getLeccionMateriales(idEtapa, idCurso, idLeccion).subscribe((leccionesMaterial: LeccionMaterial[]) => {
-      this.leccionesMaterial = leccionesMaterial;
+    this.leccionService.getLeccionMateriales(idEtapa, idCurso, idLeccion).subscribe((leccionesMaterial: LeccionMaterialLite[]) => {
+        this.leccionesMaterial = leccionesMaterial;
     }, error => {
-      this.alertify.error(error.error);
+      this.alertify.error(error.message);
     });
   }
 
@@ -75,7 +76,7 @@ export class ActualizarLeccionMaterialComponent implements OnInit {
         this.alertify.warning('No se pudo eliminar la lección material');
       }
     }, error => {
-      this.alertify.error(error.error);
+      this.alertify.error(error.message);
     });
   }
 }

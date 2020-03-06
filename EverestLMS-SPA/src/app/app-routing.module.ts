@@ -37,6 +37,8 @@ import { RealizarCursosComponent } from './views/escalador/realizar-cursos/reali
 import { CursosPrediccionParticipanteResolver } from './resolvers/curso-participante/cursos-prediccion-participante.resolver';
 import { CursosParticipanteResolver } from './resolvers/curso-participante/cursos-participante.resolver';
 import { EtapasParticipanteResolver } from './resolvers/etapa-participante/etapa-participante.resolver';
+import { LeccionResolver } from './resolvers/leccion/leccion.resolver';
+import { EditarLeccionComponent } from './views/sherpa/actualizar-lecciones/editar-leccion/editar-leccion.component';
 
 const routes: Routes = [
     { path: 'home', component: HomeComponent},
@@ -46,8 +48,8 @@ const routes: Routes = [
         resolve: {niveles: NivelResolver, lineaCarreras: LineaCarreraResolver}},
     { path: 'registrar-leccion', component: RegistrarLeccionComponent,
         resolve: {niveles: NivelResolver, lineaCarreras: LineaCarreraResolver}},
-    { path: 'editar-leccion', component: RegistrarLeccionComponent,
-        resolve: {niveles: NivelResolver, lineaCarreras: LineaCarreraResolver}},
+    { path: 'editar-leccion/:idEtapa/:idCurso/:idLeccion', component: EditarLeccionComponent,
+        resolve: {niveles: NivelResolver, lineaCarreras: LineaCarreraResolver, curso: CursoResolver, leccion: LeccionResolver}},
     { path: 'actualizar-leccion-material/:idEtapa/:idCurso/:idLeccion', component: ActualizarLeccionMaterialComponent,
         resolve: {leccionesMaterial: LeccionMaterialesResolver, tipoContenidos: TipoContenidoResolver}},
     { path: 'registrar-leccion-material/:idEtapa/:idCurso/:idLeccion', component: RegistrarLeccionMaterialComponent,

@@ -62,7 +62,7 @@ export class EditarImagenComponent implements OnInit {
         this.alertify.success('La imagen se eliminó.');
         this.loadImagenes(this.idEtapa, this.idCurso);
       }, error => {
-        this.alertify.error(error.error);
+        this.alertify.error(error.message);
       });
     });
   }
@@ -71,7 +71,7 @@ export class EditarImagenComponent implements OnInit {
     this.cursoService.getImagen(idEtapa, idCurso, idImagen).subscribe((imagen: Imagen) => {
       this.imagen = imagen;
     }, error => {
-      this.alertify.error(error.error);
+      this.alertify.error(error.message);
     });
   }
 
@@ -83,7 +83,7 @@ export class EditarImagenComponent implements OnInit {
         this.imagen = null;
       }
     }, error => {
-      this.alertify.error(error.error);
+      this.alertify.error(error.message);
     });
   }
 

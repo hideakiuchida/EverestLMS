@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { LeccionToRegister } from 'src/app/models/leccionToRegister';
 import { LeccionMaterial } from 'src/app/models/leccionMaterial';
 import { Video } from 'src/app/models/video';
+import { LeccionMaterialLite } from 'src/app/models/leccionMaterialLite';
 
 @Injectable({
   providedIn: 'root'
@@ -27,8 +28,8 @@ getLecciones(idEtapa, idCurso, idLineaCarrera, idNivel, search): Observable<Lecc
   { params: { idNivel: this._idNivel, idLineaCarrera: this._idLineaCarrera, search: this._search } });
 }
 
-getLeccion(idEtapa, idCurso, idLeccion): Observable<Leccion[]>  {
-  return this.http.get<Leccion[]>(this.baseUrl + 'etapas/' + idEtapa + '/cursos/' + idCurso + '/lecciones/' + idLeccion);
+getLeccion(idEtapa, idCurso, idLeccion): Observable<Leccion>  {
+  return this.http.get<Leccion>(this.baseUrl + 'etapas/' + idEtapa + '/cursos/' + idCurso + '/lecciones/' + idLeccion);
 }
 
 createLeccion(idEtapa, idCurso, leccion: LeccionToRegister) {
@@ -43,8 +44,8 @@ deleteLeccion(idEtapa, idCurso, idLeccion) {
   return this.http.delete(this.baseUrl + 'etapas/' + idEtapa + '/cursos/' + idCurso + '/lecciones/' + idLeccion);
 }
 
-getLeccionMateriales(idEtapa, idCurso, idLeccion): Observable<LeccionMaterial[]>  {
-  return this.http.get<LeccionMaterial[]>(this.baseUrl + 'etapas/' + idEtapa +
+getLeccionMateriales(idEtapa, idCurso, idLeccion): Observable<LeccionMaterialLite[]>  {
+  return this.http.get<LeccionMaterialLite[]>(this.baseUrl + 'etapas/' + idEtapa +
   '/cursos/' + idCurso + '/lecciones/' + idLeccion + '/lecciones-material',
   { params: { idNivel: this._idNivel, idLineaCarrera: this._idLineaCarrera, search: this._search } });
 }

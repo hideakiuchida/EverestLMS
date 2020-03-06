@@ -84,7 +84,7 @@ export class RegistrarLeccionComponent implements OnInit {
         this.alertify.warning('No existen etapas en base a estos criterios seleccionados');
       }
     }, error => {
-      this.alertify.error(error.error);
+      this.alertify.error(error.message);
     });
   }
 
@@ -97,19 +97,21 @@ export class RegistrarLeccionComponent implements OnInit {
         this.alertify.warning('No existen cursos en base a los criterios seleccionados');
       }
     }, error => {
-      this.alertify.error(error.error);
+      this.alertify.error(error.message);
     });
   }
 
   registrarLeccion() {
     if (this.leccionForm.valid) {
       this.leccionToRegiter = Object.assign({}, this.leccionForm.value);
+      this.leccionToRegiter.idCurso = +this.leccionToRegiter.idCurso;
+      this.leccionToRegiter.idEtapa = +this.leccionToRegiter.idEtapa;
       this.leccionService.createLeccion(this.leccionToRegiter.idEtapa, this.leccionToRegiter.idCurso, this.leccionToRegiter)
       .subscribe((idLeccion: number) => {
         this.idLeccion = idLeccion;
         this.alertify.success('Se registró existosamente.');
       }, error => {
-        this.alertify.error(error.error);
+        this.alertify.error(error.message);
       }, () => {
         this.router.navigate(['actualizar-leccion-material', this.leccionToRegiter.idEtapa, this.leccionToRegiter.idCurso, this.idLeccion]);
       });
