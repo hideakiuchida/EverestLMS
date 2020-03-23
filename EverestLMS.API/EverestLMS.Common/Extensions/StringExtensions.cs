@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -26,6 +27,28 @@ namespace EverestLMS.Common.Extensions
                 case "": throw new ArgumentException($"{nameof(input)} cannot be empty", nameof(input));
                 default: return ReturnTextByUpperCase(Regex.Split(input, @"(?<!^)(?=[A-Z])")); 
             }
+        }
+
+        public static void CreatePasswordHash(this string password, out byte[] passwordSalt, out byte[] passwordHash) 
+        {
+            using (var hmac = new HMACSHA512())
+            {
+                passwordSalt = hmac.Key;
+                passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
+            }
+        }
+
+        public static bool VerifyPasswordHash(this string password, byte[] passwordSalt, byte[] passwordHash) 
+        {
+            using (var hmac = new HMACSHA512(passwordSalt))
+            {
+                var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
+                for (int i = 0; i < computedHash.Length; i++)
+                {
+                    if (computedHash[i] != passwordHash[i]) return false;
+                }
+            }
+            return true;
         }
 
         private static string ReturnTextByUpperCase(string[] split)

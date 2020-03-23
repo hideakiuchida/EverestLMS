@@ -11,10 +11,14 @@ namespace EverestLMS.API.Controllers
     public class ParticipanteController : ControllerBase
     {
         private readonly IParticipanteService service;
+        private readonly IEtapaService etapaService;
+        private readonly ICursoService cursoService;
 
-        public ParticipanteController(IParticipanteService service)
+        public ParticipanteController(IParticipanteService service, IEtapaService etapaService, ICursoService cursoService)
         {
             this.service = service;
+            this.etapaService = etapaService;
+            this.cursoService = cursoService;
         }
 
         [HttpGet]
@@ -101,6 +105,30 @@ namespace EverestLMS.API.Controllers
             var result = await service.ProcesarDesasignacionAutomatica();
             var message = new { message = result };
             return Ok(message);
+        }
+
+        [HttpGet]
+        [Route("{id}/etapas")]
+        public async Task<IActionResult> GetEtapasAsync(int id)
+        {
+            var result = await etapaService.GetByParticipanteAsync(id);
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("{id}/cursos")]
+        public async Task<IActionResult> GetCursosByParticipanteAsync(int id, int? idEtapa, int? idIdioma)
+        {
+            var result = await cursoService.GetCursosByParticipanteAsync(id, idEtapa, idIdioma);
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("{id}/cursos/predicciones")]
+        public async Task<IActionResult> GetCursosPredictionByParticipanteAsync(int id, int? idEtapa, int? idIdioma)
+        {
+            var result = await cursoService.GetCursosPredictionByParticipanteAsync(id, idEtapa, idIdioma);
+            return Ok(result);
         }
     }
 }

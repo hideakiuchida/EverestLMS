@@ -132,6 +132,8 @@
     <Build Include="dbo\Stored Procedures\GetLeccionMaterial.sql" />
     <Build Include="dbo\Stored Procedures\GetCursosByPaticipante.sql" />
     <Build Include="dbo\Stored Procedures\GetEtapasPorParticipante.sql" />
+    <Build Include="dbo\Stored Procedures\CreateUsuario.sql" />
+    <Build Include="dbo\Stored Procedures\GetUsuarioByUsername.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Evento.sql" />

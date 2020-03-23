@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using EverestLMS.Common.Extensions;
 using EverestLMS.Entities.Models;
+using EverestLMS.ViewModels.Authentication;
 using EverestLMS.ViewModels.Calendario;
 using EverestLMS.ViewModels.CloudinaryFile;
 using EverestLMS.ViewModels.Conocimiento;
@@ -14,6 +15,7 @@ using EverestLMS.ViewModels.Participante.Escalador;
 using EverestLMS.ViewModels.Participante.Sherpa;
 using EverestLMS.ViewModels.Sede;
 using EverestLMS.ViewModels.TipoContenido;
+using System;
 
 namespace EverestLMS.API.Helpers
 {
@@ -32,7 +34,10 @@ namespace EverestLMS.API.Helpers
             CreateMapCloudinaryFile();
             CreateMapLeccion();
             CreateMapTipoContenido();
+            CreateMapAuthentication();
         }
+
+       
 
         #region Privates Methods
         private void CreateMapParticipante()
@@ -249,6 +254,12 @@ namespace EverestLMS.API.Helpers
               .ForMember(dest => dest.Id, opt => {
                   opt.MapFrom(d => d.IdTipoContenido);
               });
+        }
+
+        private void CreateMapAuthentication()
+        {
+            CreateMap<UsuarioEntity, UsuarioVM>();
+            CreateMap<UsuarioToRegisterVM, UsuarioEntity>();
         }
         #endregion
     }
