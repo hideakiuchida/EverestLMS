@@ -100,6 +100,7 @@ export class CalendarioComponent implements OnInit {
 
   calendarioSelected(value) {
     this.selectedCalendario = this.calendarios.find(item => item.id === Number(value));
+    this.viewDate = this.selectedCalendario.fechaInicio;
     this.selectedFechaInicio = this.datePipe.transform(this.selectedCalendario.fechaInicio, 'dd/MM/yyyy');
     this.selectedFechaFinal = this.datePipe.transform(this.selectedCalendario.fechaFinal, 'dd/MM/yyyy');
   }

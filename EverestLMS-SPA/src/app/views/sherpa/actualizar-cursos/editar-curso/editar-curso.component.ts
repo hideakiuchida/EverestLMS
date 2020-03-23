@@ -24,6 +24,7 @@ export class EditarCursoComponent implements OnInit {
   idiomas: Idioma[];
   selectedNivelId: any;
   selectedLineaCarreraId: any;
+  selectedEtapaId: any;
   cursoForm: FormGroup;
   cursoToRegiter: CursoToRegister;
 
@@ -40,6 +41,7 @@ export class EditarCursoComponent implements OnInit {
     });
     this.selectedLineaCarreraId = this.cursoToRegiter.idLineaCarrera;
     this.selectedNivelId = this.cursoToRegiter.idNivel;
+    this.selectedEtapaId = this.cursoToRegiter.idEtapa;
     this.loadEtapas(this.selectedLineaCarreraId, this.selectedNivelId);
     this.createCursonForm();
   }
