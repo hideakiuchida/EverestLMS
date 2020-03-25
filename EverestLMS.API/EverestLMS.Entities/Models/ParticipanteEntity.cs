@@ -19,8 +19,8 @@ namespace EverestLMS.Entities.Models
         public DateTime FechaNacimiento { get; set; }
         public int? AñosExperiencia { get; set; }
         public decimal? Calificacion { get; set; }
-        public int? Puntaje { get; set; }
         public int? Rol { get; set; }
+        public int? Puntaje { get; set; }
         public int? IdSherpa { get; set; }
         public int IdNivel { get; set; }
         public int IdLineaCarrera { get; set; }

@@ -4,6 +4,7 @@ using EverestLMS.Entities.Models;
 using EverestLMS.Repository.Interfaces;
 using EverestLMS.Services.Interfaces;
 using EverestLMS.ViewModels.Authentication;
+using System;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,9 +26,7 @@ namespace EverestLMS.Services.Implementations
         {
             var usuario = await repository.GetUsuarioByUsername(username);
             if (usuario == null) return default;
-            var passwordSalt = Encoding.UTF8.GetBytes(usuario.PasswordSalt);
-            var passwordHash = Encoding.UTF8.GetBytes(usuario.PasswordHash);
-            var success = password.VerifyPasswordHash(passwordSalt, passwordHash);
+            var success = password.VerifyPasswordHash(usuario.PasswordSalt, usuario.PasswordHash);
             if (success)
                 return mapper.Map<UsuarioVM>(usuario);
             else
@@ -39,13 +38,22 @@ namespace EverestLMS.Services.Implementations
         {
             usuarioToRegisterVM.Username = usuarioToRegisterVM.Username.ToLower();
             if (await repository.UserExists(usuarioToRegisterVM.Username))
-                return default;
+                return int.MinValue;
             var usuarioToRegister = mapper.Map<UsuarioEntity>(usuarioToRegisterVM);
 
             var participanteId = await participanteService.CreateAsync(usuarioToRegisterVM.Participante);
             usuarioToRegister.IdParticipante = participanteId;
-            var usuarioId = await repository.Register(usuarioToRegister, usuarioToRegisterVM.Password);
-            return usuarioId;
+            try
+            {
+                var usuarioId = await repository.Register(usuarioToRegister, usuarioToRegisterVM.Password);
+                return usuarioId;
+            }
+            catch (Exception ex)
+            {
+                await participanteService.DeleteAsync(participanteId);
+                throw;
+            }
+            
         }
     }
 }

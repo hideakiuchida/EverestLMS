@@ -1,10 +1,12 @@
 ﻿using EverestLMS.Services.Interfaces;
 using EverestLMS.ViewModels.Calendario;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace EverestLMS.API.Controllers
 {
+    [Authorize]
     [Route("api/calendarios")]
     [ApiController]
     public class CalendarioController : ControllerBase

@@ -1,7 +1,26 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <a class="navbar-brand" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/home']">Everest LMS</a>
+    <a class="navbar-brand" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/']">Everest LMS</a>
 
-    <ul class="navbar-nav mr-auto">
+    <ul *ngIf="loggedIn() && authService.decodedToken?.role == 1" class="navbar-nav mr-auto">
+        <li class="nav-item" routerLinkActive="active">
+            <a class="nav-link" [routerLink]="['/cursos']">Cursos</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+            <a class="nav-link" [routerLink]="['/actualizar-lecciones']">Lecciones</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+            <a class="nav-link" (click)="logout()">Logout</a>
+        </li>
+    </ul>
+    <ul *ngIf="loggedIn() && authService.decodedToken?.role == 2" class="navbar-nav mr-auto">
+        <li class="nav-item" routerLinkActive="active">
+            <a class="nav-link" [routerLink]="['/realizar-cursos', idParticipante]">Realizar Cursos</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+            <a class="nav-link" (click)="logout()">Logout</a>
+        </li>
+    </ul>
+    <ul *ngIf="loggedIn() && authService.decodedToken?.role == 3" class="navbar-nav mr-auto">
         <li class="nav-item" routerLinkActive="active">
             <a class="nav-link" [routerLink]="['/asignarequipos']">Asignar Equipos</a>
         </li>
@@ -17,10 +36,25 @@
         <li class="nav-item" routerLinkActive="active">
             <a class="nav-link" [routerLink]="['/realizar-cursos', idParticipante]">Realizar Cursos</a>
         </li>
+        <li class="nav-item" routerLinkActive="active">
+            <a class="nav-link" (click)="logout()">Logout</a>
+        </li>
     </ul>
-    <form #loginForm="ngForm" class="form-inline my-2 my-lg-0" (ngSubmit)="login()">
+    <div class="dropdown" *ngIf="loggedIn()">
+    <a class="dropdown-toggle text-light">
+        Bienvenido {{authService.decodedToken?.unique_name | titlecase}}
+    </a>
+    
+    <div class="dropdown-menu">
+        <a class="dropdown-item" href="#"><i class="fa fa-user"></i>My Account</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="#"><i class="fa fa-sign-out"></i>Logout</a>
+    </div>
+    </div>
+    <form *ngIf="!loggedIn()" #loginForm="ngForm" class="form-inline my-2 my-lg-0 float-right" (ngSubmit)="login()">
         <input class="form-control mr-sm-2" type="text" name="username" placeholder="Usuario" required [(ngModel)]="model.username" />
         <input class="form-control mr-sm-2" type="password" name="password" placeholder="Contraseña" required [(ngModel)]="model.password" />
-        <button [disabled]="!loginForm" class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
+        <button [disabled]="!loginForm.valid" class="btn btn-success my-2 my-sm-0" type="submit">Login</button>
     </form>
+    
 </nav>

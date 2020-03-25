@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace EverestLMS.ViewModels.Participante
 {
@@ -21,8 +20,6 @@ namespace EverestLMS.ViewModels.Participante
         public int? AñosExperiencia { get; set; }
         public decimal? Calificacion { get; set; }
         public int? Puntaje { get; set; }
-        [Required]
-        public int? Rol { get; set; }
         [Required]
         public int IdNivel { get; set; }
         [Required]

@@ -1,9 +1,11 @@
 ﻿using EverestLMS.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace EverestLMS.API.Controllers
 {
+    [Authorize]
     [Route("api/etapas")]
     [ApiController]
     public class EtapaController : ControllerBase

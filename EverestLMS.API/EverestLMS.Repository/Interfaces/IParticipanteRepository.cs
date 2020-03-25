@@ -17,5 +17,6 @@ namespace EverestLMS.Repository.Interfaces
         Task<bool> DesasignacionAutomatica();
         Task<IEnumerable<ParticipanteEntity>> GetParticipantesAsync(int? idLineaCarrera, int? idNivel);
         Task<int> CreateAsync(ParticipanteEntity participanteEntity);
+        Task<bool> DeleteAsync(int id);
     }
 }

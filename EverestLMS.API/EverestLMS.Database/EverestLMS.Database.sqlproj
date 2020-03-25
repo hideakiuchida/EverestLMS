@@ -134,6 +134,7 @@
     <Build Include="dbo\Stored Procedures\GetEtapasPorParticipante.sql" />
     <Build Include="dbo\Stored Procedures\CreateUsuario.sql" />
     <Build Include="dbo\Stored Procedures\GetUsuarioByUsername.sql" />
+    <Build Include="dbo\Stored Procedures\DeleteParticipante.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Evento.sql" />

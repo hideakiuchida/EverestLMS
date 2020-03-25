@@ -3,6 +3,7 @@
     public enum RolEnum
     {
         Sherpa = 1,
-        Escalador = 2
+        Escalador = 2,
+        Administrador = 3
     }
 }

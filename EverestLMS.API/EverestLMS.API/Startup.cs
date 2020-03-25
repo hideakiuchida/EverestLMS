@@ -6,18 +6,21 @@ using EverestLMS.Repository.Interfaces;
 using EverestLMS.Scheduler;
 using EverestLMS.Services.Implementations;
 using EverestLMS.Services.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Net;
+using System.Text;
 
 namespace EverestLMS.API
 {
@@ -54,8 +57,28 @@ namespace EverestLMS.API
             services.AddSwaggerGen(x =>
             {
                 x.SwaggerDoc("v1", new OpenApiInfo { Version = "1.0", Description = "EverestLMS" });
+                x.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer"
+                });
             });
             services.AddAutoMapper(typeof(Startup));
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(
+                    options => {
+                        options.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            ValidateIssuerSigningKey = true,
+                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
+                            ValidateIssuer = false,
+                            ValidateAudience = false
+                        };
+                    }
+                );
 
             services.AddScoped<IDbConnection>(x => new SqlConnection(Configuration.GetConnectionString("SqlConnection")));
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));

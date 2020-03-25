@@ -8,7 +8,6 @@
     [AñosExperiencia] INT            NULL,
     [Calificacion]    DECIMAL (4,2) NULL,
     [Puntaje]         INT            NULL,
-    [Rol]             INT            NULL,
     [Photo]           VARCHAR (500)  NULL,
     [Activo]          INT            NOT NULL,
     [IdSherpa]        INT            NULL,

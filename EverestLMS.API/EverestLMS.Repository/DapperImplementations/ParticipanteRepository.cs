@@ -150,7 +150,6 @@ namespace EverestLMS.Repository.DapperImplementations
                     participanteEntity.AñosExperiencia,
                     participanteEntity.Calificacion,
                     participanteEntity.Puntaje,
-                    participanteEntity.Rol,
                     participanteEntity.Photo,
                     participanteEntity.IdSede,
                     participanteEntity.IdSherpa,
@@ -184,6 +183,19 @@ namespace EverestLMS.Repository.DapperImplementations
             var result = await _dbConnection.QueryAsync<bool>("DesasignarSherpaAutomaticamente", commandType: CommandType.StoredProcedure);
             _dbConnection.Close();
             return result.FirstOrDefault();
+        }
+
+        public async Task<bool> DeleteAsync(int id)
+        {
+            if (_dbConnection.State == ConnectionState.Closed)
+                _dbConnection.Open();
+            var result = await _dbConnection.QueryAsync<int>("DeleteParticipante", new
+            {
+                IdParticipante = id
+            }, 
+            commandType: CommandType.StoredProcedure);
+            _dbConnection.Close();
+            return result.FirstOrDefault() > default(int);
         }
     }
 }

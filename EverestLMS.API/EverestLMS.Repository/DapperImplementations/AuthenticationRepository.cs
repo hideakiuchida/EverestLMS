@@ -34,8 +34,8 @@ namespace EverestLMS.Repository.DapperImplementations
         public async Task<int> Register(UsuarioEntity usuarioEntity, string password)
         {
             password.CreatePasswordHash(out byte[] passwordSalt, out byte[] passwordHash);
-            usuarioEntity.PasswordSalt = passwordSalt.ToString();
-            usuarioEntity.PasswordHash = passwordHash.ToString();
+            usuarioEntity.PasswordSalt = passwordSalt;
+            usuarioEntity.PasswordHash = passwordHash;
             usuarioEntity.UsuarioKey = Guid.NewGuid().ToString();
             if (_dbConnection.State == ConnectionState.Closed)
                 _dbConnection.Open();
@@ -43,6 +43,7 @@ namespace EverestLMS.Repository.DapperImplementations
                  new
                  {
                      usuarioEntity.UsuarioKey,
+                     usuarioEntity.Username,
                      usuarioEntity.PasswordSalt,
                      usuarioEntity.PasswordHash,
                      usuarioEntity.IdRol,
@@ -54,7 +55,7 @@ namespace EverestLMS.Repository.DapperImplementations
 
         public async Task<bool> UserExists(string username)
         {
-            throw new NotImplementedException();
+            return await GetUsuarioByUsername(username) != null;
         }
     }
 }

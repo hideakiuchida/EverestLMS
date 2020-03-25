@@ -182,6 +182,12 @@ namespace EverestLMS.Services.Implementations
                 return "No se pudo generar la des asignación.";
         }
 
+        public async Task<bool> DeleteAsync(int id)
+        {
+            var result = await repository.DeleteAsync(id);
+            return result;
+        }
+
         #region Private
         private async Task<Dictionary<int, int>> GetSherpasNoAsignadosCompletamenteAsync(int idLineaCarrera, int idSede, int maxQuantityEscaladores)
         {

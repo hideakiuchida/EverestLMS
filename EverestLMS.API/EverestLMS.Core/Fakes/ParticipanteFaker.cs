@@ -1,5 +1,6 @@
 ﻿using Bogus;
 using EverestLMS.Common.Enums;
+using EverestLMS.ViewModels.Authentication;
 using EverestLMS.ViewModels.Participante;
 using System;
 using System.Collections.Generic;
@@ -8,12 +9,12 @@ namespace EverestLMS.Common.Fakes
 {
     public class ParticipanteFaker
     {
-        private ParticipanteToCreateVM SherpaToCreateVM;
-        public ParticipanteToCreateVM GetSherpaToCreateVM()
+        private UsuarioToRegisterVM SherpaToCreateVM;
+        public UsuarioToRegisterVM GetSherpaToCreateVM()
         {
             if (SherpaToCreateVM == null)
             {
-                SherpaToCreateVM = new Faker<ParticipanteToCreateVM>()
+                var Participante = new Faker<ParticipanteToCreateVM>()
                     .RuleFor(g => g.Nombre, f => f.Name.FirstName())
                     .RuleFor(g => g.Apellido, f => f.Name.LastName())
                     .RuleFor(g => g.Correo, f => f.Person.Email)
@@ -23,18 +24,23 @@ namespace EverestLMS.Common.Fakes
                     .RuleFor(g => g.FechaNacimiento, f => f.Date.Past())
                     .RuleFor(g => g.IdLineaCarrera, f => f.PickRandom((int)LineaCarreraEnum.BusinessAnalyst, (int)LineaCarreraEnum.SoftwareEngineer, (int)LineaCarreraEnum.DevOpsEngineer,
                         (int)LineaCarreraEnum.MobileEngineer, (int)LineaCarreraEnum.QualityAssurance))
-                    .RuleFor(g => g.IdNivel, f => (int)NivelEnum.Senior)
-                    .RuleFor(g => g.Rol, f => (int)RolEnum.Sherpa);
+                    .RuleFor(g => g.IdNivel, f => (int)NivelEnum.Senior);
+                SherpaToCreateVM = new Faker<UsuarioToRegisterVM>()
+                    .RuleFor(g => g.Username, f => f.Person.UserName)
+                    .RuleFor(g => g.Password, f => "12345")
+                    .RuleFor(g => g.IdRol, f => (int)RolEnum.Sherpa)
+                    .RuleFor(g => g.Participante, f => Participante);
+                
             }
             return SherpaToCreateVM;
         }
 
-        private ParticipanteToCreateVM EscaladorToCreateVM;
-        public ParticipanteToCreateVM GetEscaladorToCreateVM()
+        private UsuarioToRegisterVM EscaladorToCreateVM;
+        public UsuarioToRegisterVM GetEscaladorToCreateVM()
         {
             if (EscaladorToCreateVM == null)
             {
-                EscaladorToCreateVM = new Faker<ParticipanteToCreateVM>()
+                var Participante = new Faker<ParticipanteToCreateVM>()
                     .RuleFor(g => g.Nombre, f => f.Name.FirstName())
                     .RuleFor(g => g.Apellido, f => f.Name.LastName())
                     .RuleFor(g => g.Correo, f => f.Person.Email)
@@ -44,18 +50,22 @@ namespace EverestLMS.Common.Fakes
                     .RuleFor(g => g.FechaNacimiento, f => f.Date.Past())
                     .RuleFor(g => g.IdLineaCarrera, f => f.PickRandom((int)LineaCarreraEnum.BusinessAnalyst, (int)LineaCarreraEnum.SoftwareEngineer, (int)LineaCarreraEnum.DevOpsEngineer,
                         (int)LineaCarreraEnum.MobileEngineer, (int)LineaCarreraEnum.QualityAssurance))
-                    .RuleFor(g => g.IdNivel, f => (int)NivelEnum.Senior)
-                    .RuleFor(g => g.Rol, f => (int)RolEnum.Sherpa);
+                    .RuleFor(g => g.IdNivel, f => (int)NivelEnum.Senior);
+                EscaladorToCreateVM = new Faker<UsuarioToRegisterVM>()
+                    .RuleFor(g => g.Username, f => f.Person.UserName)
+                    .RuleFor(g => g.Password, f => "12345")
+                    .RuleFor(g => g.IdRol, f => (int)RolEnum.Escalador)
+                    .RuleFor(g => g.Participante, f => Participante);
             }
             return EscaladorToCreateVM;
         }
 
-        public IList<ParticipanteToCreateVM> SherpasVM;
-        public IList<ParticipanteToCreateVM> GetSherpasVM()
+        public IList<UsuarioToRegisterVM> SherpasVM;
+        public IList<UsuarioToRegisterVM> GetSherpasVM()
         {
             if (SherpasVM == null)
             {
-                SherpasVM = new Faker<ParticipanteToCreateVM>()
+                var Participante = new Faker<ParticipanteToCreateVM>()
                     .RuleFor(g => g.Nombre, f => f.Name.FirstName())
                     .RuleFor(g => g.Apellido, f => f.Name.LastName())
                     .RuleFor(g => g.Correo, f => f.Person.Email)
@@ -77,8 +87,12 @@ namespace EverestLMS.Common.Fakes
                                                             "https://randomuser.me/api/portraits/men/52.jpg"))
                     .RuleFor(g => g.IdNivel, f => (int)NivelEnum.Senior)
                     .RuleFor(g => g.ConocimientoIds, f => GenerateRandomConocimientosIds())
-                    .RuleFor(g => g.IdSede, f => f.PickRandom((int)SedeEnum.Cochabamba, (int)SedeEnum.Liberia, (int)SedeEnum.Lima, (int)SedeEnum.SanCarlos, (int)SedeEnum.SanJose))
-                    .RuleFor(g => g.Rol, f => (int)RolEnum.Sherpa).Generate(100);
+                    .RuleFor(g => g.IdSede, f => f.PickRandom((int)SedeEnum.Cochabamba, (int)SedeEnum.Liberia, (int)SedeEnum.Lima, (int)SedeEnum.SanCarlos, (int)SedeEnum.SanJose));
+                SherpasVM = new Faker<UsuarioToRegisterVM>()
+                    .RuleFor(g => g.Username, f => f.Person.UserName)
+                    .RuleFor(g => g.Password, f => "12345")
+                    .RuleFor(g => g.IdRol, f => (int)RolEnum.Sherpa)
+                    .RuleFor(g => g.Participante, f => Participante).Generate(100);
             }
             return SherpasVM;
         }
@@ -93,12 +107,12 @@ namespace EverestLMS.Common.Fakes
             return conocimientosIds;
         }
 
-        public IList<ParticipanteToCreateVM> EscaladoresVM;
-        public IList<ParticipanteToCreateVM> GetEscaladoresVM()
+        public IList<UsuarioToRegisterVM> EscaladoresVM;
+        public IList<UsuarioToRegisterVM> GetEscaladoresVM()
         {
             if (EscaladoresVM == null)
             {
-                EscaladoresVM = new Faker<ParticipanteToCreateVM>()
+                var Participante = new Faker<ParticipanteToCreateVM>()
                     .RuleFor(g => g.Nombre, f => f.Name.FirstName())
                     .RuleFor(g => g.Apellido, f => f.Name.LastName())
                     .RuleFor(g => g.Correo, f => f.Person.Email)
@@ -121,8 +135,12 @@ namespace EverestLMS.Common.Fakes
                                                             "https://randomuser.me/api/portraits/men/23.jpg",
                                                             "https://randomuser.me/api/portraits/men/36.jpg",
                                                             "https://randomuser.me/api/portraits/men/52.jpg"))
-                    .RuleFor(g => g.IdSede, f => f.PickRandom((int)SedeEnum.Cochabamba, (int)SedeEnum.Liberia, (int)SedeEnum.Lima, (int)SedeEnum.SanCarlos, (int)SedeEnum.SanJose))
-                    .RuleFor(g => g.Rol, f => (int)RolEnum.Escalador).Generate(500);
+                    .RuleFor(g => g.IdSede, f => f.PickRandom((int)SedeEnum.Cochabamba, (int)SedeEnum.Liberia, (int)SedeEnum.Lima, (int)SedeEnum.SanCarlos, (int)SedeEnum.SanJose));
+                EscaladoresVM = new Faker<UsuarioToRegisterVM>()
+                    .RuleFor(g => g.Username, f => f.Person.UserName)
+                    .RuleFor(g => g.Password, f => "12345")
+                    .RuleFor(g => g.IdRol, f => (int)RolEnum.Escalador)
+                    .RuleFor(g => g.Participante, f => Participante).Generate(500);
             }
             return EscaladoresVM;
         }

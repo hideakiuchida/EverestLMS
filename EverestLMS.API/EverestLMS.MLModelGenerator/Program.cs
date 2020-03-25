@@ -26,8 +26,10 @@ namespace EverestLMS.PopulateData
         static ILineaCarreraRepository lineaCarreraRepository;
         static IRatingCursoRepository ratingCursoRepository;
         static IConocimientoRepository conocimientoRepository;
+        static IAuthenticationRepository authenticationRepository;
 
         static IParticipanteService _service;
+        static IAuthenticationService _authService;
         private static ParticipanteFaker _faker;
 
         public async static Task Main(string[] args)
@@ -39,12 +41,14 @@ namespace EverestLMS.PopulateData
             conocimientoRepository = new ConocimientoRepository(connection);
             participanteRepository = new ParticipanteRepository(connection);
             ratingCursoRepository = new RatingCursoRepository(connection);
+            authenticationRepository = new AuthenticationRepository(connection);
             cursoRepository = new CursoRepository(connection);
 
             var myProfile = new AutoMapperProfiles();
             var configuration = new MapperConfiguration(cfg => cfg.AddProfile(myProfile));
             var mapper = new Mapper(configuration);
             _service = new ParticipanteService(participanteRepository, conocimientoRepository, mapper, null);
+            _authService = new AuthenticationService(authenticationRepository, _service, mapper);
             
             try
             {
@@ -110,7 +114,7 @@ namespace EverestLMS.PopulateData
             Console.WriteLine("Generar Sherpas");
             foreach (var item in _faker.GetSherpasVM())
             {
-                var result = await _service.CreateAsync(item);
+                var result = await _authService.Register(item);
                 Console.WriteLine("Successfully created: " + result);
             }
             Console.WriteLine("Finalizar Sherpas");
@@ -121,7 +125,7 @@ namespace EverestLMS.PopulateData
             Console.WriteLine("Generar Escaladores");
             foreach (var item in _faker.GetEscaladoresVM())
             {
-                var result = await _service.CreateAsync(item);
+                var result = await _authService.Register(item);
                 Console.WriteLine("Successfully created: " + result);
             }
             Console.WriteLine("Finalizar Escaladores");

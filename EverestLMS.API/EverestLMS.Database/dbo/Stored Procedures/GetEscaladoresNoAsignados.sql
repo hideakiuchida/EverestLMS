@@ -9,10 +9,10 @@ AS
 BEGIN
 SET NOCOUNT ON;
 	SELECT p.IdParticipante, p.Nombre, p.Apellido, p.Correo, p.Genero, p.FechaNacimiento, p.AñosExperiencia, p.Calificacion,
-    p.Puntaje, p.Rol, p.Photo, p.IdSede, p.Activo, p.idSherpa, p.idLineaCarrera, p.idNivel
-    FROM participante p 
+    p.Puntaje, u.IdRol as Rol, p.Photo, p.IdSede, p.Activo, p.idSherpa, p.idLineaCarrera, p.idNivel
+    FROM participante p INNER JOIN Usuario u ON p.IdParticipante = u.IdParticipante 
     WHERE p.idSherpa IS NULL
-	AND (@Rol IS NULL OR p.Rol = @Rol)
+	AND (@Rol IS NULL OR u.IdRol = @Rol)
 	AND (@IdSede IS NULL OR p.IdSede = @IdSede)
 	AND (@IdLineaCarrera IS NULL OR p.idLineaCarrera = @IdLineaCarrera)
 	AND (@Search IS NULL OR (p.Nombre + ' ' + p.Apellido) LIKE '%' + @Search + '%')

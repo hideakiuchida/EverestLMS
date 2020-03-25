@@ -1,12 +1,13 @@
 ﻿using EverestLMS.Common.Enums;
 using EverestLMS.Services.Interfaces;
-using EverestLMS.ViewModels.CloudinaryFile;
 using EverestLMS.ViewModels.Leccion;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace EverestLMS.API.Controllers
 {
+    [Authorize]
     [Route("api/etapas/{idEtapa}/cursos/{idCurso}/lecciones")]
     [ApiController]
     public class LeccionController : ControllerBase

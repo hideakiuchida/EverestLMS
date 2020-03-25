@@ -20,5 +20,6 @@ namespace EverestLMS.Services.Interfaces
         Task<string> ProcesarAsignacionAutomatica();
         Task<string> ProcesarDesasignacionAutomatica(); 
         Task<string> DesasignarAsync(AsignacionToCreateVM asignacionToCreateVM);
+        Task<bool> DeleteAsync(int id);
     }
 }
