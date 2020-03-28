@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class NavComponent implements OnInit {
   model: any = {};
-  idParticipante: any = 605;
+  idParticipante: any;
 
   constructor(public authService: AuthService, private router: Router, private alertify: AlertifyService) { }
 
@@ -20,6 +20,7 @@ export class NavComponent implements OnInit {
   login() {
     this.authService.login(this.model).subscribe(next => {
       this.alertify.success('Bienvenido');
+      this.idParticipante = this.authService.getUserId();
     }, error => {
       this.alertify.error(error.error);
     });
@@ -32,7 +33,7 @@ export class NavComponent implements OnInit {
   logout() {
     localStorage.removeItem('token');
     this.alertify.message('Hasta luego');
-    this.router.navigate[''];
+    this.router.navigate(['']);
   }
 
 }

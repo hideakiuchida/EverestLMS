@@ -17,6 +17,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Net;
@@ -64,6 +65,19 @@ namespace EverestLMS.API
                     In = ParameterLocation.Header,
                     Type = SecuritySchemeType.ApiKey,
                     Scheme = "Bearer"
+                });
+                x.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference 
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer" 
+                            }
+                        }, new List<string>() 
+                    }
                 });
             });
             services.AddAutoMapper(typeof(Startup));

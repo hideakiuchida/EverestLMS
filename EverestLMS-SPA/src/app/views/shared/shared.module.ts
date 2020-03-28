@@ -20,6 +20,12 @@ import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { CommonModule } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
+import { JwtModule } from '@auth0/angular-jwt';
+
+export function tokenGetter() {
+   return localStorage.getItem('token');
+}
+
 
 @NgModule({
    declarations: [
@@ -42,6 +48,13 @@ import localeEs from '@angular/common/locales/es';
       FlatpickrModule.forRoot(),
       BsDatepickerModule.forRoot(),
       TimepickerModule.forRoot(),
+      JwtModule.forRoot({
+         config: {
+             tokenGetter: tokenGetter,
+             whitelistedDomains: ['localhost:64736'],
+             blacklistedRoutes: ['localhost:64736/api/auth']
+          }
+       }),
       NgbModule,
       RouterModule,
       AppRoutingModule

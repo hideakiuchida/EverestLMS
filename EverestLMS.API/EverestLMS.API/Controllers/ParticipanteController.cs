@@ -111,9 +111,9 @@ namespace EverestLMS.API.Controllers
 
         [HttpGet]
         [Route("{id}/etapas")]
-        public async Task<IActionResult> GetEtapasAsync(int id)
+        public async Task<IActionResult> GetEtapasAsync(string id)
         {
-            var result = await etapaService.GetByParticipanteAsync(id);
+            var result = await etapaService.GetByParticipanteAsync(default);
             return Ok(result);
         }
 
