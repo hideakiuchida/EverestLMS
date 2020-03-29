@@ -133,7 +133,6 @@ namespace EverestLMS.PopulateData
         static async Task GenerarCursoImagenes()
         {
             Console.WriteLine("Generar Curso Imagenes");
-            ICursoRepository cursoRepository = new CursoRepository(connection);
             var cursos = await cursoRepository.GetCursosAsync(default, default, default, default);
             ICloudinaryFileRepository cloudinaryFileRepository = new CloudinaryFileRepository(connection);
             foreach (var item in cursos)

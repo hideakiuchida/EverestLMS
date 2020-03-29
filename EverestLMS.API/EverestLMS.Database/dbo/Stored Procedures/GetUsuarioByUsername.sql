@@ -6,5 +6,5 @@ AS
       ,[PasswordSalt]
       ,[PasswordHash]
       , [IdRol]
-  FROM [EVERESTLMS].[dbo].[Usuario]
+  FROM [dbo].[Usuario]
   WHERE [Username] = @Username;

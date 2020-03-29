@@ -5,7 +5,6 @@ using EverestLMS.Repository.Interfaces;
 using EverestLMS.Services.Interfaces;
 using EverestLMS.ViewModels.Authentication;
 using System;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace EverestLMS.Services.Implementations
@@ -48,7 +47,7 @@ namespace EverestLMS.Services.Implementations
                 var usuarioId = await repository.Register(usuarioToRegister, usuarioToRegisterVM.Password);
                 return usuarioId;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 await participanteService.DeleteAsync(participanteId);
                 throw;
