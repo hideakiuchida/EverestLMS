@@ -3,10 +3,8 @@ using EverestLMS.Common.Extensions;
 using EverestLMS.Entities.Models;
 using EverestLMS.Repository.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace EverestLMS.Repository.DapperImplementations

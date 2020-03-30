@@ -2,7 +2,6 @@
 using EverestLMS.Common.Enums;
 using EverestLMS.Entities.Models;
 using EverestLMS.Repository.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -15,7 +14,7 @@ namespace EverestLMS.Repository.DapperImplementations
         public ParticipanteRepository(IDbConnection dbConnection) : base(dbConnection)
         {
         }
-        public async Task<bool> AsignarAsync(int idEscalador, int idSherpa)
+        public async Task<bool> AsignarAsync(string idEscalador, string idSherpa)
         {
             if (_dbConnection.State == ConnectionState.Closed)
                 _dbConnection.Open();
@@ -43,7 +42,7 @@ namespace EverestLMS.Repository.DapperImplementations
             return result.FirstOrDefault();  
         }
 
-        public async Task<bool> DesasignarAsync(int idEscalador)
+        public async Task<bool> DesasignarAsync(string idEscalador)
         {
             if (_dbConnection.State == ConnectionState.Closed)
                 _dbConnection.Open();
@@ -53,7 +52,7 @@ namespace EverestLMS.Repository.DapperImplementations
             return result.FirstOrDefault();       
         }
 
-        public async Task<ParticipanteEntity> GetByIdAsync(int id)
+        public async Task<ParticipanteEntity> GetByIdAsync(string id)
         {
             var result = await _dbConnection.QueryAsync<ParticipanteEntity>("GetParticipantes",
             new
@@ -69,7 +68,7 @@ namespace EverestLMS.Repository.DapperImplementations
             return result.FirstOrDefault();       
         }
 
-        public async Task<IEnumerable<ParticipanteEntity>> GetEscaladoresNoAsignadosAsync(int idLineaCarrera, int? idSede = null, string search = null)
+        public async Task<IEnumerable<ParticipanteEntity>> GetEscaladoresNoAsignadosAsync(int idLineaCarrera, int? idSede, string search)
         {
             if (_dbConnection.State == ConnectionState.Closed)
                 _dbConnection.Open();
@@ -85,7 +84,7 @@ namespace EverestLMS.Repository.DapperImplementations
             return result.ToList();        
         }
 
-        public async Task<IEnumerable<ParticipanteEntity>> GetEscaladoresPorSherpaIdAsync(int id)
+        public async Task<IEnumerable<ParticipanteEntity>> GetEscaladoresPorSherpaIdAsync(string id)
         {
             if (_dbConnection.State == ConnectionState.Closed)
                 _dbConnection.Open();
@@ -99,7 +98,7 @@ namespace EverestLMS.Repository.DapperImplementations
             return result.ToList();
         }
 
-        public async Task<IEnumerable<ParticipanteEntity>> GetSherpasAsync(int? idNivel = null, int? idLineaCarrera = null, int? idSede = null, string search = null)
+        public async Task<IEnumerable<ParticipanteEntity>> GetSherpasAsync(int? idNivel, int? idLineaCarrera, int? idSede, string search)
         {
             if (_dbConnection.State == ConnectionState.Closed)
                 _dbConnection.Open();

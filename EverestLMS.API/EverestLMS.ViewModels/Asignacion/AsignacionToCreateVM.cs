@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace EverestLMS.ViewModels.Asignacion
+﻿namespace EverestLMS.ViewModels.Asignacion
 {
     public class AsignacionToCreateVM
     {
-        public int IdSherpa { get; set; }
-        public int IdEscalador { get; set; }
+        public string IdSherpa { get; set; }
+        public string IdEscalador { get; set; }
     }
 }

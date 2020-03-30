@@ -25,7 +25,7 @@ namespace EverestLMS.Repository.DapperImplementations
             return result.ToList();
         }
 
-        public async Task<IEnumerable<EtapaEntity>> GetByParticipanteAsync(int idParticipante)
+        public async Task<IEnumerable<EtapaEntity>> GetByParticipanteAsync(string idParticipante)
         {
             if (_dbConnection.State == ConnectionState.Closed)
                 _dbConnection.Open();

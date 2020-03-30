@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace EverestLMS.PopulateData
 {
-    public class Program
+    public static class Program
     {
         static long count = 0;
         static string connectionString = ConnectionSettings.ConnectionString;
@@ -25,10 +25,7 @@ namespace EverestLMS.PopulateData
         static INivelRepository nivelRepository;
         static ILineaCarreraRepository lineaCarreraRepository;
         static IRatingCursoRepository ratingCursoRepository;
-        static IConocimientoRepository conocimientoRepository;
-        static IAuthenticationRepository authenticationRepository;
 
-        static IParticipanteService _service;
         static IAuthenticationService _authService;
         private static ParticipanteFaker _faker;
 
@@ -38,17 +35,17 @@ namespace EverestLMS.PopulateData
             connection = new SqlConnection(connectionString);
             nivelRepository = new NivelRepository(connection);
             lineaCarreraRepository = new LineaCarreraRepository(connection);
-            conocimientoRepository = new ConocimientoRepository(connection);
+            var conocimientoRepository = new ConocimientoRepository(connection);
             participanteRepository = new ParticipanteRepository(connection);
             ratingCursoRepository = new RatingCursoRepository(connection);
-            authenticationRepository = new AuthenticationRepository(connection);
+            var authenticationRepository = new AuthenticationRepository(connection);
             cursoRepository = new CursoRepository(connection);
 
             var myProfile = new AutoMapperProfiles();
             var configuration = new MapperConfiguration(cfg => cfg.AddProfile(myProfile));
             var mapper = new Mapper(configuration);
-            _service = new ParticipanteService(participanteRepository, conocimientoRepository, mapper, null);
-            _authService = new AuthenticationService(authenticationRepository, _service, mapper);
+            var participanteService = new ParticipanteService(participanteRepository, conocimientoRepository, mapper, null);
+            _authService = new AuthenticationService(authenticationRepository, participanteService, mapper);
             
             try
             {
@@ -56,6 +53,7 @@ namespace EverestLMS.PopulateData
 
                 await GenerarEscaladores();
                 await GenerarSherpas();
+                await GenerarAdmin();
                 await GenerarCursoImagenes();
                 for (int i = 0; i < 3; i++)
                     await GenerarRatingCursosAleatorios();
@@ -107,6 +105,17 @@ namespace EverestLMS.PopulateData
                 }
             }
             
+        }
+
+        static async Task GenerarAdmin()
+        {
+            Console.WriteLine("Generar Admin");
+            foreach (var item in _faker.GetAdminsVM())
+            {
+                var result = await _authService.Register(item);
+                Console.WriteLine("Successfully created: " + result);
+            }
+            Console.WriteLine("Finalizar Admins");
         }
 
         static async Task GenerarSherpas()

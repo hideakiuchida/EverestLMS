@@ -1,7 +1,6 @@
 ﻿using Dapper;
 using EverestLMS.Entities.Models;
 using EverestLMS.Repository.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -40,7 +39,7 @@ namespace EverestLMS.Repository.DapperImplementations
             return result.FirstOrDefault();
         }
 
-        public async Task<IEnumerable<ConocimientoEntity>> GetConocimientoByParticipanteIdAsync(int id)
+        public async Task<IEnumerable<ConocimientoEntity>> GetConocimientoByParticipanteIdAsync(string id)
         {
             if (_dbConnection.State == ConnectionState.Closed)
                 _dbConnection.Open();

@@ -3,7 +3,6 @@ using EverestLMS.Entities.Models;
 using EverestLMS.Repository.Interfaces;
 using EverestLMS.Services.Interfaces;
 using EverestLMS.ViewModels.Curso;
-using EverestLMS.ViewModels.Participante;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -47,13 +46,12 @@ namespace EverestLMS.Services.Implementations
         {
             var allItemsInteger = (int)decimal.Zero;
             var participantes = await participanteRepository.GetParticipantesAsync(allItemsInteger, allItemsInteger);
-            var participantesVM = mapper.Map<IEnumerable<ParticipanteVM>>(participantes);
             List<CursoPredictedByParticipantVM> cursoPredictedByParticipantVMs = new List<CursoPredictedByParticipantVM>();
-            foreach (var item in participantesVM)
+            foreach (var item in participantes)
             {
-                var cursos = await GetCursosPredictionByParticipanteAsync(item.Id);
+                var cursos = await GetCursosPredictionByParticipanteAsync(item.UsuarioKey);
                 var cursoPredictedByParticipantVM = new CursoPredictedByParticipantVM();
-                cursoPredictedByParticipantVM.Id = item.Id;
+                cursoPredictedByParticipantVM.Id = item.UsuarioKey;
                 cursoPredictedByParticipantVM.Nombre = item.Nombre;
                 cursoPredictedByParticipantVM.Apellido = item.Apellido;
                 cursoPredictedByParticipantVM.Cursos = cursos?.ToList();
@@ -76,14 +74,14 @@ namespace EverestLMS.Services.Implementations
             return cursosVM;
         }
 
-        public async Task<IEnumerable<CursoVM>> GetCursosByParticipanteAsync(int idParticipante, int? idEtapa = null, int? idIdioma = null)
+        public async Task<IEnumerable<CursoVM>> GetCursosByParticipanteAsync(string idParticipante, int? idEtapa = null, int? idIdioma = null)
         {
             var cursos = await repository.GetCursosByParticipanteAsync(idParticipante, idEtapa, idIdioma);
             var cursosVM = mapper.Map<IEnumerable<CursoVM>>(cursos);
             return cursosVM;
         }
 
-        public async Task<IEnumerable<CursoPredictionVM>> GetCursosPredictionByParticipanteAsync(int idParticipante, int? idEtapa = null, int? idIdioma = null)
+        public async Task<IEnumerable<CursoPredictionVM>> GetCursosPredictionByParticipanteAsync(string idParticipante, int? idEtapa = null, int? idIdioma = null)
         {
             var cursosPredicted = await repository.GetCursosPredictionByParticipanteAsync(idParticipante, idEtapa, idIdioma);
             var cursosPredictedVM = mapper.Map<IEnumerable<CursoPredictionVM>>(cursosPredicted);

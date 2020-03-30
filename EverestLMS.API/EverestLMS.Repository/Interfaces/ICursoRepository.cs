@@ -6,8 +6,8 @@ namespace EverestLMS.Repository.Interfaces
 {
     public interface ICursoRepository
     {
-        Task<IEnumerable<CursoPredictionEntity>> GetCursosPredictionByParticipanteAsync(int idParticipante, int? idEtapa = null, int? idIdioma = null);
-        Task<IEnumerable<CursoEntity>> GetCursosByParticipanteAsync(int idParticipante, int? idEtapa = null, int? idIdioma = null);
+        Task<IEnumerable<CursoPredictionEntity>> GetCursosPredictionByParticipanteAsync(string idParticipante, int? idEtapa = null, int? idIdioma = null);
+        Task<IEnumerable<CursoEntity>> GetCursosByParticipanteAsync(string idParticipante, int? idEtapa = null, int? idIdioma = null);
         Task<IEnumerable<CursoDetalleEntity>> GetCursosAsync(int? idEtapa, int? idLineaCarrera, int? idNivel, string search);
         Task<int> CreateCursoAsync(CursoEntity cursoEntity);
         Task<bool> EditCursoASync(CursoEntity cursoEntity);

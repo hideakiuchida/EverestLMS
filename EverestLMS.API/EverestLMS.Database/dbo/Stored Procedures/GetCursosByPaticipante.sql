@@ -1,12 +1,12 @@
 ﻿CREATE PROCEDURE [dbo].[GetCursosByParticipante]
 (
- @Id INT,
+ @Id VARCHAR(1000),
  @IdEtapa INT = NULL,
  @IdIdioma INT = NULL
 )
 AS
 BEGIN
-SET NOCOUNT ON;
+	DECLARE @IdParticipante INT = (SELECT u.IdParticipante FROM Usuario u WHERE u.UsuarioKey = @Id);
 	SELECT c.IdCurso, 
 	c.Nombre, 
 	c.Descripcion, 
@@ -20,7 +20,7 @@ SET NOCOUNT ON;
     FROM curso c 
 	INNER JOIN Etapa e ON e.IdEtapa = c.IdEtapa
 	INNER JOIN Participante p ON p.IdLineaCarrera = e.IdLineaCarrera AND p.IdNivel = e.IdNivel
-    WHERE p.IdParticipante = @Id
+    WHERE p.IdParticipante = @IdParticipante
 	AND (@IdEtapa IS NULL OR e.IdEtapa = @IdEtapa)
 	AND (@IdIdioma IS NULL OR c.Idioma = @IdIdioma);
 END;

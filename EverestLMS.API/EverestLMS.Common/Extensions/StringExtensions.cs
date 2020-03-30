@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -53,15 +52,15 @@ namespace EverestLMS.Common.Extensions
 
         private static string ReturnTextByUpperCase(string[] split)
         {
-            string cadena = String.Empty;
+            StringBuilder cadena = new StringBuilder();
             for (int i = 0; i < split.Length; i++)
             {
                 if ((split.Length - i) > 1)
-                    cadena += split[i] + " ";
+                    cadena.Append(split[i] + " ");
                 else
-                    cadena += split[i];
+                    cadena.Append(split[i]);
             }
-            return cadena;
+            return cadena.ToString();
         }
     }
 }

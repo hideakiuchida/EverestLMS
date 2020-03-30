@@ -11,8 +11,8 @@
   <div class="row mt-4">
     <div class="col-md-3 border">
       <ul class="list-items">
-        <li *ngFor="let escalador of escaladoresNoAsignados" [class.selected]="escalador === selectedEscalador" (click)="onSelect(escalador)">
-          <span class="badge">{{escalador.id}}</span> {{escalador.nombre}} {{escalador.apellido}}
+        <li *ngFor="let escalador of escaladoresNoAsignados; let i = index" [class.selected]="escalador === selectedEscalador" (click)="onSelect(escalador)">
+          <span class="badge">{{i + 1}}</span> {{escalador.nombre}} {{escalador.apellido}}
         </li>
       </ul>
     </div>

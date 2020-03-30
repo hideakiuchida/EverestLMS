@@ -1,13 +1,12 @@
 ﻿using EverestLMS.ViewModels.Conocimiento;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace EverestLMS.ViewModels.Participante
 {
     public class ParticipanteVM
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public string Correo { get; set; }

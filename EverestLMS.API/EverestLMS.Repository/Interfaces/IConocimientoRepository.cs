@@ -7,7 +7,7 @@ namespace EverestLMS.Repository.Interfaces
     public interface IConocimientoRepository
     {
         Task<ConocimientoEntity> GetByIdAsync(int? id);
-        Task<IEnumerable<ConocimientoEntity>> GetConocimientoByParticipanteIdAsync(int id);
+        Task<IEnumerable<ConocimientoEntity>> GetConocimientoByParticipanteIdAsync(string id);
         Task<int> CreateConocimientoParticipanteAsync(ConocimientoParticipanteEntity conocimientoParticipanteEntity);
     }
 }

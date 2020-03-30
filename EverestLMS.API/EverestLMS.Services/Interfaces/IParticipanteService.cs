@@ -12,9 +12,9 @@ namespace EverestLMS.Services.Interfaces
         Task<IEnumerable<ParticipanteVM>> GetAllAsync();
         Task<int> CreateAsync(ParticipanteToCreateVM participanteToCreate);
         Task<IEnumerable<SherpaLiteVM>> GetSherpasAsync(int? idNivel, int? idLineaCarrera, int? idSede, string search);
-        Task<IEnumerable<EscaladorLiteVM>> GetEscaladoresPorSherpaIdAsync(int id);
-        Task<EscaladorVM> GetEscaladorDetailAsync(int id);
-        Task<SherpaVM> GetSherpaDetailAsync(int id);
+        Task<IEnumerable<EscaladorLiteVM>> GetEscaladoresPorSherpaIdAsync(string id);
+        Task<EscaladorVM> GetEscaladorDetailAsync(string id);
+        Task<SherpaVM> GetSherpaDetailAsync(string id);
         Task<IEnumerable<EscaladorLiteVM>> GetEscaladoresNoAsignadosAsync(int idLineaCarrera, int? idSede, string search);
         Task<string> AsignarAsync(AsignacionToCreateVM asignacionToCreateVM);
         Task<string> ProcesarAsignacionAutomatica();

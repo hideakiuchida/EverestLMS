@@ -40,6 +40,7 @@ import { EtapasParticipanteResolver } from './resolvers/etapa-participante/etapa
 import { LeccionResolver } from './resolvers/leccion/leccion.resolver';
 import { EditarLeccionComponent } from './views/sherpa/actualizar-lecciones/editar-leccion/editar-leccion.component';
 import { AuthGuard } from './guards/auth.guard';
+import { InicioComponent } from './views/shared/inicio/inicio.component';
 
 const routes: Routes = [
     { path: '', component: HomeComponent},
@@ -48,6 +49,7 @@ const routes: Routes = [
         runGuardsAndResolvers: 'always',
         canActivate: [AuthGuard],
         children: [
+            { path: 'inicio', component: InicioComponent},
             { path: 'asignarequipos', component: AsignarequiposComponent},
             { path: 'calendario', component: CalendarioComponent},
             { path: 'actualizar-lecciones', component: ActualizarLeccionesComponent,

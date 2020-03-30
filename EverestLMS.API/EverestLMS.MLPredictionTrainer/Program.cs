@@ -1,7 +1,6 @@
 ﻿using EverestLMS.Common.Connections;
 using EverestLMS.Entities.Models;
 using EverestLMS.Repository.DapperImplementations;
-using EverestLMS.Repository.Interfaces;
 using Microsoft.ML;
 using Microsoft.ML.Data;
 using Microsoft.ML.Trainers;
@@ -16,9 +15,6 @@ namespace EverestLMS.MLPredictionTrainer
     class Program
     {
         static string connectionString = ConnectionSettings.ConnectionString;
-        static IRatingCursoRepository ratingCursoRepository;
-        static ICursoRepository cursoRepository;
-        static IParticipanteRepository participanteRepository;
         public class CursoRatingPrediction
         {
             public float Score;
@@ -39,9 +35,9 @@ namespace EverestLMS.MLPredictionTrainer
         {
             Console.WriteLine("Start Training ML");
             IDbConnection connection = new SqlConnection(connectionString);
-            ratingCursoRepository = new RatingCursoRepository(connection);
-            cursoRepository = new CursoRepository(connection);
-            participanteRepository = new ParticipanteRepository(connection);
+            var ratingCursoRepository = new RatingCursoRepository(connection);
+            var cursoRepository = new CursoRepository(connection);
+            var participanteRepository = new ParticipanteRepository(connection);
 
             try
             {
@@ -83,7 +79,7 @@ namespace EverestLMS.MLPredictionTrainer
 
             foreach (var participante in participantes)
             {
-                var topCursos = cursos.ToList().Select(x => new
+                var topCursos = cursos.Select(x => new
                 {
                     Curso = x.Nombre,
                     Score = (predictionengine.Predict(

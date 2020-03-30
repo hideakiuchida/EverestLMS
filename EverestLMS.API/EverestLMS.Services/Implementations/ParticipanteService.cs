@@ -55,7 +55,7 @@ namespace EverestLMS.Services.Implementations
             return participantesToReturn;
         }
 
-        public async Task<EscaladorVM> GetEscaladorDetailAsync(int id)
+        public async Task<EscaladorVM> GetEscaladorDetailAsync(string id)
         {
             var escalador = await repository.GetByIdAsync(id);
             if (escalador is null)
@@ -67,16 +67,16 @@ namespace EverestLMS.Services.Implementations
             return escaladorToReturn;
         }
 
-        public async Task<SherpaVM> GetSherpaDetailAsync(int id)
+        public async Task<SherpaVM> GetSherpaDetailAsync(string id)
         {
             var sherpa = await repository.GetByIdAsync(id);
             if (sherpa is null)
                 return default;
             var conocimientos = await conocimientoRepository.GetConocimientoByParticipanteIdAsync(id);
-            var escaladores = await repository.GetEscaladoresPorSherpaIdAsync(sherpa.IdParticipante);
+            var escaladores = await repository.GetEscaladoresPorSherpaIdAsync(sherpa.UsuarioKey);
 
             var escaladoresToReturn = mapper.Map<ICollection<EscaladorLiteVM>>(escaladores);
-            var sherpaToReturn = mapper.Map<SherpaVM>(sherpa);;
+            var sherpaToReturn = mapper.Map<SherpaVM>(sherpa);
             var conocimientosToReturn = mapper.Map<ICollection<ConocimientoVM>>(conocimientos);
 
             sherpaToReturn.Conocimientos = conocimientosToReturn;
@@ -84,21 +84,21 @@ namespace EverestLMS.Services.Implementations
             return sherpaToReturn;
         }
 
-        public async Task<IEnumerable<SherpaLiteVM>> GetSherpasAsync(int? idNivel = null, int? idLineaCarrera = null, int? idSede = null, string search = null)
+        public async Task<IEnumerable<SherpaLiteVM>> GetSherpasAsync(int? idNivel, int? idLineaCarrera, int? idSede, string search)
         {
             var sherpas = await repository.GetSherpasAsync(idNivel, idLineaCarrera, idSede, search);
             var sherpasToReturn = mapper.Map<IEnumerable<SherpaLiteVM>>(sherpas);
             return sherpasToReturn;
         }
 
-        public async Task<IEnumerable<EscaladorLiteVM>> GetEscaladoresPorSherpaIdAsync(int id)
+        public async Task<IEnumerable<EscaladorLiteVM>> GetEscaladoresPorSherpaIdAsync(string id)
         {
             var escaladores = await repository.GetEscaladoresPorSherpaIdAsync(id);
             var escaladoresToReturn = mapper.Map<IEnumerable<EscaladorLiteVM>>(escaladores);
             return escaladoresToReturn;
         }
 
-        public async Task<IEnumerable<EscaladorLiteVM>> GetEscaladoresNoAsignadosAsync(int idLineaCarrera, int? idSede = null, string search = null)
+        public async Task<IEnumerable<EscaladorLiteVM>> GetEscaladoresNoAsignadosAsync(int idLineaCarrera, int? idSede, string search)
         {
             var escaladores = await repository.GetEscaladoresNoAsignadosAsync(idLineaCarrera, idSede, search);
             var escaladoresToReturn = mapper.Map<IEnumerable<EscaladorLiteVM>>(escaladores);
@@ -109,9 +109,9 @@ namespace EverestLMS.Services.Implementations
         {
             var succeded = await repository.AsignarAsync(asignacionToCreateVM.IdEscalador, asignacionToCreateVM.IdSherpa);
             if (succeded)
-                return $"Se asigno existosamente escalador {asignacionToCreateVM.IdEscalador} al sherpa {asignacionToCreateVM.IdSherpa}";
+                return $"Se asigno existosamente.";
             else
-                return $"No se pudo asignar escalador {asignacionToCreateVM.IdEscalador} al sherpa {asignacionToCreateVM.IdSherpa}";
+                return $"No se pudo asignar escalador.";
         }
 
         public async Task<string> ProcesarAsignacionAutomatica()
@@ -154,8 +154,6 @@ namespace EverestLMS.Services.Implementations
                             if (!saved)
                                 return $"Ocurrió un error en la asignación para el sherpa {idSherpa}.";
                         }
-                        else
-                            continue;
                     }
                     countNoAsignados += escaladoresNoAsignados.Count - countAsignamiento;
                     countAsignadosTotal += countAsignamiento;
@@ -192,14 +190,14 @@ namespace EverestLMS.Services.Implementations
         private async Task<Dictionary<int, int>> GetSherpasNoAsignadosCompletamenteAsync(int idLineaCarrera, int idSede, int maxQuantityEscaladores)
         {
             Dictionary<int, int> dicSherpaCantidadNoAsignados = new Dictionary<int, int>();
-            var sherpas = await GetSherpasAsync(default, idLineaCarrera, idSede);
+            var sherpas = await repository.GetSherpasAsync(default, idLineaCarrera, idSede, default);
             foreach (var sherpa in sherpas)
             {
-                var escaladoresPorSherpa = (await repository.GetEscaladoresPorSherpaIdAsync(sherpa.Id)).ToList();
+                var escaladoresPorSherpa = (await repository.GetEscaladoresPorSherpaIdAsync(sherpa.UsuarioKey)).ToList();
                 if (escaladoresPorSherpa.Count >= maxQuantityEscaladores)
                     continue;
                 var cantidadNoAsignados = maxQuantityEscaladores - escaladoresPorSherpa.Count;
-                dicSherpaCantidadNoAsignados.Add(sherpa.Id, cantidadNoAsignados);
+                dicSherpaCantidadNoAsignados.Add(sherpa.IdParticipante, cantidadNoAsignados);
             }
             return dicSherpaCantidadNoAsignados;
         }

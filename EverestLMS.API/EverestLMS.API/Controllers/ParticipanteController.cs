@@ -25,7 +25,7 @@ namespace EverestLMS.API.Controllers
 
         [HttpGet]
         [Route("sherpas/{id}")]
-        public async Task<IActionResult> GetSherpaDetailAsync(int id)
+        public async Task<IActionResult> GetSherpaDetailAsync(string id)
         {
             var result = await service.GetSherpaDetailAsync(id);
             return Ok(result);
@@ -33,7 +33,7 @@ namespace EverestLMS.API.Controllers
 
         [HttpGet]
         [Route("escaladores/{id}")]
-        public async Task<IActionResult> GetEscaladorDetailAsync(int id)
+        public async Task<IActionResult> GetEscaladorDetailAsync(string id)
         {
             var result = await service.GetEscaladorDetailAsync(id);
             return Ok(result);
@@ -49,7 +49,7 @@ namespace EverestLMS.API.Controllers
 
         [HttpGet]
         [Route("sherpas/{id}/escaladores")]
-        public async Task<IActionResult> GetEscaladoresPorSherpaIdAsync(int id)
+        public async Task<IActionResult> GetEscaladoresPorSherpaIdAsync(string id)
         {
             var result = await service.GetEscaladoresPorSherpaIdAsync(id);
             return Ok(result);
@@ -113,13 +113,13 @@ namespace EverestLMS.API.Controllers
         [Route("{id}/etapas")]
         public async Task<IActionResult> GetEtapasAsync(string id)
         {
-            var result = await etapaService.GetByParticipanteAsync(default);
+            var result = await etapaService.GetByParticipanteAsync(id);
             return Ok(result);
         }
 
         [HttpGet]
         [Route("{id}/cursos")]
-        public async Task<IActionResult> GetCursosByParticipanteAsync(int id, int? idEtapa, int? idIdioma)
+        public async Task<IActionResult> GetCursosByParticipanteAsync(string id, int? idEtapa, int? idIdioma)
         {
             var result = await cursoService.GetCursosByParticipanteAsync(id, idEtapa, idIdioma);
             return Ok(result);
@@ -127,7 +127,7 @@ namespace EverestLMS.API.Controllers
 
         [HttpGet]
         [Route("{id}/cursos/predicciones")]
-        public async Task<IActionResult> GetCursosPredictionByParticipanteAsync(int id, int? idEtapa, int? idIdioma)
+        public async Task<IActionResult> GetCursosPredictionByParticipanteAsync(string id, int? idEtapa, int? idIdioma)
         {
             var result = await cursoService.GetCursosPredictionByParticipanteAsync(id, idEtapa, idIdioma);
             return Ok(result);

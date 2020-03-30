@@ -87,7 +87,7 @@ namespace EverestLMS.Repository.DapperImplementations
             return result.ToList();
         }
 
-        public async Task<IEnumerable<CursoEntity>> GetCursosByParticipanteAsync(int idParticipante, int? idEtapa = null, int? idIdioma = null)
+        public async Task<IEnumerable<CursoEntity>> GetCursosByParticipanteAsync(string idParticipante, int? idEtapa = null, int? idIdioma = null)
         {
             if (_dbConnection.State == ConnectionState.Closed)
                 _dbConnection.Open();
@@ -97,7 +97,7 @@ namespace EverestLMS.Repository.DapperImplementations
             return result.ToList();
         }
 
-        public async Task<IEnumerable<CursoPredictionEntity>> GetCursosPredictionByParticipanteAsync(int idParticipante, int? idEtapa = null, int? idIdioma = null)
+        public async Task<IEnumerable<CursoPredictionEntity>> GetCursosPredictionByParticipanteAsync(string idParticipante, int? idEtapa = null, int? idIdioma = null)
         {
             if (_dbConnection.State == ConnectionState.Closed)
                 _dbConnection.Open();

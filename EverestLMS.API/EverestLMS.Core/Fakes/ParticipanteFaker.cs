@@ -145,5 +145,44 @@ namespace EverestLMS.Common.Fakes
             return EscaladoresVM;
         }
 
+
+        public IList<UsuarioToRegisterVM> AdminsVM;
+        public IList<UsuarioToRegisterVM> GetAdminsVM()
+        {
+            if (AdminsVM == null)
+            {
+                var Participante = new Faker<ParticipanteToCreateVM>()
+                    .RuleFor(g => g.Nombre, f => f.Name.FirstName())
+                    .RuleFor(g => g.Apellido, f => f.Name.LastName())
+                    .RuleFor(g => g.Correo, f => f.Person.Email)
+                    .RuleFor(g => g.Genero, f => f.PickRandom((int)GeneroEnum.Masculino, (int)GeneroEnum.Femenino))
+                    .RuleFor(g => g.AñosExperiencia, f => f.Random.Number(1, 10))
+                    .RuleFor(g => g.Calificacion, f => f.Random.Number(1, 20))
+                    .RuleFor(g => g.FechaNacimiento, f => f.Date.Past())
+                    .RuleFor(g => g.IdLineaCarrera, f => f.PickRandom((int)LineaCarreraEnum.BusinessAnalyst, (int)LineaCarreraEnum.SoftwareEngineer, (int)LineaCarreraEnum.DevOpsEngineer,
+                        (int)LineaCarreraEnum.MobileEngineer, (int)LineaCarreraEnum.QualityAssurance))
+                    .RuleFor(g => g.Photo, f => f.PickRandom("https://randomuser.me/api/portraits/women/47.jpg",
+                                                            "https://randomuser.me/api/portraits/women/33.jpg",
+                                                            "https://randomuser.me/api/portraits/women/65.jpg",
+                                                            "https://randomuser.me/api/portraits/women/38.jpg",
+                                                            "https://randomuser.me/api/portraits/women/6.jpg",
+                                                            "https://randomuser.me/api/portraits/men/44.jpg",
+                                                            "https://randomuser.me/api/portraits/men/72.jpg",
+                                                            "https://randomuser.me/api/portraits/men/23.jpg",
+                                                            "https://randomuser.me/api/portraits/men/36.jpg",
+                                                            "https://randomuser.me/api/portraits/men/52.jpg"))
+                    .RuleFor(g => g.IdNivel, f => (int)NivelEnum.Senior)
+                    .RuleFor(g => g.ConocimientoIds, f => GenerateRandomConocimientosIds())
+                    .RuleFor(g => g.IdSede, f => f.PickRandom((int)SedeEnum.Cochabamba, (int)SedeEnum.Liberia, (int)SedeEnum.Lima, (int)SedeEnum.SanCarlos, (int)SedeEnum.SanJose));
+                AdminsVM = new Faker<UsuarioToRegisterVM>()
+                    .RuleFor(g => g.Username, f => f.Person.UserName)
+                    .RuleFor(g => g.Password, f => "12345")
+                    .RuleFor(g => g.IdRol, f => (int)RolEnum.Administrador)
+                    .RuleFor(g => g.Participante, f => Participante).Generate(1);
+            }
+            return AdminsVM;
+        }
+
+
     }
 }

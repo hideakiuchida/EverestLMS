@@ -32,8 +32,8 @@
     <div class="row" *ngIf="sherpas != null && sherpas.length > 0">
         <div class="col-md-4 border">
             <ul class="list-items">
-                <li *ngFor="let sherpa of sherpas" [class.selected]="sherpa === selectedSherpa" (click)="onSelect(sherpa)">
-                    <span class="badge">{{sherpa.id}}</span> {{sherpa.nombre}} {{sherpa.apellido}}
+                <li *ngFor="let sherpa of sherpas; let i = index" [class.selected]="sherpa === selectedSherpa" (click)="onSelect(sherpa)">
+                    <span class="badge">{{i + 1}}</span> {{sherpa.nombre}} {{sherpa.apellido}}
                 </li>
             </ul>
         </div>

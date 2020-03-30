@@ -1,5 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[GetEtapasByParticipante]
-	@IdParticipante INT
+	@IdParticipante VARCHAR(1000)
 AS
 BEGIN
 	SELECT e.[IdEtapa]
@@ -11,5 +11,6 @@ BEGIN
       ,e.[IdLineaCarrera]
   FROM [dbo].[Etapa] e
   INNER JOIN Participante p ON p.IdLineaCarrera = e.IdLineaCarrera AND p.IdNivel = e.IdNivel
-  WHERE p.IdParticipante = @IdParticipante;
+  INNER JOIN Usuario u ON u.IdParticipante = p.IdParticipante
+  WHERE u.UsuarioKey = @IdParticipante;
 END

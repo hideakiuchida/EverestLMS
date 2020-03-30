@@ -5,7 +5,6 @@
 )
 AS
 BEGIN
-	SET NOCOUNT ON;
 	INSERT INTO conocimientoparticipante
 	(IdConocimiento,
 	IdParticipante)
