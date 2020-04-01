@@ -1,7 +1,6 @@
 ﻿using Dapper;
 using EverestLMS.Entities.Models;
 using EverestLMS.Repository.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -17,11 +16,13 @@ namespace EverestLMS.Repository.DapperImplementations
 
         public async Task<IEnumerable<LineaCarreraEntity>> GetAllAsync()
         {
-            if (_dbConnection.State == ConnectionState.Closed)
-                _dbConnection.Open();
-            string stringQuery = "SELECT [IdLineaCarrera],[Descripcion] FROM [dbo].[LineaCarrera]";
-            var result = await _dbConnection.QueryAsync<LineaCarreraEntity>(stringQuery);
-            return result.ToList();       
+            using (var conn = _dbConnection)
+            {
+                conn.Open();
+                string stringQuery = "SELECT [IdLineaCarrera],[Descripcion] FROM [dbo].[LineaCarrera]";
+                var result = await conn.QueryAsync<LineaCarreraEntity>(stringQuery);
+                return result.ToList();
+            }
         }
     }
 }

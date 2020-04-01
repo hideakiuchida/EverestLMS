@@ -16,9 +16,10 @@ namespace EverestLMS.Repository.DapperImplementations
 
         public async Task<int> CreateCloudinaryFileAsync(CloudinaryFileEntity cloudinaryFileEntity)
         {
-            if (_dbConnection.State == ConnectionState.Closed)
-                _dbConnection.Open();
-            var result = await _dbConnection.QueryAsync<int>("CreateCloudinaryFile",
+            using (var conn = _dbConnection)
+            {
+                conn.Open();
+                var result = await conn.QueryAsync<int>("CreateCloudinaryFile",
                 new
                 {
                     cloudinaryFileEntity.Descripcion,
@@ -30,14 +31,16 @@ namespace EverestLMS.Repository.DapperImplementations
                     cloudinaryFileEntity.IdUsuario
                 },
                 commandType: CommandType.StoredProcedure);
-            return result.FirstOrDefault();
+                return result.FirstOrDefault();
+            }
         }
 
         public async Task<bool> DeleteCloudinaryFileAsync(int idCloudinaryFile, int? idCurso = null, int? idLeccionMaterial = null, int? idPregunta = null, int? idRespuesta = null, int? idUsuario = null)
         {
-            if (_dbConnection.State == ConnectionState.Closed)
-                _dbConnection.Open();
-            var result = await _dbConnection.QueryAsync<int>("DeleteCloudinaryFile",
+            using (var conn = _dbConnection)
+            {
+                conn.Open();
+                var result = await conn.QueryAsync<int>("DeleteCloudinaryFile",
                 new
                 {
                     IdCloudinaryFile = idCloudinaryFile,
@@ -47,14 +50,16 @@ namespace EverestLMS.Repository.DapperImplementations
                     IdUsuario = idUsuario
                 },
                 commandType: CommandType.StoredProcedure);
-            return result.FirstOrDefault() > default(int);
+                return result.FirstOrDefault() > default(int);
+            }
         }
 
         public async Task<bool> EditCloudinaryFileAsync(CloudinaryFileEntity cloudinaryFileEntity)
         {
-            if (_dbConnection.State == ConnectionState.Closed)
-                _dbConnection.Open();
-            var result = await _dbConnection.QueryAsync<int>("EditCloudinaryFile",
+            using (var conn = _dbConnection)
+            {
+                conn.Open();
+                var result = await conn.QueryAsync<int>("EditCloudinaryFile",
                 new
                 {
                     cloudinaryFileEntity.IdCloudinaryFile,
@@ -67,14 +72,16 @@ namespace EverestLMS.Repository.DapperImplementations
                     cloudinaryFileEntity.IdUsuario
                 },
                 commandType: CommandType.StoredProcedure);
-            return result.FirstOrDefault() > default(int);
+                return result.FirstOrDefault() > default(int);
+            }
         }
 
         public async Task<IEnumerable<CloudinaryFileEntity>> GetCloudinaryFilesAsync(int? idCurso = null, int? idLeccionMaterial = null, int? idPregunta = null, int? idRespuesta = null, int? idUsuario = null)
         {
-            if (_dbConnection.State == ConnectionState.Closed)
-                _dbConnection.Open();
-            var result = await _dbConnection.QueryAsync<CloudinaryFileEntity>("GetCloudinaryFiles",
+            using (var conn = _dbConnection)
+            {
+                conn.Open();
+                var result = await conn.QueryAsync<CloudinaryFileEntity>("GetCloudinaryFiles",
                 new
                 {
                     IdCurso = idCurso,
@@ -83,14 +90,16 @@ namespace EverestLMS.Repository.DapperImplementations
                     IdUsuario = idUsuario
                 },
                 commandType: CommandType.StoredProcedure);
-            return result.ToList();
+                return result.ToList();
+            }
         }
 
         public async Task<CloudinaryFileEntity> GetSpecificCloudinaryFilesAsync(int idCloudinaryFile, int? idCurso = null, int? idLeccionMaterial = null, int? idPregunta = null, int? idRespuesta = null, int? idUsuario = null)
         {
-            if (_dbConnection.State == ConnectionState.Closed)
-                _dbConnection.Open();
-            var result = await _dbConnection.QueryAsync<CloudinaryFileEntity>("GetCloudinaryFile",
+            using (var conn = _dbConnection)
+            {
+                conn.Open();
+                var result = await conn.QueryAsync<CloudinaryFileEntity>("GetCloudinaryFile",
                 new
                 {
                     IdCloudinaryFile = idCloudinaryFile,
@@ -100,7 +109,8 @@ namespace EverestLMS.Repository.DapperImplementations
                     IdUsuario = idUsuario
                 },
                 commandType: CommandType.StoredProcedure);
-            return result.FirstOrDefault();
+                return result.FirstOrDefault();
+            }
         }
     }
 }

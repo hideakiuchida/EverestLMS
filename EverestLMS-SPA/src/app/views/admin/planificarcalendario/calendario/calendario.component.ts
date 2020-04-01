@@ -1,7 +1,7 @@
 import { Component, ViewChild, TemplateRef, ChangeDetectionStrategy, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
-import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours } from 'date-fns';
+import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours, addWeeks, addMonths, subWeeks, subMonths, startOfWeek, startOfMonth, endOfWeek, isThursday } from 'date-fns';
 import { Subject } from 'rxjs';
-import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView, CalendarDateFormatter } from 'angular-calendar';
+import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView, CalendarDateFormatter, CalendarMonthViewDay } from 'angular-calendar';
 import { Evento } from 'src/app/models/evento';
 import { DatePipe } from '@angular/common';
 import { Calendario } from 'src/app/models/calendario';
@@ -10,6 +10,40 @@ import { CalendarioService } from 'src/app/services/calendario/calendario.servic
 import { CriterioAceptacion } from 'src/app/models/criterioaceptacion';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
+
+type CalendarPeriod = 'day' | 'week' | 'month';
+
+function addPeriod(period: CalendarPeriod, date: Date, amount: number): Date {
+  return {
+    day: addDays,
+    week: addWeeks,
+    month: addMonths,
+  }[period](date, amount);
+}
+
+function subPeriod(period: CalendarPeriod, date: Date, amount: number): Date {
+  return {
+    day: subDays,
+    week: subWeeks,
+    month: subMonths,
+  }[period](date, amount);
+}
+
+function startOfPeriod(period: CalendarPeriod, date: Date): Date {
+  return {
+    day: startOfDay,
+    week: startOfWeek,
+    month: startOfMonth,
+  }[period](date);
+}
+
+function endOfPeriod(period: CalendarPeriod, date: Date): Date {
+  return {
+    day: endOfDay,
+    week: endOfWeek,
+    month: endOfMonth,
+  }[period](date);
+}
 
 @Component({
   selector: 'app-calendario',
@@ -22,6 +56,10 @@ export class CalendarioComponent implements OnInit {
   view: CalendarView = CalendarView.Month;
   CalendarView = CalendarView;
   viewDate: Date = new Date();
+  minDate: Date = new Date();
+  maxDate: Date = new Date();
+  prevBtnDisabled: boolean = false;
+  nextBtnDisabled: boolean = false;
   activeDayIsOpen: any = true;
   events: CalendarEvent[] = [];
   eventos: Evento[] = [];
@@ -35,6 +73,70 @@ export class CalendarioComponent implements OnInit {
   selectedFechaInicio: any;
   selectedFechaFinal: any;
 
+  increment(): void {
+    this.changeDate(addPeriod(this.view, this.viewDate, 1));
+  }
+
+  decrement(): void {
+    this.changeDate(subPeriod(this.view, this.viewDate, 1));
+  }
+
+  today(): void {
+    this.changeDate(new Date());
+  }
+
+  dateIsValid(date: Date): boolean {
+    var valid = date >= this.minDate && date <= this.maxDate;
+    return valid;
+  }
+
+  changeDate(date: Date): void {
+    this.viewDate = date;
+    this.dateOrViewChanged();
+  }
+
+  dateOrViewChanged(): void {
+    var startPeriod = subPeriod(this.view, this.viewDate, 1);
+    var endPeriod = addPeriod(this.view, this.viewDate, 1);
+    this.prevBtnDisabled = !this.dateIsValid(startPeriod);
+    this.nextBtnDisabled = !this.dateIsValid(endPeriod);
+  }
+
+  beforeMonthViewRender({ body }: { body: CalendarMonthViewDay[] }): void {
+    body.forEach((day) => {
+      if (!this.dateIsValid(day.date)) {
+        day.cssClass = 'cal-disabled';
+      }
+    });
+  }
+
+  
+  dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
+    if (isSameMonth(date, this.viewDate)) {
+      if ((isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) || events.length === 0) {
+        this.activeDayIsOpen = false;
+      } else {
+        this.activeDayIsOpen = true;
+        this.viewDate = date;
+      }
+    }
+  }
+
+  eventTimesChanged({ event, newStart, newEnd }: CalendarEventTimesChangedEvent): void {
+    event.start = newStart;
+    event.end = newEnd;
+    this.refresh.next();
+  }
+
+  setView(view: CalendarView) {
+    this.view = view;
+    this.dateOrViewChanged();
+  }
+
+  closeOpenMonthViewDay() {
+    this.activeDayIsOpen = false;
+  }
+
   actions: CalendarEventAction[] = [
     /*{
       label: '<i class="fa fa-fw fa-pencil"></i>',
@@ -46,7 +148,6 @@ export class CalendarioComponent implements OnInit {
       label: '<i class="fa fa-fw fa-times"></i>',
       onClick: ({ event }: { event: CalendarEvent }): void => {
         this.deleteEvent(event);
-        this.handleEvent('Deleted', event);
       }
     }
   ];
@@ -100,9 +201,12 @@ export class CalendarioComponent implements OnInit {
 
   calendarioSelected(value) {
     this.selectedCalendario = this.calendarios.find(item => item.id === Number(value));
-    this.viewDate = this.selectedCalendario.fechaInicio;
+    this.viewDate = new Date(this.selectedCalendario.fechaInicio);
+    this.minDate = new Date(this.selectedCalendario.fechaInicio);
+    this.maxDate = new Date(this.selectedCalendario.fechaFinal);
     this.selectedFechaInicio = this.datePipe.transform(this.selectedCalendario.fechaInicio, 'dd/MM/yyyy');
     this.selectedFechaFinal = this.datePipe.transform(this.selectedCalendario.fechaFinal, 'dd/MM/yyyy');
+    this.dateOrViewChanged();
   }
 
   loadEventos(idCalendario) {
@@ -117,31 +221,6 @@ export class CalendarioComponent implements OnInit {
     });
   }
 
-  dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-    if (isSameMonth(date, this.viewDate)) {
-      if ((isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) || events.length === 0) {
-        this.activeDayIsOpen = false;
-      } else {
-        this.activeDayIsOpen = true;
-        this.viewDate = date;
-      }
-    }
-  }
-
-  eventTimesChanged({ event, newStart, newEnd }: CalendarEventTimesChangedEvent): void {
-    event.start = newStart;
-    event.end = newEnd;
-    this.handleEvent('Dropped or resized', event);
-    this.refresh.next();
-  }
-
-  handleEvent(action: string, event: CalendarEvent): void {
-    console.log(action);
-    console.log(event);
-    const evento = this.eventos.find(item => item.id === event.id);
-    console.log(evento);
-  }
-
   deleteEvent(eventToDelete: CalendarEvent) {
     this.calendarioService.deleteEvento(this.selectedCalendarioId, eventToDelete.id).subscribe((isDeleted: boolean) => {
       if (isDeleted) {
@@ -153,14 +232,6 @@ export class CalendarioComponent implements OnInit {
     }, error =>  {
       this.alertifyService.error(error.error);
     });
-  }
-
-  setView(view: CalendarView) {
-    this.view = view;
-  }
-
-  closeOpenMonthViewDay() {
-    this.activeDayIsOpen = false;
   }
 
   mapEventosToCalendarEvents(eventos: Evento[]) {

@@ -16,9 +16,10 @@ namespace EverestLMS.Repository.DapperImplementations
 
         public async Task<int> CreateCursoAsync(CursoEntity cursoEntity)
         {
-            if (_dbConnection.State == ConnectionState.Closed)
-                _dbConnection.Open();
-            var result = await _dbConnection.QueryAsync<int>("CreateCurso",
+            using (var conn = _dbConnection)
+            {
+                conn.Open();
+                var result = await conn.QueryAsync<int>("CreateCurso",
                 new
                 {
                     cursoEntity.Nombre,
@@ -31,28 +32,32 @@ namespace EverestLMS.Repository.DapperImplementations
                     cursoEntity.Autor
                 },
                 commandType: CommandType.StoredProcedure);
-            return result.FirstOrDefault();
+                return result.FirstOrDefault();
+            }
         }
 
         public async Task<bool> DeleteCursoAsync(int idEtapa, int idCurso)
         {
-            if (_dbConnection.State == ConnectionState.Closed)
-                _dbConnection.Open();
-            var result = await _dbConnection.QueryAsync<int>("DeleteCurso",
+            using (var conn = _dbConnection)
+            {
+                conn.Open();
+                var result = await conn.QueryAsync<int>("DeleteCurso",
                 new
                 {
                     IdEtapa = idEtapa,
                     IdCurso = idCurso
                 },
                 commandType: CommandType.StoredProcedure);
-            return result.FirstOrDefault() > default(int);
+                return result.FirstOrDefault() > default(int);
+            }
         }
 
         public async Task<bool> EditCursoASync(CursoEntity cursoEntity)
         {
-            if (_dbConnection.State == ConnectionState.Closed)
-                _dbConnection.Open();
-            var result = await _dbConnection.QueryAsync<int>("EditCurso",
+            using (var conn = _dbConnection)
+            {
+                conn.Open();
+                var result = await conn.QueryAsync<int>("EditCurso",
                 new
                 {
                     cursoEntity.IdCurso,
@@ -66,45 +71,54 @@ namespace EverestLMS.Repository.DapperImplementations
                     cursoEntity.Autor
                 },
                 commandType: CommandType.StoredProcedure);
-            return result.FirstOrDefault() > default(int);
+                return result.FirstOrDefault() > default(int);
+            }
         }
 
         public async Task<CursoToUpdateEntity> GetCursoAsync(int idEtapa, int idCurso)
         {
-            if (_dbConnection.State == ConnectionState.Closed)
-                _dbConnection.Open();
-            var result = await _dbConnection.QueryAsync<CursoToUpdateEntity>("GetCurso", new { IdEtapa = idEtapa, IdCurso = idCurso }, commandType: CommandType.StoredProcedure);
-            _dbConnection.Close();
-            return result.FirstOrDefault();
+            using (var conn = _dbConnection)
+            {
+                conn.Open();
+                var result = await conn.QueryAsync<CursoToUpdateEntity>("GetCurso", new { IdEtapa = idEtapa, IdCurso = idCurso }, commandType: CommandType.StoredProcedure);
+                _dbConnection.Close();
+                return result.FirstOrDefault();
+            }
         }
 
         public async Task<IEnumerable<CursoDetalleEntity>> GetCursosAsync(int? idEtapa, int? idLineaCarrera, int? idNivel, string search)
         {
-            if (_dbConnection.State == ConnectionState.Closed)
-                _dbConnection.Open();
-            var result = await _dbConnection.QueryAsync<CursoDetalleEntity>("GetCursos", new { IdEtapa = idEtapa, IdNivel = idNivel, IdLineaCarrera = idLineaCarrera, Search = search }, commandType: CommandType.StoredProcedure);
-            _dbConnection.Close();
-            return result.ToList();
+            using (var conn = _dbConnection)
+            {
+                conn.Open();
+                var result = await conn.QueryAsync<CursoDetalleEntity>("GetCursos", new { IdEtapa = idEtapa, IdNivel = idNivel, IdLineaCarrera = idLineaCarrera, Search = search }, commandType: CommandType.StoredProcedure);
+                _dbConnection.Close();
+                return result.ToList();
+            }
         }
 
         public async Task<IEnumerable<CursoEntity>> GetCursosByParticipanteAsync(string idParticipante, int? idEtapa = null, int? idIdioma = null)
         {
-            if (_dbConnection.State == ConnectionState.Closed)
-                _dbConnection.Open();
-            var result = await _dbConnection.QueryAsync<CursoPredictionEntity>("GetCursosByParticipante",
+            using (var conn = _dbConnection)
+            {
+                conn.Open();
+                var result = await conn.QueryAsync<CursoPredictionEntity>("GetCursosByParticipante",
                 new { Id = idParticipante, IdEtapa = idEtapa, IdIdioma = idIdioma }, commandType: CommandType.StoredProcedure);
-            _dbConnection.Close();
-            return result.ToList();
+                _dbConnection.Close();
+                return result.ToList();
+            }
         }
 
         public async Task<IEnumerable<CursoPredictionEntity>> GetCursosPredictionByParticipanteAsync(string idParticipante, int? idEtapa = null, int? idIdioma = null)
         {
-            if (_dbConnection.State == ConnectionState.Closed)
-                _dbConnection.Open();
-            var result = await _dbConnection.QueryAsync<CursoPredictionEntity>("GetCursosPredictionByParticipante", 
+            using (var conn = _dbConnection)
+            {
+                conn.Open();
+                var result = await conn.QueryAsync<CursoPredictionEntity>("GetCursosPredictionByParticipante",
                 new { Id = idParticipante, IdEtapa = idEtapa, IdIdioma = idIdioma }, commandType: CommandType.StoredProcedure);
-            _dbConnection.Close();
-            return result.ToList(); 
+                _dbConnection.Close();
+                return result.ToList();
+            }
         }
     }
 }

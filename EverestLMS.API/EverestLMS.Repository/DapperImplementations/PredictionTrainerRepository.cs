@@ -1,7 +1,6 @@
 ﻿using Dapper;
 using EverestLMS.Entities.Models;
 using EverestLMS.Repository.Interfaces;
-using System;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,21 +15,23 @@ namespace EverestLMS.Repository.DapperImplementations
 
         public async Task ClearPredictionsAsync()
         {
-            if (_dbConnection.State == ConnectionState.Closed)
-                _dbConnection.Open();
-            string stringQuery = "DELETE FROM [dbo].[PrediccionRatingCurso]";
-            await _dbConnection.QueryAsync(stringQuery);
-            _dbConnection.Close();
+            using (var conn = _dbConnection)
+            {
+                conn.Open();
+                string stringQuery = "DELETE FROM [dbo].[PrediccionRatingCurso]";
+                await conn.QueryAsync(stringQuery);
+            }
         }
 
-        public async Task<int> CreatePredictionCourseForParticipantAsync(RatingCursoEntity entity)
+        public async Task<int> CreatePredictionCourseForParticipantAsync(RatingCursoEntity ratingCursoEntity)
         {
-            if (_dbConnection.State == ConnectionState.Closed)
-                _dbConnection.Open();
-            var result = await _dbConnection.QueryAsync<int>("CreatePredictionCurso", new { entity.Rating, entity.IdParticipante, entity.IdCurso },
+            using (var conn = _dbConnection)
+            {
+                conn.Open();
+                var result = await conn.QueryAsync<int>("CreatePredictionCurso", new { ratingCursoEntity.Rating, ratingCursoEntity.IdParticipante, ratingCursoEntity.IdCurso },
                 commandType: CommandType.StoredProcedure);
-            _dbConnection.Close();
-            return result.FirstOrDefault();  
+                return result.FirstOrDefault();
+            }
         }
     }
 }

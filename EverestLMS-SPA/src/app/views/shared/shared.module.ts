@@ -14,7 +14,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FileUploadModule } from 'ng2-file-upload';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-import { TimepickerModule } from 'ngx-bootstrap';
+import { TimepickerModule, BsDropdownModule } from 'ngx-bootstrap';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from 'src/app/app-routing.module';
@@ -47,6 +47,7 @@ export function tokenGetter() {
       FileUploadModule,
       FlatpickrModule.forRoot(),
       BsDatepickerModule.forRoot(),
+      BsDropdownModule.forRoot(),
       TimepickerModule.forRoot(),
       JwtModule.forRoot({
          config: {

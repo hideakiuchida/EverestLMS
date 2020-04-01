@@ -1,55 +1,49 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <a class="navbar-brand" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/']">Everest LMS</a>
-    <div class="row w-100 mr-2" *ngIf="loggedIn()">
-        <ul *ngIf="authService.decodedToken?.role == 1" class="navbar-nav mr-auto">
-            <li class="nav-item" routerLinkActive="active">
-                <a class="nav-link" [routerLink]="['/cursos']">Cursos</a>
-            </li>
-            <li class="nav-item" routerLinkActive="active">
-                <a class="nav-link" [routerLink]="['/actualizar-lecciones']">Lecciones</a>
-            </li>
-            <li class="nav-item" routerLinkActive="active">
-                <a class="nav-link" (click)="logout()">Logout</a>
-            </li>
-        </ul>
-        <ul *ngIf="authService.decodedToken?.role == 2" class="navbar-nav mr-auto">
-            <li class="nav-item" routerLinkActive="active">
-                <a class="nav-link" [routerLink]="['/realizar-cursos', idParticipante]">Realizar Cursos</a>
-            </li>
-            <li class="nav-item" routerLinkActive="active">
-                <a class="nav-link" (click)="logout()">Logout</a>
-            </li>
-        </ul>
-        <ul *ngIf="authService.decodedToken?.role == 3" class="navbar-nav mr-auto">
-            <li class="nav-item" routerLinkActive="active">
-                <a class="nav-link" [routerLink]="['/asignarequipos']">Asignar Equipos</a>
-            </li>
-            <li class="nav-item" routerLinkActive="active">
-                <a class="nav-link" [routerLink]="['/calendario']">Calendario</a>
-            </li>
-            <li class="nav-item" routerLinkActive="active">
-                <a class="nav-link" (click)="logout()">Logout</a>
-            </li>
-        </ul>
-        <div class="dropdown mt-2 float-right">
-            <a class="dropdown-toggle text-light">
-                Bienvenido {{authService.decodedToken?.unique_name | titlecase}}
-            </a>
-            
-            <div class="dropdown-menu">
-                <a class="dropdown-item" href="#"><i class="fa fa-user"></i>My Account</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#"><i class="fa fa-sign-out"></i>Logout</a>
+    <div class="container">
+        <a class="navbar-brand" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/']">Everest LMS</a>
+        <div class="row w-100 ml-2 mr-2" *ngIf="loggedIn()">
+            <ul *ngIf="authService.decodedToken?.role == 1" class="navbar-nav mr-auto">
+                <li class="nav-item" routerLinkActive="active">
+                    <a class="nav-link" [routerLink]="['/cursos']">Cursos</a>
+                </li>
+                <li class="nav-item" routerLinkActive="active">
+                    <a class="nav-link" [routerLink]="['/actualizar-lecciones']">Lecciones</a>
+                </li>
+            </ul>
+            <ul *ngIf="authService.decodedToken?.role == 2" class="navbar-nav mr-auto">
+                <li class="nav-item" routerLinkActive="active">
+                    <a class="nav-link" [routerLink]="['/realizar-cursos', idParticipante]">Realizar Cursos</a>
+                </li>
+            </ul>
+            <ul *ngIf="authService.decodedToken?.role == 3" class="navbar-nav mr-auto">
+                <li class="nav-item" routerLinkActive="active">
+                    <a class="nav-link" [routerLink]="['/asignarequipos']">Asignar Equipos</a>
+                </li>
+                <li class="nav-item" routerLinkActive="active">
+                    <a class="nav-link" [routerLink]="['/calendario']">Calendario</a>
+                </li>
+            </ul>
+            <div class="dropdown mt-2 float-right" dropdown>
+                <a class="dropdown-toggle text-light" dropdownToggle> 
+                    Bienvenido {{authService.decodedToken?.unique_name | titlecase}}
+                </a>
+                
+                <div class="dropdown-menu" *dropdownMenu>
+                    <a class="dropdown-item" href="#"><i class="fa fa-user"></i> Mi Cuenta </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" (click)="logout()"><i class="fa fa-sign-out"></i> Salir </a>
+                </div>
             </div>
+            
         </div>
+        <form *ngIf="!loggedIn()" #loginForm="ngForm" class="form-inline w-100 my-2 my-lg-0" (ngSubmit)="login()">
+            <div class="float-right">
+                <input class="form-control mr-sm-2" type="text" name="username" placeholder="Usuario" required [(ngModel)]="model.username" />
+                <input class="form-control mr-sm-2" type="password" name="password" placeholder="Contraseña" required [(ngModel)]="model.password" />
+                <button [disabled]="!loginForm.valid" class="btn btn-success my-2 my-sm-0" type="submit">Login</button>
+            </div>  
+        </form>
         
     </div>
-    <form *ngIf="!loggedIn()" #loginForm="ngForm" class="form-inline w-100 my-2 my-lg-0" (ngSubmit)="login()">
-        <div class="float-right">
-            <input class="form-control mr-sm-2" type="text" name="username" placeholder="Usuario" required [(ngModel)]="model.username" />
-            <input class="form-control mr-sm-2" type="password" name="password" placeholder="Contraseña" required [(ngModel)]="model.password" />
-            <button [disabled]="!loginForm.valid" class="btn btn-success my-2 my-sm-0" type="submit">Login</button>
-        </div>  
-    </form>
     
 </nav>

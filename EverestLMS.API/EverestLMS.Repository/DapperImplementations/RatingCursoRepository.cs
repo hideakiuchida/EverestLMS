@@ -15,32 +15,35 @@ namespace EverestLMS.Repository.DapperImplementations
         }
         public async Task<int> CreateAsync(RatingCursoEntity entity)
         {
-            if (_dbConnection.State == ConnectionState.Closed)
-                _dbConnection.Open();
-            var result = await _dbConnection.QueryAsync<int>("CreateRatingCurso", new { entity.Rating, entity.IdParticipante, entity.IdCurso },
+            using (var conn = _dbConnection)
+            {
+                conn.Open();
+                var result = await conn.QueryAsync<int>("CreateRatingCurso", new { entity.Rating, entity.IdParticipante, entity.IdCurso },
                 commandType: CommandType.StoredProcedure);
-            _dbConnection.Close();
-            return result.FirstOrDefault();
+                return result.FirstOrDefault();
+            }
         }
 
         public async Task<IEnumerable<RatingCursoEntity>> GetAllAsync()
         {
-            if (_dbConnection.State == ConnectionState.Closed)
-                _dbConnection.Open();
-            string stringQuery = "SELECT [IdRatingCurso],[Rating],[IdParticipante],[IdCurso] FROM [dbo].[RatingCurso]";
-            var result = await _dbConnection.QueryAsync<RatingCursoEntity>(stringQuery);
-            _dbConnection.Close();
-            return result.ToList();     
+            using (var conn = _dbConnection)
+            {
+                conn.Open();
+                string stringQuery = "SELECT [IdRatingCurso],[Rating],[IdParticipante],[IdCurso] FROM [dbo].[RatingCurso]";
+                var result = await conn.QueryAsync<RatingCursoEntity>(stringQuery);
+                return result.ToList();
+            }
         }
 
         public async Task<int> RemoveAllAsync()
         {
-            if (_dbConnection.State == ConnectionState.Closed)
-                _dbConnection.Open();
-            string stringQuery = "DELETE FROM [dbo].[RatingCurso]";
-            var result = await _dbConnection.QueryAsync<int>(stringQuery);
-            _dbConnection.Close();
-            return result.FirstOrDefault();    
+            using (var conn = _dbConnection)
+            {
+                conn.Open();
+                string stringQuery = "DELETE FROM [dbo].[RatingCurso]";
+                var result = await _dbConnection.QueryAsync<int>(stringQuery);
+                return result.FirstOrDefault();
+            }
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using Dapper;
 using EverestLMS.Entities.Models;
 using EverestLMS.Repository.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -17,9 +16,10 @@ namespace EverestLMS.Repository.DapperImplementations
 
         public async Task<int> CreateLeccionAsync(LeccionEntity leccionEntity)
         {
-            if (_dbConnection.State == ConnectionState.Closed)
-                _dbConnection.Open();
-            var result = await _dbConnection.QueryAsync<int>("CreateLeccion",
+            using (var conn = _dbConnection)
+            {
+                conn.Open();
+                var result = await conn.QueryAsync<int>("CreateLeccion",
                 new
                 {
                     leccionEntity.Nombre,
@@ -28,14 +28,16 @@ namespace EverestLMS.Repository.DapperImplementations
                     leccionEntity.IdCurso
                 },
                 commandType: CommandType.StoredProcedure);
-            return result.FirstOrDefault();
+                return result.FirstOrDefault();
+            }
         }
 
         public async Task<int> CreateLeccionMaterialAsync(LeccionMaterialDetalleEntity leccionMaterialEntity)
         {
-            if (_dbConnection.State == ConnectionState.Closed)
-                _dbConnection.Open();
-            var result = await _dbConnection.QueryAsync<int>("CreateLeccionMaterial",
+            using (var conn = _dbConnection)
+            {
+                conn.Open();
+                var result = await conn.QueryAsync<int>("CreateLeccionMaterial",
                 new
                 {
                     leccionMaterialEntity.Titulo,
@@ -46,42 +48,48 @@ namespace EverestLMS.Repository.DapperImplementations
                     leccionMaterialEntity.IdLeccion
                 },
                 commandType: CommandType.StoredProcedure);
-            return result.FirstOrDefault();
+                return result.FirstOrDefault();
+            }
         }
 
         public async Task<bool> DeleteLeccionAsync(int idEtapa, int idCurso, int idLeccion)
         {
-            if (_dbConnection.State == ConnectionState.Closed)
-                _dbConnection.Open();
-            var result = await _dbConnection.QueryAsync<int>("DeleteLeccion",
+            using (var conn = _dbConnection)
+            {
+                conn.Open();
+                var result = await conn.QueryAsync<int>("DeleteLeccion",
                 new
                 {
                     IdCurso = idCurso,
                     IdLeccion = idLeccion
                 },
                 commandType: CommandType.StoredProcedure);
-            return result.FirstOrDefault() > default(int);
+                return result.FirstOrDefault() > default(int);
+            }
         }
 
         public async Task<bool> DeleteLeccionMaterialAsync(int idLeccion, int idLeccionMaterial)
         {
-            if (_dbConnection.State == ConnectionState.Closed)
-                _dbConnection.Open();
-            var result = await _dbConnection.QueryAsync<int>("DeleteLeccionMaterial",
+            using (var conn = _dbConnection)
+            {
+                conn.Open();
+                var result = await conn.QueryAsync<int>("DeleteLeccionMaterial",
                 new
                 {
                     IdLeccionMaterial = idLeccionMaterial,
                     IdLeccion = idLeccion
                 },
                 commandType: CommandType.StoredProcedure);
-            return result.FirstOrDefault() > default(int);
+                return result.FirstOrDefault() > default(int);
+            }
         }
 
         public async Task<bool> EditLeccionAsync(LeccionEntity leccionEntity)
         {
-            if (_dbConnection.State == ConnectionState.Closed)
-                _dbConnection.Open();
-            var result = await _dbConnection.QueryAsync<int>("EditLeccion",
+            using (var conn = _dbConnection)
+            {
+                conn.Open();
+                var result = await conn.QueryAsync<int>("EditLeccion",
                 new
                 {
                     leccionEntity.IdLeccion,
@@ -92,14 +100,16 @@ namespace EverestLMS.Repository.DapperImplementations
                     leccionEntity.IdCurso
                 },
                 commandType: CommandType.StoredProcedure);
-            return result.FirstOrDefault() > default(int);
+                return result.FirstOrDefault() > default(int);
+            }
         }
 
         public async Task<IEnumerable<LeccionDetalleEntity>> GetLeccionesDetalleAsync(int? idNivel, int? idLineaCarrera, int? idEtapa, int? idCurso, string search)
         {
-            if (_dbConnection.State == ConnectionState.Closed)
-                _dbConnection.Open();
-            var result = await _dbConnection.QueryAsync<LeccionDetalleEntity>("GetLecciones", 
+            using (var conn = _dbConnection)
+            {
+                conn.Open();
+                var result = await conn.QueryAsync<LeccionDetalleEntity>("GetLecciones",
                 new
                 {
                     IdCurso = idCurso,
@@ -107,37 +117,41 @@ namespace EverestLMS.Repository.DapperImplementations
                     IdNivel = idNivel,
                     IdLineaCarrera = idLineaCarrera,
                     Search = search
-                }, 
+                },
                 commandType: CommandType.StoredProcedure);
-            _dbConnection.Close();
-            return result.ToList();
+                return result.ToList();
+            }
         }
 
         public async Task<IEnumerable<LeccionMaterialEntity>> GetLeccionMaterialesAsync(int idLeccion)
         {
-            if (_dbConnection.State == ConnectionState.Closed)
-                _dbConnection.Open();
-            var result = await _dbConnection.QueryAsync<LeccionMaterialEntity>("GetLeccionesMaterial", new { IdLeccion = idLeccion }, commandType: CommandType.StoredProcedure);
-            _dbConnection.Close();
-            return result.ToList();
+            using (var conn = _dbConnection)
+            {
+                conn.Open();
+                var result = await conn.QueryAsync<LeccionMaterialEntity>("GetLeccionesMaterial", new { IdLeccion = idLeccion }, commandType: CommandType.StoredProcedure);
+                _dbConnection.Close();
+                return result.ToList();
+            }
         }
 
         public async Task<LeccionEntity> GetSpecificLeccionAsync(int idEtapa, int idCurso, int idLeccion)
         {
-            if (_dbConnection.State == ConnectionState.Closed)
-                _dbConnection.Open();
-            var result = await _dbConnection.QueryAsync<LeccionEntity>("GetLeccion", new { IdLeccion = idLeccion, IdEtapa = idEtapa, IdCurso = idCurso }, commandType: CommandType.StoredProcedure);
-            _dbConnection.Close();
-            return result.FirstOrDefault();
+            using (var conn = _dbConnection)
+            {
+                conn.Open();
+                var result = await conn.QueryAsync<LeccionEntity>("GetLeccion", new { IdLeccion = idLeccion, IdEtapa = idEtapa, IdCurso = idCurso }, commandType: CommandType.StoredProcedure);
+                return result.FirstOrDefault();
+            }
         }
 
         public async Task<LeccionMaterialDetalleEntity> GetSpecificLeccionMaterialAsync(int idLeccion, int idLeccionMaterial)
         {
-            if (_dbConnection.State == ConnectionState.Closed)
-                _dbConnection.Open();
-            var result = await _dbConnection.QueryAsync<LeccionMaterialDetalleEntity>("GetLeccionMaterial", new { IdLeccionMaterial = idLeccionMaterial, IdLeccion = idLeccion }, commandType: CommandType.StoredProcedure);
-            _dbConnection.Close();
-            return result.FirstOrDefault();
+            using (var conn = _dbConnection)
+            {
+                conn.Open();
+                var result = await conn.QueryAsync<LeccionMaterialDetalleEntity>("GetLeccionMaterial", new { IdLeccionMaterial = idLeccionMaterial, IdLeccion = idLeccion }, commandType: CommandType.StoredProcedure);
+                return result.FirstOrDefault();
+            }
         }
     }
 }

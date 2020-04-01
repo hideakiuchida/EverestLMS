@@ -16,63 +16,72 @@ namespace EverestLMS.Repository.DapperImplementations
         }
         public async Task<bool> AsignarAsync(string idEscalador, string idSherpa)
         {
-            if (_dbConnection.State == ConnectionState.Closed)
-                _dbConnection.Open();
-            var result = await _dbConnection.QueryAsync<bool>("AsignarSherpa", new { IdEscalador = idEscalador, IdSherpa = idSherpa },
+            using (var conn = _dbConnection)
+            {
+                conn.Open();
+                var result = await conn.QueryAsync<bool>("AsignarSherpa", new { IdEscalador = idEscalador, IdSherpa = idSherpa },
                 commandType: CommandType.StoredProcedure);
-            _dbConnection.Close();
-            return result.FirstOrDefault();
+                _dbConnection.Close();
+                return result.FirstOrDefault();
+            }
         }
 
         public async Task<bool> AsignarAutomaticamenteAsync(int idSherpa, int[] idsEscaladores)
         {
-            DataTable dataTable = new DataTable();
-            dataTable.Columns.Add("IdEscaladores", typeof(int));
-            if (idsEscaladores != null)
-                idsEscaladores.ToList().ForEach(item => dataTable.Rows.Add(item));
-            if (_dbConnection.State == ConnectionState.Closed)
-                _dbConnection.Open();
-            var result = await _dbConnection.QueryAsync<bool>("AsignarAutomaticamente", new
+            using (var conn = _dbConnection)
             {
-                IdSherpa = idSherpa,
-                IdEscaladores = dataTable.AsTableValuedParameter("[dbo].[Ids]")
-            },
+                DataTable dataTable = new DataTable();
+                dataTable.Columns.Add("IdEscaladores", typeof(int));
+                if (idsEscaladores != null)
+                    idsEscaladores.ToList().ForEach(item => dataTable.Rows.Add(item));
+                var result = await conn.QueryAsync<bool>("AsignarAutomaticamente", new
+                {
+                    IdSherpa = idSherpa,
+                    IdEscaladores = dataTable.AsTableValuedParameter("[dbo].[Ids]")
+                },
                 commandType: CommandType.StoredProcedure);
-            _dbConnection.Close();
-            return result.FirstOrDefault();  
+                return result.FirstOrDefault();
+            }
         }
 
         public async Task<bool> DesasignarAsync(string idEscalador)
         {
-            if (_dbConnection.State == ConnectionState.Closed)
-                _dbConnection.Open();
-            var result = await _dbConnection.QueryAsync<bool>("DesasignarSherpa", new { IdEscalador = idEscalador },
-                commandType: CommandType.StoredProcedure);
-            _dbConnection.Close();
-            return result.FirstOrDefault();       
+            using (var conn = _dbConnection)
+            {
+                conn.Open();
+                var result = await conn.QueryAsync<bool>("DesasignarSherpa", new { IdEscalador = idEscalador },
+                    commandType: CommandType.StoredProcedure);
+                _dbConnection.Close();
+                return result.FirstOrDefault();
+            }
         }
 
         public async Task<ParticipanteEntity> GetByIdAsync(string id)
         {
-            var result = await _dbConnection.QueryAsync<ParticipanteEntity>("GetParticipantes",
-            new
+            using (var conn = _dbConnection)
             {
-                IdNivel = default(int?),
-                IdLineaCarrera = default(int?),
-                IdParticipante = id,
-                Rol = default(int?),
-                Search = default(string),
-                IdSede = default(int?)
-            },
-            commandType: CommandType.StoredProcedure);
-            return result.FirstOrDefault();       
+                conn.Open();
+                var result = await conn.QueryAsync<ParticipanteEntity>("GetParticipantes",
+                new
+                {
+                    IdNivel = default(int?),
+                    IdLineaCarrera = default(int?),
+                    IdParticipante = id,
+                    Rol = default(int?),
+                    Search = default(string),
+                    IdSede = default(int?)
+                },
+                commandType: CommandType.StoredProcedure);
+                return result.FirstOrDefault();
+            }
         }
 
         public async Task<IEnumerable<ParticipanteEntity>> GetEscaladoresNoAsignadosAsync(int idLineaCarrera, int? idSede, string search)
         {
-            if (_dbConnection.State == ConnectionState.Closed)
-                _dbConnection.Open();
-            var result = await _dbConnection.QueryAsync<ParticipanteEntity>("GetEscaladoresNoAsignados",
+            using (var conn = _dbConnection)
+            {
+                conn.Open();
+                var result = await conn.QueryAsync<ParticipanteEntity>("GetEscaladoresNoAsignados",
                 new
                 {
                     IdLineaCarrera = idLineaCarrera,
@@ -81,28 +90,32 @@ namespace EverestLMS.Repository.DapperImplementations
                     Search = search
                 },
                 commandType: CommandType.StoredProcedure);
-            return result.ToList();        
+                return result.ToList();
+            }
         }
 
         public async Task<IEnumerable<ParticipanteEntity>> GetEscaladoresPorSherpaIdAsync(string id)
         {
-            if (_dbConnection.State == ConnectionState.Closed)
-                _dbConnection.Open();
-            var result = await _dbConnection.QueryAsync<ParticipanteEntity>("GetEscaladoresPorSherpa",
+            using (var conn = _dbConnection)
+            {
+                conn.Open();
+                var result = await conn.QueryAsync<ParticipanteEntity>("GetEscaladoresPorSherpa",
                 new
                 {
                     IdSherpa = id,
                     Rol = (int)RolEnum.Escalador
                 },
                 commandType: CommandType.StoredProcedure);
-            return result.ToList();
+                return result.ToList();
+            }
         }
 
         public async Task<IEnumerable<ParticipanteEntity>> GetSherpasAsync(int? idNivel, int? idLineaCarrera, int? idSede, string search)
         {
-            if (_dbConnection.State == ConnectionState.Closed)
-                _dbConnection.Open();
-            var result = await _dbConnection.QueryAsync<ParticipanteEntity>("GetParticipantes",
+            using (var conn = _dbConnection)
+            {
+                conn.Open();
+                var result = await conn.QueryAsync<ParticipanteEntity>("GetParticipantes",
                 new
                 {
                     IdNivel = idNivel,
@@ -113,14 +126,16 @@ namespace EverestLMS.Repository.DapperImplementations
                     IdSede = idSede
                 },
                 commandType: CommandType.StoredProcedure);
-            return result.ToList();
+                return result.ToList();
+            }
         }
 
         public async Task<IEnumerable<ParticipanteEntity>> GetParticipantesAsync(int? idLineaCarrera, int? idNivel)
         {
-            if (_dbConnection.State == ConnectionState.Closed)
-                _dbConnection.Open();
-            var result = await _dbConnection.QueryAsync<ParticipanteEntity>("GetParticipantes",
+            using (var conn = _dbConnection)
+            {
+                conn.Open();
+                var result = await conn.QueryAsync<ParticipanteEntity>("GetParticipantes",
                 new
                 {
                     IdNivel = idNivel,
@@ -131,14 +146,16 @@ namespace EverestLMS.Repository.DapperImplementations
                     IdSede = default(int?)
                 },
                 commandType: CommandType.StoredProcedure);
-            return result.ToList();          
+                return result.ToList();
+            }
         }
 
         public async Task<int> CreateAsync(ParticipanteEntity participanteEntity)
         {
-            if (_dbConnection.State == ConnectionState.Closed)
-                _dbConnection.Open();
-            var result = await _dbConnection.QueryAsync<int>("CreateParticipante",
+            using (var conn = _dbConnection)
+            {
+                conn.Open();
+                var result = await conn.QueryAsync<int>("CreateParticipante",
                 new
                 {
                     participanteEntity.Nombre,
@@ -156,45 +173,52 @@ namespace EverestLMS.Repository.DapperImplementations
                     participanteEntity.IdNivel
                 },
                 commandType: CommandType.StoredProcedure);
-            return result.FirstOrDefault();           
+                return result.FirstOrDefault();
+            }
         }
 
         public async Task<IEnumerable<ParticipanteEntity>> GetAllAsync()
         {
-            var result = await _dbConnection.QueryAsync<ParticipanteEntity>("GetParticipantes",
-            new
+            using (var conn = _dbConnection)
             {
-                IdNivel = default(int?),
-                IdLineaCarrera = default(int?),
-                IdParticipante = default(int?),
-                Rol = default(int?),
-                Search = default(string),
-                IdSede = default(int?)
-            },
-            commandType: CommandType.StoredProcedure);
-            return result.ToList();
+                conn.Open();
+                var result = await conn.QueryAsync<ParticipanteEntity>("GetParticipantes",
+                new
+                {
+                    IdNivel = default(int?),
+                    IdLineaCarrera = default(int?),
+                    IdParticipante = default(int?),
+                    Rol = default(int?),
+                    Search = default(string),
+                    IdSede = default(int?)
+                },
+                commandType: CommandType.StoredProcedure);
+                return result.ToList();
+            }
         }
 
         public async Task<bool> DesasignacionAutomatica()
         {
-            if (_dbConnection.State == ConnectionState.Closed)
-                _dbConnection.Open();
-            var result = await _dbConnection.QueryAsync<bool>("DesasignarSherpaAutomaticamente", commandType: CommandType.StoredProcedure);
-            _dbConnection.Close();
-            return result.FirstOrDefault();
+            using (var conn = _dbConnection)
+            {
+                conn.Open();
+                var result = await conn.QueryAsync<bool>("DesasignarSherpaAutomaticamente", commandType: CommandType.StoredProcedure);
+                return result.FirstOrDefault();
+            }
         }
 
         public async Task<bool> DeleteAsync(int id)
         {
-            if (_dbConnection.State == ConnectionState.Closed)
-                _dbConnection.Open();
-            var result = await _dbConnection.QueryAsync<int>("DeleteParticipante", new
+            using (var conn = _dbConnection)
             {
-                IdParticipante = id
-            }, 
-            commandType: CommandType.StoredProcedure);
-            _dbConnection.Close();
-            return result.FirstOrDefault() > default(int);
+                conn.Open();
+                var result = await conn.QueryAsync<int>("DeleteParticipante", new
+                {
+                    IdParticipante = id
+                },
+                commandType: CommandType.StoredProcedure);
+                return result.FirstOrDefault() > default(int);
+            }
         }
     }
 }
