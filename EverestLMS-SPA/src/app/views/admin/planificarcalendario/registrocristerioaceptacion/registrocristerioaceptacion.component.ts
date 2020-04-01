@@ -39,7 +39,7 @@ export class RegistrocristerioaceptacionComponent implements OnInit {
       }, error => {
         this.alertifyService.error(error.error);
       }, () => {
-        this.router.navigate(['calendario']);
+        this.router.navigate(['criterioaceptacion', this.idCalendario]);
       });
     } else {
       this.alertifyService.warning('Los datos no son validos.');

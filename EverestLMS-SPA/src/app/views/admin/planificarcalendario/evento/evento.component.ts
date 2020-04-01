@@ -40,8 +40,7 @@ export class EventoComponent implements OnInit {
       horaInicio: [new Date(), Validators.required],
       fechaFinal: [new Date(), Validators.required],
       horaFinal: [new Date(), Validators.required],
-      colorPrimario: ['#ff0000', Validators.required],
-      colorSecundario: ['#ff0000', Validators.required]
+      colorPrimario: ['#ff0000', Validators.required]
     });
   }
 
@@ -74,8 +73,7 @@ export class EventoComponent implements OnInit {
       descripcion: eventoToRegister.descripcion,
       fechaInicio: new Date(fi.getFullYear(), fi.getMonth(), fi.getDate(), hi.getHours(), hi.getMinutes(), hi.getSeconds()),
       fechaFinal: new Date(ff.getFullYear(), ff.getMonth(), ff.getDate(), hf.getHours(), hf.getMinutes(), hf.getSeconds()),
-      colorPrimario: eventoToRegister.colorPrimario,
-      colorSecundario: eventoToRegister.colorSecundario
+      colorPrimario: eventoToRegister.colorPrimario
     };
     return evento;
   }

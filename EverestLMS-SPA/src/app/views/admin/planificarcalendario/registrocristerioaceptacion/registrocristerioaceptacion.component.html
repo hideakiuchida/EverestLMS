@@ -26,6 +26,9 @@
         <div class="form-group" [ngClass]="{'has-error': criterioAceptacionForm.get('valor')?.errors && criterioAceptacionForm.get('valor')?.touched}">
             <input type="number" class="form-control" placeholder="Ingresa el valor númerico" formControlName="valor" />
         </div>
-        <button type="submit" class="btn btn-primary">Guardar</button>
+        <div class="row text-center col-md-12">
+            <button type="submit" class="btn btn-primary col-md-3">Guardar</button>
+            <button type="button" class="btn btn-secondary ml-2 col-md-3" [routerLink]="['/criterioaceptacion', idCalendario]">Cancelar</button>
+        </div>
     </form>
 </div>

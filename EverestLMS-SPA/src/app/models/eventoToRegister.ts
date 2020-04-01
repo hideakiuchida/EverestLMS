@@ -7,5 +7,4 @@ export class EventoToRegister {
     horaInicio: Date;
     horaFinal: Date;
     colorPrimario: String;
-    colorSecundario: String;
 }

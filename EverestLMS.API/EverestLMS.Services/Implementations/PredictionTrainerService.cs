@@ -69,7 +69,7 @@ namespace EverestLMS.Services.Implementations
                 Log.Information("All predictions has deleted until {date}", DateTime.Now);
                 foreach (var participante in participantes)
                 {
-                    var topCursos = cursos.ToList().Select(x => new
+                    var topCursos = cursos.Select(x => new
                     {
                         Curso = x.Nombre,
                         x.IdCurso,
@@ -88,7 +88,7 @@ namespace EverestLMS.Services.Implementations
                         ratingCursoEntity.Rating = rating >= (int)decimal.Zero ? rating : (int)decimal.Zero;
                         ratingCursoEntity.IdParticipante = participante.IdParticipante;
                         ratingCursoEntity.IdCurso = item.IdCurso;
-                        var predictionId = await predictionTrainerRepository.CreatePredictionCourseForParticipantAsync(ratingCursoEntity);
+                        await predictionTrainerRepository.CreatePredictionCourseForParticipantAsync(ratingCursoEntity);
                     }
                 }
                 stopWatch.Stop();
@@ -107,7 +107,7 @@ namespace EverestLMS.Services.Implementations
 
     public class CursoRatingPrediction
     {
-        public float Score;
+        public float Score { get; set; }
     }
 
     public class CourseEntry

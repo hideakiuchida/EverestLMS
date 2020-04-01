@@ -16,109 +16,93 @@ namespace EverestLMS.Repository.DapperImplementations
 
         public async Task<int> CreateCursoAsync(CursoEntity cursoEntity)
         {
-            using (var conn = _dbConnection)
+            if (_dbConnection.State == ConnectionState.Closed)
+                _dbConnection.Open();
+            var result = await _dbConnection.QueryAsync<int>("CreateCurso",
+            new
             {
-                conn.Open();
-                var result = await conn.QueryAsync<int>("CreateCurso",
-                new
-                {
-                    cursoEntity.Nombre,
-                    cursoEntity.Descripcion,
-                    cursoEntity.IdDificultad,
-                    cursoEntity.Idioma,
-                    cursoEntity.Imagen,
-                    cursoEntity.Puntaje,
-                    cursoEntity.IdEtapa,
-                    cursoEntity.Autor
-                },
-                commandType: CommandType.StoredProcedure);
-                return result.FirstOrDefault();
-            }
+                cursoEntity.Nombre,
+                cursoEntity.Descripcion,
+                cursoEntity.IdDificultad,
+                cursoEntity.Idioma,
+                cursoEntity.Imagen,
+                cursoEntity.Puntaje,
+                cursoEntity.IdEtapa,
+                cursoEntity.Autor
+            },
+            commandType: CommandType.StoredProcedure);
+            return result.FirstOrDefault();
+            
         }
 
         public async Task<bool> DeleteCursoAsync(int idEtapa, int idCurso)
         {
-            using (var conn = _dbConnection)
+            if (_dbConnection.State == ConnectionState.Closed)
+                _dbConnection.Open();
+            var result = await _dbConnection.QueryAsync<int>("DeleteCurso",
+            new
             {
-                conn.Open();
-                var result = await conn.QueryAsync<int>("DeleteCurso",
-                new
-                {
-                    IdEtapa = idEtapa,
-                    IdCurso = idCurso
-                },
-                commandType: CommandType.StoredProcedure);
-                return result.FirstOrDefault() > default(int);
-            }
+                IdEtapa = idEtapa,
+                IdCurso = idCurso
+            },
+            commandType: CommandType.StoredProcedure);
+            return result.FirstOrDefault() > default(int);
+            
         }
 
         public async Task<bool> EditCursoASync(CursoEntity cursoEntity)
         {
-            using (var conn = _dbConnection)
+            if (_dbConnection.State == ConnectionState.Closed)
+                _dbConnection.Open();
+            var result = await _dbConnection.QueryAsync<int>("EditCurso",
+            new
             {
-                conn.Open();
-                var result = await conn.QueryAsync<int>("EditCurso",
-                new
-                {
-                    cursoEntity.IdCurso,
-                    cursoEntity.Nombre,
-                    cursoEntity.Descripcion,
-                    cursoEntity.IdDificultad,
-                    cursoEntity.Idioma,
-                    cursoEntity.Imagen,
-                    cursoEntity.Puntaje,
-                    cursoEntity.IdEtapa,
-                    cursoEntity.Autor
-                },
-                commandType: CommandType.StoredProcedure);
-                return result.FirstOrDefault() > default(int);
-            }
+                cursoEntity.IdCurso,
+                cursoEntity.Nombre,
+                cursoEntity.Descripcion,
+                cursoEntity.IdDificultad,
+                cursoEntity.Idioma,
+                cursoEntity.Imagen,
+                cursoEntity.Puntaje,
+                cursoEntity.IdEtapa,
+                cursoEntity.Autor
+            },
+            commandType: CommandType.StoredProcedure);
+            return result.FirstOrDefault() > default(int);
         }
 
         public async Task<CursoToUpdateEntity> GetCursoAsync(int idEtapa, int idCurso)
         {
-            using (var conn = _dbConnection)
-            {
-                conn.Open();
-                var result = await conn.QueryAsync<CursoToUpdateEntity>("GetCurso", new { IdEtapa = idEtapa, IdCurso = idCurso }, commandType: CommandType.StoredProcedure);
-                _dbConnection.Close();
-                return result.FirstOrDefault();
-            }
+            if (_dbConnection.State == ConnectionState.Closed)
+                _dbConnection.Open();
+            var result = await _dbConnection.QueryAsync<CursoToUpdateEntity>("GetCurso", new { IdEtapa = idEtapa, IdCurso = idCurso }, commandType: CommandType.StoredProcedure);
+            return result.FirstOrDefault();
         }
 
         public async Task<IEnumerable<CursoDetalleEntity>> GetCursosAsync(int? idEtapa, int? idLineaCarrera, int? idNivel, string search)
         {
-            using (var conn = _dbConnection)
-            {
-                conn.Open();
-                var result = await conn.QueryAsync<CursoDetalleEntity>("GetCursos", new { IdEtapa = idEtapa, IdNivel = idNivel, IdLineaCarrera = idLineaCarrera, Search = search }, commandType: CommandType.StoredProcedure);
-                _dbConnection.Close();
-                return result.ToList();
-            }
+            if (_dbConnection.State == ConnectionState.Closed)
+                _dbConnection.Open();
+            var result = await _dbConnection.QueryAsync<CursoDetalleEntity>("GetCursos", new { IdEtapa = idEtapa, IdNivel = idNivel, IdLineaCarrera = idLineaCarrera, Search = search }, commandType: CommandType.StoredProcedure);
+            return result.ToList();
         }
 
         public async Task<IEnumerable<CursoEntity>> GetCursosByParticipanteAsync(string idParticipante, int? idEtapa = null, int? idIdioma = null)
         {
-            using (var conn = _dbConnection)
-            {
-                conn.Open();
-                var result = await conn.QueryAsync<CursoPredictionEntity>("GetCursosByParticipante",
-                new { Id = idParticipante, IdEtapa = idEtapa, IdIdioma = idIdioma }, commandType: CommandType.StoredProcedure);
-                _dbConnection.Close();
-                return result.ToList();
-            }
+            if (_dbConnection.State == ConnectionState.Closed)
+                _dbConnection.Open();
+            var result = await _dbConnection.QueryAsync<CursoPredictionEntity>("GetCursosByParticipante",
+            new { Id = idParticipante, IdEtapa = idEtapa, IdIdioma = idIdioma }, commandType: CommandType.StoredProcedure);
+            return result.ToList();
         }
 
         public async Task<IEnumerable<CursoPredictionEntity>> GetCursosPredictionByParticipanteAsync(string idParticipante, int? idEtapa = null, int? idIdioma = null)
         {
-            using (var conn = _dbConnection)
-            {
-                conn.Open();
-                var result = await conn.QueryAsync<CursoPredictionEntity>("GetCursosPredictionByParticipante",
-                new { Id = idParticipante, IdEtapa = idEtapa, IdIdioma = idIdioma }, commandType: CommandType.StoredProcedure);
-                _dbConnection.Close();
-                return result.ToList();
-            }
+            if (_dbConnection.State == ConnectionState.Closed)
+                _dbConnection.Open();
+            var result = await _dbConnection.QueryAsync<CursoPredictionEntity>("GetCursosPredictionByParticipante",
+            new { Id = idParticipante, IdEtapa = idEtapa, IdIdioma = idIdioma }, commandType: CommandType.StoredProcedure);
+            return result.ToList();
         }
     }
 }

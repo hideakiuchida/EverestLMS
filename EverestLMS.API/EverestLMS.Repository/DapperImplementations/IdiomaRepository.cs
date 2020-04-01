@@ -16,13 +16,11 @@ namespace EverestLMS.Repository.DapperImplementations
 
         public async Task<IEnumerable<IdiomaEntity>> GetAllAsync()
         {
-            using (var conn = _dbConnection)
-            {
-                conn.Open();
-                string stringQuery = "SELECT [IdIdioma], [Descripcion] FROM [dbo].[Idioma]";
-                var result = await conn.QueryAsync<IdiomaEntity>(stringQuery);
-                return result.ToList();
-            }
+            if (_dbConnection.State == ConnectionState.Closed)
+                _dbConnection.Open();
+            string stringQuery = "SELECT [IdIdioma], [Descripcion] FROM [dbo].[Idioma]";
+                var result = await _dbConnection.QueryAsync<IdiomaEntity>(stringQuery);
+            return result.ToList();
         }
     }
 }

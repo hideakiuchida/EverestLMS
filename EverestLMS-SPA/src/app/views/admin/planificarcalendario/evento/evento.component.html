@@ -71,15 +71,9 @@
             El color primario es requerido
         </span>
         </div>
-
-        <!--color secundario-->
-        <div class="form-group" [ngClass]="{'has-error': eventoForm.get('colorSecundario').errors && eventoForm.get('colorSecundario').touched}">
-            <label for="colorSecundario">Color Secundario: </label>
-            <input type="color" formControlName="colorSecundario" class="ml-2">
-            <span class="help-block" *ngIf="eventoForm.get('colorSecundario').hasError('required') && eventoForm.get('colorSecundario').touched">
-            El color secundario es requerido
-        </span>
+        <div class="row text-center col-md-12">
+            <button type="submit" class="btn btn-primary col-md-3">Guardar</button>
+            <button type="button" class="btn btn-secondary ml-2 col-md-3" [routerLink]="['/calendario']">Cancelar</button>
         </div>
-        <button type="submit" class="btn btn-primary">Guardar</button>
     </form>
 </div>

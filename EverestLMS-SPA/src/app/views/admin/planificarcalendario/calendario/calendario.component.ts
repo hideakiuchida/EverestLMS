@@ -72,6 +72,7 @@ export class CalendarioComponent implements OnInit {
   selectedCalendarioId: any;
   selectedFechaInicio: any;
   selectedFechaFinal: any;
+  currentCalendarioId: any;
 
   increment(): void {
     this.changeDate(addPeriod(this.view, this.viewDate, 1));
@@ -82,6 +83,7 @@ export class CalendarioComponent implements OnInit {
   }
 
   today(): void {
+    this.calendarioSelected(this.currentCalendarioId);
     this.changeDate(new Date());
   }
 
@@ -110,7 +112,6 @@ export class CalendarioComponent implements OnInit {
     });
   }
 
-  
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
       if ((isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) || events.length === 0) {
@@ -168,10 +169,8 @@ export class CalendarioComponent implements OnInit {
         var currentDate = new Date();
         const calendario = this.calendarios.filter(x => new Date(x.fechaInicio) <= currentDate && new Date(x.fechaFinal) >= currentDate)[0];
         if (calendario != null) {
-          this.selectedCalendarioId = calendario.id;
-          this.loadEventos(this.selectedCalendarioId);
-          this.loadCriteriosAceptacion(this.selectedCalendarioId);
-          this.calendarioSelected(this.selectedCalendarioId);
+          this.currentCalendarioId = calendario.id;
+          this.calendarioSelected(calendario.id);
         }
       }
     }, error => {
@@ -181,31 +180,15 @@ export class CalendarioComponent implements OnInit {
     });
   }
 
-  loadCriteriosAceptacion(idCalendario) {
-    this.spinner.show();
-    this.calendarioService.getCriteriosAceptacion(idCalendario).subscribe((criteriosAceptacion: CriterioAceptacion[]) => {
-      this.criteriosAceptacion = criteriosAceptacion;
-    }, error => {
-      this.alertifyService.error(error.error);
-    }, () => {
-      this.spinner.hide();
-    });
-  }
-
-  eliminarCriterioAceptacionEmitter(isEliminado: boolean) {
-    if (isEliminado) {
-      this.loadCriteriosAceptacion(this.selectedCalendarioId);
-      this.router.navigate(['/calendario']);
-    }
-  }
-
   calendarioSelected(value) {
-    this.selectedCalendario = this.calendarios.find(item => item.id === Number(value));
+    this.selectedCalendarioId = value;
+    this.selectedCalendario = this.calendarios.find(item => item.id === Number(this.selectedCalendarioId));
     this.viewDate = new Date(this.selectedCalendario.fechaInicio);
     this.minDate = new Date(this.selectedCalendario.fechaInicio);
     this.maxDate = new Date(this.selectedCalendario.fechaFinal);
     this.selectedFechaInicio = this.datePipe.transform(this.selectedCalendario.fechaInicio, 'dd/MM/yyyy');
     this.selectedFechaFinal = this.datePipe.transform(this.selectedCalendario.fechaFinal, 'dd/MM/yyyy');
+    this.loadEventos(this.selectedCalendarioId );
     this.dateOrViewChanged();
   }
 
@@ -243,7 +226,7 @@ export class CalendarioComponent implements OnInit {
         start: new Date(evento.fechaInicio),
         end: new Date(evento.fechaFinal),
         color: {primary: evento.colorPrimario.toString(),
-          secondary: evento.colorSecundario.toString()},
+          secondary: evento.colorPrimario.toString()},
         resizable: {
           beforeStart: true,
           afterEnd: true

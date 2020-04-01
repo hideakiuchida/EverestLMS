@@ -5,5 +5,4 @@ export class Evento {
     fechaInicio: Date;
     fechaFinal: Date;
     colorPrimario: String;
-    colorSecundario: String;
 }

@@ -2,3 +2,8 @@
     display: flex;
     align-items: center;
 }
+
+.help-block {
+    color: red;
+    padding: 5px;
+}

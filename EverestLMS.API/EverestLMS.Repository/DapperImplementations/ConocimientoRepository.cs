@@ -16,43 +16,34 @@ namespace EverestLMS.Repository.DapperImplementations
 
         public async Task<int> CreateConocimientoParticipanteAsync(ConocimientoParticipanteEntity conocimientoParticipanteEntity)
         {
-            using (var conn = _dbConnection)
+            if (_dbConnection.State == ConnectionState.Closed)
+                _dbConnection.Open();
+            var result = await _dbConnection.QueryAsync<int>("CreateConocimientoParticipante",
+            new
             {
-                conn.Open();
-                var result = await conn.QueryAsync<int>("CreateConocimientoParticipante",
-                new
-                {
-                    conocimientoParticipanteEntity.IdConocimiento,
-                    conocimientoParticipanteEntity.IdParticipante
-                },
-                commandType: CommandType.StoredProcedure);
-                _dbConnection.Close();
-                return result.FirstOrDefault();
-            }
+                conocimientoParticipanteEntity.IdConocimiento,
+                conocimientoParticipanteEntity.IdParticipante
+            },
+            commandType: CommandType.StoredProcedure);
+            return result.FirstOrDefault();
         }
 
         public async Task<ConocimientoEntity> GetByIdAsync(int? id)
         {
-            using (var conn = _dbConnection)
-            {
-                conn.Open();
-                var result = await conn.QueryAsync<ConocimientoEntity>("GetConocimientos", new { IdConocimiento = id },
+            if (_dbConnection.State == ConnectionState.Closed)
+                _dbConnection.Open();
+            var result = await _dbConnection.QueryAsync<ConocimientoEntity>("GetConocimientos", new { IdConocimiento = id },
                 commandType: CommandType.StoredProcedure);
-                _dbConnection.Close();
-                return result.FirstOrDefault();
-            }
+            return result.FirstOrDefault();
         }
 
         public async Task<IEnumerable<ConocimientoEntity>> GetConocimientoByParticipanteIdAsync(string id)
         {
-            using (var conn = _dbConnection)
-            {
-                conn.Open();
-                var result = await conn.QueryAsync<ConocimientoEntity>("GetConocimientosPorParticipante", new { IdParticipante = id },
+            if (_dbConnection.State == ConnectionState.Closed)
+                _dbConnection.Open();
+            var result = await _dbConnection.QueryAsync<ConocimientoEntity>("GetConocimientosPorParticipante", new { IdParticipante = id },
                 commandType: CommandType.StoredProcedure);
-                _dbConnection.Close();
-                return result.ToList();
-            }
+            return result.ToList();
         }
     }
 }

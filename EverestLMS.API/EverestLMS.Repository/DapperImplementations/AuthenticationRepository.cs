@@ -18,17 +18,15 @@ namespace EverestLMS.Repository.DapperImplementations
 
         public async Task<UsuarioEntity> GetUsuarioByUsername(string username)
         {
-            using (var conn = _dbConnection)
-            {
-                conn.Open();
-                var result = await conn.QueryAsync<UsuarioEntity>("GetUsuarioByUsername",
+            if (_dbConnection.State == ConnectionState.Closed)
+                _dbConnection.Open();
+            var result = await _dbConnection.QueryAsync<UsuarioEntity>("GetUsuarioByUsername",
                 new
                 {
                     username
                 },
                 commandType: CommandType.StoredProcedure);
                 return result.FirstOrDefault();
-            }
         }
 
         public async Task<int> Register(UsuarioEntity usuarioEntity, string password)
@@ -37,10 +35,9 @@ namespace EverestLMS.Repository.DapperImplementations
             usuarioEntity.PasswordSalt = passwordSalt;
             usuarioEntity.PasswordHash = passwordHash;
             usuarioEntity.UsuarioKey = Guid.NewGuid().ToString();
-            using (var conn = _dbConnection)
-            {
-                conn.Open();
-                var result = await conn.QueryAsync<int>("CreateUsuario",
+            if (_dbConnection.State == ConnectionState.Closed)
+                _dbConnection.Open();
+            var result = await _dbConnection.QueryAsync<int>("CreateUsuario",
                  new
                  {
                      usuarioEntity.UsuarioKey,
@@ -52,7 +49,6 @@ namespace EverestLMS.Repository.DapperImplementations
                  },
                  commandType: CommandType.StoredProcedure);
                 return result.FirstOrDefault();
-            }
         }
 
         public async Task<bool> UserExists(string username)

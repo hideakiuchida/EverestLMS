@@ -16,10 +16,9 @@ namespace EverestLMS.Repository.DapperImplementations
 
         public async Task<int> CrearCriterioAceptacionAsync(CriterioAceptacionEntity criterioAceptacion)
         {
-            using (var conn = _dbConnection)
-            {
-                conn.Open();
-                var result = await conn.QueryAsync<int>("CreateCriterioAceptacion",
+            if (_dbConnection.State == ConnectionState.Closed)
+                _dbConnection.Open();
+            var result = await _dbConnection.QueryAsync<int>("CreateCriterioAceptacion",
                     new
                     {
                         criterioAceptacion.Descripcion,
@@ -28,17 +27,14 @@ namespace EverestLMS.Repository.DapperImplementations
                         criterioAceptacion.IdCalendario
                     },
                     commandType: CommandType.StoredProcedure);
-                return result.FirstOrDefault();
-            }
-               
+                return result.FirstOrDefault();         
         }
 
         public async Task<int> CrearEventoAsync(EventoEntity evento)
         {
-            using (var conn = _dbConnection)
-            {
-                conn.Open();
-                var result = await conn.QueryAsync<int>("CreateEvento",
+            if (_dbConnection.State == ConnectionState.Closed)
+                _dbConnection.Open();
+            var result = await _dbConnection.QueryAsync<int>("CreateEvento",
                 new
                 {
                     evento.Titulo,
@@ -51,61 +47,51 @@ namespace EverestLMS.Repository.DapperImplementations
                 },
                 commandType: CommandType.StoredProcedure);
                 return result.FirstOrDefault();
-            }
         }
 
         public async Task<bool> EliminarCriterioAceptacionAsync(int idCalendario, int idCriterioAceptacion)
         {
-            using (var conn = _dbConnection)
-            {
-                conn.Open();
-                var result = await conn.QueryAsync<int>("DeleteCriterioAceptacion", new { IdCalendario = idCalendario, IdCriterioAceptacion = idCriterioAceptacion },
+            if (_dbConnection.State == ConnectionState.Closed)
+                _dbConnection.Open();
+            var result = await _dbConnection.QueryAsync<int>("DeleteCriterioAceptacion", new { IdCalendario = idCalendario, IdCriterioAceptacion = idCriterioAceptacion },
                 commandType: CommandType.StoredProcedure);
                 return result.FirstOrDefault() > 0;
-            }
         }
 
         public async Task<bool> EliminarEventoAsync(int idCalendario, int idEvento)
         {
-            using (var conn = _dbConnection)
-            {
-                conn.Open();
-                var result = await conn.QueryAsync<int>("DeleteEvento", new { IdCalendario = idCalendario, IdEvento = idEvento }, commandType: CommandType.StoredProcedure);
+            if (_dbConnection.State == ConnectionState.Closed)
+                _dbConnection.Open();
+            var result = await _dbConnection.QueryAsync<int>("DeleteEvento", new { IdCalendario = idCalendario, IdEvento = idEvento }, commandType: CommandType.StoredProcedure);
                 return result.FirstOrDefault() > 0;
-            }
         }
 
         public async Task<IEnumerable<CalendarioEntity>> GetCalendariosAsync()
         {
-            using (var conn = _dbConnection)
-            {
-                conn.Open();
-                string stringQuery = "SELECT [IdCalendario],[Descripcion],[FechaInicio],[FechaFinal],[Activo],[Temporada] FROM [dbo].[Calendario]";
-                var result = await conn.QueryAsync<CalendarioEntity>(stringQuery);
+            if (_dbConnection.State == ConnectionState.Closed)
+                _dbConnection.Open();
+            string stringQuery = "SELECT [IdCalendario],[Descripcion],[FechaInicio],[FechaFinal],[Activo],[Temporada] FROM [dbo].[Calendario] ORDER BY [FechaInicio] DESC";
+                var result = await _dbConnection.QueryAsync<CalendarioEntity>(stringQuery);
                 return result.ToList();
-            }
         }
 
         public async Task<IEnumerable<CriterioAceptacionEntity>> GetCriteriosAceptacionPorCalendarioAsync(int idCalendario)
         {
-            using (var conn = _dbConnection)
-            {
-                conn.Open();
-                string stringQuery = "SELECT [IdCriterioAceptacion],[Descripcion],[Medida],[Valor],[IdCalendario] FROM [dbo].[CriterioAceptacion] WHERE [IdCalendario] = @IdCalendario";
-                var result = await conn.QueryAsync<CriterioAceptacionEntity>(stringQuery, new { IdCalendario = idCalendario });
+            if (_dbConnection.State == ConnectionState.Closed)
+                _dbConnection.Open();
+            string stringQuery = "SELECT [IdCriterioAceptacion],[Descripcion],[Medida],[Valor],[IdCalendario] FROM [dbo].[CriterioAceptacion] WHERE [IdCalendario] = @IdCalendario";
+                var result = await _dbConnection.QueryAsync<CriterioAceptacionEntity>(stringQuery, new { IdCalendario = idCalendario });
                 return result.ToList();
-            }
         }
 
         public async Task<IEnumerable<EventoEntity>> GetEventosPorCalendarioAsync(int idCalendario)
         {
-            using (var conn = _dbConnection)
-            {
-                conn.Open();
-                var stringQuery = "SELECT [IdEvento],[Titulo],[Descripcion],[FechaInicio],[FechaFinal],[ColorPrimario],[ColorSecundario],[IdCalendario] FROM [dbo].[Evento] WHERE [IdCalendario] = @IdCalendario";
-                var result = await conn.QueryAsync<EventoEntity>(stringQuery, new { IdCalendario = idCalendario });
+            if (_dbConnection.State == ConnectionState.Closed)
+                _dbConnection.Open();
+            var stringQuery = "SELECT [IdEvento],[Titulo],[Descripcion],[FechaInicio],[FechaFinal],[ColorPrimario],[ColorSecundario],[IdCalendario] FROM [dbo].[Evento] WHERE [IdCalendario] = @IdCalendario";
+                var result = await _dbConnection.QueryAsync<EventoEntity>(stringQuery, new { IdCalendario = idCalendario });
                 return result.ToList();
-            }
+
         }
     }
 }
