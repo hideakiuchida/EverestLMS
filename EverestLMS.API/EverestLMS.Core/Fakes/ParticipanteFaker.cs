@@ -60,7 +60,7 @@ namespace EverestLMS.Common.Fakes
             return EscaladorToCreateVM;
         }
 
-        public IList<UsuarioToRegisterVM> SherpasVM;
+        private IList<UsuarioToRegisterVM> SherpasVM;
         public IList<UsuarioToRegisterVM> GetSherpasVM()
         {
             if (SherpasVM == null)
@@ -107,7 +107,7 @@ namespace EverestLMS.Common.Fakes
             return conocimientosIds;
         }
 
-        public IList<UsuarioToRegisterVM> EscaladoresVM;
+        private IList<UsuarioToRegisterVM> EscaladoresVM;
         public IList<UsuarioToRegisterVM> GetEscaladoresVM()
         {
             if (EscaladoresVM == null)
@@ -146,7 +146,7 @@ namespace EverestLMS.Common.Fakes
         }
 
 
-        public IList<UsuarioToRegisterVM> AdminsVM;
+        private IList<UsuarioToRegisterVM> AdminsVM;
         public IList<UsuarioToRegisterVM> GetAdminsVM()
         {
             if (AdminsVM == null)

@@ -15,7 +15,6 @@ using EverestLMS.ViewModels.Participante.Escalador;
 using EverestLMS.ViewModels.Participante.Sherpa;
 using EverestLMS.ViewModels.Sede;
 using EverestLMS.ViewModels.TipoContenido;
-using System;
 
 namespace EverestLMS.API.Helpers
 {
@@ -35,11 +34,30 @@ namespace EverestLMS.API.Helpers
             CreateMapLeccion();
             CreateMapTipoContenido();
             CreateMapAuthentication();
+            CreateMapPregunta();
+            CreateMapRespuesta();
         }
 
+        private void CreateMapRespuesta()
+        {
+            CreateMap<RespuestaEntity, RespuestaVM>()
+                .ForMember(dest => dest.Id, opt =>
+                {
+                    opt.MapFrom(d => d.IdRespuesta);
+                });
+           CreateMap<RespuestaToCreateVM, RespuestaEntity>();
+        }
 
+        private void CreateMapPregunta()
+        {
+            CreateMap<PreguntaEntity, PreguntaVM>()
+                .ForMember(dest => dest.Id, opt =>
+                {
+                    opt.MapFrom(d => d.IdPregunta);
+                });
+            CreateMap<PreguntaToCreateVM, PreguntaEntity>();
+        }
 
-        #region Privates Methods
         private void CreateMapParticipante()
         {
             CreateMap<ParticipanteToCreateVM, ParticipanteEntity>()
@@ -196,7 +214,7 @@ namespace EverestLMS.API.Helpers
                  .ForMember(dest => dest.Id, opt =>
                  {
                      opt.MapFrom(d => d.IdCurso);
-                 }); ;
+                 });
             CreateMap<CursoEntity, CursoVM>()
                .ForMember(dest => dest.Id, opt =>
                {
@@ -270,7 +288,6 @@ namespace EverestLMS.API.Helpers
                     opt.MapFrom(d => d.Id);
                 });
         }
-
         private void CreateMapCloudinaryFile()
         {
             CreateMap<CloudinaryFileEntity, CloudinaryFileVM>()
@@ -285,7 +302,6 @@ namespace EverestLMS.API.Helpers
                     opt.MapFrom(d => d.Id);
                 });
         }
-
         private void CreateMapLeccion()
         {
             CreateMap<LeccionEntity, LeccionVM>()
@@ -317,7 +333,6 @@ namespace EverestLMS.API.Helpers
             CreateMap<LeccionMaterialToCreateVM, LeccionMaterialDetalleEntity>();
             CreateMap<LeccionMaterialVideoToCreateVM, LeccionMaterialDetalleEntity>();
         }
-
         private void CreateMapTipoContenido()
         {
             CreateMap<TipoContenidoEntity, TipoContenidoVM>()
@@ -326,12 +341,10 @@ namespace EverestLMS.API.Helpers
                   opt.MapFrom(d => d.IdTipoContenido);
               });
         }
-
         private void CreateMapAuthentication()
         {
             CreateMap<UsuarioEntity, UsuarioVM>();
             CreateMap<UsuarioToRegisterVM, UsuarioEntity>();
         }
-        #endregion
     }
 }

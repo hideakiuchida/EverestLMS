@@ -7,6 +7,10 @@ import { LeccionToRegister } from 'src/app/models/leccionToRegister';
 import { LeccionMaterial } from 'src/app/models/leccionMaterial';
 import { Video } from 'src/app/models/video';
 import { LeccionMaterialLite } from 'src/app/models/leccionMaterialLite';
+import { Pregunta } from 'src/app/models/pregunta';
+import { PreguntaToRegister } from 'src/app/models/preguntaToRegister';
+import { Respuesta } from 'src/app/models/respuesta';
+import { RespuestaToRegister } from 'src/app/models/respuestaToRegister';
 
 @Injectable({
   providedIn: 'root'
@@ -74,5 +78,48 @@ getVideo(idEtapa, idCurso, idLeccion, idLeccionMaterial) {
   return this.http.get<Video>(this.baseUrl + 'etapas/' + idEtapa +
    '/cursos/' + idCurso + '/lecciones/' + idLeccion + '/lecciones-material/videos/' + idLeccionMaterial);
 }
+
+getPreguntas(idEtapa, idCurso, idLeccion): Observable<Pregunta[]>  {
+  return this.http.get<Pregunta[]>(this.baseUrl + 'etapas/' + idEtapa +
+  '/cursos/' + idCurso + '/lecciones/' + idLeccion + '/preguntas',
+  { params: { idNivel: this._idNivel, idLineaCarrera: this._idLineaCarrera, search: this._search } });
+}
+
+getPregunta(idEtapa, idCurso, idLeccion, idPregunta): Observable<Pregunta[]>  {
+  return this.http.get<Pregunta[]>(this.baseUrl + 'etapas/' + idEtapa +
+   '/cursos/' + idCurso + '/lecciones/' + idLeccion + '/preguntas/' + idPregunta);
+}
+
+createPregunta(idEtapa, idCurso, idLeccion, pregunta: PreguntaToRegister) {
+  return this.http.post(this.baseUrl + 'etapas/' + idEtapa +
+   '/cursos/' + idCurso + '/lecciones/' + idLeccion  + '/preguntas', pregunta);
+}
+
+deletePregunta(idEtapa, idCurso, idLeccion, idPregunta) {
+  return this.http.delete(this.baseUrl + 'etapas/' + idEtapa +
+  '/cursos/' + idCurso + '/lecciones/' + idLeccion + '/preguntas/' + idPregunta);
+}
+
+getRespuestas(idEtapa, idCurso, idLeccion, idPregunta): Observable<Respuesta[]>  {
+  return this.http.get<Respuesta[]>(this.baseUrl + 'etapas/' + idEtapa +
+  '/cursos/' + idCurso + '/lecciones/' + idLeccion + '/preguntas/' + idPregunta + '/respuestas',
+  { params: { idNivel: this._idNivel, idLineaCarrera: this._idLineaCarrera, search: this._search } });
+}
+
+getRespuesta(idEtapa, idCurso, idLeccion, idPregunta, idRespuesta): Observable<Respuesta[]>  {
+  return this.http.get<Respuesta[]>(this.baseUrl + 'etapas/' + idEtapa +
+   '/cursos/' + idCurso + '/lecciones/' + idLeccion + '/preguntas/'  + idPregunta + '/respuestas/' + idRespuesta);
+}
+
+createRespuesta(idEtapa, idCurso, idLeccion, idPregunta, respuesta: RespuestaToRegister) {
+  return this.http.post(this.baseUrl + 'etapas/' + idEtapa +
+   '/cursos/' + idCurso + '/lecciones/' + idLeccion + '/preguntas/' + idPregunta + '/respuestas', respuesta);
+}
+
+deleteRespuesta(idEtapa, idCurso, idLeccion, idPregunta, idRespuesta) {
+  return this.http.delete(this.baseUrl + 'etapas/' + idEtapa +
+  '/cursos/' + idCurso + '/lecciones/' + idLeccion + '/preguntas/' + idPregunta + '/respuestas/' + idRespuesta);
+}
+
 
 }

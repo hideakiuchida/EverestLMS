@@ -23,7 +23,10 @@ export class NavComponent implements OnInit {
       this.idParticipante = this.authService.getUserId();
       this.router.navigate(['inicio']);
     }, error => {
-      this.alertify.error(error.error);
+      if (error.status == 401)
+        this.alertify.error('Error al ingresar sus credenciales');
+      else
+        this.alertify.error(error.error);
     });
   }
 

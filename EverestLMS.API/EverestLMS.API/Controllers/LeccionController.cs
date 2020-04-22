@@ -99,6 +99,76 @@ namespace EverestLMS.API.Controllers
         }
         #endregion
 
+        #region Preguntas
+        [HttpGet]
+        [Route("{idLeccion}/preguntas")]
+        public async Task<IActionResult> GetPreguntasAsync(int idLeccion)
+        {
+            var result = await leccionService.GetPreguntasAsync(idLeccion);
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("{idLeccion}/preguntas/{idPregunta}")]
+        public async Task<IActionResult> GetSpecificPreguntaAsync(int idPregunta)
+        {
+            var result = await leccionService.GetSpecificPreguntaAsync(idPregunta);
+            return Ok(result);
+        }
+
+        [HttpPost]
+        [Route("{idLeccion}/preguntas")]
+        public async Task<IActionResult> CreatePreguntaAsync(int idLeccion, [FromBody]PreguntaToCreateVM preguntaToCreateVM)
+        {
+            preguntaToCreateVM.IdLeccion = idLeccion;
+            var result = await leccionService.CreatePreguntaAsync(preguntaToCreateVM);
+            return Ok(result);
+        }
+
+        [HttpDelete]
+        [Route("{idLeccion}/preguntas/{idPregunta}")]
+        public async Task<IActionResult> DeletePreguntaAsync(int idPregunta)
+        {
+            var result = await leccionService.DeletePreguntaAsync(idPregunta);
+            return Ok(result);
+        }
+        #endregion
+
+        #region Respuestas
+        [HttpGet]
+        [Route("{idLeccion}/preguntas/{idPregunta}/respuestas")]
+        public async Task<IActionResult> GetRespuestasAsync(int idPregunta)
+        {
+            var result = await leccionService.GetRespuestasAsync(idPregunta);
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("{idLeccion}/preguntas/{idPregunta}/respuestas/{idRespuesta}")]
+        public async Task<IActionResult> GetSpecificRespuestaAsync(int idRespuesta)
+        {
+            var result = await leccionService.GetSpecificRespuestaAsync(idRespuesta);
+            return Ok(result);
+        }
+
+        [HttpPost]
+        [Route("{idLeccion}/preguntas/{idPregunta}/respuestas")]
+        public async Task<IActionResult> CreateRespuestaAsync(int idPregunta, [FromBody]RespuestaToCreateVM respuestaToCreateVM)
+        {
+            respuestaToCreateVM.IdPregunta = idPregunta;
+            var result = await leccionService.CreateRespuestaAsync(respuestaToCreateVM);
+            return Ok(result);
+        }
+
+        [HttpDelete]
+        [Route("{idLeccion}/preguntas/{idPregunta}/respuestas/{idRespuesta}")]
+        public async Task<IActionResult> DeleteRespuestaAsync(int idRespuesta)
+        {
+            var result = await leccionService.DeleteRespuestaAsync(idRespuesta);
+            return Ok(result);
+        }
+        #endregion
+
         #region Videos de Lecciones
         [HttpGet]
         [Route("{idLeccion}/lecciones-material/videos/{id}")]

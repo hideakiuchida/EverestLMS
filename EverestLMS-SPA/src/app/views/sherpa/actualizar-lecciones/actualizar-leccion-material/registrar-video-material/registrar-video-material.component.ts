@@ -38,10 +38,25 @@ export class RegistrarVideoMaterialComponent implements OnInit {
     this.uploader = new FileUploader({
       url: this.baseUrl + 'etapas/' + this.idEtapa + '/cursos/' + this.idCurso + '/lecciones/'
       + this.idLeccion + '/lecciones-material/videos',
+      /*
       isHTML5: true,
       allowedFileType: ['video'],
       removeAfterUpload: true,
-      autoUpload: false
+      autoUpload: false,
+      maxFileSize: 10 * 1024 * 1024
+      */
+      disableMultipart: true, 
+      formatDataFunctionIsAsync: true,
+      formatDataFunction: async (item) => {
+        return new Promise( (resolve, reject) => {
+          resolve({
+            name: item._file.name,
+            length: item._file.size,
+            contentType: item._file.type,
+            date: new Date()
+          });
+        });
+      }
     });
 
     this.uploader.onSuccessItem = (item, response, status, headers) => {

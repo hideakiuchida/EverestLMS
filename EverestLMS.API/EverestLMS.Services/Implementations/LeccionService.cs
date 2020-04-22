@@ -16,18 +16,17 @@ namespace EverestLMS.Services.Implementations
     {
         private readonly ILeccionRepository leccionRepository;
         private readonly IMapper mapper;
-        private readonly IOptions<CloudinarySettings> cloudinaryConfig;
-        private Cloudinary cloudinary;
+        private readonly Cloudinary cloudinary;
 
         public LeccionService(ILeccionRepository leccionRepository, IMapper mapper, IOptions<CloudinarySettings> cloudinaryConfig)
         {
             this.leccionRepository = leccionRepository;
             this.mapper = mapper;
-            this.cloudinaryConfig = cloudinaryConfig;
+            var cloudinaryConfiguration = cloudinaryConfig;
             Account account = new Account(
-               this.cloudinaryConfig.Value.CloudName,
-               this.cloudinaryConfig.Value.ApiKey,
-               this.cloudinaryConfig.Value.ApiSecret
+               cloudinaryConfiguration.Value.CloudName,
+               cloudinaryConfiguration.Value.ApiKey,
+               cloudinaryConfiguration.Value.ApiSecret
            );
 
             this.cloudinary = new Cloudinary(account);
@@ -97,6 +96,58 @@ namespace EverestLMS.Services.Implementations
             var entity = await leccionRepository.GetSpecificLeccionMaterialAsync(idLeccion, idLeccionMaterial);
             var viewModel = mapper.Map<LeccionMaterialDetalleVM>(entity);
             return viewModel;
+        }
+
+        public async Task<IEnumerable<PreguntaVM>> GetPreguntasAsync(int idLeccion)
+        {
+            var preguntaEntities = await leccionRepository.GetPreguntasAsync(idLeccion);
+            var preguntaVMs = mapper.Map<IEnumerable<PreguntaVM>>(preguntaEntities);
+            return preguntaVMs;
+        }
+
+        public async Task<PreguntaVM> GetSpecificPreguntaAsync(int idPregunta)
+        {
+            var entity = await leccionRepository.GetSpecificPreguntaAsync(idPregunta);
+            var viewModel = mapper.Map<PreguntaVM>(entity);
+            return viewModel;
+        }
+
+        public async Task<int> CreatePreguntaAsync(PreguntaToCreateVM preguntaToCreateVM)
+        {
+            var entity = mapper.Map<PreguntaEntity>(preguntaToCreateVM);
+            var id = await leccionRepository.CreatePreguntaAsync(entity);
+            return id;
+        }
+
+        public async Task<bool> DeletePreguntaAsync(int idPregunta)
+        {
+            return await leccionRepository.DeletePreguntaAsync(idPregunta);
+        }
+
+        public async Task<IEnumerable<RespuestaVM>> GetRespuestasAsync(int idPregunta)
+        {
+            var entities = await leccionRepository.GetRespuestasAsync(idPregunta);
+            var viewModels = mapper.Map<IEnumerable<RespuestaVM>>(entities);
+            return viewModels;
+        }
+
+        public async Task<RespuestaVM> GetSpecificRespuestaAsync(int idRespuesta)
+        {
+            var entity = await leccionRepository.GetSpecificRespuestaAsync(idRespuesta);
+            var viewModel = mapper.Map<RespuestaVM>(entity);
+            return viewModel;
+        }
+
+        public async Task<int> CreateRespuestaAsync(RespuestaToCreateVM respuestaToCreateVM)
+        {
+            var entity = mapper.Map<RespuestaEntity>(respuestaToCreateVM);
+            var id = await leccionRepository.CreateRespuestaAsync(entity);
+            return id;
+        }
+
+        public async Task<bool> DeleteRespuestaAsync(int idRespuesta)
+        {
+            return await leccionRepository.DeleteRespuestaAsync(idRespuesta);
         }
 
         #region Private Methods
