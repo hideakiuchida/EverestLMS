@@ -41,6 +41,10 @@ import { LeccionResolver } from './resolvers/leccion/leccion.resolver';
 import { EditarLeccionComponent } from './views/sherpa/actualizar-lecciones/editar-leccion/editar-leccion.component';
 import { AuthGuard } from './guards/auth.guard';
 import { InicioComponent } from './views/shared/inicio/inicio.component';
+import { PreguntasResolver } from './resolvers/leccion/preguntas.resolver';
+import { ActualizarPreguntasComponent } from './views/sherpa/actualizar-lecciones/actualizar-preguntas/actualizar-preguntas.component';
+import { PreguntaResolver } from './resolvers/leccion/pregunta.resolver';
+import { RespuestasResolver } from './resolvers/leccion/respuestas.resolver';
 
 const routes: Routes = [
     { path: '', component: HomeComponent},
@@ -50,8 +54,16 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         children: [
             { path: 'inicio', component: InicioComponent},
+            //Asignacion
             { path: 'asignarequipos', component: AsignarequiposComponent},
+            { path: 'asignarescalador/:idSherpa/:idLineaCarrera', component: AsignarescaladorComponent,
+                resolve: {sherpa: SherpaResolver, escaladores: EscaladoresResolver}},
+            //Calendario
             { path: 'calendario', component: CalendarioComponent},
+            { path: 'evento/:idCalendario', component: EventoComponent},
+            { path: 'criterioaceptacion/:idCalendario', component: CriterioAceptacionComponent},
+            { path: 'registrocriterioaceptacion/:idCalendario', component: RegistrocristerioaceptacionComponent},
+            //Mantenimiento Lecciones
             { path: 'actualizar-lecciones', component: ActualizarLeccionesComponent,
                 resolve: {niveles: NivelResolver, lineaCarreras: LineaCarreraResolver}},
             { path: 'registrar-leccion', component: RegistrarLeccionComponent,
@@ -59,13 +71,16 @@ const routes: Routes = [
             { path: 'editar-leccion/:idEtapa/:idCurso/:idLeccion', component: EditarLeccionComponent,
                 resolve: {niveles: NivelResolver, lineaCarreras: LineaCarreraResolver, curso: CursoResolver, leccion: LeccionResolver}},
             { path: 'actualizar-leccion-material/:idEtapa/:idCurso/:idLeccion', component: ActualizarLeccionMaterialComponent,
-                resolve: {leccionesMaterial: LeccionMaterialesResolver, tipoContenidos: TipoContenidoResolver}},
+                resolve: {leccionesMaterial: LeccionMaterialesResolver, tipoContenidos: TipoContenidoResolver, preguntas: PreguntasResolver}},
             { path: 'registrar-leccion-material/:idEtapa/:idCurso/:idLeccion', component: RegistrarLeccionMaterialComponent,
                 resolve: {leccionesMaterial: LeccionMaterialesResolver, tipoContenidos: TipoContenidoResolver}},
             { path: 'registrar-video-material/:idEtapa/:idCurso/:idLeccion', component: RegistrarVideoMaterialComponent,
                  resolve: {leccionesMaterial: LeccionMaterialesResolver, tipoContenidos: TipoContenidoResolver}},
             { path: 'actualizar-presentacion-material/:idEtapa/:idCurso/:idLeccion', component: RegistrarPresentacionMaterialComponent,
                 resolve: {leccionesMaterial: LeccionMaterialesResolver, tipoContenidos: TipoContenidoResolver}},
+            {path: 'actualizar-pregunta/:idEtapa/:idCurso/:idLeccion/:idPregunta', component: ActualizarPreguntasComponent,
+                resolve: {pregunta: PreguntaResolver, respuestas: RespuestasResolver}},
+            //Mantenimiento Cursos
             { path: 'cursos', component: CursosComponent,
                 resolve: {niveles: NivelResolver, lineaCarreras: LineaCarreraResolver}},
             { path: 'registrar-curso', component: RegistrarCursoComponent,
@@ -74,11 +89,7 @@ const routes: Routes = [
             { path: 'editar-curso/:idEtapa/:idCurso', component: EditarCursoComponent,
                 resolve: {niveles: NivelResolver, lineaCarreras: LineaCarreraResolver, idiomas: IdiomaResolver,
                           dificultades: DificultadResolver, curso: CursoResolver}},
-            { path: 'asignarescalador/:idSherpa/:idLineaCarrera', component: AsignarescaladorComponent,
-                resolve: {sherpa: SherpaResolver, escaladores: EscaladoresResolver}},
-            { path: 'evento/:idCalendario', component: EventoComponent},
-            { path: 'criterioaceptacion/:idCalendario', component: CriterioAceptacionComponent},
-            { path: 'registrocriterioaceptacion/:idCalendario', component: RegistrocristerioaceptacionComponent},
+            //Realizar Curso
             { path: 'realizar-cursos/:idParticipante', component: RealizarCursosComponent,
                 resolve: {cursos: CursosParticipanteResolver, cursosPrediccion: CursosPrediccionParticipanteResolver,
                          etapas: EtapasParticipanteResolver, idiomas: IdiomaResolver}}

@@ -26,6 +26,9 @@ import { TipocontenidoService } from 'src/app/services/tipocontenido/tipoconteni
 import { SharedModule } from '../shared/shared.module';
 import { DificultadResolver } from 'src/app/resolvers/dificultades/dificultad.resolver';
 import { CursoResolver } from 'src/app/resolvers/curso/curso.resolver';
+import { RespuestasResolver } from 'src/app/resolvers/leccion/respuestas.resolver';
+import { PreguntasResolver } from 'src/app/resolvers/leccion/preguntas.resolver';
+import { PreguntaResolver } from 'src/app/resolvers/leccion/pregunta.resolver';
 
 @NgModule({
    declarations: [
@@ -54,7 +57,10 @@ import { CursoResolver } from 'src/app/resolvers/curso/curso.resolver';
       TipoContenidoResolver,
       TipocontenidoService,
       DificultadResolver,
-      CursoResolver
+      CursoResolver,
+      PreguntasResolver,
+      RespuestasResolver,
+      PreguntaResolver
    ]
 })
 export class SherpaModule { }

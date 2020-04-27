@@ -51,7 +51,7 @@ deleteLeccion(idEtapa, idCurso, idLeccion) {
 getLeccionMateriales(idEtapa, idCurso, idLeccion): Observable<LeccionMaterialLite[]>  {
   return this.http.get<LeccionMaterialLite[]>(this.baseUrl + 'etapas/' + idEtapa +
   '/cursos/' + idCurso + '/lecciones/' + idLeccion + '/lecciones-material',
-  { params: { idNivel: this._idNivel, idLineaCarrera: this._idLineaCarrera, search: this._search } });
+  { params: { idNivel: this._idNivel, idLineaCarrera: this._idLineaCarrera } });
 }
 
 getLeccionMaterial(idEtapa, idCurso, idLeccion, idLeccionMaterial): Observable<LeccionMaterial[]>  {
@@ -82,7 +82,7 @@ getVideo(idEtapa, idCurso, idLeccion, idLeccionMaterial) {
 getPreguntas(idEtapa, idCurso, idLeccion): Observable<Pregunta[]>  {
   return this.http.get<Pregunta[]>(this.baseUrl + 'etapas/' + idEtapa +
   '/cursos/' + idCurso + '/lecciones/' + idLeccion + '/preguntas',
-  { params: { idNivel: this._idNivel, idLineaCarrera: this._idLineaCarrera, search: this._search } });
+  { params: { idNivel: this._idNivel, idLineaCarrera: this._idLineaCarrera } });
 }
 
 getPregunta(idEtapa, idCurso, idLeccion, idPregunta): Observable<Pregunta[]>  {
@@ -103,7 +103,7 @@ deletePregunta(idEtapa, idCurso, idLeccion, idPregunta) {
 getRespuestas(idEtapa, idCurso, idLeccion, idPregunta): Observable<Respuesta[]>  {
   return this.http.get<Respuesta[]>(this.baseUrl + 'etapas/' + idEtapa +
   '/cursos/' + idCurso + '/lecciones/' + idLeccion + '/preguntas/' + idPregunta + '/respuestas',
-  { params: { idNivel: this._idNivel, idLineaCarrera: this._idLineaCarrera, search: this._search } });
+  { params: { idNivel: this._idNivel, idLineaCarrera: this._idLineaCarrera } });
 }
 
 getRespuesta(idEtapa, idCurso, idLeccion, idPregunta, idRespuesta): Observable<Respuesta[]>  {
