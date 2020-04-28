@@ -29,6 +29,8 @@ import { CursoResolver } from 'src/app/resolvers/curso/curso.resolver';
 import { RespuestasResolver } from 'src/app/resolvers/leccion/respuestas.resolver';
 import { PreguntasResolver } from 'src/app/resolvers/leccion/preguntas.resolver';
 import { PreguntaResolver } from 'src/app/resolvers/leccion/pregunta.resolver';
+import { ActualizarPreguntasComponent } from './actualizar-lecciones/actualizar-preguntas/actualizar-preguntas.component';
+import { RespuestaResolver } from 'src/app/resolvers/leccion/respuesta.resolver';
 
 @NgModule({
    declarations: [
@@ -42,7 +44,8 @@ import { PreguntaResolver } from 'src/app/resolvers/leccion/pregunta.resolver';
       ActualizarLeccionMaterialComponent,
       RegistrarLeccionMaterialComponent,
       RegistrarVideoMaterialComponent,
-      RegistrarPresentacionMaterialComponent
+      RegistrarPresentacionMaterialComponent,
+      ActualizarPreguntasComponent
    ],
    imports: [
       SharedModule
@@ -60,7 +63,8 @@ import { PreguntaResolver } from 'src/app/resolvers/leccion/pregunta.resolver';
       CursoResolver,
       PreguntasResolver,
       RespuestasResolver,
-      PreguntaResolver
+      PreguntaResolver,
+      RespuestaResolver
    ]
 })
 export class SherpaModule { }

@@ -1,0 +1,25 @@
+<div class="panel panel-default border p-4">
+  <form [formGroup]="form" (ngSubmit)="actualizarRespuesta()" class="m-3">
+      <h1 class="text-center text-primary">Crear Respuesta</h1>
+      <hr>
+
+      <div class="form-group" [ngClass]="{'has-error': form.get('descripcion').errors && form.get('descripcion').touched}">
+          <label for="descripcion" class="font-weight-bold">Contenido: </label>
+          <textarea class="form-control" placeholder="Ingrese la descripción" formControlName="descripcion"></textarea>
+          <span class="help-block" *ngIf="form.get('descripcion').hasError('required') && form.get('descripcion').touched">
+            Contenido es requerido
+          </span>
+          <span class="help-block" *ngIf="form.get('descripcion').hasError('minlength') && form.get('descripcion').touched">
+            La respuesta debe tener al menos 4 caracteres de longitud
+          </span>
+              <span class="help-block" *ngIf="form.get('descripcion').hasError('maxlength') && form.get('descripcion').touched">
+            La respuesta debe tener como máximo 200 caracteres de longitud
+        </span>
+      </div>
+      <div class="row text-center col-md-12">
+          <button type="submit" class="btn btn-primary col-md-3">Guardar</button>
+          <button type="button" class="btn btn-secondary ml-2 col-md-3" [routerLink]="['/actualizar-pregunta', idEtapa, idCurso, idLeccion, idPregunta]">Cancelar</button>
+      </div>
+
+  </form>
+</div>

@@ -45,6 +45,8 @@ import { PreguntasResolver } from './resolvers/leccion/preguntas.resolver';
 import { ActualizarPreguntasComponent } from './views/sherpa/actualizar-lecciones/actualizar-preguntas/actualizar-preguntas.component';
 import { PreguntaResolver } from './resolvers/leccion/pregunta.resolver';
 import { RespuestasResolver } from './resolvers/leccion/respuestas.resolver';
+import { ActualizarRespuestasComponent } from './views/sherpa/actualizar-lecciones/actualizar-respuestas/actualizar-respuestas.component';
+import { RespuestaResolver } from './resolvers/leccion/respuesta.resolver';
 
 const routes: Routes = [
     { path: '', component: HomeComponent},
@@ -80,6 +82,8 @@ const routes: Routes = [
                 resolve: {leccionesMaterial: LeccionMaterialesResolver, tipoContenidos: TipoContenidoResolver}},
             {path: 'actualizar-pregunta/:idEtapa/:idCurso/:idLeccion/:idPregunta', component: ActualizarPreguntasComponent,
                 resolve: {pregunta: PreguntaResolver, respuestas: RespuestasResolver}},
+            {path: 'actualizar-respuesta/:idEtapa/:idCurso/:idLeccion/:idPregunta/:idRespuesta', component: ActualizarRespuestasComponent,
+                resolve: {respuesta: RespuestaResolver}},
             //Mantenimiento Cursos
             { path: 'cursos', component: CursosComponent,
                 resolve: {niveles: NivelResolver, lineaCarreras: LineaCarreraResolver}},
