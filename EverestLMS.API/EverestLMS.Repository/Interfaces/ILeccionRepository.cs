@@ -23,5 +23,7 @@ namespace EverestLMS.Repository.Interfaces
         Task<RespuestaEntity> GetSpecificRespuestaAsync(int idRespuesta);
         Task<int> CreateRespuestaAsync(RespuestaEntity entity);
         Task<bool> DeleteRespuestaAsync(int idRespuesta);
+        Task<bool> UpdatePreguntaAsync(PreguntaEntity entity);
+        Task<bool> UpdateRespuestaAsync(RespuestaEntity entity);
     }
 }

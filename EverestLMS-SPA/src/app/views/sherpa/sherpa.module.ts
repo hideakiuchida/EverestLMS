@@ -31,6 +31,7 @@ import { PreguntasResolver } from 'src/app/resolvers/leccion/preguntas.resolver'
 import { PreguntaResolver } from 'src/app/resolvers/leccion/pregunta.resolver';
 import { ActualizarPreguntasComponent } from './actualizar-lecciones/actualizar-preguntas/actualizar-preguntas.component';
 import { RespuestaResolver } from 'src/app/resolvers/leccion/respuesta.resolver';
+import { ActualizarRespuestasComponent } from './actualizar-lecciones/actualizar-respuestas/actualizar-respuestas.component';
 
 @NgModule({
    declarations: [
@@ -45,7 +46,8 @@ import { RespuestaResolver } from 'src/app/resolvers/leccion/respuesta.resolver'
       RegistrarLeccionMaterialComponent,
       RegistrarVideoMaterialComponent,
       RegistrarPresentacionMaterialComponent,
-      ActualizarPreguntasComponent
+      ActualizarPreguntasComponent,
+      ActualizarRespuestasComponent
    ],
    imports: [
       SharedModule

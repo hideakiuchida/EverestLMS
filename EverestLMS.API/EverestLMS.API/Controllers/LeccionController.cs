@@ -125,6 +125,16 @@ namespace EverestLMS.API.Controllers
             return Ok(result);
         }
 
+        [HttpPut]
+        [Route("{idLeccion}/preguntas/{idPregunta}")]
+        public async Task<IActionResult> UpdatePreguntaAsync(int idLeccion, int idPregunta, [FromBody]PreguntaVM preguntaToUpdateVM)
+        {
+            preguntaToUpdateVM.Id = idPregunta;
+            preguntaToUpdateVM.IdLeccion = idLeccion;
+            var result = await leccionService.UpdatePreguntaAsync(preguntaToUpdateVM);
+            return Ok(result);
+        }
+
         [HttpDelete]
         [Route("{idLeccion}/preguntas/{idPregunta}")]
         public async Task<IActionResult> DeletePreguntaAsync(int idPregunta)
@@ -157,6 +167,16 @@ namespace EverestLMS.API.Controllers
         {
             respuestaToCreateVM.IdPregunta = idPregunta;
             var result = await leccionService.CreateRespuestaAsync(respuestaToCreateVM);
+            return Ok(result);
+        }
+
+        [HttpPut]
+        [Route("{idLeccion}/preguntas/{idPregunta}/respuestas/{idRespuesta}")]
+        public async Task<IActionResult> UpdateRespuestaAsync(int idPregunta, int idRespuesta, [FromBody]RespuestaVM respuestaToUpdateVM)
+        {
+            respuestaToUpdateVM.Id = idRespuesta;
+            respuestaToUpdateVM.IdPregunta = idPregunta;
+            var result = await leccionService.UpdateRespuestaAsync(respuestaToUpdateVM);
             return Ok(result);
         }
 

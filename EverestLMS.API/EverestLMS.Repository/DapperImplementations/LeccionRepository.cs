@@ -62,6 +62,21 @@ namespace EverestLMS.Repository.DapperImplementations
             commandType: CommandType.StoredProcedure);
             return result.FirstOrDefault();
         }
+        public async Task<bool> UpdatePreguntaAsync(PreguntaEntity entity)
+        {
+            if (_dbConnection.State == ConnectionState.Closed)
+                _dbConnection.Open();
+            var result = await _dbConnection.QueryAsync<bool>("UpdatePregunta",
+            new
+            {
+                entity.IdPregunta,
+                entity.Descripcion,
+                entity.Imagen,
+                entity.IdLeccion
+            },
+            commandType: CommandType.StoredProcedure);
+            return result.FirstOrDefault();
+        }
 
         public async Task<int> CreateRespuestaAsync(RespuestaEntity entity)
         {
@@ -70,6 +85,22 @@ namespace EverestLMS.Repository.DapperImplementations
             var result = await _dbConnection.QueryAsync<int>("CreateRespuesta",
             new
             {
+                entity.Descripcion,
+                entity.EsCorrecto,
+                entity.IdPregunta
+            },
+            commandType: CommandType.StoredProcedure);
+            return result.FirstOrDefault();
+        }
+
+        public async Task<bool> UpdateRespuestaAsync(RespuestaEntity entity)
+        {
+            if (_dbConnection.State == ConnectionState.Closed)
+                _dbConnection.Open();
+            var result = await _dbConnection.QueryAsync<bool>("UpdateRespuesta",
+            new
+            {
+                entity.IdRespuesta,
                 entity.Descripcion,
                 entity.EsCorrecto,
                 entity.IdPregunta

@@ -24,5 +24,7 @@ namespace EverestLMS.Services.Interfaces
         Task<RespuestaVM> GetSpecificRespuestaAsync(int idRespuesta);
         Task<int> CreateRespuestaAsync(RespuestaToCreateVM respuestaToCreateVM);
         Task<bool> DeleteRespuestaAsync(int idRespuesta);
+        Task<bool> UpdatePreguntaAsync(PreguntaVM preguntaToUpdateVM);
+        Task<bool> UpdateRespuestaAsync(RespuestaVM respuestaToUpdateVM);
     }
 }

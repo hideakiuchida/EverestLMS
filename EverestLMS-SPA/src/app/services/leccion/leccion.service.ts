@@ -95,6 +95,11 @@ createPregunta(idEtapa, idCurso, idLeccion, pregunta: PreguntaToRegister) {
    '/cursos/' + idCurso + '/lecciones/' + idLeccion  + '/preguntas', pregunta);
 }
 
+editPregunta(idEtapa, idCurso, idLeccion, idPregunta, pregunta: PreguntaToRegister) {
+  return this.http.put(this.baseUrl + 'etapas/' + idEtapa +
+  '/cursos/' + idCurso + '/lecciones/' + idLeccion  + '/preguntas/' + idPregunta, pregunta);
+}
+
 deletePregunta(idEtapa, idCurso, idLeccion, idPregunta) {
   return this.http.delete(this.baseUrl + 'etapas/' + idEtapa +
   '/cursos/' + idCurso + '/lecciones/' + idLeccion + '/preguntas/' + idPregunta);
@@ -109,6 +114,11 @@ getRespuestas(idEtapa, idCurso, idLeccion, idPregunta): Observable<Respuesta[]> 
 getRespuesta(idEtapa, idCurso, idLeccion, idPregunta, idRespuesta): Observable<Respuesta[]>  {
   return this.http.get<Respuesta[]>(this.baseUrl + 'etapas/' + idEtapa +
    '/cursos/' + idCurso + '/lecciones/' + idLeccion + '/preguntas/'  + idPregunta + '/respuestas/' + idRespuesta);
+}
+
+editRespuesta(idEtapa, idCurso, idLeccion, idPregunta, idRespuesta, respuesta: Respuesta) {
+  return this.http.put(this.baseUrl + 'etapas/' + idEtapa +
+  '/cursos/' + idCurso + '/lecciones/' + idLeccion  + '/preguntas/' + idPregunta + '/respuestas/' + idRespuesta, respuesta);
 }
 
 createRespuesta(idEtapa, idCurso, idLeccion, idPregunta, respuesta: RespuestaToRegister) {

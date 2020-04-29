@@ -4,7 +4,7 @@
       <hr>
 
       <div class="form-group" [ngClass]="{'has-error': form.get('descripcion').errors && form.get('descripcion').touched}">
-          <label for="descripcion" class="font-weight-bold">Contenido: </label>
+          <label for="descripcion" class="font-weight-bold">Descripción: </label>
           <textarea class="form-control" placeholder="Ingrese la descripción" formControlName="descripcion"></textarea>
           <span class="help-block" *ngIf="form.get('descripcion').hasError('required') && form.get('descripcion').touched">
             Contenido es requerido
@@ -17,7 +17,14 @@
         </span>
       </div>
 
-      <section class="border rounded m-4" *ngIf="false">
+      <div class="row text-center col-md-12">
+          <button type="submit" class="btn btn-primary col-md-3">Guardar</button>
+          <button type="button" class="btn btn-secondary ml-2 col-md-3" [routerLink]="['/actualizar-leccion-material', idEtapa, idCurso, idLeccion]">Cancelar</button>
+      </div>
+
+  </form>
+
+  <section class="border rounded m-4" *ngIf="isEditForm">
         <h2 class="bold text-center p-2">Respuestas</h2>
         <hr>
         <div class="row m-4">
@@ -45,10 +52,4 @@
         </div>
     </section>
 
-      <div class="row text-center col-md-12">
-          <button type="submit" class="btn btn-primary col-md-3">Guardar</button>
-          <button type="button" class="btn btn-secondary ml-2 col-md-3" [routerLink]="['/actualizar-leccion-material', idEtapa, idCurso, idLeccion]">Cancelar</button>
-      </div>
-
-  </form>
 </div>

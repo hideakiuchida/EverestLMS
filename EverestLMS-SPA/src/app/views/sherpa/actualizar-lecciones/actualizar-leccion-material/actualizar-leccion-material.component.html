@@ -47,12 +47,14 @@
                             <th>Id</th>
                             <th>Descripción</th>
                             <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let pregunta of preguntas">
                             <td>{{ pregunta.id }}</td>
                             <td>{{ pregunta.descripcion}}</td>
+                            <td> <button (click)="editarPregunta(pregunta.id)">*</button> </td>
                             <td> <button (click)="eliminarPregunta(pregunta.id)">-</button> </td>
                         </tr>
                     </tbody>

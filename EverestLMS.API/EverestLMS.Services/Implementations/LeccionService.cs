@@ -118,6 +118,11 @@ namespace EverestLMS.Services.Implementations
             var id = await leccionRepository.CreatePreguntaAsync(entity);
             return id;
         }
+        public async Task<bool> UpdatePreguntaAsync(PreguntaVM preguntaToUpdateVM)
+        {
+            var entity = mapper.Map<PreguntaEntity>(preguntaToUpdateVM);
+            return await leccionRepository.UpdatePreguntaAsync(entity);
+        }
 
         public async Task<bool> DeletePreguntaAsync(int idPregunta)
         {
@@ -150,7 +155,12 @@ namespace EverestLMS.Services.Implementations
             return await leccionRepository.DeleteRespuestaAsync(idRespuesta);
         }
 
-        #region Private Methods
+        public async Task<bool> UpdateRespuestaAsync(RespuestaVM respuestaToUpdateVM)
+        {
+            var entity = mapper.Map<RespuestaEntity>(respuestaToUpdateVM);
+            return await leccionRepository.UpdateRespuestaAsync(entity);
+        }
+
         private LeccionMaterialDetalleEntity UploadingToCloudinary(LeccionMaterialVideoToCreateVM cloudinaryFileToCreate)
         {
             var file = cloudinaryFileToCreate.File;
@@ -189,6 +199,5 @@ namespace EverestLMS.Services.Implementations
             }
             return true;
         }
-        #endregion
     }
 }

@@ -45,7 +45,12 @@ namespace EverestLMS.API.Helpers
                 {
                     opt.MapFrom(d => d.IdRespuesta);
                 });
-           CreateMap<RespuestaToCreateVM, RespuestaEntity>();
+            CreateMap<RespuestaVM, RespuestaEntity>()
+                .ForMember(dest => dest.IdRespuesta, opt =>
+                {
+                    opt.MapFrom(d => d.Id);
+                });
+            CreateMap<RespuestaToCreateVM, RespuestaEntity>();
         }
 
         private void CreateMapPregunta()
@@ -54,6 +59,11 @@ namespace EverestLMS.API.Helpers
                 .ForMember(dest => dest.Id, opt =>
                 {
                     opt.MapFrom(d => d.IdPregunta);
+                });
+            CreateMap<PreguntaVM, PreguntaEntity>()
+                .ForMember(dest => dest.IdPregunta, opt =>
+                {
+                    opt.MapFrom(d => d.Id);
                 });
             CreateMap<PreguntaToCreateVM, PreguntaEntity>();
         }
