@@ -1,6 +1,7 @@
 <div class="panel panel-default border p-4">
   <form [formGroup]="form" (ngSubmit)="actualizarPregunta()" class="m-3">
-      <h1 class="text-center text-primary">Crear Pregunta</h1>
+      <h1 *ngIf="!isEditForm" class="text-center text-primary">Crear Pregunta</h1>
+      <h1 *ngIf="isEditForm" class="text-center text-primary">Editar Pregunta</h1>
       <hr>
 
       <div class="form-group" [ngClass]="{'has-error': form.get('descripcion').errors && form.get('descripcion').touched}">
