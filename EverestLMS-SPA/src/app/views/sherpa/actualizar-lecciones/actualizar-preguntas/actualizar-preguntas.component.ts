@@ -43,7 +43,6 @@ export class ActualizarPreguntasComponent implements OnInit {
     this.idLeccion = this.route.snapshot.params.idLeccion;
     this.idPregunta = this.route.snapshot.params.idPregunta;
     this.isEditForm = this.idPregunta != undefined && this.idPregunta != '';
-    debugger;
   }
 
   initDatatable() {
@@ -59,12 +58,11 @@ export class ActualizarPreguntasComponent implements OnInit {
 
   createForm() {
     this.form = this.formBuilder.group({
-      descripcion: [this.pregunta.descripcion, [Validators.required, Validators.minLength(4), Validators.maxLength(200)]]
+      descripcion: [this.pregunta.descripcion, [Validators.required, Validators.minLength(4), Validators.maxLength(2000)]]
     });
   }
 
   actualizarPregunta() {
-    debugger;
     if (this.form.valid) {
       this.preguntaToRegister = Object.assign({}, this.form.value);
       if (!this.isEditForm) {
@@ -91,7 +89,7 @@ export class ActualizarPreguntasComponent implements OnInit {
   }
 
   registrarRespuestas() {
-    this.router.navigate(['actualizar-respuestas', this.idEtapa, this.idCurso, this.idLeccion, this.idPregunta]);
+    this.router.navigate(['actualizar-respuesta', this.idEtapa, this.idCurso, this.idLeccion, this.idPregunta, '']);
   }
 
   eliminarRespuesta(id) {
