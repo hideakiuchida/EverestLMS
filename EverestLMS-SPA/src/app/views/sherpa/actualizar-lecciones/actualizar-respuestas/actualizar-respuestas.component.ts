@@ -44,7 +44,8 @@ export class ActualizarRespuestasComponent implements OnInit {
 
   createForm() {
     this.form = this.formBuilder.group({
-      descripcion: [this.respuesta.descripcion, [Validators.required, Validators.minLength(4), Validators.maxLength(2000)]]
+      descripcion: [this.respuesta.descripcion, [Validators.required, Validators.minLength(4), Validators.maxLength(2000)]],
+      esCorrecto: [this.respuesta.esCorrecto]
     });
   }
 
@@ -59,7 +60,11 @@ export class ActualizarRespuestasComponent implements OnInit {
           this.alertify.success('Se registró existosamente.');
           this.router.navigate(['actualizar-pregunta', this.idEtapa, this.idCurso, this.idLeccion, this.idPregunta]);
         }, error => {
-          this.alertify.error(error.message);
+          debugger;
+          if (error.status == 400)
+              this.alertify.warning(error.error);
+          else
+              this.alertify.error(error.message);
         });
       } else {
         this.leccionService.editRespuesta(this.idEtapa, this.idCurso, this.idLeccion, this.idPregunta, this.idRespuesta, this.respuestaToRegister)
@@ -67,7 +72,10 @@ export class ActualizarRespuestasComponent implements OnInit {
           this.alertify.success('Se actualizó existosamente.');
           this.router.navigate(['actualizar-pregunta', this.idEtapa, this.idCurso, this.idLeccion, this.idPregunta]);
         }, error => {
-          this.alertify.error(error.message);
+          if (error.status == 400)
+              this.alertify.warning(error.error);
+          else
+              this.alertify.error(error.message);
         });
       }
       

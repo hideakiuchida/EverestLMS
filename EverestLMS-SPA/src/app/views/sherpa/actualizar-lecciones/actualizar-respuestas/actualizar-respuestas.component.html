@@ -17,9 +17,12 @@
             La respuesta debe tener como máximo 200 caracteres de longitud
         </span>
       </div>
+      <div class="form-group checkbox">
+        <label><input type="checkbox" formControlName="esCorrecto">Es Correcto</label>
+      </div>
       <div class="row text-center col-md-12">
-          <button type="submit" class="btn btn-primary col-md-3">Guardar</button>
-          <button type="button" class="btn btn-secondary ml-2 col-md-3" [routerLink]="['/actualizar-pregunta', idEtapa, idCurso, idLeccion, idPregunta]">Cancelar</button>
+          <button type="submit" class="btn btn-primary ml-2 col-md-5">Guardar</button>
+          <button type="button" class="btn btn-secondary ml-2 col-md-5" [routerLink]="['/actualizar-pregunta', idEtapa, idCurso, idLeccion, idPregunta]">Cancelar</button>
       </div>
 
   </form>

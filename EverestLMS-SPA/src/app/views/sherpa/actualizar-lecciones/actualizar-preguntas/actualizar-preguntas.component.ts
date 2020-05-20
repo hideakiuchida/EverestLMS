@@ -92,6 +92,11 @@ export class ActualizarPreguntasComponent implements OnInit {
     this.router.navigate(['actualizar-respuesta', this.idEtapa, this.idCurso, this.idLeccion, this.idPregunta, '']);
   }
 
+  editarRespuesta(id) {
+    this.router.navigate(['actualizar-respuesta', this.idEtapa, this.idCurso, this.idLeccion, this.idPregunta, id]);
+  }
+
+
   eliminarRespuesta(id) {
     this.leccionService.deleteRespuesta(this.idEtapa, this.idCurso, this.idLeccion, this.idPregunta, id)
     .subscribe((deleted: boolean) => {

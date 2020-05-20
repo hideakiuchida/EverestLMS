@@ -166,6 +166,15 @@ namespace EverestLMS.API.Controllers
         public async Task<IActionResult> CreateRespuestaAsync(int idPregunta, [FromBody]RespuestaToCreateVM respuestaToCreateVM)
         {
             respuestaToCreateVM.IdPregunta = idPregunta;
+            if (respuestaToCreateVM.EsCorrecto)
+            {
+                var respuestas = await leccionService.GetRespuestasAsync(respuestaToCreateVM.IdPregunta);
+                foreach (var item in respuestas)
+                {
+                    if (item.EsCorrecto) 
+                        return BadRequest($"Solo puede existir una respuesta correcta para la pregunta {respuestaToCreateVM.IdPregunta}");
+                }
+            }
             var result = await leccionService.CreateRespuestaAsync(respuestaToCreateVM);
             return Ok(result);
         }
@@ -176,6 +185,15 @@ namespace EverestLMS.API.Controllers
         {
             respuestaToUpdateVM.Id = idRespuesta;
             respuestaToUpdateVM.IdPregunta = idPregunta;
+            if (respuestaToUpdateVM.EsCorrecto)
+            {
+                var respuestas = await leccionService.GetRespuestasAsync(respuestaToUpdateVM.IdPregunta);
+                foreach (var item in respuestas)
+                {
+                    if (item.EsCorrecto && item.Id != respuestaToUpdateVM.Id)
+                        return BadRequest($"Solo puede existir una respuesta correcta para la pregunta {respuestaToUpdateVM.IdPregunta}");
+                }
+            }
             var result = await leccionService.UpdateRespuestaAsync(respuestaToUpdateVM);
             return Ok(result);
         }
