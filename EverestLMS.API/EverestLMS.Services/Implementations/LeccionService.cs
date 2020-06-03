@@ -200,5 +200,11 @@ namespace EverestLMS.Services.Implementations
             }
             return true;
         }
+
+        public async Task<bool> UpdateLeccionMaterialAsync(LeccionMaterialToUpdateVM leccionMaterialVM)
+        {
+            var leccionMaterialEntity = mapper.Map<LeccionMaterialDetalleEntity>(leccionMaterialVM);
+            return await leccionRepository.UpdateLeccionMaterialAsync(leccionMaterialEntity);
+        }
     }
 }

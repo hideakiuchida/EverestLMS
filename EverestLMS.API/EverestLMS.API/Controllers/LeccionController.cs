@@ -90,6 +90,16 @@ namespace EverestLMS.API.Controllers
             return Ok(result);
         }
 
+        [HttpPut]
+        [Route("{idLeccion}/lecciones-material/{idLeccionMaterial}")]
+        public async Task<IActionResult> UpdateLeccionMaterialAsync(int idEtapa, int idCurso, int idLeccion, int idLeccionMaterial, [FromBody]LeccionMaterialToUpdateVM leccionMaterialToUpdateVM)
+        {
+            leccionMaterialToUpdateVM.IdLeccion = idLeccion;
+            leccionMaterialToUpdateVM.Id = idLeccionMaterial;
+            var result = await leccionService.UpdateLeccionMaterialAsync(leccionMaterialToUpdateVM);
+            return Ok(result);
+        }
+
         [HttpDelete]
         [Route("{idLeccion}/lecciones-material/{idLeccionMaterial}")]
         public async Task<IActionResult> DeleteLeccionMaterialAsync(int idEtapa, int idCurso, int idLeccion, int idLeccionMaterial)

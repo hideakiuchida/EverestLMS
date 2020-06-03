@@ -6,5 +6,6 @@
         public string Titulo { get; set; }
         public string TipoContenidoDescripcion { get; set; }
         public int IdLeccion { get; set; }
+        public int IdTipoContenido { get; set; }
     }
 }

@@ -14,6 +14,7 @@ namespace EverestLMS.Services.Interfaces
         Task<IEnumerable<LeccionMaterialVM>> GetLeccionMaterialesAsync(int idLeccion);
         Task<LeccionMaterialDetalleVM> GetSpecificLeccionMaterialAsync(int idLeccion, int idLeccionMaterial);
         Task<int> CreateLeccionMaterialAsync(LeccionMaterialToCreateVM leccionMaterialVM);
+        Task<bool> UpdateLeccionMaterialAsync(LeccionMaterialToUpdateVM leccionMaterialVM);
         Task<int> CreateLeccionVideoMaterialAsync(LeccionMaterialVideoToCreateVM leccionMaterialVM);
         Task<bool> DeleteLeccionMaterialAsync(int idLeccion, int idLeccionMaterial);
         Task<IEnumerable<PreguntaVM>> GetPreguntasAsync(int idLeccion);

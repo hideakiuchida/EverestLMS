@@ -47,6 +47,7 @@ import { PreguntaResolver } from './resolvers/leccion/pregunta.resolver';
 import { RespuestasResolver } from './resolvers/leccion/respuestas.resolver';
 import { ActualizarRespuestasComponent } from './views/sherpa/actualizar-lecciones/actualizar-respuestas/actualizar-respuestas.component';
 import { RespuestaResolver } from './resolvers/leccion/respuesta.resolver';
+import { LeccionMaterialResolver } from './resolvers/leccion/leccion-material.resolver';
 
 const routes: Routes = [
     { path: '', component: HomeComponent},
@@ -74,12 +75,12 @@ const routes: Routes = [
                 resolve: {niveles: NivelResolver, lineaCarreras: LineaCarreraResolver, curso: CursoResolver, leccion: LeccionResolver}},
             { path: 'actualizar-leccion-material/:idEtapa/:idCurso/:idLeccion', component: ActualizarLeccionMaterialComponent,
                 resolve: {leccionesMaterial: LeccionMaterialesResolver, tipoContenidos: TipoContenidoResolver, preguntas: PreguntasResolver}},
-            { path: 'registrar-leccion-material/:idEtapa/:idCurso/:idLeccion', component: RegistrarLeccionMaterialComponent,
-                resolve: {leccionesMaterial: LeccionMaterialesResolver, tipoContenidos: TipoContenidoResolver}},
-            { path: 'registrar-video-material/:idEtapa/:idCurso/:idLeccion', component: RegistrarVideoMaterialComponent,
-                 resolve: {leccionesMaterial: LeccionMaterialesResolver, tipoContenidos: TipoContenidoResolver}},
-            { path: 'actualizar-presentacion-material/:idEtapa/:idCurso/:idLeccion', component: RegistrarPresentacionMaterialComponent,
-                resolve: {leccionesMaterial: LeccionMaterialesResolver, tipoContenidos: TipoContenidoResolver}},
+            { path: 'registrar-leccion-material/:idEtapa/:idCurso/:idLeccion/:idLeccionMaterial', component: RegistrarLeccionMaterialComponent,
+                resolve: {leccionMaterial: LeccionMaterialResolver, tipoContenidos: TipoContenidoResolver}},
+            { path: 'registrar-video-material/:idEtapa/:idCurso/:idLeccion/:idLeccionMaterial', component: RegistrarVideoMaterialComponent,
+                 resolve: {leccionMaterial: LeccionMaterialResolver, tipoContenidos: TipoContenidoResolver}},
+            { path: 'actualizar-presentacion-material/:idEtapa/:idCurso/:idLeccion/:idLeccionMaterial', component: RegistrarPresentacionMaterialComponent,
+                resolve: {leccionMaterial: LeccionMaterialResolver, tipoContenidos: TipoContenidoResolver}},
             {path: 'actualizar-pregunta/:idEtapa/:idCurso/:idLeccion/:idPregunta', component: ActualizarPreguntasComponent,
                 resolve: {pregunta: PreguntaResolver, respuestas: RespuestasResolver}},
             {path: 'actualizar-respuesta/:idEtapa/:idCurso/:idLeccion/:idPregunta/:idRespuesta', component: ActualizarRespuestasComponent,

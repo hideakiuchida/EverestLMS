@@ -1,6 +1,7 @@
 <div class="panel panel-default border p-4">
-    <form [formGroup]="leccionMaterialForm" (ngSubmit)="registrarLeccionMaterial()" class="m-3">
-        <h1 class="text-center text-primary">Crear Contenido Texto</h1>
+    <form [formGroup]="leccionMaterialForm" (ngSubmit)="actualizarLeccionMaterial()" class="m-3">
+        <h1 *ngIf="!isEditForm" class="text-center text-primary">Crear Contenido Texto</h1>
+        <h1 *ngIf="isEditForm" class="text-center text-primary">Editar Contenido Texto</h1>
         <hr>
 
         <div class="form-group" [ngClass]="{'has-error': leccionMaterialForm.get('titulo').errors && leccionMaterialForm.get('titulo').touched}">

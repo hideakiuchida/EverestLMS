@@ -253,5 +253,22 @@ namespace EverestLMS.Repository.DapperImplementations
             var result = await _dbConnection.QueryAsync<RespuestaEntity>("GetRespuesta", new { IdRespuesta = idRespuesta }, commandType: CommandType.StoredProcedure);
             return result.FirstOrDefault();
         }
+
+        public async Task<bool> UpdateLeccionMaterialAsync(LeccionMaterialDetalleEntity leccionMaterialEntity)
+        {
+            if (_dbConnection.State == ConnectionState.Closed)
+                _dbConnection.Open();
+            var result = await _dbConnection.QueryAsync<bool>("UpdateLeccionMaterial",
+            new
+            {
+                leccionMaterialEntity.IdLeccionMaterial,
+                leccionMaterialEntity.Titulo,
+                leccionMaterialEntity.ContenidoTexto,
+                leccionMaterialEntity.IdPublico,
+                leccionMaterialEntity.Url
+            },
+            commandType: CommandType.StoredProcedure);
+            return result.FirstOrDefault();
+        }
     }
 }

@@ -153,6 +153,7 @@
     <Build Include="dbo\Stored Procedures\Lecciones\GetRespuesta.sql" />
     <Build Include="dbo\Stored Procedures\Lecciones\UpdatePregunta.sql" />
     <Build Include="dbo\Stored Procedures\Lecciones\UpdateRespuesta.sql" />
+    <Build Include="dbo\Stored Procedures\Lecciones\UpdateLeccionMaterial.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Evento.sql" />

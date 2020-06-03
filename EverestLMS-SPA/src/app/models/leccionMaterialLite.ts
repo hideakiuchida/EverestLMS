@@ -3,4 +3,5 @@ export interface LeccionMaterialLite {
     titulo: string;
     tipoContenidoDescripcion: string;
     idLeccion: number;
+    idTipoContenido: number;
 }
