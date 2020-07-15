@@ -3,6 +3,7 @@ import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Curso } from 'src/app/models/curso';
 import { Observable } from 'rxjs';
+import { Leccion } from 'src/app/models/leccion';
 
 @Injectable({
   providedIn: 'root'
@@ -29,5 +30,8 @@ getCursosPrediccionPorParticipante(idParticipante, idEtapa, idIdioma): Observabl
   { params: { idEtapa: this._idEtapa,  idIdioma: this._idIdioma } });
 }
 
+getLeccionesPorCursoParticipante(idParticipante, idCurso): Observable<Leccion[]> {
+  return this.http.get<Leccion[]>(this.baseUrl + 'participantes/' + idParticipante + '/cursos/' + idCurso + '/lecciones')  ;
+}
 
 }

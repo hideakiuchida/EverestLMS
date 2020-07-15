@@ -9,6 +9,7 @@ import { Curso } from 'src/app/models/curso';
 export class CursoCardComponent implements OnInit {
 
   @Input() curso: Curso;
+  @Input() idParticipante: any;
 
   constructor() { }
 

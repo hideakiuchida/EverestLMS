@@ -97,7 +97,7 @@ namespace EverestLMS.Common.Fakes
             return SherpasVM;
         }
 
-        private List<int> GenerateRandomConocimientosIds()
+        public List<int> GenerateRandomConocimientosIds()
         {
             List<int> conocimientosIds = new List<int>();
             for (int i = 0; i < new Random().Next(1, 20); i++)

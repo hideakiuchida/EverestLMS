@@ -48,6 +48,8 @@ import { RespuestasResolver } from './resolvers/leccion/respuestas.resolver';
 import { ActualizarRespuestasComponent } from './views/sherpa/actualizar-lecciones/actualizar-respuestas/actualizar-respuestas.component';
 import { RespuestaResolver } from './resolvers/leccion/respuesta.resolver';
 import { LeccionMaterialResolver } from './resolvers/leccion/leccion-material.resolver';
+import { CursoParticipanteComponent } from './views/escalador/realizar-cursos/curso-participante/curso-participante.component';
+import { LeccionesParticipanteResolver } from './resolvers/curso-participante/lecciones-participante.resolver';
 
 const routes: Routes = [
     { path: '', component: HomeComponent},
@@ -97,7 +99,9 @@ const routes: Routes = [
             //Realizar Curso
             { path: 'realizar-cursos/:idParticipante', component: RealizarCursosComponent,
                 resolve: {cursos: CursosParticipanteResolver, cursosPrediccion: CursosPrediccionParticipanteResolver,
-                         etapas: EtapasParticipanteResolver, idiomas: IdiomaResolver}}
+                         etapas: EtapasParticipanteResolver, idiomas: IdiomaResolver}},
+            { path: 'curso-participante/:idParticipante/:idCurso', component: CursoParticipanteComponent,
+                resolve: {lecciones: LeccionesParticipanteResolver}}
         ]
     },
     { path: '**', redirectTo: '', pathMatch: 'full'}

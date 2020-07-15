@@ -16,4 +16,5 @@ export interface Leccion {
     lineaCarreraDescripcion: string;
     dificultadDescripcion: string;
     autor: string;
+    imagen: string;
 }

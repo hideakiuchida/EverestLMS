@@ -12,7 +12,7 @@
             </ul>
             <ul *ngIf="authService.decodedToken?.role == 2" class="navbar-nav mr-auto">
                 <li class="nav-item" routerLinkActive="active">
-                    <a class="nav-link" [routerLink]="['/realizar-cursos', idParticipante]">Realizar Cursos</a>
+                    <a class="nav-link" [routerLink]="['/realizar-cursos', this.authService.getUserId()]">Realizar Cursos</a>
                 </li>
             </ul>
             <ul *ngIf="authService.decodedToken?.role == 3" class="navbar-nav mr-auto">

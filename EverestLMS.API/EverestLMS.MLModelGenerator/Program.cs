@@ -1,12 +1,15 @@
 ﻿using AutoMapper;
 using EverestLMS.API.Helpers;
 using EverestLMS.Common.Connections;
+using EverestLMS.Common.Enums;
 using EverestLMS.Common.Fakes;
 using EverestLMS.Entities.Models;
 using EverestLMS.Repository.DapperImplementations;
 using EverestLMS.Repository.Interfaces;
 using EverestLMS.Services.Implementations;
 using EverestLMS.Services.Interfaces;
+using EverestLMS.ViewModels.Authentication;
+using EverestLMS.ViewModels.Participante;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -115,6 +118,25 @@ namespace EverestLMS.PopulateData
                 var result = await _authService.Register(item);
                 Console.WriteLine("Successfully created: " + result);
             }
+            ParticipanteToCreateVM participante = new ParticipanteToCreateVM();
+            participante.Apellido = "Uchida";
+            participante.AñosExperiencia = 10;
+            participante.Correo = "alonso.uchida@gmail.com";
+            participante.FechaNacimiento = new DateTime(1990, 8, 5);
+            participante.Genero = (int)GeneroEnum.Masculino;
+            participante.IdLineaCarrera = (int)LineaCarreraEnum.SoftwareEngineer;
+            participante.IdNivel = (int)NivelEnum.Senior;
+            participante.IdSede = (int)SedeEnum.Lima;
+            participante.ConocimientoIds = _faker.GenerateRandomConocimientosIds();
+            participante.Nombre = "Alonso";
+
+            UsuarioToRegisterVM usuarioToRegisterVM = new UsuarioToRegisterVM();
+            usuarioToRegisterVM.IdRol = (int)RolEnum.Administrador;
+            usuarioToRegisterVM.Username = "hideakiadmin";
+            usuarioToRegisterVM.Password = "12345";
+            usuarioToRegisterVM.Participante = participante;
+            var registered = await _authService.Register(usuarioToRegisterVM);
+            Console.WriteLine("Successfully created: " + registered);
             Console.WriteLine("Finalizar Admins");
         }
 
@@ -126,6 +148,25 @@ namespace EverestLMS.PopulateData
                 var result = await _authService.Register(item);
                 Console.WriteLine("Successfully created: " + result);
             }
+            ParticipanteToCreateVM participante = new ParticipanteToCreateVM();
+            participante.Apellido = "Uchida";
+            participante.AñosExperiencia = 10;
+            participante.Correo = "alonso.uchida@gmail.com";
+            participante.FechaNacimiento = new DateTime(1990, 8, 5);
+            participante.Genero = (int)GeneroEnum.Masculino;
+            participante.IdLineaCarrera = (int)LineaCarreraEnum.SoftwareEngineer;
+            participante.IdNivel = (int)NivelEnum.Senior;
+            participante.IdSede = (int)SedeEnum.Lima;
+            participante.ConocimientoIds = _faker.GenerateRandomConocimientosIds();
+            participante.Nombre = "Alonso";
+
+            UsuarioToRegisterVM usuarioToRegisterVM = new UsuarioToRegisterVM();
+            usuarioToRegisterVM.IdRol = (int)RolEnum.Sherpa;
+            usuarioToRegisterVM.Username = "hideakisherpa";
+            usuarioToRegisterVM.Password = "12345";
+            usuarioToRegisterVM.Participante = participante;
+            var registered = await _authService.Register(usuarioToRegisterVM);
+            Console.WriteLine("Successfully created: " + registered);
             Console.WriteLine("Finalizar Sherpas");
         }
 
@@ -137,6 +178,25 @@ namespace EverestLMS.PopulateData
                 var result = await _authService.Register(item);
                 Console.WriteLine("Successfully created: " + result);
             }
+            ParticipanteToCreateVM participante = new ParticipanteToCreateVM();
+            participante.Apellido = "Uchida";
+            participante.AñosExperiencia = 10;
+            participante.Correo = "alonso.uchida@gmail.com";
+            participante.FechaNacimiento = new DateTime(1990, 8, 5);
+            participante.Genero = (int)GeneroEnum.Masculino;
+            participante.IdLineaCarrera = (int)LineaCarreraEnum.SoftwareEngineer;
+            participante.IdNivel = (int)NivelEnum.NivelTres;
+            participante.IdSede = (int)SedeEnum.Lima;
+            participante.ConocimientoIds = _faker.GenerateRandomConocimientosIds();
+            participante.Nombre = "Alonso";
+            
+            UsuarioToRegisterVM usuarioToRegisterVM = new UsuarioToRegisterVM();
+            usuarioToRegisterVM.IdRol = (int)RolEnum.Escalador;
+            usuarioToRegisterVM.Username = "hideaki";
+            usuarioToRegisterVM.Password = "12345";
+            usuarioToRegisterVM.Participante = participante;
+            var registered = await _authService.Register(usuarioToRegisterVM);
+            Console.WriteLine("Successfully created: " + registered);
             Console.WriteLine("Finalizar Escaladores");
         }
         static async Task GenerarCursoImagenes()

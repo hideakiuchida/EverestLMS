@@ -15,12 +15,14 @@ namespace EverestLMS.API.Controllers
         private readonly IParticipanteService service;
         private readonly IEtapaService etapaService;
         private readonly ICursoService cursoService;
+        private readonly ILeccionService leccionService;
 
-        public ParticipanteController(IParticipanteService service, IEtapaService etapaService, ICursoService cursoService)
+        public ParticipanteController(IParticipanteService service, IEtapaService etapaService, ICursoService cursoService, ILeccionService leccionService)
         {
             this.service = service;
             this.etapaService = etapaService;
             this.cursoService = cursoService;
+            this.leccionService = leccionService;
         }
 
         [HttpGet]
@@ -122,6 +124,14 @@ namespace EverestLMS.API.Controllers
         public async Task<IActionResult> GetCursosByParticipanteAsync(string id, int? idEtapa, int? idIdioma)
         {
             var result = await cursoService.GetCursosByParticipanteAsync(id, idEtapa, idIdioma);
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("{id}/cursos/{idCurso}/lecciones")]
+        public async Task<IActionResult> GetLeccionesByParticipanteAsync(string id, int idCurso)
+        {
+            var result = await leccionService.GetLeccionesDetalleAsync(default, default, default, idCurso, default);
             return Ok(result);
         }
 

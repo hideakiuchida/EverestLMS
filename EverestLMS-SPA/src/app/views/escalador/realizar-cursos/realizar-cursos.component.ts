@@ -19,6 +19,7 @@ export class RealizarCursosComponent implements OnInit {
   selectedEtapaId: any;
   selectedIdiomaId: any;
   idParticipante: any;
+  isEmptyCourses: boolean;
 
   constructor(private cursoParticipanteService: CursoParticipanteService,
     private route: ActivatedRoute, private alertify: AlertifyService) { }
@@ -29,6 +30,7 @@ export class RealizarCursosComponent implements OnInit {
       this.idiomas = data['idiomas'];
       this.cursos = data['cursos'];
       this.cursosPrediccion = data['cursosPrediccion'];
+      this.isEmptyCourses = this.cursos.length == 0;
     });
     this.idParticipante = this.route.snapshot.paramMap.get('idParticipante');
     console.log(this.idParticipante);

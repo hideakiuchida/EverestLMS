@@ -16,6 +16,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using Swashbuckle.AspNetCore.SwaggerUI;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -130,7 +131,14 @@ namespace EverestLMS.API
             app.UseStaticFiles();
 
             app.UseSwagger();
-            app.UseSwaggerUI(x => { x.SwaggerEndpoint("/swagger/v1/swagger.json", "Everest LMS!"); });
+            app.UseSwaggerUI(c => 
+            { 
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Everest LMS!");
+                c.InjectStylesheet("/swagger-ui/custom.css");
+                c.InjectJavascript("/swagger-ui/custom.js?version=1.0", "text/javascript");
+                c.DocumentTitle = "Everest LMS";
+                c.DocExpansion(DocExpansion.None);
+            });
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

@@ -4,7 +4,8 @@
             <div class="col-md-12">
                 <div class="row form-group">
                     <label for="selectEtapas" class="col-md-6 control-label font-weight-bold mt-1"> Etapas:</label>
-                    <select class="form-control col-md-6" #selectedValue name="selectEtapas" id="selectEtapas" [(ngModel)]="selectedEtapaId" (ngModelChange)="etapaSelected($event)">
+                    <select class="form-control col-md-6" #selectedValue name="selectEtapas" id="selectEtapas" [disabled]="this.isEmptyCourses"
+                       [(ngModel)]="selectedEtapaId" (ngModelChange)="etapaSelected($event)">
                         <option *ngFor="let etapa of etapas" [value]="etapa.id">
                             {{etapa.descripcion}}
                         </option>
@@ -12,7 +13,8 @@
                 </div>
                 <div class="row form-group">
                     <label for="selectIdiomas" class="col-md-6 control-label font-weight-bold mt-1"> Idioma:</label>
-                    <select class="form-control col-md-6" #selectedValue name="selectIdiomas" id="selectIdiomas" [(ngModel)]="selectedIdiomaId" (ngModelChange)="idiomaSelected($event)">
+                    <select class="form-control col-md-6" #selectedValue name="selectIdiomas" id="selectIdiomas" [disabled]="this.isEmptyCourses"
+                        [(ngModel)]="selectedIdiomaId" (ngModelChange)="idiomaSelected($event)">
                         <option *ngFor="let idioma of idiomas" [value]="idioma.id">
                             {{idioma.descripcion}}
                         </option>
@@ -20,20 +22,26 @@
                 </div>
             </div>
         </div>
-        <div class="row mt-4">
-            <div *ngFor="let curso of cursos" class="col-lg-2 col-md-3 col-sm-6">
-                <app-curso-card [curso]="curso"></app-curso-card>
-            </div>
-        </div>
+        
     </div>
     <hr>
-    <div class="row equal border border rounded p-3" *ngIf="cursosPrediccion.length > 0">
+    <div class="row equal border border rounded p-3" *ngIf="cursos.length > 0">
+        <div *ngFor="let curso of cursos" class="col-lg-3 col-md-3 col-sm-6">
+            <app-curso-card [curso]="curso" [idParticipante]="idParticipante"></app-curso-card>
+        </div>
+    </div>
+    <div class="row equal border border rounded p-3" *ngIf="cursos.length == 0">
+        <div class="row ml-1 mt-4 alert alert-info w-100 h-100">
+            No posee cursos a realizar para su Perfil de Carrera.
+        </div>
+    </div>
+    <div class="row equal border border rounded p-3 mt-4" *ngIf="cursos.length > 0 && cursosPrediccion.length > 0">
         <div class="row m-2">
-            <h4>Por Sugerencia: </h4>
+            <h4>Recomendación: </h4>
         </div>
         <div class="row">
-            <div *ngFor="let cursoPrediccion of cursosPrediccion" class="col-lg-2 col-md-3 col-sm-6">
-                <app-curso-card [curso]="cursoPrediccion"></app-curso-card>
+            <div *ngFor="let cursoPrediccion of cursosPrediccion" class="col-lg-3 col-md-3 col-sm-6">
+                <app-curso-card [curso]="cursoPrediccion" [idParticipante]="idParticipante"></app-curso-card>
             </div>
         </div>
     </div>
