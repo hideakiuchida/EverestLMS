@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CursoParticipanteService } from 'src/app/services/curso-participante/curso-participante.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlertifyService } from 'src/app/services/alertify/alertify.service';
-import { LeccionService } from 'src/app/services/leccion/leccion.service';
 import { Leccion } from 'src/app/models/leccion';
-import { Curso } from 'src/app/models/curso';
+import { CursoDetalle } from 'src/app/models/cursoDetalle';
 
 @Component({
   selector: 'app-curso-participante',
@@ -12,17 +11,23 @@ import { Curso } from 'src/app/models/curso';
   styleUrls: ['./curso-participante.component.css']
 })
 export class CursoParticipanteComponent implements OnInit {
-  curso: Curso;
+  cursoDetalle: CursoDetalle;
   lecciones: Leccion[];
+  idParticipante: any;
 
-  constructor(private leccionParticipanteService: LeccionService,
-    private route: ActivatedRoute, private alertify: AlertifyService) { }
+  constructor(private router: Router, private route: ActivatedRoute, private alertify: AlertifyService) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
-      this.curso = data['curso'];
-      this.lecciones = data['lecciones'];
+      this.cursoDetalle = data['cursoDetalle'];
+      this.lecciones = this.cursoDetalle.lecciones;
     });
+    this.idParticipante = this.route.snapshot.paramMap.get('idParticipante');
+  }
+
+  onSelect(leccion: Leccion): void {
+    debugger;
+    this.router.navigate(['/leccion-participante', this.idParticipante, this.cursoDetalle.idEtapa, this.cursoDetalle.id, leccion.id]);
   }
 
 }

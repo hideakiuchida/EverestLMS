@@ -14,5 +14,7 @@ namespace EverestLMS.Services.Interfaces
         Task<bool> EditCursoASync(CursoToUpdateVM cursoVM);
         Task<bool> DeleteCursoAsync(int idEtapa, int idCurso);
         Task<CursoToUpdateVM> GetCursoAsync(int idEtapa, int idCurso);
+        Task<CursoDetalleVM> GetCursoDetalleByParticipanteAsync(string idParticipante, int idEtapa, int idCurso);
     }
+
 }

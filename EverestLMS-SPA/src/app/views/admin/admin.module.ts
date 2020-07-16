@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import localeEs from '@angular/common/locales/es';
-import { AsignarequiposComponent } from './asignar/asignarequipos/asignarequipos.component';
+import { AsignarequiposComponent } from './asignar/asignarequipos.component';
 import { SherpaDetalleComponent } from './asignar/sherpa-detalle/sherpa-detalle.component';
 import { AsignarescaladorComponent } from './asignar/asignarescalador/asignarescalador.component';
 import { EscaladorDetalleComponent } from './asignar/escalador-detalle/escalador-detalle.component';

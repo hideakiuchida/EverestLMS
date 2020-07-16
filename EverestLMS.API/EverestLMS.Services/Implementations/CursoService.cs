@@ -3,6 +3,7 @@ using EverestLMS.Entities.Models;
 using EverestLMS.Repository.Interfaces;
 using EverestLMS.Services.Interfaces;
 using EverestLMS.ViewModels.Curso;
+using EverestLMS.ViewModels.Leccion;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,14 +12,15 @@ namespace EverestLMS.Services.Implementations
 {
     public class CursoService : ICursoService
     {
-        private readonly IPredictionTrainerRepository predictionTrainerRepository;
         private readonly IParticipanteRepository participanteRepository;
         private readonly ICursoRepository repository;
+        private readonly ILeccionRepository leccionRepository;
         private readonly IMapper mapper;
-        public CursoService(ICursoRepository repository, IPredictionTrainerRepository predictionTrainerRepository, IParticipanteRepository participanteRepository, IMapper mapper)
+
+        public CursoService(ICursoRepository repository, IParticipanteRepository participanteRepository, ILeccionRepository leccionRepository, IMapper mapper)
         {
-            this.predictionTrainerRepository = predictionTrainerRepository;
             this.participanteRepository = participanteRepository;
+            this.leccionRepository = leccionRepository;
             this.repository = repository;
             this.mapper = mapper;
         }
@@ -65,6 +67,16 @@ namespace EverestLMS.Services.Implementations
             var cursoEntity = await repository.GetCursoAsync(idEtapa, idCurso);
             var cursoVM = mapper.Map<CursoToUpdateVM>(cursoEntity);
             return cursoVM;
+        }
+
+        public async Task<CursoDetalleVM> GetCursoDetalleByParticipanteAsync(string idParticipante, int idEtapa, int idCurso)
+        {
+            var cursoEntity = await repository.GetCursoAsync(idEtapa, idCurso);
+            var leccionesEntities = await leccionRepository.GetLeccionesDetalleAsync(default, default, idEtapa, idCurso, default);
+            var cursoDetalleVM = mapper.Map<CursoDetalleVM>(cursoEntity as CursoEntity);
+            var leccionesVM = mapper.Map<IEnumerable<LeccionDetalleVM>>(leccionesEntities);
+            cursoDetalleVM.Lecciones = leccionesVM;
+            return cursoDetalleVM;
         }
 
         public async Task<IEnumerable<CursoDetalleVM>> GetCursosAsync(int? idEtapa, int? idLineaCarrera, int? idNivel, string search)

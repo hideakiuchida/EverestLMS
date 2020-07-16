@@ -128,10 +128,10 @@ namespace EverestLMS.API.Controllers
         }
 
         [HttpGet]
-        [Route("{id}/cursos/{idCurso}/lecciones")]
-        public async Task<IActionResult> GetLeccionesByParticipanteAsync(string id, int idCurso)
+        [Route("{id}/etapas/{idEtapa}/cursos/{idCurso}")]
+        public async Task<IActionResult> GetLeccionesByParticipanteAsync(string id, int idEtapa, int idCurso)
         {
-            var result = await leccionService.GetLeccionesDetalleAsync(default, default, default, idCurso, default);
+            var result = await cursoService.GetCursoDetalleByParticipanteAsync(id, idEtapa, idCurso);
             return Ok(result);
         }
 

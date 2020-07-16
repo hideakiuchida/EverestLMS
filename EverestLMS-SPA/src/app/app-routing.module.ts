@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './views/shared/home/home.component';
-import { AsignarequiposComponent } from './views/admin/asignar/asignarequipos/asignarequipos.component';
+import { AsignarequiposComponent } from './views/admin/asignar/asignarequipos.component';
 import { CalendarioComponent } from './views/admin/planificarcalendario/calendario/calendario.component';
 import { ActualizarLeccionesComponent } from './views/sherpa/actualizar-lecciones/actualizar-lecciones.component';
 import { NivelResolver } from './resolvers/nivel/nivel.resolver';
@@ -49,7 +49,8 @@ import { ActualizarRespuestasComponent } from './views/sherpa/actualizar-leccion
 import { RespuestaResolver } from './resolvers/leccion/respuesta.resolver';
 import { LeccionMaterialResolver } from './resolvers/leccion/leccion-material.resolver';
 import { CursoParticipanteComponent } from './views/escalador/realizar-cursos/curso-participante/curso-participante.component';
-import { LeccionesParticipanteResolver } from './resolvers/curso-participante/lecciones-participante.resolver';
+import { CursoDetalleResolver } from './resolvers/curso-participante/curso-detalle.resolver';
+import { LeccionParticipanteComponent } from './views/escalador/realizar-cursos/leccion-participante/leccion-participante.component';
 
 const routes: Routes = [
     { path: '', component: HomeComponent},
@@ -100,8 +101,9 @@ const routes: Routes = [
             { path: 'realizar-cursos/:idParticipante', component: RealizarCursosComponent,
                 resolve: {cursos: CursosParticipanteResolver, cursosPrediccion: CursosPrediccionParticipanteResolver,
                          etapas: EtapasParticipanteResolver, idiomas: IdiomaResolver}},
-            { path: 'curso-participante/:idParticipante/:idCurso', component: CursoParticipanteComponent,
-                resolve: {lecciones: LeccionesParticipanteResolver}}
+            { path: 'curso-participante/:idParticipante/:idEtapa/:idCurso', component: CursoParticipanteComponent,
+                resolve: {cursoDetalle: CursoDetalleResolver}},
+            { path: 'leccion-participante/:idParticipante/:idEtapa/:idCurso/:idLeccion', component: LeccionParticipanteComponent}
         ]
     },
     { path: '**', redirectTo: '', pathMatch: 'full'}

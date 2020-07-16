@@ -230,6 +230,11 @@ namespace EverestLMS.API.Helpers
                {
                    opt.MapFrom(d => d.IdCurso);
                });
+            CreateMap<CursoEntity, CursoDetalleVM>()
+               .ForMember(dest => dest.Id, opt =>
+               {
+                   opt.MapFrom(d => d.IdCurso);
+               });
             CreateMap<CursoDetalleEntity, CursoDetalleVM>()
                .ForMember(dest => dest.Id, opt =>
                {

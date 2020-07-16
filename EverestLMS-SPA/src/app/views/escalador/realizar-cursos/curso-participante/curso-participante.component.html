@@ -1,8 +1,14 @@
 <div class="container">
-  <div class="row equal border border rounded p-3" *ngIf="lecciones.length > 0">
-    <div *ngFor="let leccion of lecciones" class="col-lg-3 col-md-3 col-sm-6">
-        <app-leccion-card [leccion]="leccion"></app-leccion-card>
+  <div class="row equal border border rounded p-3">
+    <div class="col-md-4 border">
+        <app-curso-card [curso]="cursoDetalle" [isCursoDetalle]="true"></app-curso-card>
     </div>
+    <div class="col-md-8 border">
+      <ul class="list-items">
+          <li *ngFor="let leccion of lecciones; let i = index" (click)="onSelect(leccion)">
+              <span class="badge">{{i + 1}}</span> {{leccion.nombre}} 
+          </li>
+      </ul>
+  </div>
   </div>
 </div>
-

@@ -10,6 +10,7 @@ export class CursoCardComponent implements OnInit {
 
   @Input() curso: Curso;
   @Input() idParticipante: any;
+  @Input() isCursoDetalle: boolean;
 
   constructor() { }
 
