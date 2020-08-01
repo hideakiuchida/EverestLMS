@@ -27,5 +27,6 @@ namespace EverestLMS.Services.Interfaces
         Task<bool> DeleteRespuestaAsync(int idRespuesta);
         Task<bool> UpdatePreguntaAsync(PreguntaVM preguntaToUpdateVM);
         Task<bool> UpdateRespuestaAsync(RespuestaVM respuestaToUpdateVM);
+        Task<LeccionEscaladorVM> GetLeccionByParticipanteAsync(string id, int idEtapa, int idCurso, int idLeccion);
     }
 }

@@ -45,11 +45,12 @@ export class ActualizarRespuestasComponent implements OnInit {
   createForm() {
     this.form = this.formBuilder.group({
       descripcion: [this.respuesta.descripcion, [Validators.required, Validators.minLength(4), Validators.maxLength(2000)]],
-      esCorrecto: [this.respuesta.esCorrecto]
+      esCorrecto: [this.respuesta.esCorrecto ?? false]
     });
   }
 
   actualizarRespuesta() {
+    debugger;
     if (this.form.valid) {
       this.respuestaToRegister = Object.assign({}, this.form.value);
       if (!this.isEditForm) {

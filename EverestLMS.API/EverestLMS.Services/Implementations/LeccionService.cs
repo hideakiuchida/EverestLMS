@@ -16,12 +16,15 @@ namespace EverestLMS.Services.Implementations
     public class LeccionService : ILeccionService
     {
         private readonly ILeccionRepository leccionRepository;
+        private readonly ICursoRepository cursoRepository;
         private readonly IMapper mapper;
         private readonly Cloudinary cloudinary;
 
-        public LeccionService(ILeccionRepository leccionRepository, IMapper mapper, IOptions<CloudinarySettings> cloudinaryConfig)
+        public LeccionService(ILeccionRepository leccionRepository, ICursoRepository cursoRepository,
+            IMapper mapper, IOptions<CloudinarySettings> cloudinaryConfig)
         {
             this.leccionRepository = leccionRepository;
+            this.cursoRepository = cursoRepository;
             this.mapper = mapper;
             var cloudinaryConfiguration = cloudinaryConfig;
             Account account = new Account(
@@ -205,6 +208,23 @@ namespace EverestLMS.Services.Implementations
         {
             var leccionMaterialEntity = mapper.Map<LeccionMaterialDetalleEntity>(leccionMaterialVM);
             return await leccionRepository.UpdateLeccionMaterialAsync(leccionMaterialEntity);
+        }
+
+        public async Task<LeccionEscaladorVM> GetLeccionByParticipanteAsync(string id, int idEtapa, int idCurso, int idLeccion)
+        {
+            var curso = await cursoRepository.GetCursoAsync(idEtapa, idCurso);
+            var leccion = await leccionRepository.GetSpecificLeccionAsync(idEtapa, idCurso, idLeccion);
+            var leccionesMateriales = await this.GetLeccionMaterialesAsync(idLeccion);
+            var leccionEscaladorVM = new LeccionEscaladorVM();
+            leccionEscaladorVM.IdEtapa = idEtapa;
+            leccionEscaladorVM.IdParticipante = id;
+            leccionEscaladorVM.Id = leccion.IdLeccion;
+            leccionEscaladorVM.IdCurso = curso.IdCurso;
+            leccionEscaladorVM.Nombre = leccion.Nombre;
+            leccionEscaladorVM.CursoNombre = curso.Nombre;
+            leccionEscaladorVM.CursoImagenUrl = curso.Imagen;
+            leccionEscaladorVM.LeccionesMateriales = leccionesMateriales;
+            return leccionEscaladorVM;
         }
     }
 }

@@ -168,6 +168,7 @@
     <None Include="PostDeploymentData\01_Sede.sql" />
     <None Include="PostDeploymentData\01_Calendario.sql" />
     <None Include="PostDeploymentData\02_Evento.sql" />
+    <None Include="PostDeploymentData\04_Leccion.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="EverestLMS.Database.publish.xml" />
@@ -175,5 +176,6 @@
     <None Include="PostDeploymentData\01_Rol.sql" />
     <None Include="EverestLMS.Avantica.Database.publish.xml" />
     <None Include="EverestLMS.Belatrix.Database.publish.xml" />
+    <None Include="PostDeploymentData\05_LeccionMaterial.sql" />
   </ItemGroup>
 </Project>

@@ -119,19 +119,12 @@ namespace EverestLMS.API.Controllers
             return Ok(result);
         }
 
+        #region Cursos
         [HttpGet]
         [Route("{id}/cursos")]
         public async Task<IActionResult> GetCursosByParticipanteAsync(string id, int? idEtapa, int? idIdioma)
         {
             var result = await cursoService.GetCursosByParticipanteAsync(id, idEtapa, idIdioma);
-            return Ok(result);
-        }
-
-        [HttpGet]
-        [Route("{id}/etapas/{idEtapa}/cursos/{idCurso}")]
-        public async Task<IActionResult> GetLeccionesByParticipanteAsync(string id, int idEtapa, int idCurso)
-        {
-            var result = await cursoService.GetCursoDetalleByParticipanteAsync(id, idEtapa, idCurso);
             return Ok(result);
         }
 
@@ -142,5 +135,25 @@ namespace EverestLMS.API.Controllers
             var result = await cursoService.GetCursosPredictionByParticipanteAsync(id, idEtapa, idIdioma);
             return Ok(result);
         }
+        #endregion
+
+        #region Lecciones
+
+        [HttpGet]
+        [Route("{id}/etapas/{idEtapa}/cursos/{idCurso}/lecciones/{idLeccion}")]
+        public async Task<IActionResult> GetLeccionByParticipanteAsync(string id, int idEtapa, int idCurso, int idLeccion)
+        {
+            var result = await leccionService.GetLeccionByParticipanteAsync(id, idEtapa, idCurso, idLeccion);
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("{id}/etapas/{idEtapa}/cursos/{idCurso}/lecciones")]
+        public async Task<IActionResult> GetLeccionesByParticipanteAsync(string id, int idEtapa, int idCurso)
+        {
+            var result = await cursoService.GetCursoDetalleByParticipanteAsync(id, idEtapa, idCurso);
+            return Ok(result);
+        }
+        #endregion
     }
 }

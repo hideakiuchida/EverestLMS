@@ -84,6 +84,7 @@ export class RegistrarCursoComponent implements OnInit {
       this.cursoToRegiter.idIdioma = +this.cursoToRegiter.idIdioma;
       this.cursoToRegiter.idLineaCarrera = +this.cursoToRegiter.idLineaCarrera;
       this.cursoToRegiter.idNivel = +this.cursoToRegiter.idNivel;
+      this.cursoToRegiter.idEtapa = +this.cursoToRegiter.idEtapa;
       this.cursoToRegiter.autor = 'Alonso Uchida'; // TODO cambiar por usuario del Token
       this.cursoToRegiter.imagen = 'Imagen 1';
       this.cursoService.createCurso(this.cursoToRegiter.idEtapa, this.cursoToRegiter).subscribe((idCurso: number) => {

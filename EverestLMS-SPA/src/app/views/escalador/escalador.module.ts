@@ -12,6 +12,8 @@ import { SharedModule } from '../shared/shared.module';
 import { CursoParticipanteComponent } from './realizar-cursos/curso-participante/curso-participante.component';
 import { CursoDetalleResolver } from 'src/app/resolvers/curso-participante/curso-detalle.resolver';
 import { LeccionParticipanteComponent } from './realizar-cursos/leccion-participante/leccion-participante.component';
+import { LeccionParticipanteService } from 'src/app/services/leccion-participante/leccion-participante.service';
+import { LeccionParticipanteResolver } from 'src/app/resolvers/leccion-participante/leccion.-participante.resolver';
 
 @NgModule({
    declarations: [
@@ -31,7 +33,9 @@ import { LeccionParticipanteComponent } from './realizar-cursos/leccion-particip
       EtapaParticipanteService,
       EtapasParticipanteResolver,
       IdiomaResolver,
-      CursoDetalleResolver
+      CursoDetalleResolver,
+      LeccionParticipanteService,
+      LeccionParticipanteResolver
    ]
 })
 export class EscaladorModule { }

@@ -32,7 +32,7 @@ getCursosPrediccionPorParticipante(idParticipante, idEtapa, idIdioma): Observabl
 }
 
 getLeccionesPorCursoParticipante(idParticipante, idEtapa, idCurso): Observable<CursoDetalle[]> {
-  return this.http.get<CursoDetalle[]>(this.baseUrl + 'participantes/' + idParticipante + '/etapas/' + idEtapa + '/cursos/' + idCurso)  ;
+  return this.http.get<CursoDetalle[]>(this.baseUrl + 'participantes/' + idParticipante + '/etapas/' + idEtapa + '/cursos/' + idCurso + '/lecciones')  ;
 }
 
 }

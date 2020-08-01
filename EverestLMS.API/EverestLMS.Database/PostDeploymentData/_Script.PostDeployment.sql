@@ -21,3 +21,5 @@ Post-Deployment Script Template
 :r .\02_Etapa.sql
 :r .\02_Evento.sql
 :r .\03_Curso.sql
+:r .\04_Leccion.sql
+:r .\05_LeccionMaterial.sql

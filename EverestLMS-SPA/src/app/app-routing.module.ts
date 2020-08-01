@@ -51,6 +51,7 @@ import { LeccionMaterialResolver } from './resolvers/leccion/leccion-material.re
 import { CursoParticipanteComponent } from './views/escalador/realizar-cursos/curso-participante/curso-participante.component';
 import { CursoDetalleResolver } from './resolvers/curso-participante/curso-detalle.resolver';
 import { LeccionParticipanteComponent } from './views/escalador/realizar-cursos/leccion-participante/leccion-participante.component';
+import { LeccionParticipanteResolver } from './resolvers/leccion-participante/leccion.-participante.resolver';
 
 const routes: Routes = [
     { path: '', component: HomeComponent},
@@ -103,7 +104,8 @@ const routes: Routes = [
                          etapas: EtapasParticipanteResolver, idiomas: IdiomaResolver}},
             { path: 'curso-participante/:idParticipante/:idEtapa/:idCurso', component: CursoParticipanteComponent,
                 resolve: {cursoDetalle: CursoDetalleResolver}},
-            { path: 'leccion-participante/:idParticipante/:idEtapa/:idCurso/:idLeccion', component: LeccionParticipanteComponent}
+            { path: 'leccion-participante/:idParticipante/:idEtapa/:idCurso/:idLeccion', component: LeccionParticipanteComponent,
+                resolve: {leccionEscalador: LeccionParticipanteResolver}}
         ]
     },
     { path: '**', redirectTo: '', pathMatch: 'full'}

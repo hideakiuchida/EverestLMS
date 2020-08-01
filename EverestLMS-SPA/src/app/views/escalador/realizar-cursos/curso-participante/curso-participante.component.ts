@@ -26,7 +26,6 @@ export class CursoParticipanteComponent implements OnInit {
   }
 
   onSelect(leccion: Leccion): void {
-    debugger;
     this.router.navigate(['/leccion-participante', this.idParticipante, this.cursoDetalle.idEtapa, this.cursoDetalle.id, leccion.id]);
   }
 

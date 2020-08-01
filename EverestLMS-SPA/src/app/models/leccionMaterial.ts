@@ -4,4 +4,5 @@ export interface LeccionMaterial {
     contenidoTexto: string;
     idTipoContenido: number;
     idLeccion: number;
+    url: string;
 }
