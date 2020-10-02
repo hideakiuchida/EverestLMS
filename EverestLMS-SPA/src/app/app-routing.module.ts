@@ -54,61 +54,140 @@ import { LeccionParticipanteComponent } from './views/escalador/realizar-cursos/
 import { LeccionParticipanteResolver } from './resolvers/leccion-participante/leccion.-participante.resolver';
 
 const routes: Routes = [
-    { path: '', component: HomeComponent},
+    { path: '', component: HomeComponent },
     {
         path: '',
         runGuardsAndResolvers: 'always',
         canActivate: [AuthGuard],
         children: [
-            { path: 'inicio', component: InicioComponent},
-            //Asignacion
-            { path: 'asignarequipos', component: AsignarequiposComponent},
-            { path: 'asignarescalador/:idSherpa/:idLineaCarrera', component: AsignarescaladorComponent,
-                resolve: {sherpa: SherpaResolver, escaladores: EscaladoresResolver}},
-            //Calendario
-            { path: 'calendario', component: CalendarioComponent},
-            { path: 'evento/:idCalendario', component: EventoComponent},
-            { path: 'criterioaceptacion/:idCalendario', component: CriterioAceptacionComponent},
-            { path: 'registrocriterioaceptacion/:idCalendario', component: RegistrocristerioaceptacionComponent},
-            //Mantenimiento Lecciones
-            { path: 'actualizar-lecciones', component: ActualizarLeccionesComponent,
-                resolve: {niveles: NivelResolver, lineaCarreras: LineaCarreraResolver}},
-            { path: 'registrar-leccion', component: RegistrarLeccionComponent,
-                resolve: {niveles: NivelResolver, lineaCarreras: LineaCarreraResolver}},
-            { path: 'editar-leccion/:idEtapa/:idCurso/:idLeccion', component: EditarLeccionComponent,
-                resolve: {niveles: NivelResolver, lineaCarreras: LineaCarreraResolver, curso: CursoResolver, leccion: LeccionResolver}},
-            { path: 'actualizar-leccion-material/:idEtapa/:idCurso/:idLeccion', component: ActualizarLeccionMaterialComponent,
-                resolve: {leccionesMaterial: LeccionMaterialesResolver, tipoContenidos: TipoContenidoResolver, preguntas: PreguntasResolver}},
-            { path: 'registrar-leccion-material/:idEtapa/:idCurso/:idLeccion/:idLeccionMaterial', component: RegistrarLeccionMaterialComponent,
-                resolve: {leccionMaterial: LeccionMaterialResolver, tipoContenidos: TipoContenidoResolver}},
-            { path: 'registrar-video-material/:idEtapa/:idCurso/:idLeccion/:idLeccionMaterial', component: RegistrarVideoMaterialComponent,
-                 resolve: {leccionMaterial: LeccionMaterialResolver, tipoContenidos: TipoContenidoResolver}},
-            { path: 'actualizar-presentacion-material/:idEtapa/:idCurso/:idLeccion/:idLeccionMaterial', component: RegistrarPresentacionMaterialComponent,
-                resolve: {leccionMaterial: LeccionMaterialResolver, tipoContenidos: TipoContenidoResolver}},
-            {path: 'actualizar-pregunta/:idEtapa/:idCurso/:idLeccion/:idPregunta', component: ActualizarPreguntasComponent,
-                resolve: {pregunta: PreguntaResolver, respuestas: RespuestasResolver}},
-            {path: 'actualizar-respuesta/:idEtapa/:idCurso/:idLeccion/:idPregunta/:idRespuesta', component: ActualizarRespuestasComponent,
-                resolve: {respuesta: RespuestaResolver}},
-            //Mantenimiento Cursos
-            { path: 'cursos', component: CursosComponent,
-                resolve: {niveles: NivelResolver, lineaCarreras: LineaCarreraResolver}},
-            { path: 'registrar-curso', component: RegistrarCursoComponent,
-                resolve: {niveles: NivelResolver, lineaCarreras: LineaCarreraResolver, idiomas: IdiomaResolver, dificultades: DificultadResolver}},
-            { path: 'editar-imagen/:idEtapa/:idCurso', component: EditarImagenComponent, resolve: {imagenes: CursoImagenResolver}},
-            { path: 'editar-curso/:idEtapa/:idCurso', component: EditarCursoComponent,
-                resolve: {niveles: NivelResolver, lineaCarreras: LineaCarreraResolver, idiomas: IdiomaResolver,
-                          dificultades: DificultadResolver, curso: CursoResolver}},
-            //Realizar Curso
-            { path: 'realizar-cursos/:idParticipante', component: RealizarCursosComponent,
-                resolve: {cursos: CursosParticipanteResolver, cursosPrediccion: CursosPrediccionParticipanteResolver,
-                         etapas: EtapasParticipanteResolver, idiomas: IdiomaResolver}},
-            { path: 'curso-participante/:idParticipante/:idEtapa/:idCurso', component: CursoParticipanteComponent,
-                resolve: {cursoDetalle: CursoDetalleResolver}},
-            { path: 'leccion-participante/:idParticipante/:idEtapa/:idCurso/:idLeccion', component: LeccionParticipanteComponent,
-                resolve: {leccionEscalador: LeccionParticipanteResolver}}
+            { path: 'inicio', component: InicioComponent },
+            // Asignacion
+            { path: 'asignarequipos', component: AsignarequiposComponent },
+            {
+                path: 'asignarescalador/:idSherpa/:idLineaCarrera', component: AsignarescaladorComponent,
+                resolve: { sherpa: SherpaResolver, escaladores: EscaladoresResolver }
+            },
+            // Calendario
+            { path: 'calendario', component: CalendarioComponent },
+            { path: 'evento/:idCalendario', component: EventoComponent },
+            { path: 'criterioaceptacion/:idCalendario', component: CriterioAceptacionComponent },
+            { path: 'registrocriterioaceptacion/:idCalendario', component: RegistrocristerioaceptacionComponent },
+            // Mantenimiento Lecciones
+            {
+                path: 'actualizar-lecciones', component: ActualizarLeccionesComponent,
+                resolve: { niveles: NivelResolver, lineaCarreras: LineaCarreraResolver }
+            },
+            {
+                path: 'registrar-leccion', component: RegistrarLeccionComponent,
+                resolve: { niveles: NivelResolver, lineaCarreras: LineaCarreraResolver }
+            },
+            {
+                path: 'editar-leccion/:idEtapa/:idCurso/:idLeccion', component: EditarLeccionComponent,
+                resolve: { niveles: NivelResolver, lineaCarreras: LineaCarreraResolver, curso: CursoResolver, leccion: LeccionResolver }
+            },
+            {
+                path: 'actualizar-leccion-material/:idEtapa/:idCurso/:idLeccion', component: ActualizarLeccionMaterialComponent,
+                resolve: {
+                    leccionesMaterial: LeccionMaterialesResolver,
+                    tipoContenidos: TipoContenidoResolver,
+                    preguntas: PreguntasResolver
+                }
+            },
+            {
+                path: 'registrar-leccion-material/:idEtapa/:idCurso/:idLeccion/:idLeccionMaterial',
+                component: RegistrarLeccionMaterialComponent,
+                resolve: {
+                    leccionMaterial: LeccionMaterialResolver,
+                    tipoContenidos: TipoContenidoResolver
+                }
+            },
+            {
+                path: 'registrar-video-material/:idEtapa/:idCurso/:idLeccion/:idLeccionMaterial',
+                component: RegistrarVideoMaterialComponent,
+                resolve: {
+                    leccionMaterial: LeccionMaterialResolver,
+                    tipoContenidos: TipoContenidoResolver
+                }
+            },
+            {
+                path: 'actualizar-presentacion-material/:idEtapa/:idCurso/:idLeccion/:idLeccionMaterial',
+                component: RegistrarPresentacionMaterialComponent,
+                resolve: {
+                    leccionMaterial: LeccionMaterialResolver,
+                    tipoContenidos: TipoContenidoResolver }
+            },
+            {
+                path: 'actualizar-pregunta/:idEtapa/:idCurso/:idLeccion/:idPregunta',
+                component: ActualizarPreguntasComponent,
+                resolve: {
+                    pregunta: PreguntaResolver,
+                    respuestas: RespuestasResolver
+                }
+            },
+            {
+                path: 'actualizar-respuesta/:idEtapa/:idCurso/:idLeccion/:idPregunta/:idRespuesta',
+                component: ActualizarRespuestasComponent,
+                resolve: { respuesta: RespuestaResolver }
+            },
+            // Mantenimiento Cursos
+            {
+                path: 'cursos', component: CursosComponent,
+                resolve: { niveles: NivelResolver, lineaCarreras: LineaCarreraResolver }
+            },
+            {
+                path: 'registrar-curso',
+                component: RegistrarCursoComponent,
+                resolve: {
+                    niveles: NivelResolver,
+                    lineaCarreras: LineaCarreraResolver,
+                    idiomas: IdiomaResolver,
+                    dificultades: DificultadResolver
+                }
+            },
+            {
+                path: 'editar-imagen/:idEtapa/:idCurso',
+                component: EditarImagenComponent,
+                resolve: { imagenes: CursoImagenResolver }
+            },
+            {
+                path: 'editar-curso/:idEtapa/:idCurso',
+                component: EditarCursoComponent,
+                resolve: {
+                    niveles: NivelResolver,
+                    lineaCarreras: LineaCarreraResolver,
+                    idiomas: IdiomaResolver,
+                    dificultades: DificultadResolver,
+                    curso: CursoResolver
+                }
+            },
+            // Realizar Curso
+            {
+                path: 'realizar-cursos/:idParticipante',
+                component: RealizarCursosComponent,
+                resolve: {
+                    cursos: CursosParticipanteResolver,
+                    cursosPrediccion: CursosPrediccionParticipanteResolver,
+                    etapas: EtapasParticipanteResolver,
+                    idiomas: IdiomaResolver
+                }
+            },
+            {
+                path: 'curso-participante/:idParticipante/:idEtapa/:idCurso',
+                component: CursoParticipanteComponent,
+                resolve: {
+                    cursoDetalle: CursoDetalleResolver
+                }
+            },
+            {
+                path: 'leccion-participante/:idParticipante/:idEtapa/:idCurso/:idLeccion',
+                component: LeccionParticipanteComponent,
+                resolve: {
+                    leccionEscalador: LeccionParticipanteResolver
+                }
+            }
         ]
     },
-    { path: '**', redirectTo: '', pathMatch: 'full'}
+    { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 @NgModule({
     imports: [RouterModule.forRoot(routes)],

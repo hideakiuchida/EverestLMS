@@ -23,3 +23,5 @@ Post-Deployment Script Template
 :r .\03_Curso.sql
 :r .\04_Leccion.sql
 :r .\05_LeccionMaterial.sql
+:r .\05_Pregunta.sql
+:r .\06_Respuesta.sql

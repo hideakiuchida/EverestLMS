@@ -7,6 +7,7 @@ using EverestLMS.ViewModels.CloudinaryFile;
 using EverestLMS.ViewModels.Conocimiento;
 using EverestLMS.ViewModels.Curso;
 using EverestLMS.ViewModels.Etapa;
+using EverestLMS.ViewModels.Examen;
 using EverestLMS.ViewModels.Leccion;
 using EverestLMS.ViewModels.LineaCarrera;
 using EverestLMS.ViewModels.Nivel;
@@ -15,6 +16,7 @@ using EverestLMS.ViewModels.Participante.Escalador;
 using EverestLMS.ViewModels.Participante.Sherpa;
 using EverestLMS.ViewModels.Sede;
 using EverestLMS.ViewModels.TipoContenido;
+using System;
 
 namespace EverestLMS.API.Helpers
 {
@@ -36,8 +38,20 @@ namespace EverestLMS.API.Helpers
             CreateMapAuthentication();
             CreateMapPregunta();
             CreateMapRespuesta();
+            CreateMapExamen();
         }
 
+        private void CreateMapExamen()
+        {
+            CreateMap<ExamenEntity, ExamenVM>();
+            CreateMap<RespuestaEscaladorEntity, PreguntaExamenVM>()
+                 .ForMember(dest => dest.IdRespuestaEscalador, opt =>
+                 {
+                     opt.MapFrom(d => d.Id);
+                 });
+            CreateMap<ExamenToUpdateVM, ExamenEntity>();
+            CreateMap<RespuestaExamenToUpdateVM, RespuestaEscaladorEntity>();
+        }
         private void CreateMapRespuesta()
         {
             CreateMap<RespuestaEntity, RespuestaVM>()

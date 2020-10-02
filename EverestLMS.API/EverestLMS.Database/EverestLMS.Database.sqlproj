@@ -71,6 +71,7 @@
     <Folder Include="dbo\Stored Procedures\RealizarCurso" />
     <Folder Include="dbo\Stored Procedures\Cloudinary" />
     <Folder Include="dbo\Stored Procedures\Etapas" />
+    <Folder Include="dbo\Stored Procedures\RealizarExamen" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Participante.sql" />
@@ -91,7 +92,6 @@
     <Build Include="dbo\Tables\Pregunta.sql" />
     <Build Include="dbo\Tables\Respuesta.sql" />
     <Build Include="dbo\Tables\LeccionMaterial.sql" />
-    <Build Include="dbo\Tables\ResultadoExamen.sql" />
     <Build Include="dbo\Tables\Dificultad.sql" />
     <Build Include="dbo\Tables\TipoContenido.sql" />
     <None Include="PostDeploymentData\01_TipoContenido.sql" />
@@ -154,6 +154,14 @@
     <Build Include="dbo\Stored Procedures\Lecciones\UpdatePregunta.sql" />
     <Build Include="dbo\Stored Procedures\Lecciones\UpdateRespuesta.sql" />
     <Build Include="dbo\Stored Procedures\Lecciones\UpdateLeccionMaterial.sql" />
+    <Build Include="dbo\Tables\Examen.sql" />
+    <Build Include="dbo\Tables\RespuestaEscalador.sql" />
+    <Build Include="dbo\Stored Procedures\RealizarExamen\CreateQandAEscalador.sql" />
+    <Build Include="dbo\Stored Procedures\RealizarExamen\CreateExamen.sql" />
+    <Build Include="dbo\Stored Procedures\RealizarExamen\GetExamen.sql" />
+    <Build Include="dbo\Stored Procedures\RealizarExamen\GetPreguntasDelExamen.sql" />
+    <Build Include="dbo\Stored Procedures\RealizarExamen\UpdateRespuestaDelExamen.sql" />
+    <Build Include="dbo\Stored Procedures\RealizarExamen\UpdateExamen.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Evento.sql" />
@@ -169,13 +177,12 @@
     <None Include="PostDeploymentData\01_Calendario.sql" />
     <None Include="PostDeploymentData\02_Evento.sql" />
     <None Include="PostDeploymentData\04_Leccion.sql" />
+    <None Include="PostDeploymentData\05_Pregunta.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="EverestLMS.Database.publish.xml" />
     <None Include="PostDeploymentData\01_Idioma.sql" />
     <None Include="PostDeploymentData\01_Rol.sql" />
-    <None Include="EverestLMS.Avantica.Database.publish.xml" />
-    <None Include="EverestLMS.Belatrix.Database.publish.xml" />
     <None Include="PostDeploymentData\05_LeccionMaterial.sql" />
+    <None Include="PostDeploymentData\06_Respuesta.sql" />
   </ItemGroup>
 </Project>

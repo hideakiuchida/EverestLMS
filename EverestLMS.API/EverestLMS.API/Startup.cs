@@ -181,6 +181,7 @@ namespace EverestLMS.API
             services.AddScoped<ILeccionService, LeccionService>();
             services.AddScoped<ITipoContenidoService, TipoContenidoService>();
             services.AddScoped<IAuthenticationService, AuthenticationService>();
+            services.AddScoped<IExamenService, ExamenService>();
         }
 
         private void RegisterRepositories(IServiceCollection services)
@@ -201,6 +202,7 @@ namespace EverestLMS.API
             services.AddScoped<ILeccionRepository, LeccionRepository>();
             services.AddScoped<ITipoContenidoRepository, TipoContenidoRepository>();
             services.AddScoped<IAuthenticationRepository, AuthenticationRepository>();
+            services.AddScoped<IExamenRepository, ExamenRepository>();
         }
         #endregion
     }
