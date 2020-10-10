@@ -1,10 +1,10 @@
 export class EventoToRegister {
     id: number;
-    titulo: String;
-    descripcion: String;
+    titulo: string;
+    descripcion: string;
     fechaInicio: Date;
     fechaFinal: Date;
     horaInicio: Date;
     horaFinal: Date;
-    colorPrimario: String;
+    colorPrimario: string;
 }

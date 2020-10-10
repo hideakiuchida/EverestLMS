@@ -52,6 +52,7 @@ import { CursoParticipanteComponent } from './views/escalador/realizar-cursos/cu
 import { CursoDetalleResolver } from './resolvers/curso-participante/curso-detalle.resolver';
 import { LeccionParticipanteComponent } from './views/escalador/realizar-cursos/leccion-participante/leccion-participante.component';
 import { LeccionParticipanteResolver } from './resolvers/leccion-participante/leccion.-participante.resolver';
+import { RealizarExamenComponent } from './views/escalador/realizar-examen/realizar-examen.component';
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -184,6 +185,15 @@ const routes: Routes = [
                 resolve: {
                     leccionEscalador: LeccionParticipanteResolver
                 }
+            },
+            // Realizar Examen
+            {
+                path: 'realizar-examen/:idParticipante/:idCurso/:idLeccion',
+                component: RealizarExamenComponent
+            },
+            {
+                path: 'realizar-examen/:idParticipante/:idCurso',
+                component: RealizarExamenComponent
             }
         ]
     },

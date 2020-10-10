@@ -14,13 +14,15 @@ import { CursoDetalleResolver } from 'src/app/resolvers/curso-participante/curso
 import { LeccionParticipanteComponent } from './realizar-cursos/leccion-participante/leccion-participante.component';
 import { LeccionParticipanteService } from 'src/app/services/leccion-participante/leccion-participante.service';
 import { LeccionParticipanteResolver } from 'src/app/resolvers/leccion-participante/leccion.-participante.resolver';
+import { RealizarExamenComponent } from './realizar-examen/realizar-examen.component';
 
 @NgModule({
    declarations: [
       RealizarCursosComponent,
       CursoCardComponent,
       CursoParticipanteComponent,
-      LeccionParticipanteComponent
+      LeccionParticipanteComponent,
+      RealizarExamenComponent
    ],
    imports: [
       SharedModule

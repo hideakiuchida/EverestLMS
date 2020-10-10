@@ -1,21 +1,24 @@
 <div class="container row p-4">
-  <section class="col-md-3 text-center">
-    <h4 class="pb-2"> {{leccionEscalador.nombre}} </h4>
-    <img src="{{leccionEscalador.cursoImagenUrl}}" class="w-100 rounded-circle" alt="{{leccionEscalador.cursoNombre}}"> 
-  </section>
-  <section class="col-md-9">
-    <div *ngFor="let leccionMaterial of leccionEscalador.leccionesMateriales">
-      <div *ngIf="leccionMaterial.idTipoContenido == 1">
-        <h4 class="pb-2">{{leccionMaterial.titulo}}</h4>
-        <p>{{leccionMaterial.contenidoTexto}}</p>
-      </div>
-      <div *ngIf="leccionMaterial.idTipoContenido == 2">
-        <h4 class="pb-2">{{leccionMaterial.titulo}}</h4>
-        <video class="w-100" controls>
+    <section class="col-md-3 text-center">
+        <h4 class="pb-2"> {{leccionEscalador.nombre}} </h4>
+        <img src="{{leccionEscalador.cursoImagenUrl}}" class="w-100 rounded-circle" alt="{{leccionEscalador.cursoNombre}}">
+    </section>
+    <section class="col-md-9">
+        <div *ngFor="let leccionMaterial of leccionEscalador.leccionesMateriales">
+            <div *ngIf="leccionMaterial.idTipoContenido == 1">
+                <h4 class="pb-2">{{leccionMaterial.titulo}}</h4>
+                <p>{{leccionMaterial.contenidoTexto}}</p>
+            </div>
+            <div *ngIf="leccionMaterial.idTipoContenido == 2">
+                <h4 class="pb-2">{{leccionMaterial.titulo}}</h4>
+                <video class="w-100" controls>
           <source src="{{leccionMaterial.url}}" type="video/mp4">
           Your browser does not support HTML video.
         </video>
-      </div>
-    </div>
-  </section>
+            </div>
+        </div>
+        <div>
+            <button class="btn btn-success w-100 mt-2" [routerLink]="['/realizar-examen', idParticipante, idCurso, idLeccion]">Realizar Examen</button>
+        </div>
+    </section>
 </div>

@@ -19,7 +19,7 @@ export class CursoParticipanteComponent implements OnInit {
 
   ngOnInit() {
     this.route.data.subscribe(data => {
-      this.cursoDetalle = data['cursoDetalle'];
+      this.cursoDetalle = data.cursoDetalle;
       this.lecciones = this.cursoDetalle.lecciones;
     });
     this.idParticipante = this.route.snapshot.paramMap.get('idParticipante');
