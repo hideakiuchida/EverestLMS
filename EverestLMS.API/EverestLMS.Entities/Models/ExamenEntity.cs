@@ -11,8 +11,8 @@ namespace EverestLMS.Entities.Models
         private readonly int MINIMO_PREGUNTAS_POR_EXAMEN_CURSO = 30;
         private readonly int VIDAS_POR_LECCION = 3;
         private readonly int VIDAS_POR_CURSO = 5;
-        private readonly int TIEMPO_RESTANTE_POR_LECCION = 10000;
-        private readonly int TIEMPO_RESTANTE_POR_CURSO = 30000;
+        private readonly int TIEMPO_10_MINUTOS_EN_MILISEGUNDOS_POR_LECCION = 600000; 
+        private readonly int TIEMPO_30_MINUTOS_EN_MILISEGUNDOS_POR_CURSO = 1800000; 
 
         private IList<RespuestaEscaladorEntity> escaladorRespuestas;
         private int tiempoRestante;
@@ -58,12 +58,22 @@ namespace EverestLMS.Entities.Models
             set 
             {
                 if (IdLeccion.HasValue)
-                    tiempoRestante = value == 0 ? TIEMPO_RESTANTE_POR_LECCION : value;
+                    tiempoRestante = value == 0 ? TIEMPO_10_MINUTOS_EN_MILISEGUNDOS_POR_LECCION : value;
                 else
-                    tiempoRestante = value == 0 ? TIEMPO_RESTANTE_POR_CURSO : value;
+                    tiempoRestante = value == 0 ? TIEMPO_30_MINUTOS_EN_MILISEGUNDOS_POR_CURSO : value;
             } 
         }
         public int? IdLeccion { get; set; }
+        public int TotalPreguntas 
+        { 
+            get 
+            {
+                if (IdLeccion.HasValue)
+                    return MINIMO_PREGUNTAS_POR_EXAMEN_LECCION;
+                else
+                    return MINIMO_PREGUNTAS_POR_EXAMEN_CURSO; 
+            } 
+        }
         public DateTime? FechaFinalizado { get; set; }
         public IList<RespuestaEscaladorEntity> EscaladorRespuestas {
             get 

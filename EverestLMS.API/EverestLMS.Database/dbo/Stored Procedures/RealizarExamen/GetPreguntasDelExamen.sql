@@ -6,6 +6,7 @@ BEGIN
       ,[IdPregunta]
       ,[DescripcionPregunta]
       ,[MarcoCorrecto]
+      ,[NumeroOrden]
   FROM [dbo].[RespuestaEscalador]
   WHERE [IdExamen] = @IdExamen
 END

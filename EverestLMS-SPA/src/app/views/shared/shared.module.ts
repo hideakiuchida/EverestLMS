@@ -51,7 +51,7 @@ export function tokenGetter() {
       TimepickerModule.forRoot(),
       JwtModule.forRoot({
          config: {
-             tokenGetter: tokenGetter,
+             tokenGetter,
              whitelistedDomains: ['localhost:64736'],
              blacklistedRoutes: ['localhost:64736/api/auth']
           }

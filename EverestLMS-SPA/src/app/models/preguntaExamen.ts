@@ -5,5 +5,6 @@ export class PreguntaExamen {
     idPregunta: number;
     descripcionPregunta: string;
     imagen: string;
+    numeroOrden: number;
     respuestas: Respuesta[];
 }

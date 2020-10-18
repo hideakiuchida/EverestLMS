@@ -13,5 +13,6 @@ namespace EverestLMS.Entities.Models
         public string DescripcionRespuesta { get; set; }
         public bool? MarcoCorrecto { get; set; }
         public int IdLeccion { get; set; }
+        public int NumeroOrden { get; set; }
     }
 }

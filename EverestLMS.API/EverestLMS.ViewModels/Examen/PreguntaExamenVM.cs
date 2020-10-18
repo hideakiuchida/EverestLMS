@@ -9,6 +9,7 @@ namespace EverestLMS.ViewModels.Examen
         public int IdPregunta { get; set; }
         public string DescripcionPregunta { get; set; }
         public string Imagen { get; set; }
+        public int NumeroOrden { get; set; }
         public IEnumerable<RespuestaVM> Respuestas { get; set; }
     }
 }

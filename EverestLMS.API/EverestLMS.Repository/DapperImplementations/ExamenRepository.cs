@@ -45,7 +45,8 @@ namespace EverestLMS.Repository.DapperImplementations
                         entity.IdRespuesta,
                         entity.DescripcionRespuesta,
                         entity.MarcoCorrecto,
-                        IdExamen = idExamen
+                        IdExamen = idExamen,
+                        entity.NumeroOrden
                     },
                     commandType: CommandType.StoredProcedure);
             return result.FirstOrDefault();

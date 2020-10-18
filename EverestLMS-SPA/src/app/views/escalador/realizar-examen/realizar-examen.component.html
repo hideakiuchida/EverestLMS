@@ -1,3 +1,20 @@
-<p>
-    realizar-examen works! Escalador: {{idParticipante}}, Curso: {{idCurso}} Leccion: {{idLeccion}}
-</p>
+<div class="container">
+    <div class="center">
+        <h4 class="p-4"> Examen de {{nombreExamen}}</h4>
+        <div class="jumbotron">
+            <b>Instrucciones:</b>
+            <br>
+            <ul>
+                <li>Número de Preguntas: <b>{{examen.totalPreguntas}}</b>.</li>
+                <li>Tiene un tiempo límite de: <b>{{tiempoRestanteTime}}</b> minutos.</li>
+                <li>No se puede salir del examen.</li>
+                <li>Preguntas por página es: <b>1</b>.</li>
+                <li>Se permite regresar a la pregunta anterior.</li>
+                <li>Se aprueba con porcetnaje mayor a: <b>85%</b>.</li>
+            </ul>
+        </div>
+        <div>
+            <button class="btn btn-success w-100 mt-2" [routerLink]="['/realizar-pregunta', idParticipante, examen.id]">Empezar</button>
+        </div>
+    </div>
+</div>

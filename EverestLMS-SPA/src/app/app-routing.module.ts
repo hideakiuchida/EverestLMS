@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
 import { HomeComponent } from './views/shared/home/home.component';
 import { AsignarequiposComponent } from './views/admin/asignar/asignarequipos.component';
 import { CalendarioComponent } from './views/admin/planificarcalendario/calendario/calendario.component';
@@ -53,6 +52,10 @@ import { CursoDetalleResolver } from './resolvers/curso-participante/curso-detal
 import { LeccionParticipanteComponent } from './views/escalador/realizar-cursos/leccion-participante/leccion-participante.component';
 import { LeccionParticipanteResolver } from './resolvers/leccion-participante/leccion.-participante.resolver';
 import { RealizarExamenComponent } from './views/escalador/realizar-examen/realizar-examen.component';
+import { GenerarExamenResolver } from './resolvers/examen/generar-examen.resolver';
+import { PreguntaExamenResolver } from './resolvers/examen/pregunta-examen.resolver';
+import { ExamenResolver } from './resolvers/examen/examen.resolver';
+import { RealizarPreguntaComponent } from './views/escalador/realizar-examen/realizar-pregunta/realizar-pregunta.component';
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -188,12 +191,28 @@ const routes: Routes = [
             },
             // Realizar Examen
             {
-                path: 'realizar-examen/:idParticipante/:idCurso/:idLeccion',
-                component: RealizarExamenComponent
+                path: 'realizar-examen/:idParticipante/:idEtapa/:idCurso/:idLeccion',
+                component: RealizarExamenComponent,
+                resolve: {
+                    examen: GenerarExamenResolver,
+                    leccion: LeccionResolver
+                }
             },
             {
-                path: 'realizar-examen/:idParticipante/:idCurso',
-                component: RealizarExamenComponent
+                path: 'realizar-examen/:idParticipante/:idEtapa/:idCurso',
+                component: RealizarExamenComponent,
+                resolve: {
+                    examen: GenerarExamenResolver,
+                    curso: CursoResolver
+                }
+            },
+            {
+                path: 'realizar-pregunta/:idParticipante/:idExamen',
+                component: RealizarPreguntaComponent,
+                resolve: {
+                    examen: ExamenResolver,
+                    pregunta: PreguntaExamenResolver
+                }
             }
         ]
     },

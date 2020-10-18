@@ -6,4 +6,5 @@ export class Examen {
     vidasRestante: number;
     tiempoRestante: number;
     fechaFinalizado: Date;
+    totalPreguntas: number;
 }

@@ -13,14 +13,14 @@ export class ExamenService {
 
   constructor(private http: HttpClient) { }
 
-  createExamenPorCurso(usuarioKey, idCurso): Observable<number> {
+  createExamenPorCurso(usuarioKey, idCurso): Observable<Examen> {
     const requestBody = {usuarioKey, idCurso};
-    return this.http.post<number>(this.baseUrl + 'examenes/curso', requestBody);
+    return this.http.post<Examen>(this.baseUrl + 'examenes/curso', requestBody);
   }
 
-  createExamenPorLeccion(usuarioKey, idCurso, idLeccion): Observable<number> {
+  createExamenPorLeccion(usuarioKey, idCurso, idLeccion): Observable<Examen> {
     const requestBody = {usuarioKey, idCurso, idLeccion};
-    return this.http.post<number>(this.baseUrl + 'examenes/leccion', requestBody);
+    return this.http.post<Examen>(this.baseUrl + 'examenes/leccion', requestBody);
   }
 
   updateExamen(idExamen, examentToUpdate: ExamenToUpdate): Observable<boolean> {

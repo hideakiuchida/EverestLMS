@@ -23,18 +23,18 @@ export class AsignarescaladorComponent implements OnInit {
   escalador: Escalador;
 
   constructor(private participanteService: ParticipanteService, private asignacionService: AsignacionService,
-      private nivelService: NivelService, private alertify: AlertifyService, private route: ActivatedRoute) { }
+              private nivelService: NivelService, private alertify: AlertifyService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
-      this.escaladoresNoAsignados = data['escaladores'];
+      this.escaladoresNoAsignados = data.escaladores;
       if (this.escaladoresNoAsignados.length === 0) {
         this.alertify.message('No existe escaladores sin asignar para el sherpa.');
       } else {
         this.selectedEscalador = this.escaladoresNoAsignados[0];
         this.loadEscalador(this.selectedEscalador.id);
       }
-      this.sherpa = data['sherpa'];
+      this.sherpa = data.sherpa;
     });
   }
 

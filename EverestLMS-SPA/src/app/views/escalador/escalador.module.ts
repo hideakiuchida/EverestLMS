@@ -15,6 +15,11 @@ import { LeccionParticipanteComponent } from './realizar-cursos/leccion-particip
 import { LeccionParticipanteService } from 'src/app/services/leccion-participante/leccion-participante.service';
 import { LeccionParticipanteResolver } from 'src/app/resolvers/leccion-participante/leccion.-participante.resolver';
 import { RealizarExamenComponent } from './realizar-examen/realizar-examen.component';
+import { GenerarExamenResolver } from 'src/app/resolvers/examen/generar-examen.resolver';
+import { ExamenService } from 'src/app/services/examen/examen.service';
+import { PreguntaExamenResolver } from 'src/app/resolvers/examen/pregunta-examen.resolver';
+import { RealizarPreguntaComponent } from './realizar-examen/realizar-pregunta/realizar-pregunta.component';
+import { ExamenResolver } from 'src/app/resolvers/examen/examen.resolver';
 
 @NgModule({
    declarations: [
@@ -22,7 +27,8 @@ import { RealizarExamenComponent } from './realizar-examen/realizar-examen.compo
       CursoCardComponent,
       CursoParticipanteComponent,
       LeccionParticipanteComponent,
-      RealizarExamenComponent
+      RealizarExamenComponent,
+      RealizarPreguntaComponent
    ],
    imports: [
       SharedModule
@@ -37,7 +43,11 @@ import { RealizarExamenComponent } from './realizar-examen/realizar-examen.compo
       IdiomaResolver,
       CursoDetalleResolver,
       LeccionParticipanteService,
-      LeccionParticipanteResolver
+      LeccionParticipanteResolver,
+      ExamenService,
+      GenerarExamenResolver,
+      PreguntaExamenResolver,
+      ExamenResolver
    ]
 })
 export class EscaladorModule { }

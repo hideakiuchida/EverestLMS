@@ -93,8 +93,10 @@ namespace EverestLMS.Services.Implementations
 
         private async Task<bool> CrearPreguntasParaExamenAsync(int idExamen, IList<RespuestaEscaladorEntity> respuestasEscalador)
         {
+            int numeroOrden = default;
             foreach (var pregunta in respuestasEscalador)
             {
+                pregunta.NumeroOrden = ++numeroOrden;
                 var idQandAEscalador = await this.repository.CreateQandAEscaladorAsync(idExamen, pregunta);
                 if (idQandAEscalador == default)
                     return false;
@@ -112,7 +114,9 @@ namespace EverestLMS.Services.Implementations
         public async Task<PreguntaExamenVM> GetPreguntaDelExamenAsync(int idExamen)
         {
             var examenPreguntas = await this.repository.GetPreguntasDelExamenAsync(idExamen);
-            var examenPreguntaNoResuelta = examenPreguntas.FirstOrDefault(x => !x.MarcoCorrecto.HasValue);
+            var examenPreguntaNoResuelta = examenPreguntas
+                                           .OrderBy(x => x.NumeroOrden)
+                                           .FirstOrDefault(x => !x.MarcoCorrecto.HasValue);
             if (examenPreguntaNoResuelta == null)
                 return default;
             var respuestasDePregunta = await leccionRepository.GetRespuestasAsync(examenPreguntaNoResuelta.IdPregunta);

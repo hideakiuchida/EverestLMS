@@ -7,5 +7,6 @@
 	[DescripcionRespuesta] VARCHAR(2000) NULL,
 	[MarcoCorrecto] BIT NULL,
 	[IdExamen] INT NOT NULL,
+	[NumeroOrden] INT NOT NULL,
 	CONSTRAINT [FK_RespuestaEscalador_Examen] FOREIGN KEY ([IdExamen]) REFERENCES [Examen]([Id]) ON DELETE CASCADE
 )

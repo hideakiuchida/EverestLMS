@@ -10,10 +10,10 @@ import { LeccionService } from 'src/app/services/leccion/leccion.service';
 export class LeccionResolver implements Resolve<LeccionToRegister> {
 
     constructor(private service: LeccionService,
-        private router: Router, private alertify: AlertifyService) {}
+                private router: Router, private alertify: AlertifyService) {}
 
     resolve(route: ActivatedRouteSnapshot): Observable<LeccionToRegister> {
-        return this.service.getLeccion(route.params['idEtapa'], route.params['idCurso'], route.params['idLeccion']).pipe(
+        return this.service.getLeccion(route.params.idEtapa, route.params.idCurso, route.params.idLeccion).pipe(
             catchError(error => {
                 this.alertify.error('Problema obteniendo información.');
                 this.router.navigate(['/lecciones']);

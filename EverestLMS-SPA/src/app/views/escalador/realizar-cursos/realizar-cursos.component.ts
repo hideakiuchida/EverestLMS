@@ -22,15 +22,15 @@ export class RealizarCursosComponent implements OnInit {
   isEmptyCourses: boolean;
 
   constructor(private cursoParticipanteService: CursoParticipanteService,
-    private route: ActivatedRoute, private alertify: AlertifyService) { }
+              private route: ActivatedRoute, private alertify: AlertifyService) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
-      this.etapas = data['etapas'];
-      this.idiomas = data['idiomas'];
-      this.cursos = data['cursos'];
-      this.cursosPrediccion = data['cursosPrediccion'];
-      this.isEmptyCourses = this.cursos.length == 0;
+      this.etapas = data.etapas;
+      this.idiomas = data.idiomas;
+      this.cursos = data.cursos;
+      this.cursosPrediccion = data.cursosPrediccion;
+      this.isEmptyCourses = this.cursos.length === 0;
     });
     this.idParticipante = this.route.snapshot.paramMap.get('idParticipante');
     console.log(this.idParticipante);

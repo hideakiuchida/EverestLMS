@@ -14,6 +14,7 @@ export class LeccionParticipanteComponent implements OnInit {
   idCurso: any;
   idLeccion: any;
   leccionEscalador: any;
+  idEtapa: any;
 
   constructor(private router: Router, private route: ActivatedRoute, private alertify: AlertifyService) { }
 
@@ -24,6 +25,7 @@ export class LeccionParticipanteComponent implements OnInit {
     this.idParticipante = this.route.snapshot.paramMap.get('idParticipante');
     this.idCurso = this.route.snapshot.paramMap.get('idCurso');
     this.idLeccion = this.route.snapshot.paramMap.get('idLeccion');
+    this.idEtapa = this.route.snapshot.paramMap.get('idEtapa');
   }
 
 }
