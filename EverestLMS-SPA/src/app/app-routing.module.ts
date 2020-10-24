@@ -56,6 +56,7 @@ import { GenerarExamenResolver } from './resolvers/examen/generar-examen.resolve
 import { PreguntaExamenResolver } from './resolvers/examen/pregunta-examen.resolver';
 import { ExamenResolver } from './resolvers/examen/examen.resolver';
 import { RealizarPreguntaComponent } from './views/escalador/realizar-examen/realizar-pregunta/realizar-pregunta.component';
+import { ResultadoExamenComponent } from './views/escalador/realizar-examen/resultado-examen/resultado-examen.component';
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -207,11 +208,18 @@ const routes: Routes = [
                 }
             },
             {
-                path: 'realizar-pregunta/:idParticipante/:idExamen',
+                path: 'realizar-pregunta/:idParticipante/:idExamen/:numeroPregunta',
                 component: RealizarPreguntaComponent,
                 resolve: {
                     examen: ExamenResolver,
                     pregunta: PreguntaExamenResolver
+                }
+            },
+            {
+                path: 'resultado-examen/:idParticipante/:idExamen',
+                component: ResultadoExamenComponent,
+                resolve: {
+                    examen: ExamenResolver
                 }
             }
         ]

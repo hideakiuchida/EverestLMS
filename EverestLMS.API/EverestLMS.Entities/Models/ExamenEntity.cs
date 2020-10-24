@@ -12,58 +12,37 @@ namespace EverestLMS.Entities.Models
         private readonly int VIDAS_POR_LECCION = 3;
         private readonly int VIDAS_POR_CURSO = 5;
         private readonly int TIEMPO_10_MINUTOS_EN_MILISEGUNDOS_POR_LECCION = 600000; 
-        private readonly int TIEMPO_30_MINUTOS_EN_MILISEGUNDOS_POR_CURSO = 1800000; 
+        private readonly int TIEMPO_30_MINUTOS_EN_MILISEGUNDOS_POR_CURSO = 1800000;
 
-        private IList<RespuestaEscaladorEntity> escaladorRespuestas;
-        private int tiempoRestante;
-        private int vidasRestante;
-
-        public ExamenEntity()
+        public ExamenEntity() 
         {
-
+            EscaladorRespuestas = new List<RespuestaEscaladorEntity>();
         }
 
         public ExamenEntity(int? idLeccion)
         {
             EscaladorRespuestas = new List<RespuestaEscaladorEntity>();
-            IdLeccion = idLeccion;            
-            VidasRestante = default;
-            TiempoRestante = default;
+            IdLeccion = idLeccion;
+            if (idLeccion.HasValue)
+            {
+                TiempoRestante = TIEMPO_10_MINUTOS_EN_MILISEGUNDOS_POR_LECCION;
+                VidasRestante = VIDAS_POR_LECCION;
+            }
+            else
+            {
+                TiempoRestante = TIEMPO_30_MINUTOS_EN_MILISEGUNDOS_POR_CURSO;
+                VidasRestante = VIDAS_POR_CURSO;
+            }
         }
 
         public int Id { get; set; }
         public string UsuarioKey { get; set; }
         public int IdCurso { get; set; }
         public decimal Nota { get; set; }
-        public int VidasRestante 
-        { 
-            get 
-            {
-                return vidasRestante;
-            } 
-            set
-            {
-                if (IdLeccion.HasValue)
-                    vidasRestante = value == 0 ? VIDAS_POR_LECCION : value;
-                else
-                    vidasRestante = value == 0 ? VIDAS_POR_CURSO : value;
-            }
-        }
-        public int TiempoRestante 
-        { 
-            get 
-            {
-                return tiempoRestante;
-            } 
-            set 
-            {
-                if (IdLeccion.HasValue)
-                    tiempoRestante = value == 0 ? TIEMPO_10_MINUTOS_EN_MILISEGUNDOS_POR_LECCION : value;
-                else
-                    tiempoRestante = value == 0 ? TIEMPO_30_MINUTOS_EN_MILISEGUNDOS_POR_CURSO : value;
-            } 
-        }
+        public int VidasRestante { get; set; }
+        public int TiempoRestante { get; set; }
         public int? IdLeccion { get; set; }
+
         public int TotalPreguntas 
         { 
             get 
@@ -75,6 +54,7 @@ namespace EverestLMS.Entities.Models
             } 
         }
         public DateTime? FechaFinalizado { get; set; }
+        private IList<RespuestaEscaladorEntity> escaladorRespuestas;
         public IList<RespuestaEscaladorEntity> EscaladorRespuestas {
             get 
             {
@@ -92,8 +72,10 @@ namespace EverestLMS.Entities.Models
             }
         }
 
+        public int NumeroPreguntaActual { get; set; }
+
         #region Business Rules
-        
+
         public bool GenerarDiversidadPreguntasExamenPorCurso(IList<PreguntaEntity> preguntas) 
         {
             if (preguntas.Count < MINIMO_PREGUNTAS_POR_EXAMEN_CURSO) return false;

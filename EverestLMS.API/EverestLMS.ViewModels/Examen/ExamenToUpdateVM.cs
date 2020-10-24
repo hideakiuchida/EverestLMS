@@ -11,6 +11,7 @@ namespace EverestLMS.ViewModels.Examen
         public int? IdLeccion { get; set; }
         public int VidasRestante { get; set; }
         public int TiempoRestante { get; set; }
+        public int NumeroPreguntaActual { get; set; }
         public bool Finalizado { get; set; }
     }
 }

@@ -35,7 +35,7 @@ export class ExamenService {
     return this.http.get<Examen>(this.baseUrl + 'examenes/' + idExamen);
   }
 
-  getPregunta(idExamen): Observable<PreguntaExamen>  {
-    return this.http.get<PreguntaExamen>(this.baseUrl + 'examenes/' + idExamen + '/pregunta');
+  getPregunta(idExamen, numeroPregunta): Observable<PreguntaExamen>  {
+    return this.http.get<PreguntaExamen>(this.baseUrl + 'examenes/' + idExamen + '/pregunta/' + numeroPregunta);
   }
 }

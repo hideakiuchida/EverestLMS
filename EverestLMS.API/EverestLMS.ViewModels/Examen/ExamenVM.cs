@@ -10,6 +10,7 @@ namespace EverestLMS.ViewModels.Examen
         public decimal Nota { get; set; }
         public int VidasRestante { get; set; }
         public int TiempoRestante { get; set; }
+        public int NumeroPreguntaActual { get; set; }
         public DateTime? FechaFinalizado { get; set; }
         public int TotalPreguntas { get; set; }
     }

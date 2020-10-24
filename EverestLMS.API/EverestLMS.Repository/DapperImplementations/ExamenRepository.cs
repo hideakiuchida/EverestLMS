@@ -27,6 +27,7 @@ namespace EverestLMS.Repository.DapperImplementations
                         entity.IdLeccion,
                         entity.Nota,
                         entity.VidasRestante,
+                        entity.NumeroPreguntaActual,
                         entity.TiempoRestante
                     },
                     commandType: CommandType.StoredProcedure);
@@ -83,6 +84,7 @@ namespace EverestLMS.Repository.DapperImplementations
                 entity.Nota,
                 entity.VidasRestante,
                 entity.TiempoRestante,
+                entity.NumeroPreguntaActual,
                 entity.FechaFinalizado
             },
             commandType: CommandType.StoredProcedure);

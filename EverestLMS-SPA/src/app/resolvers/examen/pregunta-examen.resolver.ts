@@ -13,7 +13,7 @@ export class PreguntaExamenResolver implements Resolve<PreguntaExamen> {
                 private router: Router, private alertify: AlertifyService) {}
 
     resolve(route: ActivatedRouteSnapshot): Observable<PreguntaExamen> {
-        return this.examenService.getPregunta(route.params.idExamen).pipe(
+        return this.examenService.getPregunta(route.params.idExamen, route.params.numeroPregunta).pipe(
             catchError(error => {
                 this.alertify.error('Problema obteniendo información.');
                 this.router.navigate(['/realizar-examen' + route.params.idParticipante]);

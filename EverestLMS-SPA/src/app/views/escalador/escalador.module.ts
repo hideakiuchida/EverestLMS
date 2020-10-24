@@ -20,6 +20,7 @@ import { ExamenService } from 'src/app/services/examen/examen.service';
 import { PreguntaExamenResolver } from 'src/app/resolvers/examen/pregunta-examen.resolver';
 import { RealizarPreguntaComponent } from './realizar-examen/realizar-pregunta/realizar-pregunta.component';
 import { ExamenResolver } from 'src/app/resolvers/examen/examen.resolver';
+import { ResultadoExamenComponent } from './realizar-examen/resultado-examen/resultado-examen.component';
 
 @NgModule({
    declarations: [
@@ -28,7 +29,8 @@ import { ExamenResolver } from 'src/app/resolvers/examen/examen.resolver';
       CursoParticipanteComponent,
       LeccionParticipanteComponent,
       RealizarExamenComponent,
-      RealizarPreguntaComponent
+      RealizarPreguntaComponent,
+      ResultadoExamenComponent
    ],
    imports: [
       SharedModule

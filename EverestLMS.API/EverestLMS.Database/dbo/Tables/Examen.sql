@@ -7,5 +7,6 @@
 	[Nota] DECIMAL(4,2) NULL,
 	[VidasRestante] INT NOT NULL,
 	[TiempoRestante] INT NOT NULL,
+	[NumeroPreguntaActual] INT NOT NULL,
 	[FechaFinalizado] DATETIME NULL
 )

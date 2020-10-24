@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="row p-4">
+    <div class="row p-2">
         <div class="col-md-8">
             <p class="p-2">
                 <ngb-progressbar type="success" textType="white" [value]="porcentajeProgreso"></ngb-progressbar>
@@ -14,14 +14,23 @@
             <p>{{tiempoRestanteTime}}</p>
         </div>
     </div>
-    <div class="row p-4">
-        <p> {{pregunta.numeroOrden}}.- {{pregunta.descripcionPregunta}}</p>
-        <div *ngFor="let respuesta of pregunta.respuestas">
-            <label for="respuesta_{{respuesta.id}}">
-          <input id="respuesta_{{respuesta.id}}" [value]='respuesta.id' type="radio" name="enums" [(ngModel)]="respuestaSelected">
-          {{respuesta.descripcion}}
-        </label>
+    <div class="p-2">
+        <div class="p-4">
+            <b> {{pregunta.numeroOrden}}.- {{pregunta.descripcionPregunta}}</b>
         </div>
-        <button (click)='next()'>Siguiente</button>
+        <div class="pl-4">
+            <ul *ngFor="let respuesta of pregunta.respuestas">
+                <li>
+                    <label for="respuesta_{{respuesta.id}}">
+                    <input id="respuesta_{{respuesta.id}}" [value]='respuesta.id' type="radio" name="enums" [(ngModel)]="idRespuestaSelected">
+                    {{respuesta.descripcion}}
+                </label>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="row p-4">
+        <button class="btn btn-success" *ngIf="examen.numeroPreguntaActual != examen.totalPreguntas" (click)='siguiente()'>Siguiente</button>
+        <button class="btn btn-success" *ngIf="examen.numeroPreguntaActual == examen.totalPreguntas" (click)='finalizar()'>Finalizar</button>
     </div>
 </div>

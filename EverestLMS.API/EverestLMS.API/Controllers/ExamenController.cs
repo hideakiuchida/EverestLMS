@@ -60,10 +60,10 @@ namespace EverestLMS.API.Controllers
         }
 
         [HttpGet]
-        [Route("{id}/pregunta")]
-        public async Task<IActionResult> GetPreguntaDelExamenAsync(int id)
+        [Route("{id}/pregunta/{numeroPregunta}")]
+        public async Task<IActionResult> GetPreguntaDelExamenAsync(int id, int numeroPregunta)
         {
-            var result = await service.GetPreguntaDelExamenAsync(id);
+            var result = await service.GetPreguntaDelExamenAsync(id, numeroPregunta);
             return Ok(result);
         }
     }

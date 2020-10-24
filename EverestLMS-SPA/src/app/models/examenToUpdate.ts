@@ -4,5 +4,6 @@ export class ExamenToUpdate {
     idLeccion: number;
     vidasRestante: number;
     tiempoRestante: number;
+    numeroPreguntaActual: number;
     finalizado: boolean;
 }

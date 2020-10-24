@@ -9,6 +9,7 @@ BEGIN
       ,[Nota]
       ,[VidasRestante]
       ,[TiempoRestante]
+      ,[NumeroPreguntaActual]
       ,[FechaFinalizado]
   FROM [dbo].[Examen]
   WHERE [Id] = @Id;
