@@ -21,7 +21,7 @@ namespace EverestLMS.API.Controllers
         [Route("curso")]
         public async Task<IActionResult> GenerarExamenPorCursoAsync([FromBody] ExamenToGenarateVM examenToGenarateVM)
         {
-            var id = await service.GenerarExamenAsync(examenToGenarateVM.UsuarioKey, examenToGenarateVM.IdCurso);
+            var id = await service.GenerarExamenAsync(examenToGenarateVM.UsuarioKey, examenToGenarateVM.IdEtapa, examenToGenarateVM.IdCurso);
             var result = await service.GetExamenPorIdAsync(id);
             return Ok(result);
         }
@@ -30,7 +30,7 @@ namespace EverestLMS.API.Controllers
         [Route("leccion")]
         public async Task<IActionResult> GenerarExamenPorLeccionAsync([FromBody] ExamenToGenerateForLessonVM examenToGenarateVM)
         {
-            var id = await service.GenerarExamenAsync(examenToGenarateVM.UsuarioKey, examenToGenarateVM.IdCurso, examenToGenarateVM.IdLeccion.Value);
+            var id = await service.GenerarExamenAsync(examenToGenarateVM.UsuarioKey, examenToGenarateVM.IdEtapa, examenToGenarateVM.IdCurso, examenToGenarateVM.IdLeccion.Value);
             var result = await service.GetExamenPorIdAsync(id);
             return Ok(result);
         }

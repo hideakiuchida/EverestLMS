@@ -4,6 +4,7 @@ AS
 BEGIN
 	SELECT [Id]
       ,[UsuarioKey]
+      ,[IdEtapa]
       ,[IdCurso]
       ,[IdLeccion]
       ,[Nota]

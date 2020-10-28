@@ -25,9 +25,9 @@ namespace EverestLMS.Services.Implementations
             this.leccionRepository = leccionRepository;
         }
 
-        public async Task<int> GenerarExamenAsync(string idEscalador, int idCurso)
+        public async Task<int> GenerarExamenAsync(string idEscalador, int idEtapa, int idCurso)
         {
-            var leccionesPorCurso = await this.leccionRepository.GetLeccionesDetalleAsync(default, default, default, idCurso, default);
+            var leccionesPorCurso = await this.leccionRepository.GetLeccionesDetalleAsync(default, default, idEtapa, idCurso, default);
             List<PreguntaEntity> preguntas = new List<PreguntaEntity>();
             foreach (var leccion in leccionesPorCurso)
             {
@@ -41,6 +41,7 @@ namespace EverestLMS.Services.Implementations
             var examen = new ExamenEntity()
             {
                 UsuarioKey = idEscalador,
+                IdEtapa = idEtapa,
                 IdCurso = idCurso,
                 NumeroPreguntaActual = 1
             };
@@ -53,7 +54,7 @@ namespace EverestLMS.Services.Implementations
             return await CrearExamenPreguntas(examen);
         }
 
-        public async Task<int> GenerarExamenAsync(string idEscalador, int idCurso, int idLeccion)
+        public async Task<int> GenerarExamenAsync(string idEscalador, int idEtapa, int idCurso, int idLeccion)
         {
             var preguntasPorLeccion = await this.leccionRepository.GetPreguntasAsync(idLeccion);
 
@@ -63,6 +64,7 @@ namespace EverestLMS.Services.Implementations
             var examen = new ExamenEntity(idLeccion)
             {
                 UsuarioKey = idEscalador,
+                IdEtapa = idEtapa,
                 IdCurso = idCurso,
                 NumeroPreguntaActual = 1
             };
@@ -127,6 +129,7 @@ namespace EverestLMS.Services.Implementations
             if (examenToUpdateVM.Finalizado)
             {
                 examen.EscaladorRespuestas = await repository.GetPreguntasDelExamenAsync(idExamen) as IList<RespuestaEscaladorEntity>;
+                examen.CalcularNota();
                 examen.FechaFinalizado = DateTime.UtcNow;
             }    
             return await this.repository.UpdateExamenAsync(examen);

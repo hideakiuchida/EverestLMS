@@ -23,6 +23,7 @@ namespace EverestLMS.Repository.DapperImplementations
                     new
                     {
                         entity.UsuarioKey,
+                        entity.IdEtapa,
                         entity.IdCurso,
                         entity.IdLeccion,
                         entity.Nota,

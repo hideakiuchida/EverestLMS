@@ -7,6 +7,7 @@ namespace EverestLMS.ViewModels.Examen
     public class ExamenToUpdateVM
     {
         public string UsuarioKey { get; set; }
+        public int IdEtapa { get; set; }
         public int IdCurso { get; set; }
         public int? IdLeccion { get; set; }
         public int VidasRestante { get; set; }

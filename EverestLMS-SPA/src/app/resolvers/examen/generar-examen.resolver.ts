@@ -14,12 +14,13 @@ export class GenerarExamenResolver implements Resolve<Examen> {
                 private router: Router, private alertify: AlertifyService) {}
 
     resolve(route: ActivatedRouteSnapshot): Observable<Examen> {
+        const idEtapa = route.params.idEtapa;
         const idCurso = route.params.idCurso;
         const idLeccion = route.params.idLeccion;
         const idParticipante = route.params.idParticipante;
         if (idLeccion != null) {
             return this.examenService
-            .createExamenPorLeccion(idParticipante, +idCurso, +idLeccion)
+            .createExamenPorLeccion(idParticipante, +idEtapa, +idCurso, +idLeccion)
             .pipe(
                 catchError(error => {
                     this.alertify.error('Problema obteniendo información.');
@@ -29,7 +30,7 @@ export class GenerarExamenResolver implements Resolve<Examen> {
             );
         } else {
             return this.examenService
-            .createExamenPorCurso(idParticipante, +idCurso)
+            .createExamenPorCurso(idParticipante, +idEtapa, +idCurso)
             .pipe(
                 catchError(error => {
                     this.alertify.error('Problema obteniendo información.');

@@ -5,6 +5,7 @@ namespace EverestLMS.ViewModels.Examen
     public class ExamenVM
     {
         public int Id { get; set; }
+        public int IdEtapa { get; set; }
         public int IdCurso { get; set; }
         public int? IdLeccion { get; set; }
         public decimal Nota { get; set; }

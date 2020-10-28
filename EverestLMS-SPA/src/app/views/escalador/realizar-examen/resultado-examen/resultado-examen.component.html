@@ -1,3 +1,20 @@
-<p>
-  resultado-examen works!
-</p>
+<div class="container">
+    <h4 *ngIf="!isExamenLeccion" class="display p-2"> Tu resultado del Curso {{curso.descripcion}}: </h4>
+    <h4 *ngIf="isExamenLeccion" class="display p-2"> Tu resultado del Lección {{leccion.descripcion}}: </h4>
+    <div *ngIf="isAprobado" class="alert alert-success text-center">
+        <i class="fas fa-award"></i>
+        <h4> Nota: {{examen.nota}} sobre 100</h4>
+        <h4 *ngIf="!isExamenLeccion"> Felicitaciones!! lograste pasar la Curso {{curso.descripcion}} !!</h4>
+        <h4 *ngIf="isExamenLeccion"> Felicitaciones!! lograste pasar la lección {{leccion.descripcion}}!!</h4>
+        <h4> Obtienes {{curso.puntaje}}} puntos</h4>
+    </div>
+
+    <div *ngIf="!isAprobado" class="alert alert-danger  text-center">
+        <i class="far fa-frown-open"></i>
+        <h4> Nota: {{examen.nota}} sobre 100</h4>
+        <h4 *ngIf="!isExamenLeccion"> No lograste pasar la Curso {{curso.descripcion}}, sigue intentando.</h4>
+        <h4 *ngIf="isExamenLeccion"> No lograste pasar la lección {{leccion.descripcion}}, sigue intentando.</h4>
+        <h4> No obtienes puntaje.</h4>
+    </div>
+    <button type="button" class="btn btn-success" [routerLink]="['/realizar-cursos', idParticipante]">Finalizar</button>
+</div>

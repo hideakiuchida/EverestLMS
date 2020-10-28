@@ -9,19 +9,16 @@ namespace EverestLMS.Entities.Models
         private readonly int MAXIMO_PREGUNTAS_POR_LECCION = 3;
         private readonly int MINIMO_PREGUNTAS_POR_EXAMEN_LECCION = 10;
         private readonly int MINIMO_PREGUNTAS_POR_EXAMEN_CURSO = 30;
-        private readonly int VIDAS_POR_LECCION = 3;
-        private readonly int VIDAS_POR_CURSO = 5;
+        private readonly int VIDAS_POR_LECCION = 3; // NO SE UTILIZARA GAMIFICACION PARA EL EXAMEN PARA CURSO
         private readonly int TIEMPO_10_MINUTOS_EN_MILISEGUNDOS_POR_LECCION = 600000; 
         private readonly int TIEMPO_30_MINUTOS_EN_MILISEGUNDOS_POR_CURSO = 1800000;
 
         public ExamenEntity() 
         {
-            EscaladorRespuestas = new List<RespuestaEscaladorEntity>();
         }
 
         public ExamenEntity(int? idLeccion)
         {
-            EscaladorRespuestas = new List<RespuestaEscaladorEntity>();
             IdLeccion = idLeccion;
             if (idLeccion.HasValue)
             {
@@ -31,12 +28,12 @@ namespace EverestLMS.Entities.Models
             else
             {
                 TiempoRestante = TIEMPO_30_MINUTOS_EN_MILISEGUNDOS_POR_CURSO;
-                VidasRestante = VIDAS_POR_CURSO;
             }
         }
 
         public int Id { get; set; }
         public string UsuarioKey { get; set; }
+        public int IdEtapa { get; set; }
         public int IdCurso { get; set; }
         public decimal Nota { get; set; }
         public int VidasRestante { get; set; }
@@ -54,24 +51,7 @@ namespace EverestLMS.Entities.Models
             } 
         }
         public DateTime? FechaFinalizado { get; set; }
-        private IList<RespuestaEscaladorEntity> escaladorRespuestas;
-        public IList<RespuestaEscaladorEntity> EscaladorRespuestas {
-            get 
-            {
-                return escaladorRespuestas;
-            }
-            set 
-            {
-                escaladorRespuestas = value;
-                if (escaladorRespuestas.Any())
-                {
-                    var correctas = EscaladorRespuestas.Where(x => x.MarcoCorrecto.HasValue && x.MarcoCorrecto.Value);
-                    Nota = !correctas.Any() ? 0 : correctas.Count() / EscaladorRespuestas.Count;
-                }
-
-            }
-        }
-
+        public IList<RespuestaEscaladorEntity> EscaladorRespuestas { get; set; }
         public int NumeroPreguntaActual { get; set; }
 
         #region Business Rules
@@ -79,6 +59,8 @@ namespace EverestLMS.Entities.Models
         public bool GenerarDiversidadPreguntasExamenPorCurso(IList<PreguntaEntity> preguntas) 
         {
             if (preguntas.Count < MINIMO_PREGUNTAS_POR_EXAMEN_CURSO) return false;
+
+            EscaladorRespuestas = new List<RespuestaEscaladorEntity>();
 
             foreach (var pregunta in preguntas)
             {
@@ -106,6 +88,8 @@ namespace EverestLMS.Entities.Models
         {
             if (preguntas.Count < MINIMO_PREGUNTAS_POR_EXAMEN_LECCION) return false;
 
+            EscaladorRespuestas = new List<RespuestaEscaladorEntity>();
+
             foreach (var pregunta in preguntas)
             {
                 if (EscaladorRespuestas.Count == MINIMO_PREGUNTAS_POR_EXAMEN_LECCION)
@@ -120,6 +104,15 @@ namespace EverestLMS.Entities.Models
             }
 
             return true;
+        }
+
+        public void CalcularNota() 
+        {
+            if (EscaladorRespuestas.Any())
+            {
+                var correctas = EscaladorRespuestas.Where(x => x.MarcoCorrecto.HasValue && x.MarcoCorrecto.Value);
+                Nota = !correctas.Any() ? 0 : ((decimal) correctas.Count() / EscaladorRespuestas.Count) * 100;
+            }
         }
 
         #endregion

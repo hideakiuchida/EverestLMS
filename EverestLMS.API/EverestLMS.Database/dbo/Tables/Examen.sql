@@ -2,6 +2,7 @@
 (
 	[Id] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
 	[UsuarioKey] VARCHAR(1000) NOT NULL,
+	[IdEtapa] INT NOT NULL,
     [IdCurso] INT NOT NULL,
 	[IdLeccion] INT NULL,
 	[Nota] DECIMAL(4,2) NULL,

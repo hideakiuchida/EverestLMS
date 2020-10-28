@@ -10,7 +10,8 @@
                 <li>No se puede salir del examen.</li>
                 <li>Preguntas por página es: <b>1</b>.</li>
                 <li>Se permite regresar a la pregunta anterior.</li>
-                <li>Se aprueba con porcetnaje mayor a: <b>85%</b>.</li>
+                <li *ngIf="!isExamenLeccion">Se aprueba con porcentaje mayor a: <b>85%</b>.</li>
+                <li *ngIf="isExamenLeccion">Posee <b>{{examen.vidasRestante}}</b> vidas para pasar la lección. </li>
             </ul>
         </div>
         <div>
