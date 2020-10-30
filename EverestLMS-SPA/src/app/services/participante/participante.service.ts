@@ -12,22 +12,22 @@ import { Escalador } from 'src/app/models/escalador';
 export class ParticipanteService {
   baseUrl = environment.apiUrl;
 
-  _idNivel: any = '';
-  _idLineaCarrera: any = '';
-  _idSede: any = '';
-  _search: any = '';
+  idNivel: any = '';
+  idLineaCarrera: any = '';
+  idSede: any = '';
+  search: any = '';
 
 constructor(private http: HttpClient) { }
 
 getSherpas(idNivel, idLineaCarrera, idSede, search): Observable<SherpaLite[]> {
 
-    this._idNivel = (idNivel != null) ? idNivel : this._idNivel;
-    this._idSede = (idSede != null) ? idSede : this._idSede;
-    this._idLineaCarrera = (idLineaCarrera != null) ? idLineaCarrera : this._idLineaCarrera;
-    this._search = (search != null) ? search : this._search;
+    this.idNivel = (idNivel != null) ? idNivel : this.idNivel;
+    this.idSede = (idSede != null) ? idSede : this.idSede;
+    this.idLineaCarrera = (idLineaCarrera != null) ? idLineaCarrera : this.idLineaCarrera;
+    this.search = (search != null) ? search : this.search;
 
     return this.http.get<SherpaLite[]>(this.baseUrl + 'participantes/sherpas',
-    { params: {idNivel: this._idNivel, idLineaCarrera: this._idLineaCarrera, idSede: this._idSede, search: this._search}});
+    { params: {idNivel: this.idNivel, idLineaCarrera: this.idLineaCarrera, idSede: this.idSede, search: this.search}});
 }
 
 getSherpa(id): Observable<Sherpa> {
@@ -36,6 +36,11 @@ getSherpa(id): Observable<Sherpa> {
 
 getEscalador(id): Observable<Escalador> {
     return this.http.get<Escalador>(this.baseUrl + 'participantes/escaladores/' + id);
+}
+
+updatePuntaje(id, puntaje): Observable<boolean> {
+  const requestToUpdate =  { Id: id, Puntaje: puntaje};
+  return this.http.patch<boolean>(this.baseUrl + 'participantes/actualizar-puntaje/', requestToUpdate);
 }
 
 }

@@ -38,7 +38,7 @@ namespace EverestLMS.Services.Implementations
             if (!preguntas.Any())
                 throw new ExamenErrorException("No se puedo obtener las preguntas para crear el examen.");
 
-            var examen = new ExamenEntity()
+            var examen = new ExamenEntity(default)
             {
                 UsuarioKey = idEscalador,
                 IdEtapa = idEtapa,

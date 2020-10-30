@@ -186,6 +186,12 @@ namespace EverestLMS.Services.Implementations
             return result;
         }
 
+        public async Task<bool> ActualizarPuntajeAsync(EscaladorPuntajeToUpdateVM requestUpdateVM)
+        {
+            var result = await repository.ActualizarPuntajeAsync(requestUpdateVM.Id, requestUpdateVM.Puntaje);
+            return result;
+        }
+
         #region Private
         private async Task<Dictionary<int, int>> GetSherpasNoAsignadosCompletamenteAsync(int idLineaCarrera, int idSede, int maxQuantityEscaladores)
         {

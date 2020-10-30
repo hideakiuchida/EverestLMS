@@ -18,5 +18,6 @@ namespace EverestLMS.Repository.Interfaces
         Task<IEnumerable<ParticipanteEntity>> GetParticipantesAsync(int? idLineaCarrera, int? idNivel);
         Task<int> CreateAsync(ParticipanteEntity participanteEntity);
         Task<bool> DeleteAsync(int id);
+        Task<bool> ActualizarPuntajeAsync(string id, int puntaje);
     }
 }

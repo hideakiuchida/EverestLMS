@@ -1,6 +1,7 @@
 ﻿using EverestLMS.Services.Interfaces;
 using EverestLMS.ViewModels.Asignacion;
 using EverestLMS.ViewModels.Participante;
+using EverestLMS.ViewModels.Participante.Escalador;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -116,6 +117,14 @@ namespace EverestLMS.API.Controllers
         public async Task<IActionResult> GetEtapasAsync(string id)
         {
             var result = await etapaService.GetByParticipanteAsync(id);
+            return Ok(result);
+        }
+
+        [HttpPatch]
+        [Route("actualizar-puntaje")]
+        public async Task<IActionResult> ActualizarPuntajeAsync([FromBody] EscaladorPuntajeToUpdateVM requestUpdateVM)
+        {
+            var result = await service.ActualizarPuntajeAsync(requestUpdateVM);
             return Ok(result);
         }
 

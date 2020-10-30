@@ -162,6 +162,7 @@
     <Build Include="dbo\Stored Procedures\RealizarExamen\GetPreguntasDelExamen.sql" />
     <Build Include="dbo\Stored Procedures\RealizarExamen\UpdateRespuestaDelExamen.sql" />
     <Build Include="dbo\Stored Procedures\RealizarExamen\UpdateExamen.sql" />
+    <Build Include="dbo\Stored Procedures\Participantes\ActualizarPuntaje.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Evento.sql" />

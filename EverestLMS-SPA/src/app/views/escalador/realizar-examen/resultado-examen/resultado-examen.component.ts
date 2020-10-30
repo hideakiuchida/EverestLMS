@@ -6,6 +6,7 @@ import { Leccion } from 'src/app/models/leccion';
 import { AlertifyService } from 'src/app/services/alertify/alertify.service';
 import { CursosService } from 'src/app/services/curso/cursos.service';
 import { LeccionService } from 'src/app/services/leccion/leccion.service';
+import { ParticipanteService } from 'src/app/services/participante/participante.service';
 
 @Component({
   selector: 'app-resultado-examen',
@@ -19,8 +20,10 @@ export class ResultadoExamenComponent implements OnInit {
   examen: Examen;
   curso: Curso;
   leccion: Leccion;
+  puntaje: number;
 
-  constructor(private cursoService: CursosService, private leccionService: LeccionService, private router: Router,
+  constructor(private cursoService: CursosService, private leccionService: LeccionService,
+              private participanteService: ParticipanteService, private router: Router,
               private route: ActivatedRoute, private alertify: AlertifyService) { }
 
   ngOnInit() {
@@ -34,6 +37,7 @@ export class ResultadoExamenComponent implements OnInit {
       this.leccionService.getLeccion(this.examen.idEtapa, this.examen.idCurso, this.examen.idLeccion)
       .subscribe((leccion: Leccion) => {
         this.leccion =  leccion;
+        this.puntaje = this.leccion.puntaje;
       }, error => {
         this.alertify.error(error);
       });
@@ -42,9 +46,25 @@ export class ResultadoExamenComponent implements OnInit {
       this.cursoService.getCurso(this.examen.idEtapa, this.examen.idCurso)
       .subscribe((curso: Curso) => {
         this.curso =  curso;
+        this.puntaje = this.curso.puntaje;
       }, error => {
         this.alertify.error(error);
       });
+    }
+  }
+
+  finalizar() {
+    // tslint:disable-next-line:no-debugger
+    debugger;
+    if (this.isAprobado) {
+      this.participanteService.updatePuntaje(this.idParticipante, this.puntaje)
+      .subscribe(() => {
+        this.router.navigate(['realizar-cursos', this.idParticipante]);
+      }, error => {
+        this.alertify.error(error);
+      });
+    } else {
+      this.router.navigate(['realizar-cursos', this.idParticipante]);
     }
   }
 

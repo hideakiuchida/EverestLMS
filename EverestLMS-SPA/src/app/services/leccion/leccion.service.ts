@@ -18,18 +18,18 @@ import { RespuestaToRegister } from 'src/app/models/respuestaToRegister';
 export class LeccionService {
   baseUrl = environment.apiUrl;
 
-  _idLineaCarrera: any = '';
-  _idNivel: any = '';
-  _search: any = '';
+  idLineaCarrera: any = '';
+  idNivel: any = '';
+  search: any = '';
 
 constructor(private http: HttpClient) { }
 
 getLecciones(idEtapa, idCurso, idLineaCarrera, idNivel, search): Observable<Leccion[]>  {
-  this._idLineaCarrera = (idLineaCarrera != null) ? idLineaCarrera : this._idLineaCarrera;
-  this._idNivel = (idNivel != null) ? idNivel : this._idNivel;
-  this._search = (search != null) ? search : this._search;
+  this.idLineaCarrera = (idLineaCarrera != null) ? idLineaCarrera : this.idLineaCarrera;
+  this.idNivel = (idNivel != null) ? idNivel : this.idNivel;
+  this.search = (search != null) ? search : this.search;
   return this.http.get<Leccion[]>(this.baseUrl + 'etapas/' + idEtapa + '/cursos/' + idCurso + '/lecciones',
-  { params: { idNivel: this._idNivel, idLineaCarrera: this._idLineaCarrera, search: this._search } });
+  { params: { idNivel: this.idNivel, idLineaCarrera: this.idLineaCarrera, search: this.search } });
 }
 
 getLeccion(idEtapa, idCurso, idLeccion): Observable<Leccion>  {
@@ -51,7 +51,7 @@ deleteLeccion(idEtapa, idCurso, idLeccion) {
 getLeccionMateriales(idEtapa, idCurso, idLeccion): Observable<LeccionMaterialLite[]>  {
   return this.http.get<LeccionMaterialLite[]>(this.baseUrl + 'etapas/' + idEtapa +
   '/cursos/' + idCurso + '/lecciones/' + idLeccion + '/lecciones-material',
-  { params: { idNivel: this._idNivel, idLineaCarrera: this._idLineaCarrera } });
+  { params: { idNivel: this.idNivel, idLineaCarrera: this.idLineaCarrera } });
 }
 
 getLeccionMaterial(idEtapa, idCurso, idLeccion, idLeccionMaterial): Observable<LeccionMaterial[]>  {
@@ -82,7 +82,7 @@ getVideo(idEtapa, idCurso, idLeccion, idLeccionMaterial) {
 getPreguntas(idEtapa, idCurso, idLeccion): Observable<Pregunta[]>  {
   return this.http.get<Pregunta[]>(this.baseUrl + 'etapas/' + idEtapa +
   '/cursos/' + idCurso + '/lecciones/' + idLeccion + '/preguntas',
-  { params: { idNivel: this._idNivel, idLineaCarrera: this._idLineaCarrera } });
+  { params: { idNivel: this.idNivel, idLineaCarrera: this.idLineaCarrera } });
 }
 
 getPregunta(idEtapa, idCurso, idLeccion, idPregunta): Observable<Pregunta[]>  {
@@ -108,7 +108,7 @@ deletePregunta(idEtapa, idCurso, idLeccion, idPregunta) {
 getRespuestas(idEtapa, idCurso, idLeccion, idPregunta): Observable<Respuesta[]>  {
   return this.http.get<Respuesta[]>(this.baseUrl + 'etapas/' + idEtapa +
   '/cursos/' + idCurso + '/lecciones/' + idLeccion + '/preguntas/' + idPregunta + '/respuestas',
-  { params: { idNivel: this._idNivel, idLineaCarrera: this._idLineaCarrera } });
+  { params: { idNivel: this.idNivel, idLineaCarrera: this.idLineaCarrera } });
 }
 
 getRespuesta(idEtapa, idCurso, idLeccion, idPregunta, idRespuesta): Observable<Respuesta[]>  {

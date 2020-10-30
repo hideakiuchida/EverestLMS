@@ -110,8 +110,8 @@ namespace EverestLMS.Entities.Models
         {
             if (EscaladorRespuestas.Any())
             {
-                var correctas = EscaladorRespuestas.Where(x => x.MarcoCorrecto.HasValue && x.MarcoCorrecto.Value);
-                Nota = !correctas.Any() ? 0 : ((decimal) correctas.Count() / EscaladorRespuestas.Count) * 100;
+                var correctas = EscaladorRespuestas.Where(x => x.MarcoCorrecto.HasValue && x.MarcoCorrecto.Value).ToList();
+                Nota = !correctas.Any() ? 0 : Decimal.Divide(correctas.Count, EscaladorRespuestas.Count) * 100;
             }
         }
 

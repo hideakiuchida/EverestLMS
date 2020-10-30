@@ -197,5 +197,15 @@ namespace EverestLMS.Repository.DapperImplementations
             commandType: CommandType.StoredProcedure);
             return result.FirstOrDefault() > default(int);
         }
+
+        public async Task<bool> ActualizarPuntajeAsync(string id, int puntaje)
+        {
+            if (_dbConnection.State == ConnectionState.Closed)
+                _dbConnection.Open();
+            var result = await _dbConnection.QueryAsync<bool>("ActualizarPuntaje", new { Id = id, Puntaje = puntaje },
+            commandType: CommandType.StoredProcedure);
+            _dbConnection.Close();
+            return result.FirstOrDefault();
+        }
     }
 }
