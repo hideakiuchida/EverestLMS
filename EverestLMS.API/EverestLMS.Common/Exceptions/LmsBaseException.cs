@@ -2,15 +2,15 @@
 
 namespace EverestLMS.Common.Exceptions
 {
-    public class ExamenErrorException : Exception
+    public class LmsBaseException : Exception
     {
         public int StatusCode { get; set; }
-        public ExamenErrorException(string message) : base(message)
+        public LmsBaseException(string message) : base(message)
         {
             
         }
 
-        public ExamenErrorException(string message, int statusCode) : base(message)
+        public LmsBaseException(string message, int statusCode) : base(message)
         {
             StatusCode = statusCode;
         }

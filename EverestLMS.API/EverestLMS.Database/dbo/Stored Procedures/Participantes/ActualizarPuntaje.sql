@@ -13,7 +13,7 @@ BEGIN
 	BEGIN
 		UPDATE [Participante]
 		SET [Puntaje] = @Puntaje
-		WHERE [IdParticipante] = @Id;
+		WHERE [IdParticipante] = @IdPartiEscalador;
 
 		IF(@@ROWCOUNT > 0)
 			SET @Success = 1;

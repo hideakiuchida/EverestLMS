@@ -4,6 +4,7 @@ import { Curso } from 'src/app/models/curso';
 import { Examen } from 'src/app/models/examen';
 import { Leccion } from 'src/app/models/leccion';
 import { AlertifyService } from 'src/app/services/alertify/alertify.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { CursosService } from 'src/app/services/curso/cursos.service';
 import { LeccionService } from 'src/app/services/leccion/leccion.service';
 import { ParticipanteService } from 'src/app/services/participante/participante.service';
@@ -22,7 +23,7 @@ export class ResultadoExamenComponent implements OnInit {
   leccion: Leccion;
   puntaje: number;
 
-  constructor(private cursoService: CursosService, private leccionService: LeccionService,
+  constructor(private cursoService: CursosService, private leccionService: LeccionService, private authService: AuthService,
               private participanteService: ParticipanteService, private router: Router,
               private route: ActivatedRoute, private alertify: AlertifyService) { }
 
@@ -54,11 +55,10 @@ export class ResultadoExamenComponent implements OnInit {
   }
 
   finalizar() {
-    // tslint:disable-next-line:no-debugger
-    debugger;
     if (this.isAprobado) {
       this.participanteService.updatePuntaje(this.idParticipante, this.puntaje)
-      .subscribe(() => {
+      .subscribe((puntajePartipcante) => {
+        this.authService.decodedToken.puntaje = puntajePartipcante;
         this.router.navigate(['realizar-cursos', this.idParticipante]);
       }, error => {
         this.alertify.error(error);

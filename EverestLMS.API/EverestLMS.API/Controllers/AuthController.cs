@@ -42,7 +42,8 @@ namespace EverestLMS.API.Controllers
             {
                 new Claim(ClaimTypes.NameIdentifier, result.UsuarioKey),
                 new Claim(ClaimTypes.Name, result.Username),
-                new Claim(ClaimTypes.Role, result.IdRol.ToString())
+                new Claim(ClaimTypes.Role, result.IdRol.ToString()),
+                new Claim("puntaje", result.Puntaje.ToString())
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetSection("AppSettings:Token").Value));

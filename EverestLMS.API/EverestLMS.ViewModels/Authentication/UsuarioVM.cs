@@ -9,5 +9,6 @@
         public bool Activo { get; set; }       
         public int IdRol { get; set; }
         public int IdParticipante { get; set; }
+        public int Puntaje { get; set; }
     }
 }

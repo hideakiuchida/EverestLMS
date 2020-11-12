@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EverestLMS.Common.Enums;
+using EverestLMS.Common.Exceptions;
 using EverestLMS.Common.Extensions;
 using EverestLMS.Entities.Models;
 using EverestLMS.Repository.Interfaces;
@@ -186,10 +187,12 @@ namespace EverestLMS.Services.Implementations
             return result;
         }
 
-        public async Task<bool> ActualizarPuntajeAsync(EscaladorPuntajeToUpdateVM requestUpdateVM)
+        public async Task<int> ActualizarPuntajeAsync(EscaladorPuntajeToUpdateVM requestUpdateVM)
         {
-            var result = await repository.ActualizarPuntajeAsync(requestUpdateVM.Id, requestUpdateVM.Puntaje);
-            return result;
+            var succeded = await repository.ActualizarPuntajeAsync(requestUpdateVM.Id, requestUpdateVM.Puntaje);
+            if (!succeded) throw new LmsBaseException($"No se pudo actualizar el puntaje del escalador {requestUpdateVM.Id}");
+            var user = await repository.GetByIdAsync(requestUpdateVM.Id);
+            return user.Puntaje.Value;
         }
 
         #region Private

@@ -36,7 +36,7 @@ namespace EverestLMS.Services.Implementations
             }
 
             if (!preguntas.Any())
-                throw new ExamenErrorException("No se puedo obtener las preguntas para crear el examen.");
+                throw new LmsBaseException("No se puedo obtener las preguntas para crear el examen.");
 
             var examen = new ExamenEntity(default)
             {
@@ -49,7 +49,7 @@ namespace EverestLMS.Services.Implementations
             preguntas.Shuffle();
             var genaracionPreguntasExitoso = examen.GenerarDiversidadPreguntasExamenPorCurso(preguntas);
             if (!genaracionPreguntasExitoso)
-                throw new ExamenErrorException("No se pudo generar preguntas para el examen.");
+                throw new LmsBaseException("No se pudo generar preguntas para el examen.");
 
             return await CrearExamenPreguntas(examen);
         }
@@ -59,7 +59,7 @@ namespace EverestLMS.Services.Implementations
             var preguntasPorLeccion = await this.leccionRepository.GetPreguntasAsync(idLeccion);
 
             if (!preguntasPorLeccion.Any())
-                throw new ExamenErrorException("No se puedo obtener las preguntas para crear el examen.");
+                throw new LmsBaseException("No se puedo obtener las preguntas para crear el examen.");
 
             var examen = new ExamenEntity(idLeccion)
             {
@@ -71,7 +71,7 @@ namespace EverestLMS.Services.Implementations
 
             var genaracionPreguntasExitoso = examen.GenerarPreguntasExamenPorLeccion(preguntasPorLeccion as IList<PreguntaEntity>);
             if (!genaracionPreguntasExitoso)
-                throw new ExamenErrorException("No se pudo generar preguntas para el examen.");
+                throw new LmsBaseException("No se pudo generar preguntas para el examen.");
 
             return await CrearExamenPreguntas(examen);
         }
@@ -81,11 +81,11 @@ namespace EverestLMS.Services.Implementations
             var idExamen = await this.repository.CreateExamenAsync(examen);
 
             if (idExamen == default)
-                throw new ExamenErrorException("No se puedo crear el examen.");
+                throw new LmsBaseException("No se puedo crear el examen.");
 
             var registroPreguntasExitoso = await CrearPreguntasParaExamenAsync(idExamen, examen.EscaladorRespuestas);
             if (!registroPreguntasExitoso)
-                throw new ExamenErrorException("No se puedo registrar las preguntas para el examen.");
+                throw new LmsBaseException("No se puedo registrar las preguntas para el examen.");
 
             return idExamen;
         }
