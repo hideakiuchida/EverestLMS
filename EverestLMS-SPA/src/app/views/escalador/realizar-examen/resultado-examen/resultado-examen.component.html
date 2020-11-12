@@ -6,7 +6,7 @@
         <h4> Nota: {{examen.nota}} sobre 100</h4>
         <h4 *ngIf="!isExamenLeccion"> Felicitaciones!! lograste pasar la Curso {{curso?.descripcion}} !!</h4>
         <h4 *ngIf="isExamenLeccion"> Felicitaciones!! lograste pasar la lección {{leccion?.descripcion}}!!</h4>
-        <h4> Obtienes {{curso?.puntaje}} puntos</h4>
+        <h4> Obtienes {{puntaje}} puntos</h4>
     </div>
 
     <div *ngIf="!isAprobado" class="alert alert-danger  text-center">

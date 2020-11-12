@@ -4,7 +4,7 @@
 	 @IdEtapa INT,
 	 @IdCurso INT,
 	 @IdLeccion INT NULL,
-	 @Nota DECIMAL(4,2),
+	 @Nota DECIMAL(5,2),
 	 @VidasRestante INT,
 	 @NumeroPreguntaActual INT,
 	 @TiempoRestante INT

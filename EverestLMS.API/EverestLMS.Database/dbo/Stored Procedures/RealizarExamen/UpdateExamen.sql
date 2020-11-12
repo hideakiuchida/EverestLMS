@@ -1,7 +1,7 @@
 ﻿CREATE PROCEDURE [dbo].[UpdateExamen]
 (
  @IdExamen INT,
- @Nota decimal(4,2) NULL,
+ @Nota decimal(5,2) NULL,
  @VidasRestante INT NULL, 
  @TiempoRestante INT NULL,
  @NumeroPreguntaActual INT NULL,

@@ -189,10 +189,11 @@ namespace EverestLMS.Services.Implementations
 
         public async Task<int> ActualizarPuntajeAsync(EscaladorPuntajeToUpdateVM requestUpdateVM)
         {
-            var succeded = await repository.ActualizarPuntajeAsync(requestUpdateVM.Id, requestUpdateVM.Puntaje);
-            if (!succeded) throw new LmsBaseException($"No se pudo actualizar el puntaje del escalador {requestUpdateVM.Id}");
             var user = await repository.GetByIdAsync(requestUpdateVM.Id);
-            return user.Puntaje.Value;
+            var puntaje = user.Puntaje.Value + requestUpdateVM.Puntaje;
+            var succeded = await repository.ActualizarPuntajeAsync(requestUpdateVM.Id, puntaje);
+            if (!succeded) throw new LmsBaseException($"No se pudo actualizar el puntaje del escalador {requestUpdateVM.Id}");
+            return puntaje;
         }
 
         #region Private

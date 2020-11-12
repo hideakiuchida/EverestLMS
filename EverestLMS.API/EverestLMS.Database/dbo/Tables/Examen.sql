@@ -5,7 +5,7 @@
 	[IdEtapa] INT NOT NULL,
     [IdCurso] INT NOT NULL,
 	[IdLeccion] INT NULL,
-	[Nota] DECIMAL(4,2) NULL,
+	[Nota] DECIMAL(5,2) NULL,
 	[VidasRestante] INT NOT NULL,
 	[TiempoRestante] INT NOT NULL,
 	[NumeroPreguntaActual] INT NOT NULL,
