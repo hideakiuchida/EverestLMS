@@ -59,9 +59,9 @@ namespace EverestLMS.Services.Implementations
             return result;
         }
 
-        public async Task<IEnumerable<CloudinaryFileVM>> GetCloudinaryFilesAsync(int? idCurso = null, int? idLeccionMaterial = null, int? idPregunta = null, int? idRespuesta = null, int? idUsuario = null)
+        public async Task<IEnumerable<CloudinaryFileVM>> GetCloudinaryFilesAsync(int? idCurso = null, int? idLeccion = null, int? idPregunta = null, int? idRespuesta = null, int? idUsuario = null)
         {
-            var entities = await cloudinaryFileRepository.GetCloudinaryFilesAsync(idCurso, idLeccionMaterial, idPregunta, idRespuesta, idUsuario);
+            var entities = await cloudinaryFileRepository.GetCloudinaryFilesAsync(idCurso, idLeccion, idPregunta, idRespuesta, idUsuario);
             var result = mapper.Map<IEnumerable<CloudinaryFileVM>>(entities);
             return result;
         }

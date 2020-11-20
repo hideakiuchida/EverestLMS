@@ -6,7 +6,8 @@
 	@IdCurso INT NULL,
 	@IdPregunta INT NULL,
 	@IdRespuesta INT NULL,
-	@IdUsuario INT NULL
+	@IdUsuario INT NULL,
+	@IdLeccion INT NULL
 AS
 BEGIN
 	UPDATE  [dbo].[CloudinaryFile] 
@@ -17,6 +18,7 @@ BEGIN
 	AND (@IdCurso IS NULL OR IdCurso = @IdCurso)
 	AND (@IdPregunta IS NULL OR IdPregunta = @IdPregunta)
 	AND (@IdRespuesta IS NULL OR IdRespuesta = @IdRespuesta)
-	AND (@IdUsuario IS NULL OR IdUsuario = @IdUsuario);
+	AND (@IdUsuario IS NULL OR IdUsuario = @IdUsuario)
+	AND (@IdLeccion IS NULL OR IdLeccion = @IdLeccion);
 	SELECT @@ROWCOUNT;
 END

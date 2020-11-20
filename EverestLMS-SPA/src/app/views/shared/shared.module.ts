@@ -21,6 +21,7 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
 import { CommonModule } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import { JwtModule } from '@auth0/angular-jwt';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -56,6 +57,7 @@ export function tokenGetter() {
              blacklistedRoutes: ['localhost:64736/api/auth']
           }
        }),
+      AngularEditorModule,
       NgbModule,
       RouterModule,
       AppRoutingModule
@@ -78,6 +80,7 @@ export function tokenGetter() {
       BsDatepickerModule,
       TimepickerModule,
       NgbModule,
+      AngularEditorModule,
       AppRoutingModule
    ]
 })

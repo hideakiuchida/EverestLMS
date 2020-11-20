@@ -1,8 +1,10 @@
 ﻿using EverestLMS.Common.Enums;
 using EverestLMS.Services.Interfaces;
+using EverestLMS.ViewModels.CloudinaryFile;
 using EverestLMS.ViewModels.Leccion;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace EverestLMS.API.Controllers
@@ -217,6 +219,28 @@ namespace EverestLMS.API.Controllers
         }
         #endregion
 
+        #region Imagenes de Lección
+        [HttpGet]
+        [Route("{id}/imagenes")]
+        public async Task<IActionResult> GetCloudinaryFilesAsync(int id)
+        {
+            var result = await cloudinaryFileService.GetCloudinaryFilesAsync(id);
+            return Ok(result);
+        }
+
+        [HttpPost]
+        [Route("{id}/imagenes")]
+        public async Task<IActionResult> CreateCloudinaryFileAsync(int id, [FromForm] CloudinaryFileToCreateVM cloudinaryFileToCreateVM)
+        {
+            cloudinaryFileToCreateVM.IdLeccion = id;
+            var idUploadedFile = await cloudinaryFileService.CreateCloudinaryFileAsync(cloudinaryFileToCreateVM);
+            var result = await cloudinaryFileService.GetSpecificCloudinaryFilesAsync(idUploadedFile, idLeccion: id);
+            var response = new { imageUrl = result.Url };
+            return Ok(response);
+        }
+
+        #endregion
+
         #region Videos de Lecciones
         [HttpGet]
         [Route("{idLeccion}/lecciones-material/videos/{id}")]
@@ -226,18 +250,15 @@ namespace EverestLMS.API.Controllers
             return Ok(result);
         }
 
-
-#pragma warning disable S125 // Sections of code should not be commented out
-        /*[HttpGet]
-                [Route("{idLeccion}/lecciones-material/{idLeccionMaterial}/videos")]
-                public async Task<IActionResult> GetCloudinaryFilesAsync(int idLeccionMaterial)
-                {
-                    var result = await cloudinaryFileService.GetCloudinaryFilesAsync(idLeccionMaterial: idLeccionMaterial);
-                    return Ok(result);
-                }*/
+        [HttpGet]
+        [Route("{idLeccion}/lecciones-material/videos")]
+        public async Task<IActionResult> GetVideosByLeccionAsync(int idLeccion)
+        {
+            var result = await cloudinaryFileService.GetCloudinaryFilesAsync(idLeccion);
+            return Ok(result);
+        }
 
         [HttpPost]
-#pragma warning restore S125 // Sections of code should not be commented out
         [Route("{idLeccion}/lecciones-material/videos")]
         public async Task<IActionResult> CreateCloudinaryFileAsync(int idLeccion, string titulo, [FromForm]LeccionMaterialVideoToCreateVM leccionMaterialVideoToCreateVM)
         {
@@ -247,27 +268,6 @@ namespace EverestLMS.API.Controllers
             var result = await leccionService.CreateLeccionVideoMaterialAsync(leccionMaterialVideoToCreateVM);
             return Ok(result);
         }
-
-
-#pragma warning disable S125 // Sections of code should not be commented out
-        /*[HttpPut]
-                [Route("{idLeccion}/lecciones-material/{idLeccionMaterial}/videos/{id}")]
-                public async Task<IActionResult> EditCloudinaryFileAsync(int idLeccionMaterial, int id, [FromForm]CloudinaryFileToUpdateVM cloudinaryFileToUpdateVM)
-                {
-                    cloudinaryFileToUpdateVM.IdLeccionMaterial = idLeccionMaterial;
-                    cloudinaryFileToUpdateVM.Id = id;
-                    var result = await cloudinaryFileService.EditCloudinaryFileAsync(cloudinaryFileToUpdateVM);
-                    return Ok(result);
-                }
-
-                [HttpDelete]
-                [Route("{idLeccion}/lecciones-material/{idLeccionMaterial}/videos/{id}")]
-                public async Task<IActionResult> DeleteCloudinaryFileAsync(int idLeccionMaterial, int id)
-                {
-                    var result = await cloudinaryFileService.DeleteCloudinaryFileAsync(id, idLeccionMaterial: idLeccionMaterial);
-                    return Ok(result);
-                }*/
         #endregion
     }
-#pragma warning restore S125 // Sections of code should not be commented out
 }

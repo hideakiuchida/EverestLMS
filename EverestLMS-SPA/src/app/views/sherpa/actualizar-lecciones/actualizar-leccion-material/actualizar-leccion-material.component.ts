@@ -23,13 +23,13 @@ export class ActualizarLeccionMaterialComponent implements OnInit {
   idLeccion: any;
 
   constructor(private leccionService: LeccionService, private route: ActivatedRoute,
-    private alertify: AlertifyService, private router: Router) { }
+              private alertify: AlertifyService, private router: Router) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
-      this.leccionesMaterial = data['leccionesMaterial'];
-      this.tipoContenidos = data['tipoContenidos'];
-      this.preguntas = data['preguntas'];
+      this.leccionesMaterial = data.leccionesMaterial;
+      this.tipoContenidos = data.tipoContenidos;
+      this.preguntas = data.preguntas;
     });
     this.idEtapa = this.route.snapshot.paramMap.get('idEtapa');
     this.idCurso = this.route.snapshot.paramMap.get('idCurso');
@@ -66,7 +66,6 @@ export class ActualizarLeccionMaterialComponent implements OnInit {
   }
 
   registrarLeccionMaterial() {
-    debugger;
     if (this.selectedContenidoId === '1') {
       this.router.navigate(['registrar-leccion-material', this.idEtapa, this.idCurso, this.idLeccion, '']);
     } else if (this.selectedContenidoId === '2') {
@@ -83,10 +82,9 @@ export class ActualizarLeccionMaterialComponent implements OnInit {
   }
 
   editarLeccionMaterial(idLeccionMaterial, idTipoContenido) {
-    debugger;
     if (idTipoContenido === 1) {
       this.router.navigate(['registrar-leccion-material', this.idEtapa, this.idCurso, this.idLeccion, idLeccionMaterial]);
-    } else if (idTipoContenido=== 2) {
+    } else if (idTipoContenido === 2) {
       this.router.navigate(['registrar-video-material', this.idEtapa, this.idCurso, this.idLeccion, idLeccionMaterial]);
     } else if (idTipoContenido === 3) {
       this.router.navigate(['registrar-presentacion-material', this.idEtapa, this.idCurso, this.idLeccion, idLeccionMaterial]);

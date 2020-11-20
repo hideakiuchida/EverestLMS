@@ -26,13 +26,13 @@ export class CursosComponent implements OnInit {
   isFirstLoad: boolean;
 
   constructor(private cursoService: CursosService, private etapaService: EtapaService,
-    private route: ActivatedRoute, private alertify: AlertifyService) { }
+              private route: ActivatedRoute, private alertify: AlertifyService) { }
 
   ngOnInit() {
     this.isFirstLoad = true;
     this.route.data.subscribe(data => {
-      this.niveles = data['niveles'];
-      this.lineaCarreras = data['lineaCarreras'];
+      this.niveles = data.niveles;
+      this.lineaCarreras = data.lineaCarreras;
     });
     this.initDatatable();
     this.loadEtapas(this.selectedLineaCarreraId, this.selectedNivelId);

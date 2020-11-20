@@ -23,9 +23,9 @@ export class ActualizarPreguntasComponent implements OnInit {
   form: FormGroup;
   dtOptions: DataTables.Settings = {};
   preguntaToRegister: PreguntaToRegister;
-  
-  constructor(private formBuilder: FormBuilder, private leccionService: LeccionService, 
-    private route: ActivatedRoute, private alertify: AlertifyService, private router: Router) { }
+
+  constructor(private formBuilder: FormBuilder, private leccionService: LeccionService,
+              private route: ActivatedRoute, private alertify: AlertifyService, private router: Router) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
@@ -42,7 +42,7 @@ export class ActualizarPreguntasComponent implements OnInit {
     this.idCurso = this.route.snapshot.params.idCurso;
     this.idLeccion = this.route.snapshot.params.idLeccion;
     this.idPregunta = this.route.snapshot.params.idPregunta;
-    this.isEditForm = this.idPregunta != undefined && this.idPregunta != '';
+    this.isEditForm = this.idPregunta !== undefined && this.idPregunta !== '';
   }
 
   initDatatable() {
@@ -82,7 +82,6 @@ export class ActualizarPreguntasComponent implements OnInit {
           this.alertify.error(error.message);
         });
       }
-      
     } else {
       this.alertify.warning('Falta llenar campos.');
     }
@@ -100,11 +99,12 @@ export class ActualizarPreguntasComponent implements OnInit {
   eliminarRespuesta(id) {
     this.leccionService.deleteRespuesta(this.idEtapa, this.idCurso, this.idLeccion, this.idPregunta, id)
     .subscribe((deleted: boolean) => {
-      if (deleted)
-      this.alertify.success('Se eliminó existosamente.');
+      if (deleted) {
+        this.alertify.success('Se eliminó existosamente.');
+      }
     }, error => {
       this.alertify.error(error.message);
-    })
+    });
   }
 
 }

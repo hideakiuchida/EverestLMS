@@ -5,7 +5,8 @@
 	@IdCurso INT NULL,
 	@IdPregunta INT NULL,
 	@IdRespuesta INT NULL,
-	@IdUsuario INT NULL
+	@IdUsuario INT NULL,
+	@IdLeccion INT NULL
 AS
 BEGIN
 INSERT INTO [dbo].[CloudinaryFile]
@@ -16,7 +17,8 @@ INSERT INTO [dbo].[CloudinaryFile]
            ,[IdCurso]
 		   ,[IdPregunta]
 		   ,[IdRespuesta]
-		   ,[IdUsuario])
+		   ,[IdUsuario]
+		   ,[IdLeccion])
      VALUES
            (@Descripcion
            ,@IdPublico
@@ -25,6 +27,7 @@ INSERT INTO [dbo].[CloudinaryFile]
            ,@IdCurso
 		   ,@IdPregunta
 		   ,@IdRespuesta
-		   ,@IdUsuario);
+		   ,@IdUsuario
+		   ,@IdLeccion);
 SELECT SCOPE_IDENTITY();
 END

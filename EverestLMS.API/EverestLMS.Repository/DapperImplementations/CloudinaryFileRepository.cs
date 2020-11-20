@@ -27,13 +27,14 @@ namespace EverestLMS.Repository.DapperImplementations
                     cloudinaryFileEntity.IdCurso,
                     cloudinaryFileEntity.IdPregunta,
                     cloudinaryFileEntity.IdRespuesta,
-                    cloudinaryFileEntity.IdUsuario
+                    cloudinaryFileEntity.IdUsuario,
+                    cloudinaryFileEntity.IdLeccion
                 },
                 commandType: CommandType.StoredProcedure);
                 return result.FirstOrDefault();
         }
 
-        public async Task<bool> DeleteCloudinaryFileAsync(int idCloudinaryFile, int? idCurso = null, int? idLeccionMaterial = null, int? idPregunta = null, int? idRespuesta = null, int? idUsuario = null)
+        public async Task<bool> DeleteCloudinaryFileAsync(int idCloudinaryFile, int? idCurso = null, int? idLeccion = null, int? idPregunta = null, int? idRespuesta = null, int? idUsuario = null)
         {
             if (_dbConnection.State == ConnectionState.Closed)
                 _dbConnection.Open();
@@ -44,7 +45,8 @@ namespace EverestLMS.Repository.DapperImplementations
                     IdCurso = idCurso,
                     IdPregunta = idPregunta,
                     IdRespuesta = idRespuesta,
-                    IdUsuario = idUsuario
+                    IdUsuario = idUsuario,
+                    IdLeccion = idLeccion
                 },
                 commandType: CommandType.StoredProcedure);
                 return result.FirstOrDefault() > default(int);
@@ -64,13 +66,14 @@ namespace EverestLMS.Repository.DapperImplementations
                     cloudinaryFileEntity.IdCurso,
                     cloudinaryFileEntity.IdPregunta,
                     cloudinaryFileEntity.IdRespuesta,
-                    cloudinaryFileEntity.IdUsuario
+                    cloudinaryFileEntity.IdUsuario,
+                    cloudinaryFileEntity.IdLeccion
                 },
                 commandType: CommandType.StoredProcedure);
                 return result.FirstOrDefault() > default(int);
         }
 
-        public async Task<IEnumerable<CloudinaryFileEntity>> GetCloudinaryFilesAsync(int? idCurso = null, int? idLeccionMaterial = null, int? idPregunta = null, int? idRespuesta = null, int? idUsuario = null)
+        public async Task<IEnumerable<CloudinaryFileEntity>> GetCloudinaryFilesAsync(int? idCurso = null, int? idLeccion = null, int? idPregunta = null, int? idRespuesta = null, int? idUsuario = null)
         {
             if (_dbConnection.State == ConnectionState.Closed)
                 _dbConnection.Open();
@@ -80,13 +83,14 @@ namespace EverestLMS.Repository.DapperImplementations
                     IdCurso = idCurso,
                     IdPregunta = idPregunta,
                     IdRespuesta = idRespuesta,
-                    IdUsuario = idUsuario
+                    IdUsuario = idUsuario,
+                    IdLeccion = idLeccion
                 },
                 commandType: CommandType.StoredProcedure);
                 return result.ToList();
         }
 
-        public async Task<CloudinaryFileEntity> GetSpecificCloudinaryFilesAsync(int idCloudinaryFile, int? idCurso = null, int? idLeccionMaterial = null, int? idPregunta = null, int? idRespuesta = null, int? idUsuario = null)
+        public async Task<CloudinaryFileEntity> GetSpecificCloudinaryFilesAsync(int idCloudinaryFile, int? idCurso = null, int? idLeccion = null, int? idPregunta = null, int? idRespuesta = null, int? idUsuario = null)
         {
             if (_dbConnection.State == ConnectionState.Closed)
                 _dbConnection.Open();
@@ -97,7 +101,8 @@ namespace EverestLMS.Repository.DapperImplementations
                     IdCurso = idCurso,
                     IdPregunta = idPregunta,
                     IdRespuesta = idRespuesta,
-                    IdUsuario = idUsuario
+                    IdUsuario = idUsuario,
+                    IdLeccion = idLeccion
                 },
                 commandType: CommandType.StoredProcedure);
             return result.FirstOrDefault();

@@ -15,8 +15,6 @@ import { TipoContenidoResolver } from './resolvers/tipocontenido/tipocontenido.r
 import { RegistrarLeccionMaterialComponent } from './views/sherpa/actualizar-lecciones/actualizar-leccion-material/registrar-leccion-material/registrar-leccion-material.component';
 // tslint:disable-next-line:max-line-length
 import { RegistrarVideoMaterialComponent } from './views/sherpa/actualizar-lecciones/actualizar-leccion-material/registrar-video-material/registrar-video-material.component';
-// tslint:disable-next-line:max-line-length
-import { RegistrarPresentacionMaterialComponent } from './views/sherpa/actualizar-lecciones/actualizar-leccion-material/registrar-presentacion-material/registrar-presentacion-material.component';
 import { CursosComponent } from './views/sherpa/actualizar-cursos/cursos.component';
 import { RegistrarCursoComponent } from './views/sherpa/actualizar-cursos/registrar-curso/registrar-curso.component';
 import { IdiomaResolver } from './resolvers/idiomas/idioma.resolver';
@@ -57,15 +55,16 @@ import { PreguntaExamenResolver } from './resolvers/examen/pregunta-examen.resol
 import { ExamenResolver } from './resolvers/examen/examen.resolver';
 import { RealizarPreguntaComponent } from './views/escalador/realizar-examen/realizar-pregunta/realizar-pregunta.component';
 import { ResultadoExamenComponent } from './views/escalador/realizar-examen/resultado-examen/resultado-examen.component';
+import { ActualizarContenidoComponent } from './views/sherpa/actualizar-lecciones/actualizar-contenido/actualizar-contenido.component';
 
 const routes: Routes = [
-    { path: '', component: HomeComponent },
+    { path: 'inicio', component: HomeComponent },
     {
         path: '',
         runGuardsAndResolvers: 'always',
         canActivate: [AuthGuard],
         children: [
-            { path: 'inicio', component: InicioComponent },
+            { path: '', component: InicioComponent },
             // Asignacion
             { path: 'asignarequipos', component: AsignarequiposComponent },
             {
@@ -115,8 +114,8 @@ const routes: Routes = [
                 }
             },
             {
-                path: 'actualizar-presentacion-material/:idEtapa/:idCurso/:idLeccion/:idLeccionMaterial',
-                component: RegistrarPresentacionMaterialComponent,
+                path: 'actualizar-contenido/:idEtapa/:idCurso/:idLeccion/:idLeccionMaterial',
+                component: ActualizarContenidoComponent,
                 resolve: {
                     leccionMaterial: LeccionMaterialResolver,
                     tipoContenidos: TipoContenidoResolver }

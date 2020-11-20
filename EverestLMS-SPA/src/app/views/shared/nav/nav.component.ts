@@ -31,7 +31,7 @@ export class NavComponent implements OnInit, OnChanges {
     this.authService.login(this.model).subscribe(next => {
       this.alertify.success('Bienvenido');
       this.idParticipante = this.authService.getUserId();
-      this.router.navigate(['inicio']);
+      this.router.navigate(['']);
     }, error => {
       if (error.status === 401) {
         this.alertify.error('Error al ingresar sus credenciales');

@@ -30,7 +30,7 @@ export class RegistrarVideoMaterialComponent implements OnInit {
     this.initializeUploader();
   }
 
-  public fileOverBase(e: any): void {
+  fileOverBase(e: any): void {
     this.hasBaseDropZoneOver = e;
   }
 
@@ -45,7 +45,7 @@ export class RegistrarVideoMaterialComponent implements OnInit {
       autoUpload: false,
       maxFileSize: 10 * 1024 * 1024
       */
-      disableMultipart: true, 
+      disableMultipart: true,
       formatDataFunctionIsAsync: true,
       formatDataFunction: async (item) => {
         return new Promise( (resolve, reject) => {

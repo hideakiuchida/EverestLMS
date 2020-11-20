@@ -13,8 +13,6 @@ import { ActualizarLeccionMaterialComponent } from './actualizar-lecciones/actua
 import { RegistrarLeccionMaterialComponent } from './actualizar-lecciones/actualizar-leccion-material/registrar-leccion-material/registrar-leccion-material.component';
 // tslint:disable-next-line:max-line-length
 import { RegistrarVideoMaterialComponent } from './actualizar-lecciones/actualizar-leccion-material/registrar-video-material/registrar-video-material.component';
-// tslint:disable-next-line:max-line-length
-import { RegistrarPresentacionMaterialComponent } from './actualizar-lecciones/actualizar-leccion-material/registrar-presentacion-material/registrar-presentacion-material.component';
 import { CursosService } from 'src/app/services/curso/cursos.service';
 import { CursoImagenResolver } from 'src/app/resolvers/curso/curso-imagen.resolver';
 import { LeccionService } from 'src/app/services/leccion/leccion.service';
@@ -32,6 +30,7 @@ import { PreguntaResolver } from 'src/app/resolvers/leccion/pregunta.resolver';
 import { ActualizarPreguntasComponent } from './actualizar-lecciones/actualizar-preguntas/actualizar-preguntas.component';
 import { RespuestaResolver } from 'src/app/resolvers/leccion/respuesta.resolver';
 import { ActualizarRespuestasComponent } from './actualizar-lecciones/actualizar-respuestas/actualizar-respuestas.component';
+import { ActualizarContenidoComponent } from './actualizar-lecciones/actualizar-contenido/actualizar-contenido.component';
 
 @NgModule({
    declarations: [
@@ -45,9 +44,9 @@ import { ActualizarRespuestasComponent } from './actualizar-lecciones/actualizar
       ActualizarLeccionMaterialComponent,
       RegistrarLeccionMaterialComponent,
       RegistrarVideoMaterialComponent,
-      RegistrarPresentacionMaterialComponent,
       ActualizarPreguntasComponent,
-      ActualizarRespuestasComponent
+      ActualizarRespuestasComponent,
+      ActualizarContenidoComponent
    ],
    imports: [
       SharedModule

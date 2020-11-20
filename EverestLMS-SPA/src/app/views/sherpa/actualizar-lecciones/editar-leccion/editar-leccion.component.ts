@@ -122,13 +122,15 @@ export class EditarLeccionComponent implements OnInit {
       this.leccionToRegiter = Object.assign({}, this.leccionForm.value);
       this.leccionToRegiter.idCurso = +this.leccionToRegiter.idCurso;
       this.leccionToRegiter.idEtapa = +this.leccionToRegiter.idEtapa;
-      this.leccionService.editLeccion(this.leccionToRegiter.idEtapa, this.leccionToRegiter.idCurso, this.leccionToRegiter.id, this.leccionToRegiter)
+      this.leccionService.editLeccion(this.leccionToRegiter.idEtapa, this.leccionToRegiter.idCurso,
+        this.leccionToRegiter.id, this.leccionToRegiter)
       .subscribe(() => {
         this.alertify.success('Se actualizó existosamente.');
       }, error => {
         this.alertify.error(error.message);
       }, () => {
-        this.router.navigate(['actualizar-leccion-material', this.leccionToRegiter.idEtapa, this.leccionToRegiter.idCurso, this.leccionToRegiter.id]);
+        this.router.navigate(['actualizar-leccion-material', this.leccionToRegiter.idEtapa,
+        this.leccionToRegiter.idCurso, this.leccionToRegiter.id]);
       });
     } else {
       this.alertify.warning('Falta llenar campos.');
