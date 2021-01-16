@@ -14,7 +14,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FileUploadModule } from 'ng2-file-upload';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-import { TimepickerModule, BsDropdownModule } from 'ngx-bootstrap';
+import { TimepickerModule, BsDropdownModule, ModalModule } from 'ngx-bootstrap';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from 'src/app/app-routing.module';
@@ -57,6 +57,7 @@ export function tokenGetter() {
              blacklistedRoutes: ['localhost:64736/api/auth']
           }
        }),
+      ModalModule.forRoot(),
       AngularEditorModule,
       NgbModule,
       RouterModule,
@@ -80,6 +81,7 @@ export function tokenGetter() {
       BsDatepickerModule,
       TimepickerModule,
       NgbModule,
+      ModalModule,
       AngularEditorModule,
       AppRoutingModule
    ]

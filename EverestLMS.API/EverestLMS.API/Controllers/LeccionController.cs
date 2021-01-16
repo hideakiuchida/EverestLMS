@@ -259,6 +259,7 @@ namespace EverestLMS.API.Controllers
         }
 
         [HttpPost]
+        [DisableRequestSizeLimit]
         [Route("{idLeccion}/lecciones-material/videos")]
         public async Task<IActionResult> CreateCloudinaryFileAsync(int idLeccion, string titulo, [FromForm]LeccionMaterialVideoToCreateVM leccionMaterialVideoToCreateVM)
         {

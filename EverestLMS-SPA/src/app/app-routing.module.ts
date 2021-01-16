@@ -117,8 +117,12 @@ const routes: Routes = [
                 path: 'actualizar-contenido/:idEtapa/:idCurso/:idLeccion/:idLeccionMaterial',
                 component: ActualizarContenidoComponent,
                 resolve: {
-                    leccionMaterial: LeccionMaterialResolver,
-                    tipoContenidos: TipoContenidoResolver }
+                    leccionMaterial: LeccionMaterialResolver
+                }
+            },
+            {
+                path: 'actualizar-contenido/:idEtapa/:idCurso/:idLeccion',
+                component: ActualizarContenidoComponent
             },
             {
                 path: 'actualizar-pregunta/:idEtapa/:idCurso/:idLeccion/:idPregunta',

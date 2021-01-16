@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -9,6 +10,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./actualizar-contenido.component.css']
 })
 export class ActualizarContenidoComponent implements OnInit {
+  modalRef: BsModalRef;
   htmlContent = '';
   baseUrl = environment.apiUrl;
   idEtapa: any;
@@ -17,7 +19,7 @@ export class ActualizarContenidoComponent implements OnInit {
 
   editorConfig: AngularEditorConfig;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private router: Router, private modalService: BsModalService) { }
 
   ngOnInit() {
     this.idEtapa = this.route.snapshot.paramMap.get('idEtapa');
@@ -70,4 +72,7 @@ export class ActualizarContenidoComponent implements OnInit {
     };
   }
 
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+  }
 }
