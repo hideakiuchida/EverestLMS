@@ -21,7 +21,7 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
 import { CommonModule } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import { JwtModule } from '@auth0/angular-jwt';
-import { AngularEditorModule } from '@kolkov/angular-editor';
+import { QuillModule } from 'ngx-quill';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -58,9 +58,9 @@ export function tokenGetter() {
           }
        }),
       ModalModule.forRoot(),
-      AngularEditorModule,
       NgbModule,
       RouterModule,
+      QuillModule.forRoot(),
       AppRoutingModule
    ],
    exports: [
@@ -82,7 +82,7 @@ export function tokenGetter() {
       TimepickerModule,
       NgbModule,
       ModalModule,
-      AngularEditorModule,
+      QuillModule,
       AppRoutingModule
    ]
 })

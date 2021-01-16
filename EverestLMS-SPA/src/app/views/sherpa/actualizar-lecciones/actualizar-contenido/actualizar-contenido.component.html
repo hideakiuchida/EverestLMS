@@ -2,17 +2,7 @@
     <div class="text-center">
         <h1>Edición de Contenido</h1>
     </div>
-    <angular-editor [placeholder]="'Ingrese su contenido...'" [(ngModel)]="htmlContent" [config]="editorConfig"></angular-editor>
-    <div class="html">
-        {{ htmlContent }}
-    </div>
-
-    <div class="col-md-12 mt-2 text-center">
-        <button type="button" class="btn btn-primary m-2 col-md-3" (click)="openModal(template)">Subir Video</button>
-        <button type=" button " class="btn btn-info m-2 col-md-3">Vista Previa</button>
-        <button type="button " class="btn btn-success m-2 col-md-3 ">Guardar</button>
-    </div>
-
+    <quill-editor></quill-editor>
 </div>
 
 
