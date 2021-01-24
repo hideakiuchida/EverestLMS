@@ -91,10 +91,8 @@
     <Build Include="dbo\Tables\Leccion.sql" />
     <Build Include="dbo\Tables\Pregunta.sql" />
     <Build Include="dbo\Tables\Respuesta.sql" />
-    <Build Include="dbo\Tables\LeccionMaterial.sql" />
     <Build Include="dbo\Tables\Dificultad.sql" />
     <Build Include="dbo\Tables\TipoContenido.sql" />
-    <None Include="PostDeploymentData\01_TipoContenido.sql" />
     <None Include="PostDeploymentData\01_Dificultad.sql" />
     <Build Include="dbo\Tables\Idioma.sql" />
     <Build Include="dbo\Tables\CloudinaryFile.sql" />
@@ -107,7 +105,6 @@
     <Build Include="dbo\Stored Procedures\Calendario\CreateEvento.sql" />
     <Build Include="dbo\Stored Procedures\Lecciones\CreateLeccion.sql" />
     <Build Include="dbo\Stored Procedures\Participantes\CreateParticipante.sql" />
-    <Build Include="dbo\Stored Procedures\Lecciones\CreateLeccionMaterial.sql" />
     <Build Include="dbo\Stored Procedures\RealizarCurso\CreatePredictionCurso.sql" />
     <Build Include="dbo\Stored Procedures\Lecciones\CreatePregunta.sql" />
     <Build Include="dbo\Stored Procedures\RealizarCurso\CreateRatingCurso.sql" />
@@ -128,7 +125,7 @@
     <Build Include="dbo\Stored Procedures\Asignacion\DesasignarSherpaAutomaticamente.sql" />
     <Build Include="dbo\Stored Procedures\Cloudinary\EditCloudinaryFile.sql" />
     <Build Include="dbo\Stored Procedures\Cursos\EditCurso.sql" />
-    <Build Include="dbo\Stored Procedures\Lecciones\EditLeccion.sql" />
+    <Build Include="dbo\Stored Procedures\Lecciones\UpdateLeccion.sql" />
     <Build Include="dbo\Stored Procedures\Cloudinary\GetCloudinaryFile.sql" />
     <Build Include="dbo\Stored Procedures\Cloudinary\GetCloudinaryFiles.sql" />
     <Build Include="dbo\Stored Procedures\Participantes\GetConocimientos.sql" />
@@ -141,8 +138,6 @@
     <Build Include="dbo\Stored Procedures\Asignacion\GetEscaladoresPorSherpa.sql" />
     <Build Include="dbo\Stored Procedures\Lecciones\GetLeccion.sql" />
     <Build Include="dbo\Stored Procedures\Lecciones\GetLecciones.sql" />
-    <Build Include="dbo\Stored Procedures\Lecciones\GetLeccionesMaterial.sql" />
-    <Build Include="dbo\Stored Procedures\Lecciones\GetLeccionMaterial.sql" />
     <Build Include="dbo\Stored Procedures\Participantes\GetParticipantes.sql" />
     <Build Include="dbo\Stored Procedures\Participantes\GetUsuarioByUsername.sql" />
     <Build Include="dbo\Stored Procedures\Etapas\GetEtapas.sql" />
@@ -153,7 +148,6 @@
     <Build Include="dbo\Stored Procedures\Lecciones\GetRespuesta.sql" />
     <Build Include="dbo\Stored Procedures\Lecciones\UpdatePregunta.sql" />
     <Build Include="dbo\Stored Procedures\Lecciones\UpdateRespuesta.sql" />
-    <Build Include="dbo\Stored Procedures\Lecciones\UpdateLeccionMaterial.sql" />
     <Build Include="dbo\Tables\Examen.sql" />
     <Build Include="dbo\Tables\RespuestaEscalador.sql" />
     <Build Include="dbo\Stored Procedures\RealizarExamen\CreateQandAEscalador.sql" />
@@ -183,7 +177,7 @@
   <ItemGroup>
     <None Include="PostDeploymentData\01_Idioma.sql" />
     <None Include="PostDeploymentData\01_Rol.sql" />
-    <None Include="PostDeploymentData\05_LeccionMaterial.sql" />
     <None Include="PostDeploymentData\06_Respuesta.sql" />
+    <None Include="EverestLMS.Database.publish.xml" />
   </ItemGroup>
 </Project>

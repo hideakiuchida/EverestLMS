@@ -42,35 +42,15 @@ namespace EverestLMS.Services.Implementations
             return idLeccion;
         }
 
-        public async Task<int> CreateLeccionMaterialAsync(LeccionMaterialToCreateVM leccionMaterialVM)
-        {
-            var leccionMaterialEntity = mapper.Map<LeccionMaterialDetalleEntity>(leccionMaterialVM);
-            var idLeccionMaterial = await leccionRepository.CreateLeccionMaterialAsync(leccionMaterialEntity);
-            return idLeccionMaterial;
-        }
-
-        public async Task<int> CreateLeccionVideoMaterialAsync(LeccionMaterialVideoToCreateVM leccionMaterialVM)
-        {
-            var cloudinaryFileEntity = UploadingToCloudinary(leccionMaterialVM);
-            var idLeccionMaterial = await leccionRepository.CreateLeccionMaterialAsync(cloudinaryFileEntity);
-            return idLeccionMaterial;
-        }
-
         public async Task<bool> DeleteLeccionAsync(int idEtapa, int idCurso, int idLeccion)
         {
             return await leccionRepository.DeleteLeccionAsync(idEtapa, idCurso, idLeccion);
         }
 
-        public async Task<bool> DeleteLeccionMaterialAsync(int idLeccion, int idLeccionMaterial)
-        {
-            await DeleteFileInCloudinary(idLeccion, idLeccionMaterial);
-            return await leccionRepository.DeleteLeccionMaterialAsync(idLeccion, idLeccionMaterial);
-        }
-
-        public async Task<bool> EditLeccionAsync(LeccionToUpdateVM leccionVM)
+        public async Task<bool> UpdateLeccionAsync(LeccionToUpdateVM leccionVM)
         {
             var leccionEntity = mapper.Map<LeccionEntity>(leccionVM);
-            var result = await leccionRepository.EditLeccionAsync(leccionEntity);
+            var result = await leccionRepository.UpdateLeccionAsync(leccionEntity);
             return result;
         }
 
@@ -81,24 +61,10 @@ namespace EverestLMS.Services.Implementations
             return leccionesVM;
         }
 
-        public async Task<IEnumerable<LeccionMaterialVM>> GetLeccionMaterialesAsync(int idLeccion)
-        {
-            var leccionesMaterialesEntities = await leccionRepository.GetLeccionMaterialesAsync(idLeccion);
-            var leccionessMaterialesVM = mapper.Map<IEnumerable<LeccionMaterialVM>>(leccionesMaterialesEntities);
-            return leccionessMaterialesVM;
-        }
-
         public async Task<LeccionVM> GetSpecificLeccionAsync(int idEtapa, int idCurso, int idLeccion)
         {
             var entity = await leccionRepository.GetSpecificLeccionAsync(idEtapa, idCurso, idLeccion);
             var viewModel = mapper.Map<LeccionVM>(entity);
-            return viewModel;
-        }
-
-        public async Task<LeccionMaterialDetalleVM> GetSpecificLeccionMaterialAsync(int idLeccion, int idLeccionMaterial)
-        {
-            var entity = await leccionRepository.GetSpecificLeccionMaterialAsync(idLeccion, idLeccionMaterial);
-            var viewModel = mapper.Map<LeccionMaterialDetalleVM>(entity);
             return viewModel;
         }
 
@@ -190,31 +156,10 @@ namespace EverestLMS.Services.Implementations
             return cloudinaryFileEntity;
         }
 
-        private async Task<bool> DeleteFileInCloudinary(int idLeccion, int idLeccionMaterial)
-        {
-            var entity = await leccionRepository.GetSpecificLeccionMaterialAsync(idLeccion, idLeccionMaterial);
-            if (entity?.IdPublico != null)
-            {
-                var deleteParams = new DeletionParams(entity.IdPublico);
-                var result = this.cloudinary.Destroy(deleteParams);
-
-                if (result.Result != "ok")
-                    return default;
-            }
-            return true;
-        }
-
-        public async Task<bool> UpdateLeccionMaterialAsync(LeccionMaterialToUpdateVM leccionMaterialVM)
-        {
-            var leccionMaterialEntity = mapper.Map<LeccionMaterialDetalleEntity>(leccionMaterialVM);
-            return await leccionRepository.UpdateLeccionMaterialAsync(leccionMaterialEntity);
-        }
-
         public async Task<LeccionEscaladorVM> GetLeccionByParticipanteAsync(string id, int idEtapa, int idCurso, int idLeccion)
         {
             var curso = await cursoRepository.GetCursoAsync(idEtapa, idCurso);
             var leccion = await leccionRepository.GetSpecificLeccionAsync(idEtapa, idCurso, idLeccion);
-            var leccionesMateriales = await this.GetLeccionMaterialesAsync(idLeccion);
             var leccionEscaladorVM = new LeccionEscaladorVM();
             leccionEscaladorVM.IdEtapa = idEtapa;
             leccionEscaladorVM.IdParticipante = id;
@@ -223,7 +168,6 @@ namespace EverestLMS.Services.Implementations
             leccionEscaladorVM.Nombre = leccion.Nombre;
             leccionEscaladorVM.CursoNombre = curso.Nombre;
             leccionEscaladorVM.CursoImagenUrl = curso.Imagen;
-            leccionEscaladorVM.LeccionesMateriales = leccionesMateriales;
             return leccionEscaladorVM;
         }
     }

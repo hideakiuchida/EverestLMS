@@ -12,7 +12,7 @@ import { NivelService } from 'src/app/services/nivel/nivel.service';
 export class NivelResolver implements Resolve<Nivel[]> {
 
     constructor(private service: NivelService,
-        private router: Router, private alertify: AlertifyService) {}
+                private router: Router, private alertify: AlertifyService) {}
 
     resolve(route: ActivatedRouteSnapshot): Observable<Nivel[]> {
         return this.service.getNiveles().pipe(

@@ -9,13 +9,8 @@ namespace EverestLMS.Repository.Interfaces
         Task<IEnumerable<LeccionDetalleEntity>> GetLeccionesDetalleAsync(int? idNivel, int? idLineaCarrera, int? idEtapa, int? idCurso, string search);
         Task<LeccionEntity> GetSpecificLeccionAsync(int idEtapa, int idCurso, int idLeccion);
         Task<int> CreateLeccionAsync(LeccionEntity leccionEntity);
-        Task<bool> EditLeccionAsync(LeccionEntity leccionEntity);
+        Task<bool> UpdateLeccionAsync(LeccionEntity leccionEntity);
         Task<bool> DeleteLeccionAsync(int idEtapa, int idCurso, int idLeccion);
-        Task<IEnumerable<LeccionMaterialEntity>> GetLeccionMaterialesAsync(int idLeccion);
-        Task<LeccionMaterialDetalleEntity> GetSpecificLeccionMaterialAsync(int idLeccion, int idLeccionMaterial);
-        Task<int> CreateLeccionMaterialAsync(LeccionMaterialDetalleEntity leccionMaterialEntity);
-        Task<bool> UpdateLeccionMaterialAsync(LeccionMaterialDetalleEntity leccionMaterialEntity);
-        Task<bool> DeleteLeccionMaterialAsync(int idLeccion, int idLeccionMaterial);
         Task<IEnumerable<PreguntaEntity>> GetPreguntasAsync(int idLeccion);
         Task<PreguntaEntity> GetSpecificPreguntaAsync(int idPregunta);
         Task<int> CreatePreguntaAsync(PreguntaEntity entity);

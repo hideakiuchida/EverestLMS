@@ -29,7 +29,8 @@ export class EditarLeccionComponent implements OnInit {
   leccionForm: FormGroup;
   leccionToRegiter: LeccionToRegister;
   curso: CursoToRegister;
-  idLeccion: number;
+  idLeccion: any;
+  isEditForm: boolean;
 
   constructor(private formBuilder: FormBuilder, private leccionService: LeccionService, private cursoService: CursosService,
               private etapaService: EtapaService, private route: ActivatedRoute,
@@ -42,24 +43,32 @@ export class EditarLeccionComponent implements OnInit {
       this.curso = data.curso;
       this.leccionToRegiter = data.leccion;
     });
-    this.selectedLineaCarreraId = this.curso.idLineaCarrera;
-    this.selectedNivelId = this.curso.idNivel;
-    this.selectedEtapaId = this.leccionToRegiter.idEtapa;
-    this.selectedCursoId = this.leccionToRegiter.idCurso;
-    this.loadEtapas(this.selectedLineaCarreraId, this.selectedNivelId, false);
+    this.initParameters();
+    if (this.isEditForm) {
+      this.loadEtapas(this.selectedLineaCarreraId, this.selectedNivelId, false);
+    }
     this.createLeccionForm();
+  }
+
+  initParameters() {
+    this.selectedLineaCarreraId = this.curso?.idLineaCarrera;
+    this.selectedNivelId = this.curso?.idNivel;
+    this.selectedEtapaId = this.leccionToRegiter?.idEtapa;
+    this.selectedCursoId = this.leccionToRegiter?.idCurso;
+    this.idLeccion = this.route.snapshot.params.idLeccion;
+    this.isEditForm = this.idLeccion !== undefined && this.idLeccion !== '';
   }
 
   createLeccionForm() {
     this.leccionForm = this.formBuilder.group({
-      id: this.leccionToRegiter.id,
-      nombre: [this.leccionToRegiter.nombre, [Validators.required, Validators.minLength(4), Validators.maxLength(200)]],
-      descripcion: [this.leccionToRegiter.descripcion, [Validators.required, Validators.minLength(4), Validators.maxLength(1000)]],
+      id: this.leccionToRegiter?.id,
+      nombre: [this.leccionToRegiter?.nombre, [Validators.required, Validators.minLength(4), Validators.maxLength(200)]],
+      descripcion: [this.leccionToRegiter?.descripcion, [Validators.required, Validators.minLength(4), Validators.maxLength(1000)]],
       idNivel: [this.selectedNivelId, [Validators.required]],
       idLineaCarrera: [this.selectedLineaCarreraId, [Validators.required]],
-      idEtapa: [this.leccionToRegiter.idEtapa, [Validators.required]],
-      idCurso: [this.leccionToRegiter.idCurso, [Validators.required]],
-      puntaje: [this.leccionToRegiter.puntaje, [Validators.required]]
+      idEtapa: [this.selectedEtapaId, [Validators.required]],
+      idCurso: [this.selectedCursoId, [Validators.required]],
+      puntaje: [this.leccionToRegiter?.puntaje, [Validators.required]]
     });
   }
 
@@ -117,23 +126,45 @@ export class EditarLeccionComponent implements OnInit {
     });
   }
 
-  editarLeccion() {
+  submitLeccion() {
     if (this.leccionForm.valid) {
       this.leccionToRegiter = Object.assign({}, this.leccionForm.value);
       this.leccionToRegiter.idCurso = +this.leccionToRegiter.idCurso;
       this.leccionToRegiter.idEtapa = +this.leccionToRegiter.idEtapa;
-      this.leccionService.editLeccion(this.leccionToRegiter.idEtapa, this.leccionToRegiter.idCurso,
-        this.leccionToRegiter.id, this.leccionToRegiter)
-      .subscribe(() => {
-        this.alertify.success('Se actualizó existosamente.');
-      }, error => {
-        this.alertify.error(error.message);
-      }, () => {
-        this.router.navigate(['actualizar-leccion-material', this.leccionToRegiter.idEtapa,
-        this.leccionToRegiter.idCurso, this.leccionToRegiter.id]);
-      });
+      if (!this.isEditForm) {
+        this.createLeccion();
+      } else {
+       this.editarLeccion();
+      }
     } else {
       this.alertify.warning('Falta llenar campos.');
     }
+  }
+
+  createLeccion() {
+    this.leccionService.createLeccion(this.leccionToRegiter.idEtapa, this.leccionToRegiter.idCurso, this.leccionToRegiter)
+    .subscribe((idLeccion: number) => {
+      this.idLeccion = idLeccion;
+      this.alertify.success('Se registró existosamente.');
+    }, error => {
+      this.alertify.error(error.message);
+    }, () => {
+       // tslint:disable-next-line:no-debugger
+      debugger;
+      this.router.navigate(['actualizar-contenido', this.leccionToRegiter.idEtapa, this.leccionToRegiter.idCurso, this.idLeccion]);
+    });
+  }
+
+  editarLeccion() {
+    this.leccionService.editLeccion(this.leccionToRegiter.idEtapa, this.leccionToRegiter.idCurso,
+      this.leccionToRegiter.id, this.leccionToRegiter)
+    .subscribe(() => {
+      this.alertify.success('Se actualizó existosamente.');
+    }, error => {
+      this.alertify.error(error.message);
+    }, () => {
+      this.router.navigate(['actualizar-contenido', this.leccionToRegiter.idEtapa,
+      this.leccionToRegiter.idCurso, this.leccionToRegiter.id]);
+    });
   }
 }

@@ -7,6 +7,7 @@ BEGIN
 SELECT l.[IdLeccion]
       ,l.[Nombre]
       ,l.[Descripcion]
+      ,l.[ContenidoHTML]
       ,l.[Puntaje]
       ,l.[NumeroOrden]
       ,l.[FechaCreacion]

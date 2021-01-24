@@ -16,12 +16,10 @@ Post-Deployment Script Template
 :r .\01_LineaCarrera.sql
 :r .\01_Nivel.sql
 :r .\01_Sede.sql
-:r .\01_TipoContenido.sql
 :r .\01_Dificultad.sql
 :r .\02_Etapa.sql
 :r .\02_Evento.sql
 :r .\03_Curso.sql
 :r .\04_Leccion.sql
-:r .\05_LeccionMaterial.sql
 :r .\05_Pregunta.sql
 :r .\06_Respuesta.sql

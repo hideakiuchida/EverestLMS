@@ -179,7 +179,6 @@ namespace EverestLMS.API
             services.AddScoped<IEtapaService, EtapaService>();
             services.AddScoped<ICloudinaryFileService, CloudinaryFileService>();
             services.AddScoped<ILeccionService, LeccionService>();
-            services.AddScoped<ITipoContenidoService, TipoContenidoService>();
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<IExamenService, ExamenService>();
         }
@@ -200,7 +199,6 @@ namespace EverestLMS.API
             services.AddScoped<IEtapaRepository, EtapaRepository>();
             services.AddScoped<ICloudinaryFileRepository, CloudinaryFileRepository>();
             services.AddScoped<ILeccionRepository, LeccionRepository>();
-            services.AddScoped<ITipoContenidoRepository, TipoContenidoRepository>();
             services.AddScoped<IAuthenticationRepository, AuthenticationRepository>();
             services.AddScoped<IExamenRepository, ExamenRepository>();
         }

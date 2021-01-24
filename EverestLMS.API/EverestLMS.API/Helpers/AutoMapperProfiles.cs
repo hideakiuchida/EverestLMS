@@ -15,8 +15,6 @@ using EverestLMS.ViewModels.Participante;
 using EverestLMS.ViewModels.Participante.Escalador;
 using EverestLMS.ViewModels.Participante.Sherpa;
 using EverestLMS.ViewModels.Sede;
-using EverestLMS.ViewModels.TipoContenido;
-using System;
 
 namespace EverestLMS.API.Helpers
 {
@@ -34,7 +32,6 @@ namespace EverestLMS.API.Helpers
             CreateMapEtapa();
             CreateMapCloudinaryFile();
             CreateMapLeccion();
-            CreateMapTipoContenido();
             CreateMapAuthentication();
             CreateMapPregunta();
             CreateMapRespuesta();
@@ -368,14 +365,7 @@ namespace EverestLMS.API.Helpers
                      opt.MapFrom(d => d.Id);
                  });
         }
-        private void CreateMapTipoContenido()
-        {
-            CreateMap<TipoContenidoEntity, TipoContenidoVM>()
-              .ForMember(dest => dest.Id, opt =>
-              {
-                  opt.MapFrom(d => d.IdTipoContenido);
-              });
-        }
+
         private void CreateMapAuthentication()
         {
             CreateMap<UsuarioEntity, UsuarioVM>();

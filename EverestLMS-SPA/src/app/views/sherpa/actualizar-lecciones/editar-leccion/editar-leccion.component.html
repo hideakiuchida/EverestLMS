@@ -1,93 +1,94 @@
 <div class="panel panel-default col-xl-6 col-lg-8 col-md-10 col-sm-12 mx-auto text-center form p-4">
-  <form [formGroup]="leccionForm" (ngSubmit)="editarLeccion()" class="m-3">
-      <h1 class="text-center text-primary">Editar Lección</h1>
-      <hr>
+    <form [formGroup]="leccionForm" (ngSubmit)="submitLeccion()" class="m-3">
+        <h1 *ngIf="isEditForm" class="text-center text-primary">Editar Lección</h1>
+        <h1 *ngIf="isEditForm" class="text-center text-primary">Crear Lección</h1>
+        <hr>
 
-      <div class="form-group" [ngClass]="{'has-error': leccionForm.get('nombre').errors && leccionForm.get('nombre').touched}">
-          <input type="text" class="form-control" placeholder="Ingresa el nombre" formControlName="nombre" />
-          <span class="help-block" *ngIf="leccionForm.get('nombre').hasError('required') && leccionForm.get('nombre').touched">
+        <div class="form-group" [ngClass]="{'has-error': leccionForm.get('nombre').errors && leccionForm.get('nombre').touched}">
+            <input type="text" class="form-control" placeholder="Ingresa el nombre" formControlName="nombre" />
+            <span class="help-block" *ngIf="leccionForm.get('nombre').hasError('required') && leccionForm.get('nombre').touched">
         Nombre es requerido
     </span>
-          <span class="help-block" *ngIf="leccionForm.get('nombre').hasError('minlength') && leccionForm.get('nombre').touched">
+            <span class="help-block" *ngIf="leccionForm.get('nombre').hasError('minlength') && leccionForm.get('nombre').touched">
         El nombre debe tener al menos 4 caracteres de longitud
     </span>
-          <span class="help-block" *ngIf="leccionForm.get('nombre').hasError('maxlength') && leccionForm.get('nombre').touched">
+            <span class="help-block" *ngIf="leccionForm.get('nombre').hasError('maxlength') && leccionForm.get('nombre').touched">
         El nombre debe tener como máximo 200 caracteres de longitud
     </span>
-      </div>
+        </div>
 
-      <div class="form-group" [ngClass]="{'has-error': leccionForm.get('descripcion').errors && leccionForm.get('descripcion').touched}">
-          <textarea class="form-control" placeholder="Ingresa la descripción" formControlName="descripcion"></textarea>
-          <span class="help-block" *ngIf="leccionForm.get('descripcion').hasError('required') && leccionForm.get('descripcion').touched">
+        <div class="form-group" [ngClass]="{'has-error': leccionForm.get('descripcion').errors && leccionForm.get('descripcion').touched}">
+            <textarea class="form-control" placeholder="Ingresa la descripción" formControlName="descripcion"></textarea>
+            <span class="help-block" *ngIf="leccionForm.get('descripcion').hasError('required') && leccionForm.get('descripcion').touched">
           Descripción es requerido
         </span>
-          <span class="help-block" *ngIf="leccionForm.get('descripcion').hasError('minlength') && leccionForm.get('descripcion').touched">
+            <span class="help-block" *ngIf="leccionForm.get('descripcion').hasError('minlength') && leccionForm.get('descripcion').touched">
           El título debe tener al menos 4 caracteres de longitud
       </span>
-          <span class="help-block" *ngIf="leccionForm.get('descripcion').hasError('maxlength') && leccionForm.get('descripcion').touched">
+            <span class="help-block" *ngIf="leccionForm.get('descripcion').hasError('maxlength') && leccionForm.get('descripcion').touched">
           El título debe tener como máximo 400 caracteres de longitud
       </span>
-      </div>
+        </div>
 
-      <div class="form-group row" [ngClass]="{'has-error': leccionForm.get('idLineaCarrera').errors && leccionForm.get('idLineaCarrera').touched}">
-          <label for="selectNiveles" class="col-md-3 ml-2" style="text-align: left !important;"> Linea de Carrera:</label>
-          <select class="form-control col-md-6" #selectedValue name="selectLineaCarreras" id="selectLineaCarreras" formControlName="idLineaCarrera" (change)="lineaCarreraSelected($event)">
+        <div class="form-group row" [ngClass]="{'has-error': leccionForm.get('idLineaCarrera').errors && leccionForm.get('idLineaCarrera').touched}">
+            <label for="selectNiveles" class="col-md-3 ml-2" style="text-align: left !important;"> Linea de Carrera:</label>
+            <select class="form-control col-md-6" #selectedValue name="selectLineaCarreras" id="selectLineaCarreras" formControlName="idLineaCarrera" (change)="lineaCarreraSelected($event)">
           <option *ngFor="let lineaCarrera of lineaCarreras" [value]="lineaCarrera.id">
               {{lineaCarrera.descripcion}}
           </option>
       </select>
-          <span class="help-block" *ngIf="leccionForm.get('idLineaCarrera').hasError('required') && leccionForm.get('idLineaCarrera').touched">
+            <span class="help-block" *ngIf="leccionForm.get('idLineaCarrera').hasError('required') && leccionForm.get('idLineaCarrera').touched">
         Linea de Carrera es requerido
       </span>
-      </div>
+        </div>
 
-      <div class="form-group row" [ngClass]="{'has-error': leccionForm.get('idNivel').errors && leccionForm.get('idNivel').touched}">
-          <label for="selectNiveles" class="col-md-3 ml-2" style="text-align: left !important;"> Nivel:</label>
-          <select class="form-control col-md-6" #selectedValue name="selectNiveles" id="selectNiveles" formControlName="idNivel" (change)="nivelSelected($event)">
+        <div class="form-group row" [ngClass]="{'has-error': leccionForm.get('idNivel').errors && leccionForm.get('idNivel').touched}">
+            <label for="selectNiveles" class="col-md-3 ml-2" style="text-align: left !important;"> Nivel:</label>
+            <select class="form-control col-md-6" #selectedValue name="selectNiveles" id="selectNiveles" formControlName="idNivel" (change)="nivelSelected($event)">
           <option *ngFor="let nivel of niveles" [value]="nivel.id">
               {{nivel.descripcion}}
           </option>
       </select>
-          <span class="help-block" *ngIf="leccionForm.get('idNivel').hasError('required') && leccionForm.get('idNivel').touched">
+            <span class="help-block" *ngIf="leccionForm.get('idNivel').hasError('required') && leccionForm.get('idNivel').touched">
         Nivel es requerido
       </span>
-      </div>
+        </div>
 
-      <div class="form-group row" [ngClass]="{'has-error': leccionForm.get('idEtapa').errors && leccionForm.get('idEtapa').touched}">
-          <label for="selectEtapas" class="col-md-3 ml-2" style="text-align: left !important;"> Etapa:</label>
-          <select class="form-control col-md-6" #selectedValue name="selectEtapas" id="selectEtapas" formControlName="idEtapa" (change)="etapaSelected($event)">
+        <div class="form-group row" [ngClass]="{'has-error': leccionForm.get('idEtapa').errors && leccionForm.get('idEtapa').touched}">
+            <label for="selectEtapas" class="col-md-3 ml-2" style="text-align: left !important;"> Etapa:</label>
+            <select class="form-control col-md-6" #selectedValue name="selectEtapas" id="selectEtapas" formControlName="idEtapa" (change)="etapaSelected($event)">
           <option *ngFor="let etapa of etapas" [value]="etapa.id">
               {{etapa.nombre}}
           </option>
       </select>
-          <span class="help-block" *ngIf="leccionForm.get('idEtapa').hasError('required') && leccionForm.get('idEtapa').touched">
+            <span class="help-block" *ngIf="leccionForm.get('idEtapa').hasError('required') && leccionForm.get('idEtapa').touched">
         Etapa es requerido
       </span>
-      </div>
+        </div>
 
-      <div class="form-group row" [ngClass]="{'has-error': leccionForm.get('idCurso').errors && leccionForm.get('idCurso').touched}">
-          <label for="selectCursos" class="col-md-3 ml-2" style="text-align: left !important;"> Curso:</label>
-          <select class="form-control col-md-6" #selectedValue name="selectCursos" id="selectCursos" formControlName="idCurso">
+        <div class="form-group row" [ngClass]="{'has-error': leccionForm.get('idCurso').errors && leccionForm.get('idCurso').touched}">
+            <label for="selectCursos" class="col-md-3 ml-2" style="text-align: left !important;"> Curso:</label>
+            <select class="form-control col-md-6" #selectedValue name="selectCursos" id="selectCursos" formControlName="idCurso">
         <option *ngFor="let curso of cursos" [value]="curso.id">
             {{curso.nombre}}
         </option>
       </select>
-          <span class="help-block" *ngIf="leccionForm.get('idCurso').hasError('required') && leccionForm.get('idCurso').touched">
+            <span class="help-block" *ngIf="leccionForm.get('idCurso').hasError('required') && leccionForm.get('idCurso').touched">
         Curso es requerido
       </span>
-      </div>
+        </div>
 
-      <div class="form-group" [ngClass]="{'has-error': leccionForm.get('puntaje').errors && leccionForm.get('puntaje').touched}">
-          <input type="number" class="form-control" placeholder="Ingresa el puntaje" formControlName="puntaje" />
-          <span class="help-block" *ngIf="leccionForm.get('puntaje').hasError('required') && leccionForm.get('puntaje').touched">
+        <div class="form-group" [ngClass]="{'has-error': leccionForm.get('puntaje').errors && leccionForm.get('puntaje').touched}">
+            <input type="number" class="form-control" placeholder="Ingresa el puntaje" formControlName="puntaje" />
+            <span class="help-block" *ngIf="leccionForm.get('puntaje').hasError('required') && leccionForm.get('puntaje').touched">
           Puntaje es requerido
       </span>
-      </div>
+        </div>
 
-      <div class="row text-center col-md-12">
-          <button type="submit" class="btn btn-primary col-md-3">Guardar</button>
-          <button type="button" class="btn btn-secondary ml-2 col-md-3" [routerLink]="['/actualizar-lecciones']">Cancelar</button>
-      </div>
+        <div class="row text-center col-md-12">
+            <button type="submit" class="btn btn-primary col-md-3">Guardar</button>
+            <button type="button" class="btn btn-secondary ml-2 col-md-3" [routerLink]="['/actualizar-lecciones']">Cancelar</button>
+        </div>
 
-  </form>
+    </form>
 </div>

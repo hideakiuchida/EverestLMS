@@ -6,15 +6,6 @@ import { CalendarioComponent } from './views/admin/planificarcalendario/calendar
 import { ActualizarLeccionesComponent } from './views/sherpa/actualizar-lecciones/actualizar-lecciones.component';
 import { NivelResolver } from './resolvers/nivel/nivel.resolver';
 import { LineaCarreraResolver } from './resolvers/lineacarrera/lineacarrera.resolver';
-import { RegistrarLeccionComponent } from './views/sherpa/actualizar-lecciones/registrar-leccion/registrar-leccion.component';
-// tslint:disable-next-line:max-line-length
-import { ActualizarLeccionMaterialComponent } from './views/sherpa/actualizar-lecciones/actualizar-leccion-material/actualizar-leccion-material.component';
-import { LeccionMaterialesResolver } from './resolvers/leccion/leccion-materiales.resolver';
-import { TipoContenidoResolver } from './resolvers/tipocontenido/tipocontenido.resolver';
-// tslint:disable-next-line:max-line-length
-import { RegistrarLeccionMaterialComponent } from './views/sherpa/actualizar-lecciones/actualizar-leccion-material/registrar-leccion-material/registrar-leccion-material.component';
-// tslint:disable-next-line:max-line-length
-import { RegistrarVideoMaterialComponent } from './views/sherpa/actualizar-lecciones/actualizar-leccion-material/registrar-video-material/registrar-video-material.component';
 import { CursosComponent } from './views/sherpa/actualizar-cursos/cursos.component';
 import { RegistrarCursoComponent } from './views/sherpa/actualizar-cursos/registrar-curso/registrar-curso.component';
 import { IdiomaResolver } from './resolvers/idiomas/idioma.resolver';
@@ -44,7 +35,6 @@ import { PreguntaResolver } from './resolvers/leccion/pregunta.resolver';
 import { RespuestasResolver } from './resolvers/leccion/respuestas.resolver';
 import { ActualizarRespuestasComponent } from './views/sherpa/actualizar-lecciones/actualizar-respuestas/actualizar-respuestas.component';
 import { RespuestaResolver } from './resolvers/leccion/respuesta.resolver';
-import { LeccionMaterialResolver } from './resolvers/leccion/leccion-material.resolver';
 import { CursoParticipanteComponent } from './views/escalador/realizar-cursos/curso-participante/curso-participante.component';
 import { CursoDetalleResolver } from './resolvers/curso-participante/curso-detalle.resolver';
 import { LeccionParticipanteComponent } from './views/escalador/realizar-cursos/leccion-participante/leccion-participante.component';
@@ -82,47 +72,18 @@ const routes: Routes = [
                 resolve: { niveles: NivelResolver, lineaCarreras: LineaCarreraResolver }
             },
             {
-                path: 'registrar-leccion', component: RegistrarLeccionComponent,
+                path: 'editar-leccion/:idEtapa/:idCurso/:idLeccion', component: EditarLeccionComponent,
+                resolve: { niveles: NivelResolver, lineaCarreras: LineaCarreraResolver,
+                    curso: CursoResolver, leccion: LeccionResolver }
+            },
+            {
+                path: 'registrar-leccion', component: EditarLeccionComponent,
                 resolve: { niveles: NivelResolver, lineaCarreras: LineaCarreraResolver }
             },
             {
-                path: 'editar-leccion/:idEtapa/:idCurso/:idLeccion', component: EditarLeccionComponent,
-                resolve: { niveles: NivelResolver, lineaCarreras: LineaCarreraResolver, curso: CursoResolver, leccion: LeccionResolver }
-            },
-            {
-                path: 'actualizar-leccion-material/:idEtapa/:idCurso/:idLeccion', component: ActualizarLeccionMaterialComponent,
-                resolve: {
-                    leccionesMaterial: LeccionMaterialesResolver,
-                    tipoContenidos: TipoContenidoResolver,
-                    preguntas: PreguntasResolver
-                }
-            },
-            {
-                path: 'registrar-leccion-material/:idEtapa/:idCurso/:idLeccion/:idLeccionMaterial',
-                component: RegistrarLeccionMaterialComponent,
-                resolve: {
-                    leccionMaterial: LeccionMaterialResolver,
-                    tipoContenidos: TipoContenidoResolver
-                }
-            },
-            {
-                path: 'registrar-video-material/:idEtapa/:idCurso/:idLeccion/:idLeccionMaterial',
-                component: RegistrarVideoMaterialComponent,
-                resolve: {
-                    leccionMaterial: LeccionMaterialResolver,
-                    tipoContenidos: TipoContenidoResolver
-                }
-            },
-            {
-                path: 'actualizar-contenido/:idEtapa/:idCurso/:idLeccion/:idLeccionMaterial',
-                component: ActualizarContenidoComponent,
-                resolve: {
-                    leccionMaterial: LeccionMaterialResolver
-                }
-            },
-            {
                 path: 'actualizar-contenido/:idEtapa/:idCurso/:idLeccion',
-                component: ActualizarContenidoComponent
+                component: ActualizarContenidoComponent,
+                resolve: { leccion: LeccionResolver  }
             },
             {
                 path: 'actualizar-pregunta/:idEtapa/:idCurso/:idLeccion/:idPregunta',

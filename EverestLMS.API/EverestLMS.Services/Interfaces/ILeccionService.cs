@@ -9,14 +9,8 @@ namespace EverestLMS.Services.Interfaces
         Task<IEnumerable<LeccionDetalleVM>> GetLeccionesDetalleAsync(int? idNivel, int? idLineaCarrera, int? idEtapa, int? idCurso, string search);
         Task<LeccionVM> GetSpecificLeccionAsync(int idEtapa, int idCurso, int idLeccion);
         Task<int> CreateLeccionAsync(LeccionToCreateVM leccionVM);
-        Task<bool> EditLeccionAsync(LeccionToUpdateVM leccionVM);
+        Task<bool> UpdateLeccionAsync(LeccionToUpdateVM leccionVM);
         Task<bool> DeleteLeccionAsync(int idEtapa, int idCurso, int idLeccion);
-        Task<IEnumerable<LeccionMaterialVM>> GetLeccionMaterialesAsync(int idLeccion);
-        Task<LeccionMaterialDetalleVM> GetSpecificLeccionMaterialAsync(int idLeccion, int idLeccionMaterial);
-        Task<int> CreateLeccionMaterialAsync(LeccionMaterialToCreateVM leccionMaterialVM);
-        Task<bool> UpdateLeccionMaterialAsync(LeccionMaterialToUpdateVM leccionMaterialVM);
-        Task<int> CreateLeccionVideoMaterialAsync(LeccionMaterialVideoToCreateVM leccionMaterialVM);
-        Task<bool> DeleteLeccionMaterialAsync(int idLeccion, int idLeccionMaterial);
         Task<IEnumerable<PreguntaVM>> GetPreguntasAsync(int idLeccion);
         Task<PreguntaVM> GetSpecificPreguntaAsync(int idPregunta);
         Task<int> CreatePreguntaAsync(PreguntaToCreateVM preguntaToCreateVM);

@@ -10,10 +10,10 @@ import { Observable, of  } from 'rxjs';
 export class PreguntaResolver implements Resolve<Pregunta> {
 
     constructor(private service: LeccionService,
-        private router: Router, private alertify: AlertifyService) {}
+                private router: Router, private alertify: AlertifyService) {}
 
     resolve(route: ActivatedRouteSnapshot): Observable<Pregunta> {
-        return this.service.getPregunta(route.params['idEtapa'], route.params['idCurso'], route.params['idLeccion'], route.params['idPregunta']).pipe(
+        return this.service.getPregunta(route.params.idEtapa, route.params.idCurso, route.params.idLeccion, route.params.idPregunta).pipe(
             catchError(error => {
                 this.alertify.error('Problema obteniendo información.');
                 this.router.navigate(['/lecciones']);

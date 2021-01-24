@@ -1,10 +1,8 @@
-﻿using EverestLMS.Common.Enums;
-using EverestLMS.Services.Interfaces;
+﻿using EverestLMS.Services.Interfaces;
 using EverestLMS.ViewModels.CloudinaryFile;
 using EverestLMS.ViewModels.Leccion;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace EverestLMS.API.Controllers
@@ -49,11 +47,11 @@ namespace EverestLMS.API.Controllers
 
         [HttpPut]
         [Route("{id}")]
-        public async Task<IActionResult> EditLeccionAsync(int idEtapa, int idCurso, int id, [FromBody]LeccionToUpdateVM leccionToUpdateVM)
+        public async Task<IActionResult> UpdateLeccionAsync(int idEtapa, int idCurso, int id, [FromBody]LeccionToUpdateVM leccionToUpdateVM)
         {
             leccionToUpdateVM.IdCurso = idCurso;
             leccionToUpdateVM.Id = id;
-            var result = await leccionService.EditLeccionAsync(leccionToUpdateVM);
+            var result = await leccionService.UpdateLeccionAsync(leccionToUpdateVM);
             return Ok(result);
         }
 
@@ -62,51 +60,6 @@ namespace EverestLMS.API.Controllers
         public async Task<IActionResult> DeleteLeccionAsync(int idEtapa, int idCurso, int id)
         {
             var result = await leccionService.DeleteLeccionAsync(idEtapa, idCurso, id);
-            return Ok(result);
-        }
-        #endregion
-
-        #region Leccion Material
-        [HttpGet]
-        [Route("{idLeccion}/lecciones-material")]
-        public async Task<IActionResult> GetLeccionMaterialesAsync(int idEtapa, int idCurso, int idLeccion)
-        {
-            var result = await leccionService.GetLeccionMaterialesAsync(idLeccion);
-            return Ok(result);
-        }
-
-        [HttpGet]
-        [Route("{idLeccion}/lecciones-material/{idLeccionMaterial}")]
-        public async Task<IActionResult> GetSpecificLeccionMaterialAsync(int idEtapa, int idCurso, int idLeccion, int idLeccionMaterial)
-        {
-            var result = await leccionService.GetSpecificLeccionMaterialAsync(idLeccion, idLeccionMaterial);
-            return Ok(result);
-        }
-
-        [HttpPost]
-        [Route("{idLeccion}/lecciones-material")]
-        public async Task<IActionResult> CreateLeccionMaterialAsync(int idEtapa, int idCurso, int idLeccion, [FromBody]LeccionMaterialToCreateVM leccionMaterialToCreateVM)
-        {
-            leccionMaterialToCreateVM.IdLeccion = idLeccion;
-            var result = await leccionService.CreateLeccionMaterialAsync(leccionMaterialToCreateVM);
-            return Ok(result);
-        }
-
-        [HttpPut]
-        [Route("{idLeccion}/lecciones-material/{idLeccionMaterial}")]
-        public async Task<IActionResult> UpdateLeccionMaterialAsync(int idEtapa, int idCurso, int idLeccion, int idLeccionMaterial, [FromBody]LeccionMaterialToUpdateVM leccionMaterialToUpdateVM)
-        {
-            leccionMaterialToUpdateVM.IdLeccion = idLeccion;
-            leccionMaterialToUpdateVM.Id = idLeccionMaterial;
-            var result = await leccionService.UpdateLeccionMaterialAsync(leccionMaterialToUpdateVM);
-            return Ok(result);
-        }
-
-        [HttpDelete]
-        [Route("{idLeccion}/lecciones-material/{idLeccionMaterial}")]
-        public async Task<IActionResult> DeleteLeccionMaterialAsync(int idEtapa, int idCurso, int idLeccion, int idLeccionMaterial)
-        {
-            var result = await leccionService.DeleteLeccionMaterialAsync(idLeccion, idLeccionMaterial);
             return Ok(result);
         }
         #endregion
@@ -220,6 +173,7 @@ namespace EverestLMS.API.Controllers
         #endregion
 
         #region Imagenes de Lección
+
         [HttpGet]
         [Route("{id}/imagenes")]
         public async Task<IActionResult> GetCloudinaryFilesAsync(int id)
@@ -239,36 +193,6 @@ namespace EverestLMS.API.Controllers
             return Ok(response);
         }
 
-        #endregion
-
-        #region Videos de Lecciones
-        [HttpGet]
-        [Route("{idLeccion}/lecciones-material/videos/{id}")]
-        public async Task<IActionResult> GetSepecificCloudinaryFilesAsync(int idLeccion, int id)
-        {
-            var result = await leccionService.GetSpecificLeccionMaterialAsync(idLeccion, idLeccionMaterial: id);
-            return Ok(result);
-        }
-
-        [HttpGet]
-        [Route("{idLeccion}/lecciones-material/videos")]
-        public async Task<IActionResult> GetVideosByLeccionAsync(int idLeccion)
-        {
-            var result = await cloudinaryFileService.GetCloudinaryFilesAsync(idLeccion);
-            return Ok(result);
-        }
-
-        [HttpPost]
-        [DisableRequestSizeLimit]
-        [Route("{idLeccion}/lecciones-material/videos")]
-        public async Task<IActionResult> CreateCloudinaryFileAsync(int idLeccion, string titulo, [FromForm]LeccionMaterialVideoToCreateVM leccionMaterialVideoToCreateVM)
-        {
-            leccionMaterialVideoToCreateVM.IdLeccion = idLeccion;
-            leccionMaterialVideoToCreateVM.Titulo = titulo;
-            leccionMaterialVideoToCreateVM.IdTipoContenido = (int)TipoContenidoEnum.Video;
-            var result = await leccionService.CreateLeccionVideoMaterialAsync(leccionMaterialVideoToCreateVM);
-            return Ok(result);
-        }
         #endregion
     }
 }
