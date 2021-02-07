@@ -88,11 +88,11 @@ export class ActualizarPreguntasComponent implements OnInit {
   }
 
   registrarRespuestas() {
-    this.router.navigate(['actualizar-respuesta', this.idEtapa, this.idCurso, this.idLeccion, this.idPregunta, '']);
+    this.router.navigate(['actualizar-respuestas', this.idEtapa, this.idCurso, this.idLeccion, this.idPregunta, '']);
   }
 
   editarRespuesta(id) {
-    this.router.navigate(['actualizar-respuesta', this.idEtapa, this.idCurso, this.idLeccion, this.idPregunta, id]);
+    this.router.navigate(['actualizar-respuestas', this.idEtapa, this.idCurso, this.idLeccion, this.idPregunta, id]);
   }
 
 

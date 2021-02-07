@@ -21,9 +21,9 @@ export class ActualizarRespuestasComponent implements OnInit {
   form: FormGroup;
   isEditForm: boolean;
   respuestaToRegister: RespuestaToRegister;
-  
-  constructor(private formBuilder: FormBuilder, private leccionService: LeccionService, 
-    private route: ActivatedRoute, private alertify: AlertifyService, private router: Router) { }
+
+  constructor(private formBuilder: FormBuilder, private leccionService: LeccionService,
+              private route: ActivatedRoute, private alertify: AlertifyService, private router: Router) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
@@ -39,7 +39,7 @@ export class ActualizarRespuestasComponent implements OnInit {
     this.idLeccion = this.route.snapshot.params.idLeccion;
     this.idPregunta = this.route.snapshot.params.idPregunta;
     this.idRespuesta = this.route.snapshot.params.idRespuesta;
-    this.isEditForm = this.idRespuesta != undefined && this.idRespuesta != '';
+    this.isEditForm = this.idRespuesta !== undefined && this.idRespuesta !== '';
   }
 
   createForm() {
@@ -50,38 +50,46 @@ export class ActualizarRespuestasComponent implements OnInit {
   }
 
   actualizarRespuesta() {
-    debugger;
-    if (this.form.valid) {
-      this.respuestaToRegister = Object.assign({}, this.form.value);
-      if (!this.isEditForm) {
-        this.leccionService.createRespuesta(this.idEtapa, this.idCurso, this.idLeccion, this.idPregunta, this.respuestaToRegister)
-        .subscribe((id: number) => {
-          this.idRespuesta = id;
-          this.isEditForm = !this.isEditForm;
-          this.alertify.success('Se registró existosamente.');
-          this.router.navigate(['actualizar-pregunta', this.idEtapa, this.idCurso, this.idLeccion, this.idPregunta]);
-        }, error => {
-          debugger;
-          if (error.status == 400)
-              this.alertify.warning(error.error);
-          else
-              this.alertify.error(error.message);
-        });
-      } else {
-        this.leccionService.editRespuesta(this.idEtapa, this.idCurso, this.idLeccion, this.idPregunta, this.idRespuesta, this.respuestaToRegister)
-        .subscribe(() => {
-          this.alertify.success('Se actualizó existosamente.');
-          this.router.navigate(['actualizar-pregunta', this.idEtapa, this.idCurso, this.idLeccion, this.idPregunta]);
-        }, error => {
-          if (error.status == 400)
-              this.alertify.warning(error.error);
-          else
-              this.alertify.error(error.message);
-        });
-      }
-      
-    } else {
+    if (!this.form.valid) {
       this.alertify.warning('Falta llenar campos.');
+      return;
     }
+
+    this.respuestaToRegister = Object.assign({}, this.form.value);
+
+    if (!this.isEditForm) {
+      this.createRespuesta();
+    } else {
+      this.editRespuesta();
+    }
+  }
+
+  createRespuesta() {
+    this.leccionService.createRespuesta(this.idEtapa, this.idCurso, this.idLeccion, this.idPregunta, this.respuestaToRegister)
+    .subscribe((id: number) => {
+      this.idRespuesta = id;
+      this.isEditForm = !this.isEditForm;
+      this.alertify.success('Se registró existosamente.');
+    }, error => {
+      if (error.status === 400) {
+        this.alertify.warning(error.error);
+      } else {
+        this.alertify.error(error.message);
+      }
+    });
+  }
+
+  editRespuesta() {
+    this.leccionService.editRespuesta(this.idEtapa, this.idCurso, this.idLeccion, this.idPregunta,
+      this.idRespuesta, this.respuestaToRegister)
+    .subscribe(() => {
+      this.alertify.success('Se actualizó existosamente.');
+    }, error => {
+      if (error.status === 400) {
+        this.alertify.warning(error.error);
+      } else {
+        this.alertify.error(error.message);
+      }
+    });
   }
 }
