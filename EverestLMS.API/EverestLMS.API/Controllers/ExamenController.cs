@@ -21,17 +21,28 @@ namespace EverestLMS.API.Controllers
         [Route("curso")]
         public async Task<IActionResult> GenerarExamenPorCursoAsync([FromBody] ExamenToGenarateVM examenToGenarateVM)
         {
-            var id = await service.GenerarExamenAsync(examenToGenarateVM.UsuarioKey, examenToGenarateVM.IdEtapa, examenToGenarateVM.IdCurso);
-            var result = await service.GetExamenPorIdAsync(id);
+            var result = await service.GenerarExamenAsync(examenToGenarateVM.UsuarioKey, examenToGenarateVM.IdEtapa, examenToGenarateVM.IdCurso);
+            int id;
+            if (int.TryParse(result, out id))
+            {
+                var examenVM = await service.GetExamenPorIdAsync(id);
+                return Ok(examenVM);
+            }
             return Ok(result);
+
         }
 
         [HttpPost]
         [Route("leccion")]
         public async Task<IActionResult> GenerarExamenPorLeccionAsync([FromBody] ExamenToGenerateForLessonVM examenToGenarateVM)
         {
-            var id = await service.GenerarExamenAsync(examenToGenarateVM.UsuarioKey, examenToGenarateVM.IdEtapa, examenToGenarateVM.IdCurso, examenToGenarateVM.IdLeccion.Value);
-            var result = await service.GetExamenPorIdAsync(id);
+            var result = await service.GenerarExamenAsync(examenToGenarateVM.UsuarioKey, examenToGenarateVM.IdEtapa, examenToGenarateVM.IdCurso, examenToGenarateVM.IdLeccion.Value);
+            int id;
+            if (int.TryParse(result, out id))
+            {
+                var examenVM = await service.GetExamenPorIdAsync(id);
+                return Ok(examenVM);
+            }
             return Ok(result);
         }
 

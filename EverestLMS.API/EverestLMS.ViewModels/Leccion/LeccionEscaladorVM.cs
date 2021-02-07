@@ -13,5 +13,6 @@ namespace EverestLMS.ViewModels.Leccion
         public string CursoImagenUrl { get; set; }
         public string CursoNombre { get; set; }
         public string Nombre { get; set; }
+        public string ContenidoHTML { get; set; }
     }
 }
