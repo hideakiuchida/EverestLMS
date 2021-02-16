@@ -1,32 +1,32 @@
 <div class="panel panel-default border p-4">
-  <form [formGroup]="form" (ngSubmit)="actualizarPregunta()" class="border rounded m-4">
-      <h1 *ngIf="!isEditForm" class="text-center text-primary">Crear Pregunta</h1>
-      <h1 *ngIf="isEditForm" class="text-center text-primary">Editar Pregunta</h1>
-      <hr>
+    <form [formGroup]="form" (ngSubmit)="actualizarPregunta()" class="border rounded m-4">
+        <h1 *ngIf="!isEditForm" class="text-center text-primary">Crear Pregunta</h1>
+        <h1 *ngIf="isEditForm" class="text-center text-primary">Editar Pregunta</h1>
+        <hr>
 
-      <div class="form-group m-4" [ngClass]="{'has-error': form.get('descripcion').errors && form.get('descripcion').touched}">
-          <label for="descripcion" class="font-weight-bold">Descripción: </label>
-          <textarea class="form-control" placeholder="Ingrese la descripción" formControlName="descripcion"></textarea>
-          <span class="help-block" *ngIf="form.get('descripcion').hasError('required') && form.get('descripcion').touched">
+        <div class="form-group m-4" [ngClass]="{'has-error': form.get('descripcion').errors && form.get('descripcion').touched}">
+            <label for="descripcion" class="font-weight-bold">Descripción: </label>
+            <textarea class="form-control" placeholder="Ingrese la descripción" formControlName="descripcion"></textarea>
+            <span class="help-block" *ngIf="form.get('descripcion').hasError('required') && form.get('descripcion').touched">
             Contenido es requerido
           </span>
-          <span class="help-block" *ngIf="form.get('descripcion').hasError('minlength') && form.get('descripcion').touched">
+            <span class="help-block" *ngIf="form.get('descripcion').hasError('minlength') && form.get('descripcion').touched">
             La pregunta debe tener al menos 4 caracteres de longitud
           </span>
-              <span class="help-block" *ngIf="form.get('descripcion').hasError('maxlength') && form.get('descripcion').touched">
+            <span class="help-block" *ngIf="form.get('descripcion').hasError('maxlength') && form.get('descripcion').touched">
             La pregunta debe tener como máximo 200 caracteres de longitud
         </span>
-      </div>
+        </div>
 
-      <div class="row text-center col-md-12 m-4">
-          <button *ngIf="!isEditForm" type="submit" class="btn btn-primary ml-5 col-md-5">Guardar</button>
-          <button *ngIf="isEditForm" type="submit" class="btn btn-primary ml-5 col-md-5">Editar</button>
-          <button type="button" class="btn btn-secondary ml-2 col-md-5" [routerLink]="['/actualizar-leccion-material', idEtapa, idCurso, idLeccion]">Regresar</button>
-      </div>
+        <div class="row text-center col-md-12 m-4">
+            <button *ngIf="!isEditForm" type="submit" class="btn btn-primary ml-5 col-md-5">Guardar</button>
+            <button *ngIf="isEditForm" type="submit" class="btn btn-primary ml-5 col-md-5">Editar</button>
+            <button type="button" class="btn btn-secondary ml-2 col-md-5" [routerLink]="['/actualizar-contenido', idEtapa, idCurso, idLeccion]">Regresar</button>
+        </div>
 
-  </form>
+    </form>
 
-  <section class="border rounded m-4" *ngIf="isEditForm">
+    <section class="border rounded m-4" *ngIf="isEditForm">
         <h2 class="bold text-center p-2">Respuestas</h2>
         <hr>
         <div class="row m-4">
@@ -51,7 +51,7 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>           
+            </div>
         </div>
         <div class="row m-3">
             <button class="btn btn-success col-md-12" (click)="registrarRespuestas()">Agregar Respuestas</button>

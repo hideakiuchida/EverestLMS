@@ -83,10 +83,10 @@ const routes: Routes = [
             {
                 path: 'actualizar-contenido/:idEtapa/:idCurso/:idLeccion',
                 component: ActualizarContenidoComponent,
-                resolve: { leccion: LeccionResolver  }
+                resolve: { leccion: LeccionResolver, preguntas: PreguntasResolver  }
             },
             {
-                path: 'actualizar-pregunta/:idEtapa/:idCurso/:idLeccion/:idPregunta',
+                path: 'actualizar-preguntas/:idEtapa/:idCurso/:idLeccion/:idPregunta',
                 component: ActualizarPreguntasComponent,
                 resolve: {
                     pregunta: PreguntaResolver,
@@ -94,7 +94,7 @@ const routes: Routes = [
                 }
             },
             {
-                path: 'actualizar-respuesta/:idEtapa/:idCurso/:idLeccion/:idPregunta/:idRespuesta',
+                path: 'actualizar-respuestas/:idEtapa/:idCurso/:idLeccion/:idPregunta/:idRespuesta',
                 component: ActualizarRespuestasComponent,
                 resolve: { respuesta: RespuestaResolver }
             },

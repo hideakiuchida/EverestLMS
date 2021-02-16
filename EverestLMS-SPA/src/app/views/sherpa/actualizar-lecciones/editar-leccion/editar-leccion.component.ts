@@ -167,4 +167,5 @@ export class EditarLeccionComponent implements OnInit {
       this.leccionToRegiter.idCurso, this.leccionToRegiter.id]);
     });
   }
+
 }

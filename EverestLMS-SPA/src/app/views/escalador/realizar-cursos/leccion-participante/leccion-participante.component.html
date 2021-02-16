@@ -4,19 +4,7 @@
         <img src="{{leccionEscalador.cursoImagenUrl}}" class="w-100 rounded-circle" alt="{{leccionEscalador.cursoNombre}}">
     </section>
     <section class="col-md-9">
-        <div *ngFor="let leccionMaterial of leccionEscalador.leccionesMateriales">
-            <div *ngIf="leccionMaterial.idTipoContenido == 1">
-                <h4 class="pb-2">{{leccionMaterial.titulo}}</h4>
-                <p>{{leccionMaterial.contenidoTexto}}</p>
-            </div>
-            <div *ngIf="leccionMaterial.idTipoContenido == 2">
-                <h4 class="pb-2">{{leccionMaterial.titulo}}</h4>
-                <video class="w-100" controls>
-          <source src="{{leccionMaterial.url}}" type="video/mp4">
-          Your browser does not support HTML video.
-        </video>
-            </div>
-        </div>
+      <quill-view-html *ngIf="htmlContent!=undefined" [content]="htmlContent" theme="snow"></quill-view-html>
         <div>
             <button class="btn btn-success w-100 mt-2" [routerLink]="['/realizar-examen', idParticipante, idEtapa, idCurso, idLeccion]">Realizar Examen</button>
         </div>

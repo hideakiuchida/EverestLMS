@@ -25,7 +25,7 @@ namespace EverestLMS.Services.Implementations
             this.leccionRepository = leccionRepository;
         }
 
-        public async Task<int> GenerarExamenAsync(string idEscalador, int idEtapa, int idCurso)
+        public async Task<string> GenerarExamenAsync(string idEscalador, int idEtapa, int idCurso)
         {
             var leccionesPorCurso = await this.leccionRepository.GetLeccionesDetalleAsync(default, default, idEtapa, idCurso, default);
             List<PreguntaEntity> preguntas = new List<PreguntaEntity>();
@@ -36,7 +36,7 @@ namespace EverestLMS.Services.Implementations
             }
 
             if (!preguntas.Any())
-                throw new LmsBaseException("No se puedo obtener las preguntas para crear el examen.");
+                return "No se puedo obtener las preguntas para crear el examen.";
 
             var examen = new ExamenEntity(default)
             {
@@ -49,17 +49,17 @@ namespace EverestLMS.Services.Implementations
             preguntas.Shuffle();
             var genaracionPreguntasExitoso = examen.GenerarDiversidadPreguntasExamenPorCurso(preguntas);
             if (!genaracionPreguntasExitoso)
-                throw new LmsBaseException("No se pudo generar preguntas para el examen.");
+                return "No se pudo generar preguntas para el examen.";
 
             return await CrearExamenPreguntas(examen);
         }
 
-        public async Task<int> GenerarExamenAsync(string idEscalador, int idEtapa, int idCurso, int idLeccion)
+        public async Task<string> GenerarExamenAsync(string idEscalador, int idEtapa, int idCurso, int idLeccion)
         {
             var preguntasPorLeccion = await this.leccionRepository.GetPreguntasAsync(idLeccion);
 
             if (!preguntasPorLeccion.Any())
-                throw new LmsBaseException("No se puedo obtener las preguntas para crear el examen.");
+                return "No se puedo obtener las preguntas para crear el examen.";
 
             var examen = new ExamenEntity(idLeccion)
             {
@@ -71,23 +71,23 @@ namespace EverestLMS.Services.Implementations
 
             var genaracionPreguntasExitoso = examen.GenerarPreguntasExamenPorLeccion(preguntasPorLeccion as IList<PreguntaEntity>);
             if (!genaracionPreguntasExitoso)
-                throw new LmsBaseException("No se pudo generar preguntas para el examen.");
+                return "No se pudo generar preguntas para el examen.";
 
             return await CrearExamenPreguntas(examen);
         }
 
-        private async Task<int> CrearExamenPreguntas(ExamenEntity examen)
+        private async Task<string> CrearExamenPreguntas(ExamenEntity examen)
         {
             var idExamen = await this.repository.CreateExamenAsync(examen);
 
             if (idExamen == default)
-                throw new LmsBaseException("No se puedo crear el examen.");
+                return "No se puedo crear el examen.";
 
             var registroPreguntasExitoso = await CrearPreguntasParaExamenAsync(idExamen, examen.EscaladorRespuestas);
             if (!registroPreguntasExitoso)
-                throw new LmsBaseException("No se puedo registrar las preguntas para el examen.");
+                return "No se puedo registrar las preguntas para el examen.";
 
-            return idExamen;
+            return idExamen.ToString();
         }
 
         private async Task<bool> CrearPreguntasParaExamenAsync(int idExamen, IList<RespuestaEscaladorEntity> respuestasEscalador)

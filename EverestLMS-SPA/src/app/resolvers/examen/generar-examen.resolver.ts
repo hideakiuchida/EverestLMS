@@ -23,8 +23,12 @@ export class GenerarExamenResolver implements Resolve<Examen> {
             .createExamenPorLeccion(idParticipante, +idEtapa, +idCurso, +idLeccion)
             .pipe(
                 catchError(error => {
-                    this.alertify.error('Problema obteniendo información.');
-                    this.router.navigate(['/realizar-cursos/' + idParticipante]);
+                    if (error.error.text == undefined) {
+                        this.alertify.error(error.error);
+                    } else {
+                        this.alertify.error(error.error.text);
+                    }
+                    this.router.navigate(['/leccion-participante/', idParticipante, idEtapa, idCurso, idLeccion]);
                     return of(null);
                 })
             );
@@ -33,8 +37,12 @@ export class GenerarExamenResolver implements Resolve<Examen> {
             .createExamenPorCurso(idParticipante, +idEtapa, +idCurso)
             .pipe(
                 catchError(error => {
-                    this.alertify.error('Problema obteniendo información.');
-                    this.router.navigate(['/realizar-cursos/' + idParticipante]);
+                    if (error.error.text == undefined) {
+                        this.alertify.error(error.error);
+                    } else {
+                        this.alertify.error(error.error.text);
+                    }
+                    this.router.navigate(['/curso-participante/' + idParticipante, idEtapa, idCurso]);
                     return of(null);
                 })
             );

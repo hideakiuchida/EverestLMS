@@ -168,6 +168,7 @@ namespace EverestLMS.Services.Implementations
             leccionEscaladorVM.Nombre = leccion.Nombre;
             leccionEscaladorVM.CursoNombre = curso.Nombre;
             leccionEscaladorVM.CursoImagenUrl = curso.Imagen;
+            leccionEscaladorVM.ContenidoHTML = leccion.ContenidoHTML;
             return leccionEscaladorVM;
         }
     }

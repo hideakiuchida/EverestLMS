@@ -8,5 +8,5 @@ export interface LeccionEscalador {
     cursoImagenUrl: string;
     cursoNombre: string;
     nombre: string;
-    leccionesMateriales: LeccionMaterial[];
+    contenidoHTML: string;
 }
