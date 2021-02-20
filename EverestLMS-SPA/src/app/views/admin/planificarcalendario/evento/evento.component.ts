@@ -19,10 +19,10 @@ export class EventoComponent implements OnInit {
   bsConfig: Partial<BsDatepickerConfig>;
 
   constructor(private calendarioService: CalendarioService,
-    private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
-    private alertify: AlertifyService,
-    private router: Router) { }
+              private formBuilder: FormBuilder,
+              private route: ActivatedRoute,
+              private alertify: AlertifyService,
+              private router: Router) { }
 
   ngOnInit() {
     this.idCalendario = this.route.snapshot.paramMap.get('idCalendario');

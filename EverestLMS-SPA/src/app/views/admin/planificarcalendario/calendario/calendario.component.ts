@@ -1,7 +1,9 @@
 import { Component, ViewChild, TemplateRef, ChangeDetectionStrategy, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
-import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours, addWeeks, addMonths, subWeeks, subMonths, startOfWeek, startOfMonth, endOfWeek, isThursday } from 'date-fns';
+import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth,
+  addHours, addWeeks, addMonths, subWeeks, subMonths, startOfWeek, startOfMonth, endOfWeek, isThursday } from 'date-fns';
 import { Subject } from 'rxjs';
-import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView, CalendarDateFormatter, CalendarMonthViewDay } from 'angular-calendar';
+import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent,
+  CalendarView, CalendarDateFormatter, CalendarMonthViewDay } from 'angular-calendar';
 import { Evento } from 'src/app/models/evento';
 import { DatePipe } from '@angular/common';
 import { Calendario } from 'src/app/models/calendario';
@@ -52,14 +54,18 @@ function endOfPeriod(period: CalendarPeriod, date: Date): Date {
   styleUrls: ['./calendario.component.css']
 })
 export class CalendarioComponent implements OnInit {
+
+  constructor(private calendarioService: CalendarioService, private alertifyService: AlertifyService,
+              private datePipe: DatePipe, private spinner: NgxSpinnerService, private router: Router) {
+  }
   @ViewChild('modalContent') modalContent: TemplateRef<any>;
   view: CalendarView = CalendarView.Month;
   CalendarView = CalendarView;
   viewDate: Date = new Date();
   minDate: Date = new Date();
   maxDate: Date = new Date();
-  prevBtnDisabled: boolean = false;
-  nextBtnDisabled: boolean = false;
+  prevBtnDisabled = false;
+  nextBtnDisabled = false;
   activeDayIsOpen: any = true;
   events: CalendarEvent[] = [];
   eventos: Evento[] = [];
@@ -73,6 +79,21 @@ export class CalendarioComponent implements OnInit {
   selectedFechaInicio: any;
   selectedFechaFinal: any;
   currentCalendarioId: any;
+
+  actions: CalendarEventAction[] = [
+    /*{
+      label: '<i class="fa fa-fw fa-pencil"></i>',
+      onClick: ({ event }: { event: CalendarEvent }): void => {
+        this.handleEvent('Edited', event);
+      }
+    },*/
+    {
+      label: '<i class="fa fa-fw fa-times"></i>',
+      onClick: ({ event }: { event: CalendarEvent }): void => {
+        this.deleteEvent(event);
+      }
+    }
+  ];
 
   increment(): void {
     this.changeDate(addPeriod(this.view, this.viewDate, 1));
@@ -88,7 +109,7 @@ export class CalendarioComponent implements OnInit {
   }
 
   dateIsValid(date: Date): boolean {
-    var valid = date >= this.minDate && date <= this.maxDate;
+    const valid = date >= this.minDate && date <= this.maxDate;
     return valid;
   }
 
@@ -98,8 +119,8 @@ export class CalendarioComponent implements OnInit {
   }
 
   dateOrViewChanged(): void {
-    var startPeriod = subPeriod(this.view, this.viewDate, 1);
-    var endPeriod = addPeriod(this.view, this.viewDate, 1);
+    const startPeriod = subPeriod(this.view, this.viewDate, 1);
+    const endPeriod = addPeriod(this.view, this.viewDate, 1);
     this.prevBtnDisabled = !this.dateIsValid(startPeriod);
     this.nextBtnDisabled = !this.dateIsValid(endPeriod);
   }
@@ -138,25 +159,6 @@ export class CalendarioComponent implements OnInit {
     this.activeDayIsOpen = false;
   }
 
-  actions: CalendarEventAction[] = [
-    /*{
-      label: '<i class="fa fa-fw fa-pencil"></i>',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.handleEvent('Edited', event);
-      }
-    },*/
-    {
-      label: '<i class="fa fa-fw fa-times"></i>',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.deleteEvent(event);
-      }
-    }
-  ];
-
-  constructor(private calendarioService: CalendarioService, private alertifyService: AlertifyService,
-              private datePipe: DatePipe, private spinner: NgxSpinnerService, private router: Router) {
-  }
-
   ngOnInit() {
     this.loadCalendarios();
   }
@@ -166,11 +168,13 @@ export class CalendarioComponent implements OnInit {
     this.calendarioService.getCalendarios().subscribe((calendarios: Calendario[]) => {
       this.calendarios = calendarios;
       if (this.calendarios != null && this.calendarios.length > 0) {
-        var currentDate = new Date();
+        const currentDate = new Date();
         const calendario = this.calendarios.filter(x => new Date(x.fechaInicio) <= currentDate && new Date(x.fechaFinal) >= currentDate)[0];
         if (calendario != null) {
           this.currentCalendarioId = calendario.id;
           this.calendarioSelected(calendario.id);
+        } else {
+          this.alertifyService.warning('No existen temparada entre las fechas de inicio y fecha final del periodo actual.');
         }
       }
     }, error => {
@@ -188,7 +192,7 @@ export class CalendarioComponent implements OnInit {
     this.maxDate = new Date(this.selectedCalendario.fechaFinal);
     this.selectedFechaInicio = this.datePipe.transform(this.selectedCalendario.fechaInicio, 'dd/MM/yyyy');
     this.selectedFechaFinal = this.datePipe.transform(this.selectedCalendario.fechaFinal, 'dd/MM/yyyy');
-    this.loadEventos(this.selectedCalendarioId );
+    this.loadEventos(this.selectedCalendarioId);
     this.dateOrViewChanged();
   }
 

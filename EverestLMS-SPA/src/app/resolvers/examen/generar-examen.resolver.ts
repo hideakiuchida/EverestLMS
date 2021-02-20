@@ -23,7 +23,7 @@ export class GenerarExamenResolver implements Resolve<Examen> {
             .createExamenPorLeccion(idParticipante, +idEtapa, +idCurso, +idLeccion)
             .pipe(
                 catchError(error => {
-                    if (error.error.text == undefined) {
+                    if (error.error.text === undefined) {
                         this.alertify.error(error.error);
                     } else {
                         this.alertify.error(error.error.text);
@@ -37,7 +37,7 @@ export class GenerarExamenResolver implements Resolve<Examen> {
             .createExamenPorCurso(idParticipante, +idEtapa, +idCurso)
             .pipe(
                 catchError(error => {
-                    if (error.error.text == undefined) {
+                    if (error.error.text === undefined) {
                         this.alertify.error(error.error);
                     } else {
                         this.alertify.error(error.error.text);
