@@ -34,7 +34,7 @@
         "bootswatch": "^4.4.1",
         "calendar-utils": "^0.3.3",
         "core-js": "^3.6.4",
-        "datatables.net": "^1.10.19",
+        "datatables.net": "^1.11.3",
         "datatables.net-dt": "^1.10.19",
         "date-fns": "^1.29.0",
         "flatpickr": "^4.5.1",
